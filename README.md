@@ -10,13 +10,15 @@ Open a Wardley map, an Event Storming board, a team topology, a context map or a
 text in your repository, so your agent reads and writes it like code, and every change it makes
 shows up on the canvas.
 
-- **Edit while your agent edits.** When the agent changes the file while you have unsaved edits,
-  both changes are kept. Only when you both changed the same element does Orca ask which version
-  wins.
+- **Live while your agent writes.** Each change your agent makes to the file shows up on the
+  canvas right away. If it writes while you have unsaved edits, Orca asks whether to reload or
+  keep yours.
 - **Files you can review.** Every diagram is a small text file: diff it, review it in a pull
   request, keep it next to the code it describes.
 - **Fits Orca.** Light and dark follow Orca's theme; undo, save and export work as you expect.
 - **Sandboxed.** The plugins have no network and no file access. They see only the file you open.
+
+![An agent adds a payment provider to an Event Storming board in Orca, the user moves the order status read model and saves, then the agent adds a hotspot about double payments](docs/assets/demo.gif)
 
 ## Install
 
