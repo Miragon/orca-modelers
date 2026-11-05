@@ -158,6 +158,56 @@
           "changelog": "\n\n### Features\n\n* **event-storming:** open .storm files in Orca ([#543](https://github.com/Miragon/modeler-suite/issues/543)) ([f3db879](https://github.com/Miragon/modeler-suite/commit/f3db87940b5ef9b224d9fe4ab4ef0f38c00bca7a)), closes [#537](https://github.com/Miragon/modeler-suite/issues/537)\n\n\n### Dependencies\n\n* The following workspace dependencies were updated\n  * dependencies\n    * @miragon/modeler-shell bumped from 0.10.0 to 0.11.0\n    * event-storming-ide-editor bumped from 0.0.0 to 0.0.1"
         }
       ]
+    },
+    {
+      "id": "miragon.team-topologies-modeler",
+      "source": {
+        "kind": "git",
+        "url": "https://github.com/miragon/orca-modelers.git",
+        "ref": "main",
+        "path": "plugins/team-topologies-modeler"
+      },
+      "description": "Open .tt and .ttm.json files as Team Topologies diagrams: model teams, their interactions and the flow of change, and see an agent's changes to the file as they happen.",
+      "categories": [
+        "editors",
+        "diagrams"
+      ],
+      "releases": [
+        {
+          "version": "0.18.0",
+          "commit": "3b22c1793b2ce3bfa34bdb975036a269d88d4035",
+          "contentHash": "78f42ca55a4db09aeba51a73e13bd336109d0a8220a266357276603f2165e4e6",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Team Topologies Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Team Topologies",
+              "detail": ".tt, .ttm.json"
+            }
+          ],
+          "fileTypes": [
+            "tt"
+          ],
+          "editorFileTypes": [
+            "tt"
+          ],
+          "images": {
+            "icon": {
+              "path": "plugins/team-topologies-modeler/assets/icon.png",
+              "alt": "Team Topologies Modeler",
+              "sha256": "5baee532eae5ca5a41154494d9c125470667d7a9c156d4e6040a62094f754b1a",
+              "width": 512,
+              "height": 512
+            }
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-05"
+        }
+      ]
     }
   ]
 }
