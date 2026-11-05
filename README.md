@@ -22,29 +22,37 @@ shows up on the canvas.
 
 ## Install
 
-You need the Orca desktop app, version 1.4.248 or later. Add this repository to Orca as a catalog
-once, then install the modelers you want:
+You need the Orca desktop app, version 1.4.248 or later, with plugins turned on (Settings →
+Plugins → **Turn on plugins**).
 
-1. In Orca, open Settings → Plugins and click **Turn on plugins**, if plugins are still off.
-2. Open ⋯ → **Catalog sources…** and add `https://github.com/miragon/orca-modelers.git` with the
-   ref `main`.
-3. Install a modeler from the **Miragon Modelers** catalog and approve it.
+| Modeler                                                                                        | Opens              | Plugin id                         | Directory                                                                                                                       |
+| ---------------------------------------------------------------------------------------------- | ------------------ | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| [Event Storming](https://github.com/Miragon/modeler-suite/tree/main/modelers/event-storming)   | `.storm`           | `miragon.event-storming-modeler`  | [Open in Orca](https://onorca.dev/plugins/miragon.event-storming-modeler?catalog=https://github.com/miragon/orca-modelers.git)  |
+| [Wardley Maps](https://github.com/Miragon/modeler-suite/tree/main/modelers/wardley-maps)       | `.wmap`, `.owm`    | `miragon.wardley-maps-modeler`    | [Open in Orca](https://onorca.dev/plugins/miragon.wardley-maps-modeler?catalog=https://github.com/miragon/orca-modelers.git)    |
+| [Team Topologies](https://github.com/Miragon/modeler-suite/tree/main/modelers/team-topologies) | `.tt`, `.ttm.json` | `miragon.team-topologies-modeler` | [Open in Orca](https://onorca.dev/plugins/miragon.team-topologies-modeler?catalog=https://github.com/miragon/orca-modelers.git) |
+| [Context Maps](https://github.com/Miragon/modeler-suite/tree/main/modelers/context-maps)       | `.cm`, `.cm.json`  | `miragon.context-maps-modeler`    | [Open in Orca](https://onorca.dev/plugins/miragon.context-maps-modeler?catalog=https://github.com/miragon/orca-modelers.git)    |
+| [Value Chain](https://github.com/Miragon/modeler-suite/tree/main/modelers/value-chain)         | `.vc`, `.vc.json`  | `miragon.value-chain-modeler`     | [Open in Orca](https://onorca.dev/plugins/miragon.value-chain-modeler?catalog=https://github.com/miragon/orca-modelers.git)     |
+| [BPMN](https://github.com/Miragon/bpmn-modeler)                                                | `.bpmn`            | –                                 | Coming soon                                                                                                                     |
+| [C4](https://github.com/Miragon/modeler-suite/tree/main/modelers/c4)                           | `.c4`, `.dsl`      | –                                 | Coming soon                                                                                                                     |
 
-| Modeler                                                                                        | Opens              | Plugin id                         |
-| ---------------------------------------------------------------------------------------------- | ------------------ | --------------------------------- |
-| [Event Storming](https://github.com/Miragon/modeler-suite/tree/main/modelers/event-storming)   | `.storm`           | `miragon.event-storming-modeler`  |
-| [Wardley Maps](https://github.com/Miragon/modeler-suite/tree/main/modelers/wardley-maps)       | `.wmap`, `.owm`    | `miragon.wardley-maps-modeler`    |
-| [Team Topologies](https://github.com/Miragon/modeler-suite/tree/main/modelers/team-topologies) | `.tt`, `.ttm.json` | `miragon.team-topologies-modeler` |
-| [Context Maps](https://github.com/Miragon/modeler-suite/tree/main/modelers/context-maps)       | `.cm`, `.cm.json`  | `miragon.context-maps-modeler`    |
-| [Value Chain](https://github.com/Miragon/modeler-suite/tree/main/modelers/value-chain)         | `.vc`, `.vc.json`  | `miragon.value-chain-modeler`     |
+### From Orca's plugin directory
 
-To open a modeler's page in Orca directly, paste its install link into your browser's address bar,
-for example
+Open a modeler's page in Orca's directory with **Open in Orca** in the table above, or search for
+**Miragon** in Settings → Plugins, and install it.
+
+### From this repository
+
+Use this if a modeler or release is not in Orca's plugin directory yet.
+
+1. In Settings → Plugins, open ⋯ → **Catalog sources…** and add
+   `https://github.com/miragon/orca-modelers.git` with the ref `main`.
+2. Install a modeler from the **Miragon Modelers** catalog and approve it.
+
+Or paste an install link into your browser's address bar, for example
 `orca://plugins/miragon.event-storming-modeler?catalog=https://github.com/miragon/orca-modelers.git`.
 Orca asks whether to add the catalog the first time.
 
-New releases reach you through the same catalog. The modelers are not in Orca's plugin directory
-on onorca.dev yet. The C4 model follows.
+New releases reach you through the source you installed from.
 
 ## Let your agent write the diagrams
 
