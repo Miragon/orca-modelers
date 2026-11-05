@@ -365,6 +365,41 @@
       ],
       "releases": [
         {
+          "version": "0.1.1",
+          "commit": "05bebbec859b5c4210e6500dcf9f654881bcb942",
+          "contentHash": "ed8604a5e207d9584ccf9aa0a9e8a6421e48d42c19f7d107444e711a03e52d62",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Context Maps Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Context Map",
+              "detail": ".cm, .cm.json"
+            }
+          ],
+          "fileTypes": [
+            "cm"
+          ],
+          "editorFileTypes": [
+            "cm"
+          ],
+          "images": {
+            "icon": {
+              "path": "plugins/context-maps-modeler/assets/icon.png",
+              "alt": "Context Maps Modeler",
+              "sha256": "ad75604c53bd3392644f6b29806530ad9fd4644025e9d0b0ecb39064d18d9325",
+              "width": 256,
+              "height": 256
+            }
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-05",
+          "changelog": "\n\n### Bug Fixes\n\n* ship the Orca plugins without web fonts so Orca's plugin directory lists them ([#559](https://github.com/Miragon/modeler-suite/issues/559)) ([b4047c1](https://github.com/Miragon/modeler-suite/commit/b4047c15c207848eea5ac5bd699413e0ba2e07f7)), closes [#557](https://github.com/Miragon/modeler-suite/issues/557)"
+        },
+        {
           "version": "0.1.0",
           "commit": "8dbb8b290c79c2e5a0203e2e53f449fd74efd113",
           "contentHash": "ecf56b13d5864c40794028a36765beb8567ab4d5d029860a22e976c4adffe4b9",
