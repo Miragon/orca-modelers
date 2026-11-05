@@ -21,10 +21,7 @@ const { values } = parseArgs({
     "source-tag": { type: "string" },
     "workflow-run": { type: "string" },
     changelog: { type: "string", default: "" },
-    repository: {
-      type: "string",
-      default: process.env.GITHUB_REPOSITORY ?? "miragon/orca-modelers",
-    },
+    repository: { type: "string" },
   },
 });
 for (const name of ["plugin-id", "plugin-dir", "source-repo", "source-ref"]) {
@@ -55,6 +52,21 @@ const git = (...args) => {
   if (run.status !== 0) throw new Error(`git ${args.join(" ")}: ${run.stderr}`);
   return run.stdout.trim();
 };
+
+// The repository this checkout belongs to. Never GITHUB_REPOSITORY: in the source repository's
+// workflow that names the source repository, and a workflow cannot override it.
+const checkoutRepository = () => {
+  const origin = git("remote", "get-url", "origin");
+  const match = /github\.com[/:]([^/]+\/[^/]+?)(?:\.git)?$/.exec(origin);
+  if (!match) throw new Error(`origin ${origin} is no GitHub repository`);
+  return match[1];
+};
+const repository = values.repository ?? checkoutRepository();
+if (repository.toLowerCase() !== checkoutRepository().toLowerCase()) {
+  throw new Error(
+    `--repository ${repository} is not this checkout's ${checkoutRepository()}`,
+  );
+}
 const filesUnder = (directory) =>
   readdirSync(directory).flatMap((name) => {
     const path = join(directory, name);
@@ -77,7 +89,7 @@ built.push({
   content: Buffer.from(`${JSON.stringify(source, null, 2)}\n`),
 });
 
-const api = github(token, values.repository);
+const api = github(token, repository);
 
 for (let attempt = 1; ; attempt++) {
   const main = await api.head("main");
@@ -120,7 +132,7 @@ for (let attempt = 1; ; attempt++) {
     id: key,
     source: {
       kind: "git",
-      url: `https://github.com/${values.repository}.git`,
+      url: `https://github.com/${repository}.git`,
       ref: "main",
       path: target,
     },

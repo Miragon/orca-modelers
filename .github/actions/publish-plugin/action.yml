@@ -42,7 +42,6 @@ runs:
       # free text and would otherwise run as shell.
       env:
         GH_TOKEN: ${{ inputs.token }}
-        GITHUB_REPOSITORY: miragon/orca-modelers
         PLUGIN_ID: ${{ inputs.plugin-id }}
         PLUGIN_DIR: ${{ github.workspace }}/${{ inputs.plugin-dir }}
         SOURCE_REPO: ${{ inputs.source-repo }}
@@ -59,3 +58,4 @@ runs:
         --source-tag "$SOURCE_TAG"
         --workflow-run "$WORKFLOW_RUN"
         --changelog "$CHANGELOG"
+        --repository Miragon/orca-modelers
