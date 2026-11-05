@@ -1,8 +1,9 @@
 name: Publish an Orca plugin
 description: >
   Publishes a built plugin folder into miragon/orca-modelers and lists the release in its catalog.
-  Run it from a source repository's release job, with the release-please app's token, in a job with
-  `concurrency: orca-modelers-publish`, so publishes from every source repository run one at a time.
+  Run it from a source repository's release job, with the release-please app's token. It moves main
+  to its two commits only if main has not moved since it read it, and otherwise starts over from the
+  new main, up to five attempts, so publishes from different source repositories may overlap.
 inputs:
   token:
     description: An installation token of the release-please app with contents:write on miragon/orca-modelers

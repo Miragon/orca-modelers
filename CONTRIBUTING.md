@@ -36,7 +36,6 @@ app access to the source repository, and call the action from its release job:
 
 ```yaml
 publish-orca:
-  concurrency: orca-modelers-publish
   steps:
     - uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
       id: app
@@ -54,4 +53,9 @@ publish-orca:
         source-ref: ${{ github.sha }}
 ```
 
-The concurrency group serializes publishes from every source repository.
+Publishes from different source repositories may overlap: a GitHub concurrency group only applies
+within one repository, so it can't serialize them. The action moves `main` to its two commits only
+if `main` has not moved since it read it, and otherwise starts over from the new `main`, up to five
+attempts ([`publish-plugin.mjs`](scripts/publish-plugin.mjs)). To publish several plugins from one
+release, run the job as a matrix with `max-parallel: 1`: a concurrency group cancels all but one
+of its pending jobs.
