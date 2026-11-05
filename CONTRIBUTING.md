@@ -15,7 +15,7 @@ code owner's review. `plugins/` and `orca-catalog.json` change only through a re
 2. The source repository's release job calls [`publish-plugin`](.github/actions/publish-plugin/action.yml)
    with the release-please app's token. The action checks [`sources.json`](sources.json), which
    names the one repository that may publish each plugin. Then it makes two commits on `main`
-   through GitHub's API, so both are signed:
+   through GitHub's API:
    - the built folder in `plugins/<id>/`, with a `SOURCE.json` naming the source commit, tag and
      workflow run;
    - the release entry Orca computes for that commit (`orca plugin release-entry`), at the top of

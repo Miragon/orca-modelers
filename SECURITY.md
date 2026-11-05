@@ -8,7 +8,10 @@ public issue.
 
 - Each plugin may be published only from the repository `sources.json` names for it, by the
   release-please app, which alone may push to `main` and create tags.
-- Every commit the publish makes goes through GitHub's API and is signed by GitHub.
+- The publish commits through GitHub's API with the app's token. Those commits are not signed:
+  what Orca trusts is the catalog's address and the commit and content hash each release pins,
+  not a commit signature. The app may push to `main` past the signature rule that applies to
+  everyone else.
 - Each catalog release pins a full commit and the SHA-256 of the plugin's files; Orca installs
   nothing else. A listed version never changes: `validate.yml` refuses a catalog that would change
   one, and the tag ruleset keeps tags immutable.

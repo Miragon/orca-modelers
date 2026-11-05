@@ -1,5 +1,6 @@
-// The GitHub REST calls the publish needs. Commits made through the API with the release-please
-// app's installation token are signed by GitHub, so every commit on main is verified.
+// The GitHub REST calls the publish needs. The commits it makes are not signed; the release-please
+// app may push them to main past the ruleset's signature rule, and Orca trusts each release by the
+// commit and content hash the catalog pins, not by a signature.
 const API = "https://api.github.com";
 
 export function github(token, repository) {
