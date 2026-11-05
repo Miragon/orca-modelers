@@ -209,6 +209,40 @@
       ],
       "releases": [
         {
+          "version": "0.18.1",
+          "commit": "10d9a766a97969d0c482fc0d8f2f218ba4edb4f2",
+          "contentHash": "db4d58391868fcf04eae8e795c8a531debe03ea752804503acfdcf8ac662da40",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Team Topologies Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Team Topologies",
+              "detail": ".tt, .ttm.json"
+            }
+          ],
+          "fileTypes": [
+            "tt"
+          ],
+          "editorFileTypes": [
+            "tt"
+          ],
+          "images": {
+            "icon": {
+              "path": "plugins/team-topologies-modeler/assets/icon.png",
+              "alt": "Team Topologies Modeler",
+              "sha256": "5baee532eae5ca5a41154494d9c125470667d7a9c156d4e6040a62094f754b1a",
+              "width": 512,
+              "height": 512
+            }
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-05"
+        },
+        {
           "version": "0.18.0",
           "commit": "3b22c1793b2ce3bfa34bdb975036a269d88d4035",
           "contentHash": "78f42ca55a4db09aeba51a73e13bd336109d0a8220a266357276603f2165e4e6",
