@@ -3,5 +3,57 @@
   "catalogVersion": 2,
   "name": "Miragon Modelers",
   "owner": "miragon",
-  "plugins": []
+  "plugins": [
+    {
+      "id": "miragon.value-chain-modeler",
+      "source": {
+        "kind": "git",
+        "url": "https://github.com/miragon/orca-modelers.git",
+        "ref": "main",
+        "path": "plugins/value-chain-modeler"
+      },
+      "description": "Open .vc and .vc.json files as value chain diagrams: model process steps, org units and their connections, and see an agent's changes to the file as they happen.",
+      "categories": [
+        "editors",
+        "diagrams"
+      ],
+      "releases": [
+        {
+          "version": "0.1.0",
+          "commit": "c76efc9a91a06e1c0d19d356f6f9d4e2373a5d82",
+          "contentHash": "adcd37095efe4ab4229a0b3862a52d33468799dfbe151e152d0d2990bcdda879",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Value Chain Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Value Chain",
+              "detail": ".vc, .vc.json"
+            }
+          ],
+          "fileTypes": [
+            "vc"
+          ],
+          "editorFileTypes": [
+            "vc"
+          ],
+          "images": {
+            "icon": {
+              "path": "plugins/value-chain-modeler/assets/icon.png",
+              "alt": "Value Chain Modeler",
+              "sha256": "4c24a8280cdcf892c62dbd924a99aedffea4922620c199a5c6437ca9865bb9b5",
+              "width": 256,
+              "height": 256
+            }
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-05",
+          "changelog": "\n\n### Features\n\n* **value-chain:** open value chain diagrams in Orca ([#545](https://github.com/Miragon/modeler-suite/issues/545)) ([39598d1](https://github.com/Miragon/modeler-suite/commit/39598d10ff8af6842d0730e585786094f23cc421)), closes [#537](https://github.com/Miragon/modeler-suite/issues/537)\n\n\n### Dependencies\n\n* The following workspace dependencies were updated\n  * dependencies\n    * @miragon/modeler-shell bumped from 0.10.0 to 0.11.0\n    * value-chain-ide-editor bumped from 0.0.0 to 0.1.0"
+        }
+      ]
+    }
+  ]
 }
