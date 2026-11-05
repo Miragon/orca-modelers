@@ -107,6 +107,57 @@
           "changelog": "\n\n### Features\n\n* **wardley-maps:** open Wardley maps in Orca ([#548](https://github.com/Miragon/modeler-suite/issues/548)) ([646ef3d](https://github.com/Miragon/modeler-suite/commit/646ef3d4c22f00f7b9337fc2ba5d5de77052f8ad)), closes [#537](https://github.com/Miragon/modeler-suite/issues/537)\n\n\n### Dependencies\n\n* The following workspace dependencies were updated\n  * dependencies\n    * @miragon/modeler-shell bumped from 0.10.0 to 0.11.0\n    * @miragon/wardley-renderer bumped from 0.16.0 to 0.16.1\n    * wardley-maps-ide-editor bumped from 0.0.0 to 0.1.0"
         }
       ]
+    },
+    {
+      "id": "miragon.event-storming-modeler",
+      "source": {
+        "kind": "git",
+        "url": "https://github.com/miragon/orca-modelers.git",
+        "ref": "main",
+        "path": "plugins/event-storming-modeler"
+      },
+      "description": "Open .storm files as Event Storming boards: model with stickies, notes and arrows, and see an agent's changes to the file as they happen.",
+      "categories": [
+        "editors",
+        "diagrams"
+      ],
+      "releases": [
+        {
+          "version": "0.1.0",
+          "commit": "1fdb35d63d72e2e00575d6ec26b8b718c236bf8e",
+          "contentHash": "f605c515b0bb402cbc93b10c5316afb06ee98006cdb990ca41888b1c730bfd16",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Event Storming Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Event Storming",
+              "detail": ".storm"
+            }
+          ],
+          "fileTypes": [
+            "storm"
+          ],
+          "editorFileTypes": [
+            "storm"
+          ],
+          "images": {
+            "icon": {
+              "path": "plugins/event-storming-modeler/assets/icon.png",
+              "alt": "Event Storming Modeler",
+              "sha256": "99809fe3d5de90d8bc1ff143795cc78c9911c152da6b2ed6b4a25fa0a771c3bb",
+              "width": 256,
+              "height": 256
+            }
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-05",
+          "changelog": "\n\n### Features\n\n* **event-storming:** open .storm files in Orca ([#543](https://github.com/Miragon/modeler-suite/issues/543)) ([f3db879](https://github.com/Miragon/modeler-suite/commit/f3db87940b5ef9b224d9fe4ab4ef0f38c00bca7a)), closes [#537](https://github.com/Miragon/modeler-suite/issues/537)\n\n\n### Dependencies\n\n* The following workspace dependencies were updated\n  * dependencies\n    * @miragon/modeler-shell bumped from 0.10.0 to 0.11.0\n    * event-storming-ide-editor bumped from 0.0.0 to 0.0.1"
+        }
+      ]
     }
   ]
 }
