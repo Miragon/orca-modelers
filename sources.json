@@ -1,0 +1,11 @@
+{
+  "plugins": {
+    "event-storming-modeler": { "repository": "Miragon/modeler-suite" },
+    "wardley-maps-modeler": { "repository": "Miragon/modeler-suite" },
+    "team-topologies-modeler": { "repository": "Miragon/modeler-suite" },
+    "context-maps-modeler": { "repository": "Miragon/modeler-suite" },
+    "value-chain-modeler": { "repository": "Miragon/modeler-suite" },
+    "c4-modeler": { "repository": "Miragon/modeler-suite" },
+    "bpmn-modeler": { "repository": "Miragon/bpmn-modeler" }
+  }
+}

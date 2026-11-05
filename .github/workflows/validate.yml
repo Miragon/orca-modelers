@@ -1,0 +1,34 @@
+name: Validate
+
+# Every plugin folder and the catalog as Orca reads them, and the catalog against the repository:
+# allowed sources, existing commits, matching content hashes, listed versions never changed.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - name: Validate every plugin folder
+        shell: bash
+        run: |
+          for plugin in plugins/*/; do
+            [[ -f "$plugin/orca-plugin.json" ]] || continue
+            node scripts/orca-cli.mjs plugin validate "$plugin"
+          done
+      - name: Check the catalog
+        env:
+          BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+        run: node scripts/check-catalog.mjs --base "$BASE"

@@ -1,0 +1,40 @@
+name: Tag
+
+# A change to the catalog on main gets the next vX.Y.Z tag, which Orca's directory crawler reads.
+# The tag counts catalog changes; each plugin keeps its own version in its releases.
+on:
+  push:
+    branches: [main]
+    paths: [orca-catalog.json]
+
+permissions:
+  contents: read
+
+concurrency: orca-modelers-tag
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        id: app
+        with:
+          client-id: ${{ vars.RELEASE_PLEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_PLEASE_APP_PRIVATE_KEY }}
+      - name: Tag the commit with the next version
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          GH_REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          last=$(gh api "repos/$GH_REPO/tags" --paginate --jq '.[].name' | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -1 || true)
+          if [[ -z "$last" ]]; then next=v0.1.0; else
+            IFS=. read -r major minor patch <<< "${last#v}"
+            next="v$major.$minor.$((patch + 1))"
+          fi
+          object=$(gh api "repos/$GH_REPO/git/tags" -f tag="$next" -f message="$next" -f object="$SHA" -f type=commit --jq .sha)
+          gh api "repos/$GH_REPO/git/refs" -f ref="refs/tags/$next" -f sha="$object" > /dev/null
+          echo "Tagged $SHA as $next"

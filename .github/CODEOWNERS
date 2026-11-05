@@ -1,0 +1,5 @@
+# The mechanics need a human review; plugins/ and orca-catalog.json only ever change through the
+# publish-plugin action, which the release-please app runs from a source repository's release.
+/.github/ @emaarco
+/scripts/ @emaarco
+/sources.json @emaarco

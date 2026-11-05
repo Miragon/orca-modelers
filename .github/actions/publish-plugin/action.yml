@@ -1,0 +1,61 @@
+name: Publish an Orca plugin
+description: >
+  Publishes a built plugin folder into miragon/orca-modelers and lists the release in its catalog.
+  Run it from a source repository's release job, with the release-please app's token, in a job with
+  `concurrency: orca-modelers-publish`, so publishes from every source repository run one at a time.
+inputs:
+  token:
+    description: An installation token of the release-please app with contents:write on miragon/orca-modelers
+    required: true
+  plugin-id:
+    description: The manifest's id, such as event-storming-modeler
+    required: true
+  plugin-dir:
+    description: The built plugin folder in the caller's workspace
+    required: true
+  source-repo:
+    description: The repository the bytes come from, such as Miragon/modeler-suite
+    required: true
+  source-ref:
+    description: The commit the bytes were built from
+    required: true
+  source-tag:
+    description: The release tag in the source repository
+    required: false
+    default: ""
+  changelog:
+    description: What changed, as plain text (at most 2000 characters)
+    required: false
+    default: ""
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        repository: miragon/orca-modelers
+        token: ${{ inputs.token }}
+        path: .orca-modelers
+        fetch-depth: 0
+    - shell: bash
+      working-directory: .orca-modelers
+      # Inputs reach the script through the environment, never the command line: a changelog is
+      # free text and would otherwise run as shell.
+      env:
+        GH_TOKEN: ${{ inputs.token }}
+        GITHUB_REPOSITORY: miragon/orca-modelers
+        PLUGIN_ID: ${{ inputs.plugin-id }}
+        PLUGIN_DIR: ${{ github.workspace }}/${{ inputs.plugin-dir }}
+        SOURCE_REPO: ${{ inputs.source-repo }}
+        SOURCE_REF: ${{ inputs.source-ref }}
+        SOURCE_TAG: ${{ inputs.source-tag }}
+        WORKFLOW_RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        CHANGELOG: ${{ inputs.changelog }}
+      run: >
+        node scripts/publish-plugin.mjs
+        --plugin-id "$PLUGIN_ID"
+        --plugin-dir "$PLUGIN_DIR"
+        --source-repo "$SOURCE_REPO"
+        --source-ref "$SOURCE_REF"
+        --source-tag "$SOURCE_TAG"
+        --workflow-run "$WORKFLOW_RUN"
+        --changelog "$CHANGELOG"
