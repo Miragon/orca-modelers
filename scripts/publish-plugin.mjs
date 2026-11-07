@@ -196,14 +196,21 @@ async function squashMerge(url, head) {
   }
 }
 
-async function pullRequest(branch, title, head) {
+function describe(greeting) {
+  const releases = plugins.map(
+    ({ id, manifest, release }) =>
+      `- ${id} ${manifest.version}${release.tag ? ` · \`${release.tag}\`` : ""}`,
+  );
+  const origin = [
+    `Source: ${sourceRepo}@${sourceRef}`,
+    ...(workflowRun ? [`Run: ${workflowRun}`] : []),
+  ];
+  return [greeting, releases.join("\n"), origin.join("\n")].join("\n\n");
+}
+
+async function pullRequest(branch, title, body) {
+  const head = await commitStaged(`${title}\n\n${body}`);
   await api.createBranch(branch, head);
-  const body = [
-    `From ${sourceRepo}@${sourceRef}.`,
-    workflowRun ? `Published by ${workflowRun}.` : "",
-  ]
-    .filter(Boolean)
-    .join("\n\n");
   const url = gh(
     "pr",
     "create",
@@ -236,6 +243,7 @@ refuseListedVersions(plugins);
 const versions = plugins
   .map(({ id, manifest }) => `${id} ${manifest.version}`)
   .join(", ");
+const source = `${sourceRepo}@${sourceRef.slice(0, 12)}`;
 const branchPrefix = `publish/${sourceRef.slice(0, 12)}-${runKey}`;
 
 git("fetch", "--quiet", "origin", "main");
@@ -245,11 +253,10 @@ git("add", "-A", "plugins/");
 if (run("git", ["diff", "--cached", "--quiet"]).ok) {
   console.log(`plugins/ on main holds these bytes already: ${versions}`);
 } else {
-  const title = `feat: publish ${versions} from ${sourceRepo}@${sourceRef.slice(0, 12)}`;
   await pullRequest(
     `${branchPrefix}-plugins`,
-    title,
-    await commitStaged(title),
+    `feat: publish plugins from ${source}`,
+    describe("📦 Special delivery: fresh bytes from the deep sea."),
   );
 }
 
@@ -260,6 +267,9 @@ const catalog = readJson("orca-catalog.json");
 for (const plugin of plugins) listRelease(catalog, plugin);
 writeJson("orca-catalog.json", catalog);
 git("add", "orca-catalog.json");
-const title = `feat: list ${versions} in the catalog`;
-await pullRequest(`${branchPrefix}-catalog`, title, await commitStaged(title));
+await pullRequest(
+  `${branchPrefix}-catalog`,
+  `feat: list plugins from ${source} in the catalog`,
+  describe("✅ Delivered. Signed, sealed, listed."),
+);
 console.log(`published ${versions}`);
