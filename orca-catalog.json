@@ -19,6 +19,41 @@
       ],
       "releases": [
         {
+          "version": "0.1.2",
+          "commit": "7a81895efb54bce1f08d51c667dccff6a069fc00",
+          "contentHash": "c2741b5a767911ba763744abd23dd59f605205e72696912473d69e6125cc484b",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Value Chain Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Value Chain",
+              "detail": ".vc, .vc.json"
+            }
+          ],
+          "fileTypes": [
+            "vc"
+          ],
+          "editorFileTypes": [
+            "vc"
+          ],
+          "images": {
+            "icon": {
+              "path": "plugins/value-chain-modeler/assets/icon.png",
+              "alt": "Value Chain Modeler",
+              "sha256": "4c24a8280cdcf892c62dbd924a99aedffea4922620c199a5c6437ca9865bb9b5",
+              "width": 256,
+              "height": 256
+            }
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-07",
+          "changelog": "\n\n### Bug Fixes\n\n* ship the Orca plugins without sourcemaps ([#565](https://github.com/Miragon/modeler-suite/issues/565)) ([32241a3](https://github.com/Miragon/modeler-suite/commit/32241a33cc36a13ec7720719cb5eaec7b425d0fb)), closes [#563](https://github.com/Miragon/modeler-suite/issues/563)"
+        },
+        {
           "version": "0.1.1",
           "commit": "60c6c662adb8aca943e13af24fc98fea1b3f15d2",
           "contentHash": "9593138d6409a5b25b80b5f7f6cb304f7e689d137d4571e782345b5f372fbdea",
