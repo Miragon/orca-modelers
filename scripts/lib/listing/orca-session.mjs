@@ -61,25 +61,35 @@ export class OrcaSession {
     this.#shot(pluginKey, theme, ["--window", "--out", out]);
   }
 
-  // With acts, Orca shoots a copy of the file, so the clicks and keys never change the example.
-  shootEditor(
-    { pluginKey, file },
-    out,
-    theme,
-    { width = 1280, height = 800, act = [] } = {},
-  ) {
+  shootEditor({ pluginKey, file }, out, theme) {
     this.#open(pluginKey, file);
     this.#shot(pluginKey, theme, [
       "--editor",
       file,
       "--width",
-      String(width),
+      "1280",
       "--height",
-      String(height),
-      ...(act.length ? ["--act", JSON.stringify(act)] : []),
+      "800",
       "--out",
       out,
     ]);
+  }
+
+  // The acts run in the open tab (`--in-place`) and leave it as they end, so the window shot that
+  // follows shows the feature inside Orca. Their pixels are the editor's at its size in the window.
+  async shootFeature({ pluginKey, file }, out, theme, act, actShot) {
+    this.#open(pluginKey, file);
+    await sleep(5000);
+    this.#shot(pluginKey, theme, [
+      "--editor",
+      file,
+      "--act",
+      JSON.stringify(act),
+      "--in-place",
+      "--out",
+      actShot,
+    ]);
+    this.#shot(pluginKey, theme, ["--window", "--out", out]);
   }
 
   // `plugin shot --theme` repaints Orca too late for some captures, so each theme gets its own start.

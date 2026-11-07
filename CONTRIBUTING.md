@@ -76,8 +76,8 @@ repository. Per plugin it writes a `cover.webp` (1600×1000: the plugin's icon, 
 title and claim on Miragon's blue, which turns green towards the top right, next to the editor of
 the first example) and per example and theme a shot of the editor in a whole Orca window
 (`screenshot-orca.webp`, then `screenshot-orca-2.webp` and so on; `-dark` before `.webp` in the
-dark theme). Each listed feature adds `feature-<name>.webp`: the editor alone (1600×1000) after
-clicks and keys that open what the feature shows. Orca runs on a throwaway profile with a demo
+dark theme). Each listed feature adds `feature-<name>.webp`: the whole Orca window after clicks and
+keys in the editor that open what the feature shows. Orca runs on a throwaway profile with a demo
 folder of the examples, so the images hold nothing of the machine that makes them.
 
 List the plugins in a file of the source repository; paths are relative to it:
@@ -116,9 +116,11 @@ List the plugins in a file of the source repository; paths are relative to it:
 `themes` defaults to `["light"]`; Orca starts once per theme. `name` is the example's file name in
 the demo folder (its own name by default) and must be unique across the listing, `out` the folder
 the images go to. A feature shows the first example unless it names another in `example`; `act`
-takes the steps of `orca plugin shot --act`, in the editor's pixels of the 1600×1000 shot. Menus and
-panels fade in, so end with a few harmless keys such as `Shift`; a shot without them catches them
-half drawn. Take a feature shot without `act` first to find the pixels.
+takes the steps of `orca plugin shot --act`. They run in the open tab and leave it as they end, so
+the window shot shows the result. Their pixels are the editor's at its size in Orca's window
+(1289×1108 at the 1920×1200 display above). Menus and panels fade in, so end with a few harmless
+keys such as `Shift`; a shot without them catches them half drawn. Find the pixels in
+`screenshot-orca.webp`, where the editor starts at 281, 68.
 
 The script needs Linux with a display, Node 22.13 or later, Chrome or Chromium (`CHROME`, a
 `chrome-headless-shell` or Chrome on the `PATH`, or Playwright's) and network access to GitHub

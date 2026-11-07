@@ -60,11 +60,13 @@ try {
   );
   for (const { plugin, feature, png, editor } of features) {
     console.log(`${plugin.id}: shooting ${feature.name}`);
-    session.shootEditor(editor, png, firstTheme, {
-      width: Cover.WIDTH,
-      height: Cover.HEIGHT,
-      act: feature.act,
-    });
+    await session.shootFeature(
+      editor,
+      png,
+      firstTheme,
+      feature.act,
+      png.replace(/\.png$/, "-acted.png"),
+    );
   }
   for (const theme of otherThemes) {
     await session.restart(theme);
