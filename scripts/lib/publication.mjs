@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { CatalogAssets } from "./catalog-assets.mjs";
 import { Catalog } from "./catalog.mjs";
 import { PullRequest } from "./pull-request.mjs";
 
@@ -39,10 +41,17 @@ export class Publication {
     }
   }
 
+  // The listed releases' images move to assets/ first, as the new bytes replace their files.
   async #publishBytes() {
     this.#repository.checkOutLatestMain();
-    for (const plugin of this.#plugins) plugin.placeInTarget(this.#source);
+    const catalog = Catalog.read();
+    for (const plugin of this.#plugins) {
+      catalog.keepImages(plugin);
+      plugin.placeInTarget(this.#source);
+    }
+    catalog.write();
     this.#repository.stage("plugins/");
+    this.#stageCatalog(catalog);
     if (!this.#repository.hasStagedChanges()) {
       console.log(
         `plugins/ on main holds these bytes already: ${this.#labels()}`,
@@ -61,14 +70,22 @@ export class Publication {
     const catalog = Catalog.read();
     for (const plugin of this.#plugins) {
       catalog.list(plugin, this.#orca.releaseEntry(plugin.target));
+      catalog.keepImages(plugin);
     }
     catalog.write();
-    this.#repository.stage(catalog.path);
+    this.#stageCatalog(catalog);
     await this.#propose({
       branch: "catalog",
       title: `feat: list plugins from ${this.#source.label} in the catalog`,
       greeting: CATALOG_GREETING,
     });
+  }
+
+  #stageCatalog(catalog) {
+    this.#repository.stage(catalog.path);
+    if (existsSync(CatalogAssets.DIRECTORY)) {
+      this.#repository.stage(CatalogAssets.DIRECTORY);
+    }
   }
 
   async #propose({ branch, title, greeting }) {

@@ -6,7 +6,7 @@ mechanics that publish into it. Each plugin is built in its source repository, t
 to a modeler there.
 
 Changes to the mechanics (`.github/`, `scripts/`, `sources.json`) go through a pull request with a
-code owner's review. `plugins/` and `orca-catalog.json` change only through a release.
+code owner's review. `plugins/`, `assets/` and `orca-catalog.json` change only through a release.
 
 ## How a release gets here
 
@@ -31,8 +31,14 @@ Each release pins its commit and the hash of its files, and Orca refuses bytes t
 `validate` checks every plugin and the catalog on every push and pull request. It fails when a
 listed version would change its commit or its bytes.
 
-`plugins/` and the catalog change only through the release-please app's pull requests. Only the
-app creates tags.
+Orca also checks every listed release's icon, cover and screenshots against the files at their
+paths, so a release's images are stored once, named by their hash, in `assets/<plugin id>/`, as in
+Orca's community catalog. The catalog pull request puts a new release's images there; the bytes
+pull request first moves those of the listed releases there, before it replaces the files they came
+from.
+
+`plugins/`, `assets/` and the catalog change only through the release-please app's pull requests.
+Only the app creates tags.
 
 ## Adding a source repository
 

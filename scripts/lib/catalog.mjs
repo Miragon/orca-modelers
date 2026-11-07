@@ -1,3 +1,4 @@
+import { CatalogAssets } from "./catalog-assets.mjs";
 import { JsonFile } from "./json-file.mjs";
 
 const CATALOG_PATH = "orca-catalog.json";
@@ -65,6 +66,11 @@ export class Catalog {
     };
     const listed = this.#listedOrNew(plugin);
     listed.releases = [release, ...listed.releases].slice(0, KEPT_RELEASES);
+  }
+
+  keepImages(plugin) {
+    const listed = this.plugin(Catalog.key(plugin.id));
+    if (listed) CatalogAssets.keep(listed);
   }
 
   write() {
