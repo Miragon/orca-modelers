@@ -67,3 +67,71 @@ publish-orca:
 Publishes from different source repositories may overlap: a GitHub concurrency group only applies
 within one repository, so it can't serialize them. A pull request that conflicts with one merged
 in the meantime fails; run the job again.
+
+## Images for a plugin's page
+
+Orca's plugin directory shows a plugin's `cover` and `screenshots` from its manifest. Make them with
+`scripts/listing-images.mjs` from a checkout of this repository, for the built plugins of a source
+repository: per plugin a `cover.webp` (1600×1000: the plugin's icon, "Miragon Modeler", title and
+claim on brand blue, next to the editor) and a `screenshot-orca.webp` (the editor in a whole Orca
+window). Orca runs on a throwaway profile with a demo folder of the examples, so the images hold
+nothing of the machine that makes them.
+
+List the plugins in a file of the source repository; paths are relative to it:
+
+```json
+{
+  "folder": "strategy-workshop",
+  "plugins": [
+    {
+      "plugin": "modelers/context-maps/apps/orca/plugin",
+      "example": "modelers/context-maps/example/sample.cm",
+      "name": "conference-program.cm",
+      "title": "Context Maps",
+      "claim": "Context maps from plain .cm files, edited by you and your agents.",
+      "out": "modelers/context-maps/apps/orca/images"
+    }
+  ]
+}
+```
+
+`name` is the example's file name in the demo folder (its own name by default), `out` the folder
+the two images go to. The script needs Linux with a display, Node 22.13 or later, Chrome or
+Chromium (`CHROME`, a `chrome-headless-shell` or Chrome on the `PATH`, or Playwright's) and network
+access to GitHub (Orca's release) and jsDelivr (the Geist font). On Linux:
+
+```sh
+xvfb-run -a -s "-screen 0 1920x1200x24" \
+  node --no-warnings /path/to/orca-modelers/scripts/listing-images.mjs --listing orca-listing.json
+```
+
+On macOS, where Orca's window would take the focus, run it in Playwright's image, from the source
+repository after building its plugins:
+
+```sh
+podman run --rm --init -v "$PWD":/work -w /work \
+  -v /path/to/orca-modelers:/orca-modelers:ro \
+  -v orca-cache:/orca-cache -e RUNNER_TEMP=/orca-cache \
+  mcr.microsoft.com/playwright:v1.56.1-noble \
+  xvfb-run -a -s "-screen 0 1920x1200x24" \
+  node --no-warnings /orca-modelers/scripts/listing-images.mjs --listing orca-listing.json
+```
+
+Docker takes the same arguments. Keep `--init`: as the container's first process, `xvfb-run`
+waits forever for its display. The `orca-cache` volume keeps the downloaded Orca between runs
+(`ORCA_VERSION` picks another release).
+
+Then declare the images in each `orca-plugin.json` (paths relative to the plugin) and have the
+build copy them into the plugin folder:
+
+```json
+"cover": { "path": "images/cover.webp", "alt": "…" },
+"screenshots": [
+  { "path": "images/cover.webp", "alt": "…", "caption": "…" },
+  { "path": "images/screenshot-orca.webp", "alt": "…", "caption": "Runs right inside Orca, next to your files" }
+]
+```
+
+Orca's limits: a cover at least 800×500 and at most 1024 KB, screenshots at least 1280×800 and at
+most 1536 KB, at most 6, `alt` at most 160 and `caption` at most 120 characters; 16:10 is
+recommended. `orca plugin validate` checks them.
