@@ -105,10 +105,12 @@ export class Chrome {
     writeFileSync(out, Buffer.from(dataUrl.split(",")[1], "base64"));
   }
 
+  // A container's /dev/shm (64 MB in Docker and Podman) is too small for a cover at scale 2.
   static #FLAGS = [
     "--headless",
     "--no-sandbox",
     "--disable-gpu",
+    "--disable-dev-shm-usage",
     "--hide-scrollbars",
   ];
 

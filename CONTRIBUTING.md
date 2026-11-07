@@ -72,10 +72,11 @@ in the meantime fails; run the job again.
 
 Orca's plugin directory shows a plugin's `cover` and `screenshots` from its manifest. Make them with
 `scripts/listing-images.mjs` from a checkout of this repository, for the built plugins of a source
-repository: per plugin a `cover.webp` (1600×1000: the plugin's icon, "Miragon Modeler", title and
-claim on Miragon's blue, which turns green towards the top right, next to the editor) and a
-`screenshot-orca.webp` (the editor in a whole Orca window). Orca runs on a throwaway profile with a demo folder of the examples, so the images hold
-nothing of the machine that makes them.
+repository. Per plugin it writes a `cover.webp` (1600×1000: the plugin's icon, "Miragon Modeler",
+title and claim on Miragon's blue, which turns green towards the top right, next to the editor of
+the first example) and per example a shot of the editor in a whole Orca window
+(`screenshot-orca.webp`, then `screenshot-orca-2.webp` and so on). Orca runs on a throwaway profile
+with a demo folder of the examples, so the images hold nothing of the machine that makes them.
 
 List the plugins in a file of the source repository; paths are relative to it:
 
@@ -85,8 +86,12 @@ List the plugins in a file of the source repository; paths are relative to it:
   "plugins": [
     {
       "plugin": "modelers/context-maps/apps/orca/plugin",
-      "example": "modelers/context-maps/example/sample.cm",
-      "name": "conference-program.cm",
+      "examples": [
+        {
+          "file": "modelers/context-maps/example/sample.cm",
+          "name": "conference-program.cm"
+        }
+      ],
       "title": "Context Maps",
       "claim": "Context maps from plain .cm files, edited by you and your agents.",
       "out": "modelers/context-maps/apps/orca/images"
@@ -95,10 +100,11 @@ List the plugins in a file of the source repository; paths are relative to it:
 }
 ```
 
-`name` is the example's file name in the demo folder (its own name by default), `out` the folder
-the two images go to. The script needs Linux with a display, Node 22.13 or later, Chrome or
-Chromium (`CHROME`, a `chrome-headless-shell` or Chrome on the `PATH`, or Playwright's) and network
-access to GitHub (Orca's release) and jsDelivr (the Geist font). On Linux:
+`name` is the example's file name in the demo folder (its own name by default) and must be unique
+across the listing, `out` the folder the images go to. The script needs Linux with a display, Node
+22.13 or later, Chrome or Chromium (`CHROME`, a `chrome-headless-shell` or Chrome on the `PATH`, or
+Playwright's) and network access to GitHub (Orca's release) and jsDelivr (the Geist font). On
+Linux:
 
 ```sh
 xvfb-run -a -s "-screen 0 1920x1200x24" \
@@ -128,10 +134,11 @@ build copy them into the plugin folder:
 "cover": { "path": "images/cover.webp", "alt": "…" },
 "screenshots": [
   { "path": "images/cover.webp", "alt": "…", "caption": "…" },
-  { "path": "images/screenshot-orca.webp", "alt": "…", "caption": "Runs right inside Orca, next to your files" }
+  { "path": "images/screenshot-orca.webp", "alt": "…", "caption": "Runs right inside Orca, next to your files" },
+  { "path": "images/screenshot-orca-2.webp", "alt": "…", "caption": "…" }
 ]
 ```
 
 Orca's limits: a cover at least 800×500 and at most 1024 KB, screenshots at least 1280×800 and at
-most 1536 KB, at most 6, `alt` at most 160 and `caption` at most 120 characters; 16:10 is
-recommended. `orca plugin validate` checks them.
+most 1536 KB, at most 6 (with the cover as the first, room for five examples), `alt` at most 160
+and `caption` at most 120 characters; 16:10 is recommended. `orca plugin validate` checks them.
