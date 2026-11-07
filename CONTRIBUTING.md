@@ -76,82 +76,18 @@ in the meantime fails; run the job again.
 
 ## Images for a plugin's page
 
-Orca's plugin directory shows a plugin's `cover` and `screenshots` from its manifest. Make them with
-`scripts/listing-images.mjs` from a checkout of this repository, for the built plugins of a source
-repository. Per plugin it writes a `cover.webp` (1600×1000: the plugin's icon, "Miragon Modeler",
-title and claim on Miragon's blue, which turns green towards the top right, next to the editor of
-the first example) and per example and theme a shot of the editor in a whole Orca window
-(`screenshot-orca.webp`, then `screenshot-orca-2.webp` and so on; `-dark` before `.webp` in the
-dark theme). Each listed feature adds `feature-<name>.webp`: the whole Orca window after clicks and
-keys in the editor that open what the feature shows. Orca runs on a throwaway profile with a demo
-folder of the examples, so the images hold nothing of the machine that makes them.
-
-List the plugins in a file of the source repository; paths are relative to it:
-
-```json
-{
-  "folder": "strategy-workshop",
-  "themes": ["light", "dark"],
-  "plugins": [
-    {
-      "plugin": "modelers/context-maps/apps/orca/plugin",
-      "examples": [
-        {
-          "file": "modelers/context-maps/example/sample.cm",
-          "name": "conference-program.cm"
-        }
-      ],
-      "features": [
-        {
-          "name": "legend",
-          "act": [
-            { "click": [32, 32] },
-            { "click": [120, 121] },
-            { "key": "Shift" }
-          ]
-        }
-      ],
-      "title": "Context Maps",
-      "claim": "Context maps from plain .cm files, edited by you and your agents.",
-      "out": "modelers/context-maps/apps/orca/images"
-    }
-  ]
-}
-```
-
-`themes` defaults to `["light"]`; Orca starts once per theme. `name` is the example's file name in
-the demo folder (its own name by default) and must be unique across the listing, `out` the folder
-the images go to. A feature shows the first example unless it names another in `example`; `act`
-takes the steps of `orca plugin shot --act`. They run in the open tab and leave it as they end, so
-the window shot shows the result. Their pixels are the editor's at its size in Orca's window
-(1289×1108 at the 1920×1200 display above). Menus and panels fade in, so end with a few harmless
-keys such as `Shift`; a shot without them catches them half drawn. Find the pixels in
-`screenshot-orca.webp`, where the editor starts at 281, 68.
-
-The script needs Linux with a display, Node 22.13 or later, Chrome or Chromium (`CHROME`, a
-`chrome-headless-shell` or Chrome on the `PATH`, or Playwright's) and network access to GitHub
-(Orca's release) and jsDelivr (the Geist font). On Linux:
-
-```sh
-xvfb-run -a -s "-screen 0 1920x1200x24" \
-  node --no-warnings /path/to/orca-modelers/scripts/listing-images.mjs --listing orca-listing.json
-```
-
-On macOS, where Orca's window would take the focus, run it in Playwright's image, from the source
-repository after building its plugins:
-
-```sh
-podman run --rm --init -v "$PWD":/work -w /work \
-  -v /path/to/orca-modelers:/orca-modelers:ro \
-  -v orca-cache:/orca-cache -e RUNNER_TEMP=/orca-cache \
-  mcr.microsoft.com/playwright:v1.56.1-noble \
-  xvfb-run -a -s "-screen 0 1920x1200x24" \
-  node --no-warnings /orca-modelers/scripts/listing-images.mjs --listing orca-listing.json
-```
-
-Docker takes the same arguments. Keep `--init`: as the container's first process, `xvfb-run`
-waits forever for its display. The `orca-cache` volume keeps the downloaded Orca between runs
-(`ORCA_VERSION` picks another release).
+Orca's plugin directory shows a plugin's `cover` and `screenshots` from its manifest. The source
+repository makes them with the `product-shots` skill of the `miragon-brand` plugin (1.29.0 or
+later) from [Miragon/corporate-identity](https://github.com/Miragon/corporate-identity): it lists
+its plugins with `"target": "orca"` in `.miragon/product-shots.json` and runs the skill's
+`scripts/listing.mjs`. Per plugin that writes a `cover.webp` (1600×1000: the plugin's icon,
+"Miragon Modeler", title and claim on Miragon's blue, next to the editor of the first example), per
+example and theme the whole Orca window (`screenshot-orca.webp`, `screenshot-orca-2.webp`, `-dark`
+before `.webp` in the dark theme) and per feature `feature-<name>.webp`, from Orca on a throwaway
+profile in a Linux container. The config, the container command and Orca's limits are in the
+skill's `references/listing.md` and `references/orca.md`;
+[Miragon/modeler-suite](https://github.com/Miragon/modeler-suite/blob/main/.miragon/product-shots.json)
+is an example.
 
 Then declare the images in each `orca-plugin.json` (paths relative to the plugin) and have the
 build copy them into the plugin folder:
@@ -162,11 +98,8 @@ build copy them into the plugin folder:
   { "path": "images/cover.webp", "alt": "…", "caption": "…" },
   { "path": "images/screenshot-orca.webp", "alt": "…", "caption": "Runs right inside Orca, next to your files" },
   { "path": "images/screenshot-orca-dark.webp", "alt": "…", "caption": "…", "theme": "dark" },
-  { "path": "images/screenshot-orca-2.webp", "alt": "…", "caption": "…" },
   { "path": "images/feature-legend.webp", "alt": "…", "caption": "…" }
 ]
 ```
 
-Orca's limits: a cover at least 800×500 and at most 1024 KB, screenshots at least 1280×800 and at
-most 1536 KB, at most 6 (the cover first, then examples times themes and features), `alt` at most 160 and
-`caption` at most 120 characters; 16:10 is recommended. `orca plugin validate` checks them.
+`orca plugin validate` checks the images against Orca's limits.

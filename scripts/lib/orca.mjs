@@ -27,10 +27,6 @@ export class Orca {
     return this.#cli;
   }
 
-  get appRun() {
-    return join(this.#cli, "..", "..", "..", "AppRun");
-  }
-
   validate(path) {
     return this.#json(["plugin", "validate", path]);
   }
