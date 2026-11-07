@@ -27,6 +27,10 @@ export class Orca {
     return this.#cli;
   }
 
+  get appRun() {
+    return join(this.#cli, "..", "..", "..", "AppRun");
+  }
+
   validate(path) {
     return this.#json(["plugin", "validate", path]);
   }
@@ -40,19 +44,31 @@ export class Orca {
     return this.#json(["plugin", "release-entry", pluginFolder]).entry;
   }
 
-  #json(args) {
-    const run = spawnSync(this.#cli, [...args, "--json"], { encoding: "utf8" });
+  call(args, { env, timeout, allowFailure = false } = {}) {
+    const run = spawnSync(this.#cli, [...args, "--json"], {
+      encoding: "utf8",
+      env,
+      timeout,
+    });
     let parsed;
     try {
       parsed = JSON.parse(run.stdout);
     } catch {
-      throw new Error(`orca ${args.join(" ")}: ${run.stdout}${run.stderr}`);
+      parsed = {
+        ok: false,
+        error: { message: `${run.stdout}${run.stderr}`.trim() },
+      };
     }
-    if (parsed.ok === false || run.status !== 0) {
+    if (!allowFailure && (parsed.ok === false || run.status !== 0)) {
       throw new Error(
         `orca ${args.join(" ")}: ${JSON.stringify(parsed.error ?? parsed)}`,
       );
     }
+    return parsed;
+  }
+
+  #json(args) {
+    const parsed = this.call(args);
     return parsed.result ?? parsed;
   }
 
