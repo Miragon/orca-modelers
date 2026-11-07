@@ -3,7 +3,7 @@
   "manifestVersion": 2,
   "id": "team-topologies-modeler",
   "name": "Team Topologies Modeler",
-  "version": "0.19.0",
+  "version": "0.20.0",
   "description": "Open .tt and .ttm.json files as Team Topologies diagrams: model teams, their interactions and the flow of change, and see an agent's changes to the file as they happen.",
   "author": {
     "name": "Miragon GmbH",
@@ -27,6 +27,16 @@
       "path": "images/screenshot-orca.webp",
       "alt": "Orca with the strategy-workshop folder open and ride-hailing.tt in the Team Topologies editor, next to the project sidebar and the file tree",
       "caption": "Runs right inside Orca, next to your files"
+    },
+    {
+      "path": "images/feature-inspector.webp",
+      "alt": "Orca with the Team Topologies editor and the Booking & Dispatch team selected and its properties open: type, name, description and colours",
+      "caption": "Edit a team's type, purpose and colours in place"
+    },
+    {
+      "path": "images/feature-legend.webp",
+      "alt": "Orca with the Team Topologies editor and its legend open, explaining the team types, interaction modes and other elements",
+      "caption": "A legend explains team types and interaction modes"
     }
   ],
   "engines": {

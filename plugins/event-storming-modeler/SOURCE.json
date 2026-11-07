@@ -1,6 +1,6 @@
 {
   "repository": "Miragon/modeler-suite",
-  "commit": "c78b26b9d815c1764448d37c6e95542647c42f94",
-  "tag": "event-storming-orca-v0.2.0",
-  "workflowRun": "https://github.com/Miragon/modeler-suite/actions/runs/42369510400"
+  "commit": "6f13c4bfb39906ff817b7cbbd004cedb426bdd53",
+  "tag": "event-storming-orca-v0.3.0",
+  "workflowRun": "https://github.com/Miragon/modeler-suite/actions/runs/42410089730"
 }
