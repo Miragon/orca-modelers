@@ -40,14 +40,14 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/value-chain-modeler/assets/icon.png",
+              "path": "assets/miragon.value-chain-modeler/4c24a8280cdcf892.png",
               "alt": "Value Chain Modeler",
               "sha256": "4c24a8280cdcf892c62dbd924a99aedffea4922620c199a5c6437ca9865bb9b5",
               "width": 256,
               "height": 256
             },
             "cover": {
-              "path": "plugins/value-chain-modeler/images/cover.webp",
+              "path": "assets/miragon.value-chain-modeler/e3bd01dbf1739461.webp",
               "alt": "Miragon Modeler for Value Chain: Value chains from plain .vc files, edited by you and your agents.",
               "sha256": "e3bd01dbf1739461b9cd836985a2ed1c39e6a22fc736791eef3461b1191a2fac",
               "width": 1600,
@@ -55,14 +55,14 @@
             },
             "screenshots": [
               {
-                "path": "plugins/value-chain-modeler/images/cover.webp",
+                "path": "assets/miragon.value-chain-modeler/e3bd01dbf1739461.webp",
                 "alt": "Miragon Modeler for Value Chain: Value chains from plain .vc files, edited by you and your agents.",
                 "sha256": "e3bd01dbf1739461b9cd836985a2ed1c39e6a22fc736791eef3461b1191a2fac",
                 "width": 1600,
                 "height": 1000
               },
               {
-                "path": "plugins/value-chain-modeler/images/screenshot-orca.webp",
+                "path": "assets/miragon.value-chain-modeler/171c245e30756b13.webp",
                 "alt": "Orca with the strategy-workshop folder open and porter.vc.json in the Value Chain editor, next to the project sidebar and the file tree",
                 "sha256": "171c245e30756b135e6216c0cd85ad2512d51af0d3042c4ab273c3878754f579",
                 "width": 1919,
@@ -98,7 +98,7 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/value-chain-modeler/assets/icon.png",
+              "path": "assets/miragon.value-chain-modeler/4c24a8280cdcf892.png",
               "alt": "Value Chain Modeler",
               "sha256": "4c24a8280cdcf892c62dbd924a99aedffea4922620c199a5c6437ca9865bb9b5",
               "width": 256,
@@ -133,7 +133,7 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/value-chain-modeler/assets/icon.png",
+              "path": "assets/miragon.value-chain-modeler/4c24a8280cdcf892.png",
               "alt": "Value Chain Modeler",
               "sha256": "4c24a8280cdcf892c62dbd924a99aedffea4922620c199a5c6437ca9865bb9b5",
               "width": 256,
@@ -168,7 +168,7 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/value-chain-modeler/assets/icon.png",
+              "path": "assets/miragon.value-chain-modeler/4c24a8280cdcf892.png",
               "alt": "Value Chain Modeler",
               "sha256": "4c24a8280cdcf892c62dbd924a99aedffea4922620c199a5c6437ca9865bb9b5",
               "width": 256,
@@ -203,7 +203,7 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/value-chain-modeler/assets/icon.png",
+              "path": "assets/miragon.value-chain-modeler/4c24a8280cdcf892.png",
               "alt": "Value Chain Modeler",
               "sha256": "4c24a8280cdcf892c62dbd924a99aedffea4922620c199a5c6437ca9865bb9b5",
               "width": 256,
@@ -256,14 +256,14 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/wardley-maps-modeler/assets/icon.png",
+              "path": "assets/miragon.wardley-maps-modeler/76fda4a378f199ca.png",
               "alt": "Wardley Maps Modeler",
               "sha256": "76fda4a378f199ca8032ab969561df1a8cec1379e1ece1951ad5a234577d2fef",
               "width": 256,
               "height": 256
             },
             "cover": {
-              "path": "plugins/wardley-maps-modeler/images/cover.webp",
+              "path": "assets/miragon.wardley-maps-modeler/ecd31183a4b686c0.webp",
               "alt": "Miragon Modeler for Wardley Maps: Wardley maps from plain .wmap files, edited by you and your agents.",
               "sha256": "ecd31183a4b686c044ce1e4d524b043a7193a65d8e8b45894cec3223469c0782",
               "width": 1600,
@@ -271,14 +271,14 @@
             },
             "screenshots": [
               {
-                "path": "plugins/wardley-maps-modeler/images/cover.webp",
+                "path": "assets/miragon.wardley-maps-modeler/ecd31183a4b686c0.webp",
                 "alt": "Miragon Modeler for Wardley Maps: Wardley maps from plain .wmap files, edited by you and your agents.",
                 "sha256": "ecd31183a4b686c044ce1e4d524b043a7193a65d8e8b45894cec3223469c0782",
                 "width": 1600,
                 "height": 1000
               },
               {
-                "path": "plugins/wardley-maps-modeler/images/screenshot-orca.webp",
+                "path": "assets/miragon.wardley-maps-modeler/0b71aedcb7bd4ffa.webp",
                 "alt": "Orca with the strategy-workshop folder open and online-grocery.wmap in the Wardley Maps editor, next to the project sidebar and the file tree",
                 "sha256": "0b71aedcb7bd4ffa89e50bc40917c9f130d48ee0567d5e0fc99424db7e83b286",
                 "width": 1919,
@@ -316,7 +316,7 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/wardley-maps-modeler/assets/icon.png",
+              "path": "assets/miragon.wardley-maps-modeler/76fda4a378f199ca.png",
               "alt": "Wardley Maps Modeler",
               "sha256": "76fda4a378f199ca8032ab969561df1a8cec1379e1ece1951ad5a234577d2fef",
               "width": 256,
@@ -353,7 +353,7 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/wardley-maps-modeler/assets/icon.png",
+              "path": "assets/miragon.wardley-maps-modeler/76fda4a378f199ca.png",
               "alt": "Wardley Maps Modeler",
               "sha256": "76fda4a378f199ca8032ab969561df1a8cec1379e1ece1951ad5a234577d2fef",
               "width": 256,
@@ -390,7 +390,7 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/wardley-maps-modeler/assets/icon.png",
+              "path": "assets/miragon.wardley-maps-modeler/76fda4a378f199ca.png",
               "alt": "Wardley Maps Modeler",
               "sha256": "76fda4a378f199ca8032ab969561df1a8cec1379e1ece1951ad5a234577d2fef",
               "width": 256,
@@ -427,7 +427,7 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/wardley-maps-modeler/assets/icon.png",
+              "path": "assets/miragon.wardley-maps-modeler/76fda4a378f199ca.png",
               "alt": "Wardley Maps Modeler",
               "sha256": "76fda4a378f199ca8032ab969561df1a8cec1379e1ece1951ad5a234577d2fef",
               "width": 256,
@@ -478,14 +478,14 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/event-storming-modeler/assets/icon.png",
+              "path": "assets/miragon.event-storming-modeler/99809fe3d5de90d8.png",
               "alt": "Event Storming Modeler",
               "sha256": "99809fe3d5de90d8bc1ff143795cc78c9911c152da6b2ed6b4a25fa0a771c3bb",
               "width": 256,
               "height": 256
             },
             "cover": {
-              "path": "plugins/event-storming-modeler/images/cover.webp",
+              "path": "assets/miragon.event-storming-modeler/4ffa197fc973309e.webp",
               "alt": "Miragon Modeler for Event Storming: Event Storming boards from plain .storm files, edited by you and your agents.",
               "sha256": "4ffa197fc973309e53d0201942daf8675e9f737956cf3eeca134658ae65995b6",
               "width": 1600,
@@ -493,14 +493,14 @@
             },
             "screenshots": [
               {
-                "path": "plugins/event-storming-modeler/images/cover.webp",
+                "path": "assets/miragon.event-storming-modeler/4ffa197fc973309e.webp",
                 "alt": "Miragon Modeler for Event Storming: Event Storming boards from plain .storm files, edited by you and your agents.",
                 "sha256": "4ffa197fc973309e53d0201942daf8675e9f737956cf3eeca134658ae65995b6",
                 "width": 1600,
                 "height": 1000
               },
               {
-                "path": "plugins/event-storming-modeler/images/screenshot-orca.webp",
+                "path": "assets/miragon.event-storming-modeler/20020a4e113132ef.webp",
                 "alt": "Orca with the strategy-workshop folder open and order-checkout.storm in the Event Storming editor, next to the project sidebar and the file tree",
                 "sha256": "20020a4e113132efcfc9dd486025688085845b4dad3c629bb08c04f1778fe25a",
                 "width": 1919,
@@ -536,7 +536,7 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/event-storming-modeler/assets/icon.png",
+              "path": "assets/miragon.event-storming-modeler/99809fe3d5de90d8.png",
               "alt": "Event Storming Modeler",
               "sha256": "99809fe3d5de90d8bc1ff143795cc78c9911c152da6b2ed6b4a25fa0a771c3bb",
               "width": 256,
@@ -571,7 +571,7 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/event-storming-modeler/assets/icon.png",
+              "path": "assets/miragon.event-storming-modeler/99809fe3d5de90d8.png",
               "alt": "Event Storming Modeler",
               "sha256": "99809fe3d5de90d8bc1ff143795cc78c9911c152da6b2ed6b4a25fa0a771c3bb",
               "width": 256,
@@ -606,7 +606,7 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/event-storming-modeler/assets/icon.png",
+              "path": "assets/miragon.event-storming-modeler/99809fe3d5de90d8.png",
               "alt": "Event Storming Modeler",
               "sha256": "99809fe3d5de90d8bc1ff143795cc78c9911c152da6b2ed6b4a25fa0a771c3bb",
               "width": 256,
@@ -641,7 +641,7 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/event-storming-modeler/assets/icon.png",
+              "path": "assets/miragon.event-storming-modeler/99809fe3d5de90d8.png",
               "alt": "Event Storming Modeler",
               "sha256": "99809fe3d5de90d8bc1ff143795cc78c9911c152da6b2ed6b4a25fa0a771c3bb",
               "width": 256,
@@ -692,14 +692,14 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/team-topologies-modeler/assets/icon.png",
+              "path": "assets/miragon.team-topologies-modeler/5baee532eae5ca5a.png",
               "alt": "Team Topologies Modeler",
               "sha256": "5baee532eae5ca5a41154494d9c125470667d7a9c156d4e6040a62094f754b1a",
               "width": 512,
               "height": 512
             },
             "cover": {
-              "path": "plugins/team-topologies-modeler/images/cover.webp",
+              "path": "assets/miragon.team-topologies-modeler/95c33a86c7d84bbf.webp",
               "alt": "Miragon Modeler for Team Topologies: Team Topologies diagrams from plain .tt files, edited by you and your agents.",
               "sha256": "95c33a86c7d84bbfc03641f9b5d233d34c0f676d71c6041afe7f17b59a394437",
               "width": 1600,
@@ -707,14 +707,14 @@
             },
             "screenshots": [
               {
-                "path": "plugins/team-topologies-modeler/images/cover.webp",
+                "path": "assets/miragon.team-topologies-modeler/95c33a86c7d84bbf.webp",
                 "alt": "Miragon Modeler for Team Topologies: Team Topologies diagrams from plain .tt files, edited by you and your agents.",
                 "sha256": "95c33a86c7d84bbfc03641f9b5d233d34c0f676d71c6041afe7f17b59a394437",
                 "width": 1600,
                 "height": 1000
               },
               {
-                "path": "plugins/team-topologies-modeler/images/screenshot-orca.webp",
+                "path": "assets/miragon.team-topologies-modeler/2c839c1ffe17f392.webp",
                 "alt": "Orca with the strategy-workshop folder open and ride-hailing.tt in the Team Topologies editor, next to the project sidebar and the file tree",
                 "sha256": "2c839c1ffe17f392e10100e954c1d9ec9bbc7477e8c4a8e29692d3a81cc593ae",
                 "width": 1919,
@@ -749,7 +749,7 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/team-topologies-modeler/assets/icon.png",
+              "path": "assets/miragon.team-topologies-modeler/5baee532eae5ca5a.png",
               "alt": "Team Topologies Modeler",
               "sha256": "5baee532eae5ca5a41154494d9c125470667d7a9c156d4e6040a62094f754b1a",
               "width": 512,
@@ -783,7 +783,7 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/team-topologies-modeler/assets/icon.png",
+              "path": "assets/miragon.team-topologies-modeler/5baee532eae5ca5a.png",
               "alt": "Team Topologies Modeler",
               "sha256": "5baee532eae5ca5a41154494d9c125470667d7a9c156d4e6040a62094f754b1a",
               "width": 512,
@@ -817,7 +817,7 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/team-topologies-modeler/assets/icon.png",
+              "path": "assets/miragon.team-topologies-modeler/5baee532eae5ca5a.png",
               "alt": "Team Topologies Modeler",
               "sha256": "5baee532eae5ca5a41154494d9c125470667d7a9c156d4e6040a62094f754b1a",
               "width": 512,
@@ -851,7 +851,7 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/team-topologies-modeler/assets/icon.png",
+              "path": "assets/miragon.team-topologies-modeler/5baee532eae5ca5a.png",
               "alt": "Team Topologies Modeler",
               "sha256": "5baee532eae5ca5a41154494d9c125470667d7a9c156d4e6040a62094f754b1a",
               "width": 512,
@@ -901,14 +901,14 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/context-maps-modeler/assets/icon.png",
+              "path": "assets/miragon.context-maps-modeler/ad75604c53bd3392.png",
               "alt": "Context Maps Modeler",
               "sha256": "ad75604c53bd3392644f6b29806530ad9fd4644025e9d0b0ecb39064d18d9325",
               "width": 256,
               "height": 256
             },
             "cover": {
-              "path": "plugins/context-maps-modeler/images/cover.webp",
+              "path": "assets/miragon.context-maps-modeler/59ca22235daca82f.webp",
               "alt": "Miragon Modeler for Context Maps: Context maps from plain .cm files, edited by you and your agents.",
               "sha256": "59ca22235daca82fd21f04b43051ea118292ea460790e625e34bd5bc2fa87786",
               "width": 1600,
@@ -916,14 +916,14 @@
             },
             "screenshots": [
               {
-                "path": "plugins/context-maps-modeler/images/cover.webp",
+                "path": "assets/miragon.context-maps-modeler/59ca22235daca82f.webp",
                 "alt": "Miragon Modeler for Context Maps: Context maps from plain .cm files, edited by you and your agents.",
                 "sha256": "59ca22235daca82fd21f04b43051ea118292ea460790e625e34bd5bc2fa87786",
                 "width": 1600,
                 "height": 1000
               },
               {
-                "path": "plugins/context-maps-modeler/images/screenshot-orca.webp",
+                "path": "assets/miragon.context-maps-modeler/778ebe3199f158ea.webp",
                 "alt": "Orca with the strategy-workshop folder open and conference-program.cm in the Context Maps editor, next to the project sidebar and the file tree",
                 "sha256": "778ebe3199f158eab9003c51af79f143ec8c8f86cb73a59043bdd81e05df2f7d",
                 "width": 1919,
@@ -959,7 +959,7 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/context-maps-modeler/assets/icon.png",
+              "path": "assets/miragon.context-maps-modeler/ad75604c53bd3392.png",
               "alt": "Context Maps Modeler",
               "sha256": "ad75604c53bd3392644f6b29806530ad9fd4644025e9d0b0ecb39064d18d9325",
               "width": 256,
@@ -994,7 +994,7 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/context-maps-modeler/assets/icon.png",
+              "path": "assets/miragon.context-maps-modeler/ad75604c53bd3392.png",
               "alt": "Context Maps Modeler",
               "sha256": "ad75604c53bd3392644f6b29806530ad9fd4644025e9d0b0ecb39064d18d9325",
               "width": 256,
@@ -1029,7 +1029,7 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/context-maps-modeler/assets/icon.png",
+              "path": "assets/miragon.context-maps-modeler/ad75604c53bd3392.png",
               "alt": "Context Maps Modeler",
               "sha256": "ad75604c53bd3392644f6b29806530ad9fd4644025e9d0b0ecb39064d18d9325",
               "width": 256,
@@ -1064,7 +1064,7 @@
           ],
           "images": {
             "icon": {
-              "path": "plugins/context-maps-modeler/assets/icon.png",
+              "path": "assets/miragon.context-maps-modeler/ad75604c53bd3392.png",
               "alt": "Context Maps Modeler",
               "sha256": "ad75604c53bd3392644f6b29806530ad9fd4644025e9d0b0ecb39064d18d9325",
               "width": 256,
