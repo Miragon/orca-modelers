@@ -22,34 +22,47 @@ try {
   console.log("starting Orca on a throwaway profile");
   const folder = listing.writeDemoFolder();
   await session.start(folder);
-  const editors = listing.plugins.map((plugin) => ({
-    plugin,
-    pluginKey: session.loadPlugin(plugin.folder),
-    file: join(folder, plugin.name),
-  }));
+  const editors = listing.plugins.flatMap((plugin) => {
+    const pluginKey = session.loadPlugin(plugin.folder);
+    return plugin.examples.map(({ name }, index) => ({
+      plugin,
+      pluginKey,
+      index,
+      file: join(folder, name),
+    }));
+  });
   await session.openAll(editors);
 
-  const shot = (plugin, kind) => join(shots, `${plugin.id}-${kind}.png`);
+  const shot = ({ plugin, index }, kind) =>
+    join(shots, `${plugin.id}-${index}-${kind}.png`);
+  const firstExamples = editors.filter(({ index }) => index === 0);
   for (const editor of editors) {
-    await session.shootWindow(editor, shot(editor.plugin, "window"));
+    await session.shootWindow(editor, shot(editor, "window"));
   }
-  for (const editor of editors) {
-    session.shootEditor(editor, shot(editor.plugin, "editor"));
+  for (const editor of firstExamples) {
+    session.shootEditor(editor, shot(editor, "editor"));
   }
 
-  for (const { plugin } of editors) {
+  for (const editor of firstExamples) {
+    const { plugin } = editor;
     mkdirSync(plugin.out, { recursive: true });
     cover.render(
       plugin,
-      shot(plugin, "editor"),
+      shot(editor, "editor"),
       join(plugin.out, "cover.webp"),
       shots,
     );
-    chrome.webp(
-      shot(plugin, "window"),
-      join(plugin.out, "screenshot-orca.webp"),
+  }
+  for (const editor of editors) {
+    const { plugin, index } = editor;
+    const image = join(
+      plugin.out,
+      index === 0
+        ? "screenshot-orca.webp"
+        : `screenshot-orca-${index + 1}.webp`,
     );
-    console.log(`${plugin.id}: ${plugin.out}`);
+    chrome.webp(shot(editor, "window"), image);
+    console.log(`${plugin.id}: ${image}`);
   }
 } finally {
   await session.close();

@@ -33,8 +33,11 @@ export class Listing {
       join(folder, "README.md"),
       `# ${this.#folderName}\n\nThe maps, boards and diagrams of our workshop.\n`,
     );
-    for (const plugin of this.#plugins) {
-      copyFileSync(plugin.example, join(folder, plugin.name));
+    const names = new Set();
+    for (const { file, name } of this.#plugins.flatMap((p) => p.examples)) {
+      if (names.has(name)) throw new Error(`two examples are named ${name}`);
+      names.add(name);
+      copyFileSync(file, join(folder, name));
     }
     return folder;
   }
@@ -57,25 +60,26 @@ export class Listing {
 export class ListedPlugin {
   #folder;
   #manifest;
-  #example;
-  #name;
+  #examples;
   #title;
   #claim;
   #out;
 
-  constructor({ folder, manifest, example, name, title, claim, out }) {
+  constructor({ folder, manifest, examples, title, claim, out }) {
     this.#folder = folder;
     this.#manifest = manifest;
-    this.#example = example;
-    this.#name = name;
+    this.#examples = examples;
     this.#title = title;
     this.#claim = claim;
     this.#out = out;
   }
 
   static from(entry, base) {
-    for (const key of ["plugin", "example", "title", "claim", "out"]) {
+    for (const key of ["plugin", "examples", "title", "claim", "out"]) {
       if (!entry[key]) throw new Error(`a listed plugin needs "${key}"`);
+    }
+    if (!entry.examples.length) {
+      throw new Error(`${entry.plugin}: "examples" is empty`);
     }
     const folder = resolve(base, entry.plugin);
     const manifest = new JsonFile(join(folder, "orca-plugin.json")).read();
@@ -83,8 +87,10 @@ export class ListedPlugin {
     return new ListedPlugin({
       folder,
       manifest,
-      example: resolve(base, entry.example),
-      name: entry.name ?? basename(entry.example),
+      examples: entry.examples.map(({ file, name }) => ({
+        file: resolve(base, file),
+        name: name ?? basename(file),
+      })),
       title: entry.title,
       claim: entry.claim,
       out: resolve(base, entry.out),
@@ -103,12 +109,8 @@ export class ListedPlugin {
     return join(this.#folder, this.#manifest.icon);
   }
 
-  get example() {
-    return this.#example;
-  }
-
-  get name() {
-    return this.#name;
+  get examples() {
+    return this.#examples;
   }
 
   get title() {
