@@ -195,6 +195,41 @@
       ],
       "releases": [
         {
+          "version": "0.1.2",
+          "commit": "cf99fe4fbe00dd7edd7cc5930684954a4bbbffc9",
+          "contentHash": "463cdfa39efd73dfcefd1d92c1057e8dd4b092a7cb7342b13ac0fa8763f0eb5e",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Event Storming Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Event Storming",
+              "detail": ".storm"
+            }
+          ],
+          "fileTypes": [
+            "storm"
+          ],
+          "editorFileTypes": [
+            "storm"
+          ],
+          "images": {
+            "icon": {
+              "path": "plugins/event-storming-modeler/assets/icon.png",
+              "alt": "Event Storming Modeler",
+              "sha256": "99809fe3d5de90d8bc1ff143795cc78c9911c152da6b2ed6b4a25fa0a771c3bb",
+              "width": 256,
+              "height": 256
+            }
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-07",
+          "changelog": "\n\n### Bug Fixes\n\n* ship the Orca plugins without sourcemaps ([#565](https://github.com/Miragon/modeler-suite/issues/565)) ([32241a3](https://github.com/Miragon/modeler-suite/commit/32241a33cc36a13ec7720719cb5eaec7b425d0fb)), closes [#563](https://github.com/Miragon/modeler-suite/issues/563)"
+        },
+        {
           "version": "0.1.1",
           "commit": "a5337479f20ad73ba780498fcc197da63df641d4",
           "contentHash": "f6001034d55703e2be0d584a568ac793088a3827a837f1c64ea3e6637a8e93d2",
