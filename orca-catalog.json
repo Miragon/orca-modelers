@@ -19,6 +19,64 @@
       ],
       "releases": [
         {
+          "version": "0.2.0",
+          "commit": "69324a849376a3ac3c2ea1bf5e8c6a091ad38b04",
+          "contentHash": "0a4d329c1d79d0e82774d52524e24ad45700a9a6ffe9f5c8a2dac10298d29850",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Value Chain Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Value Chain",
+              "detail": ".vc, .vc.json"
+            }
+          ],
+          "fileTypes": [
+            "vc"
+          ],
+          "editorFileTypes": [
+            "vc"
+          ],
+          "images": {
+            "icon": {
+              "path": "plugins/value-chain-modeler/assets/icon.png",
+              "alt": "Value Chain Modeler",
+              "sha256": "4c24a8280cdcf892c62dbd924a99aedffea4922620c199a5c6437ca9865bb9b5",
+              "width": 256,
+              "height": 256
+            },
+            "cover": {
+              "path": "plugins/value-chain-modeler/images/cover.webp",
+              "alt": "Miragon Modeler for Value Chain: Value chains from plain .vc files, edited by you and your agents.",
+              "sha256": "e3bd01dbf1739461b9cd836985a2ed1c39e6a22fc736791eef3461b1191a2fac",
+              "width": 1600,
+              "height": 1000
+            },
+            "screenshots": [
+              {
+                "path": "plugins/value-chain-modeler/images/cover.webp",
+                "alt": "Miragon Modeler for Value Chain: Value chains from plain .vc files, edited by you and your agents.",
+                "sha256": "e3bd01dbf1739461b9cd836985a2ed1c39e6a22fc736791eef3461b1191a2fac",
+                "width": 1600,
+                "height": 1000
+              },
+              {
+                "path": "plugins/value-chain-modeler/images/screenshot-orca.webp",
+                "alt": "Orca with the strategy-workshop folder open and porter.vc.json in the Value Chain editor, next to the project sidebar and the file tree",
+                "sha256": "171c245e30756b135e6216c0cd85ad2512d51af0d3042c4ab273c3878754f579",
+                "width": 1919,
+                "height": 1199
+              }
+            ]
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-07",
+          "changelog": "\n\n### Features\n\n* **value-chain:** show a cover and screenshots in Orca's plugin directory ([#586](https://github.com/Miragon/modeler-suite/issues/586)) ([e8306c4](https://github.com/Miragon/modeler-suite/commit/e8306c49e89030a814be9f591b09678f6ba282a3)), closes [#572](https://github.com/Miragon/modeler-suite/issues/572)\n\n\n### Bug Fixes\n\n* bundle Geist in the Orca plugins again now that Orca's directory accepts web fonts ([#587](https://github.com/Miragon/modeler-suite/issues/587)) ([85c4fd5](https://github.com/Miragon/modeler-suite/commit/85c4fd5d165a9a63b574de9d584f7e8593c83977))"
+        },
+        {
           "version": "0.1.3",
           "commit": "17561da0f12d143f119bdd911972ad73002b6a8e",
           "contentHash": "cd68735d69c27432868ff20c5c8749b0c60b5b8cfc25d30ce9671260ac412d69",
@@ -174,6 +232,66 @@
         "diagrams"
       ],
       "releases": [
+        {
+          "version": "0.2.0",
+          "commit": "69324a849376a3ac3c2ea1bf5e8c6a091ad38b04",
+          "contentHash": "bf96ab41bdd7d7ed40ed11b7202c312770b5c8dc592c9648a696f0275c4e0b82",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Wardley Maps Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Wardley Map",
+              "detail": ".wmap, .owm"
+            }
+          ],
+          "fileTypes": [
+            "wmap",
+            "owm"
+          ],
+          "editorFileTypes": [
+            "wmap",
+            "owm"
+          ],
+          "images": {
+            "icon": {
+              "path": "plugins/wardley-maps-modeler/assets/icon.png",
+              "alt": "Wardley Maps Modeler",
+              "sha256": "76fda4a378f199ca8032ab969561df1a8cec1379e1ece1951ad5a234577d2fef",
+              "width": 256,
+              "height": 256
+            },
+            "cover": {
+              "path": "plugins/wardley-maps-modeler/images/cover.webp",
+              "alt": "Miragon Modeler for Wardley Maps: Wardley maps from plain .wmap files, edited by you and your agents.",
+              "sha256": "ecd31183a4b686c044ce1e4d524b043a7193a65d8e8b45894cec3223469c0782",
+              "width": 1600,
+              "height": 1000
+            },
+            "screenshots": [
+              {
+                "path": "plugins/wardley-maps-modeler/images/cover.webp",
+                "alt": "Miragon Modeler for Wardley Maps: Wardley maps from plain .wmap files, edited by you and your agents.",
+                "sha256": "ecd31183a4b686c044ce1e4d524b043a7193a65d8e8b45894cec3223469c0782",
+                "width": 1600,
+                "height": 1000
+              },
+              {
+                "path": "plugins/wardley-maps-modeler/images/screenshot-orca.webp",
+                "alt": "Orca with the strategy-workshop folder open and online-grocery.wmap in the Wardley Maps editor, next to the project sidebar and the file tree",
+                "sha256": "0b71aedcb7bd4ffa89e50bc40917c9f130d48ee0567d5e0fc99424db7e83b286",
+                "width": 1919,
+                "height": 1199
+              }
+            ]
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-07",
+          "changelog": "\n\n### Features\n\n* **wardley-maps:** show a cover and screenshots in Orca's plugin directory ([#582](https://github.com/Miragon/modeler-suite/issues/582)) ([746feb5](https://github.com/Miragon/modeler-suite/commit/746feb5f3c9fc99c5efad5a2b79530f159077c27)), closes [#572](https://github.com/Miragon/modeler-suite/issues/572)\n\n\n### Bug Fixes\n\n* bundle Geist in the Orca plugins again now that Orca's directory accepts web fonts ([#587](https://github.com/Miragon/modeler-suite/issues/587)) ([85c4fd5](https://github.com/Miragon/modeler-suite/commit/85c4fd5d165a9a63b574de9d584f7e8593c83977))"
+        },
         {
           "version": "0.1.3",
           "commit": "17561da0f12d143f119bdd911972ad73002b6a8e",
@@ -339,6 +457,64 @@
       ],
       "releases": [
         {
+          "version": "0.2.0",
+          "commit": "69324a849376a3ac3c2ea1bf5e8c6a091ad38b04",
+          "contentHash": "0ced8d749342a45155d8f1a865b4c24399bba777da98486662c927b68929c786",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Event Storming Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Event Storming",
+              "detail": ".storm"
+            }
+          ],
+          "fileTypes": [
+            "storm"
+          ],
+          "editorFileTypes": [
+            "storm"
+          ],
+          "images": {
+            "icon": {
+              "path": "plugins/event-storming-modeler/assets/icon.png",
+              "alt": "Event Storming Modeler",
+              "sha256": "99809fe3d5de90d8bc1ff143795cc78c9911c152da6b2ed6b4a25fa0a771c3bb",
+              "width": 256,
+              "height": 256
+            },
+            "cover": {
+              "path": "plugins/event-storming-modeler/images/cover.webp",
+              "alt": "Miragon Modeler for Event Storming: Event Storming boards from plain .storm files, edited by you and your agents.",
+              "sha256": "4ffa197fc973309e53d0201942daf8675e9f737956cf3eeca134658ae65995b6",
+              "width": 1600,
+              "height": 1000
+            },
+            "screenshots": [
+              {
+                "path": "plugins/event-storming-modeler/images/cover.webp",
+                "alt": "Miragon Modeler for Event Storming: Event Storming boards from plain .storm files, edited by you and your agents.",
+                "sha256": "4ffa197fc973309e53d0201942daf8675e9f737956cf3eeca134658ae65995b6",
+                "width": 1600,
+                "height": 1000
+              },
+              {
+                "path": "plugins/event-storming-modeler/images/screenshot-orca.webp",
+                "alt": "Orca with the strategy-workshop folder open and order-checkout.storm in the Event Storming editor, next to the project sidebar and the file tree",
+                "sha256": "20020a4e113132efcfc9dd486025688085845b4dad3c629bb08c04f1778fe25a",
+                "width": 1919,
+                "height": 1199
+              }
+            ]
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-07",
+          "changelog": "\n\n### Features\n\n* **event-storming:** show a cover and screenshots in Orca's plugin directory ([#583](https://github.com/Miragon/modeler-suite/issues/583)) ([47c7c5d](https://github.com/Miragon/modeler-suite/commit/47c7c5d86def0e48f43ad934318d0a7855d41aba)), closes [#572](https://github.com/Miragon/modeler-suite/issues/572)\n\n\n### Bug Fixes\n\n* bundle Geist in the Orca plugins again now that Orca's directory accepts web fonts ([#587](https://github.com/Miragon/modeler-suite/issues/587)) ([85c4fd5](https://github.com/Miragon/modeler-suite/commit/85c4fd5d165a9a63b574de9d584f7e8593c83977))"
+        },
+        {
           "version": "0.1.3",
           "commit": "17561da0f12d143f119bdd911972ad73002b6a8e",
           "contentHash": "d5d43fb46593fe686cab0152728d1395726eccfd7ea2f5d382d770be301b4e09",
@@ -495,6 +671,63 @@
       ],
       "releases": [
         {
+          "version": "0.19.0",
+          "commit": "69324a849376a3ac3c2ea1bf5e8c6a091ad38b04",
+          "contentHash": "158cf82463dcff8305e85ba1e035c46f3a206d71645a5ac9fd8e71cffce6121e",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Team Topologies Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Team Topologies",
+              "detail": ".tt, .ttm.json"
+            }
+          ],
+          "fileTypes": [
+            "tt"
+          ],
+          "editorFileTypes": [
+            "tt"
+          ],
+          "images": {
+            "icon": {
+              "path": "plugins/team-topologies-modeler/assets/icon.png",
+              "alt": "Team Topologies Modeler",
+              "sha256": "5baee532eae5ca5a41154494d9c125470667d7a9c156d4e6040a62094f754b1a",
+              "width": 512,
+              "height": 512
+            },
+            "cover": {
+              "path": "plugins/team-topologies-modeler/images/cover.webp",
+              "alt": "Miragon Modeler for Team Topologies: Team Topologies diagrams from plain .tt files, edited by you and your agents.",
+              "sha256": "95c33a86c7d84bbfc03641f9b5d233d34c0f676d71c6041afe7f17b59a394437",
+              "width": 1600,
+              "height": 1000
+            },
+            "screenshots": [
+              {
+                "path": "plugins/team-topologies-modeler/images/cover.webp",
+                "alt": "Miragon Modeler for Team Topologies: Team Topologies diagrams from plain .tt files, edited by you and your agents.",
+                "sha256": "95c33a86c7d84bbfc03641f9b5d233d34c0f676d71c6041afe7f17b59a394437",
+                "width": 1600,
+                "height": 1000
+              },
+              {
+                "path": "plugins/team-topologies-modeler/images/screenshot-orca.webp",
+                "alt": "Orca with the strategy-workshop folder open and ride-hailing.tt in the Team Topologies editor, next to the project sidebar and the file tree",
+                "sha256": "2c839c1ffe17f392e10100e954c1d9ec9bbc7477e8c4a8e29692d3a81cc593ae",
+                "width": 1919,
+                "height": 1199
+              }
+            ]
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-07"
+        },
+        {
           "version": "0.18.3",
           "commit": "17561da0f12d143f119bdd911972ad73002b6a8e",
           "contentHash": "9e9b8d2587e455627f5ab3f38fc75e9efb077b4883fded719ff1c0da0eef92f1",
@@ -646,6 +879,64 @@
         "diagrams"
       ],
       "releases": [
+        {
+          "version": "0.2.0",
+          "commit": "69324a849376a3ac3c2ea1bf5e8c6a091ad38b04",
+          "contentHash": "18afbcad655a42db1d6e8842e183e4da972becbd61053c622a3f2acdf6c5f901",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Context Maps Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Context Map",
+              "detail": ".cm, .cm.json"
+            }
+          ],
+          "fileTypes": [
+            "cm"
+          ],
+          "editorFileTypes": [
+            "cm"
+          ],
+          "images": {
+            "icon": {
+              "path": "plugins/context-maps-modeler/assets/icon.png",
+              "alt": "Context Maps Modeler",
+              "sha256": "ad75604c53bd3392644f6b29806530ad9fd4644025e9d0b0ecb39064d18d9325",
+              "width": 256,
+              "height": 256
+            },
+            "cover": {
+              "path": "plugins/context-maps-modeler/images/cover.webp",
+              "alt": "Miragon Modeler for Context Maps: Context maps from plain .cm files, edited by you and your agents.",
+              "sha256": "59ca22235daca82fd21f04b43051ea118292ea460790e625e34bd5bc2fa87786",
+              "width": 1600,
+              "height": 1000
+            },
+            "screenshots": [
+              {
+                "path": "plugins/context-maps-modeler/images/cover.webp",
+                "alt": "Miragon Modeler for Context Maps: Context maps from plain .cm files, edited by you and your agents.",
+                "sha256": "59ca22235daca82fd21f04b43051ea118292ea460790e625e34bd5bc2fa87786",
+                "width": 1600,
+                "height": 1000
+              },
+              {
+                "path": "plugins/context-maps-modeler/images/screenshot-orca.webp",
+                "alt": "Orca with the strategy-workshop folder open and conference-program.cm in the Context Maps editor, next to the project sidebar and the file tree",
+                "sha256": "778ebe3199f158eab9003c51af79f143ec8c8f86cb73a59043bdd81e05df2f7d",
+                "width": 1919,
+                "height": 1199
+              }
+            ]
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-07",
+          "changelog": "\n\n### Features\n\n* **context-maps:** show a cover and screenshots in Orca's plugin directory ([#585](https://github.com/Miragon/modeler-suite/issues/585)) ([77ab60e](https://github.com/Miragon/modeler-suite/commit/77ab60eaba4c458e63dc3091e16f5dbf150b0843)), closes [#572](https://github.com/Miragon/modeler-suite/issues/572)\n\n\n### Bug Fixes\n\n* bundle Geist in the Orca plugins again now that Orca's directory accepts web fonts ([#587](https://github.com/Miragon/modeler-suite/issues/587)) ([85c4fd5](https://github.com/Miragon/modeler-suite/commit/85c4fd5d165a9a63b574de9d584f7e8593c83977))"
+        },
         {
           "version": "0.1.3",
           "commit": "17561da0f12d143f119bdd911972ad73002b6a8e",
