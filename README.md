@@ -21,10 +21,15 @@ code, and every change it makes shows up on the canvas.
 
 ![An agent adds a payment provider to an Event Storming board in Orca, the user moves the order status read model and saves, then the agent adds a hotspot about double payments](docs/assets/demo.gif)
 
-## Install
+## Modelers
 
-You need the Orca desktop app, version 1.4.248 or later, with plugins turned on (Settings →
-Plugins → **Turn on plugins**).
+The plugins come from three Miragon repositories, grouped below by where they are built.
+
+### Modeler suite
+
+[Miragon/modeler-suite](https://github.com/Miragon/modeler-suite) builds Miragon's modelers for
+strategy and architecture in one repository. Each one comes with a Claude Code plugin that teaches
+your agent its file format and the method behind it.
 
 | Modeler                                                                                                         | Opens              | Plugin id                         | Directory                                                                                    |
 | --------------------------------------------------------------------------------------------------------------- | ------------------ | --------------------------------- | -------------------------------------------------------------------------------------------- |
@@ -33,17 +38,33 @@ Plugins → **Turn on plugins**).
 | [Team Topologies](https://github.com/Miragon/modeler-suite/tree/main/modelers/team-topologies/apps/orca#readme) | `.tt`, `.ttm.json` | `miragon.team-topologies-modeler` | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/team-topologies-modeler) |
 | [Context Maps](https://github.com/Miragon/modeler-suite/tree/main/modelers/context-maps/apps/orca#readme)       | `.cm`, `.cm.json`  | `miragon.context-maps-modeler`    | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/context-maps-modeler)    |
 | [Value Chain](https://github.com/Miragon/modeler-suite/tree/main/modelers/value-chain/apps/orca#readme)         | `.vc`, `.vc.json`  | `miragon.value-chain-modeler`     | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/value-chain-modeler)     |
-| [BPMN & DMN](https://github.com/Miragon/bpmn-modeler) (experimental)                                            | `.bpmn`, `.dmn`    | `miragon.bpmn-modeler`            | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/bpmn-modeler)            |
 | [C4](https://github.com/Miragon/modeler-suite/tree/main/modelers/c4)                                            | `.c4`, `.dsl`      | –                                 | Coming soon                                                                                  |
 
-The BPMN & DMN modeler is experimental. It views BPMN processes and DMN decisions, simulates them and
-models lightly. It does not deploy, jump into code or open forms yet, and it may change between
-releases; its [guide](https://miragon.github.io/bpmn-modeler/orca/getting-started#limits) lists
-what it leaves out.
+### BPMN modeler
+
+[Miragon/bpmn-modeler](https://github.com/Miragon/bpmn-modeler) models BPMN processes and DMN
+decisions for Camunda 7, Camunda 8, Operaton and CIB seven. In Orca it is experimental: it views,
+simulates and lightly models them, and its
+[guide](https://miragon.github.io/bpmn-modeler/orca/getting-started#limits) lists what it leaves
+out.
+
+| Modeler                                               | Opens           | Plugin id              | Directory                                                                         |
+| ----------------------------------------------------- | --------------- | ---------------------- | --------------------------------------------------------------------------------- |
+| [BPMN & DMN](https://github.com/Miragon/bpmn-modeler) | `.bpmn`, `.dmn` | `miragon.bpmn-modeler` | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/bpmn-modeler) |
+
+### Pulse
+
+[Miragon/pulse](https://github.com/Miragon/pulse) lets you operate and analyse Camunda 7, CIB seven
+and Operaton engines from your AI chat, your terminal and VS Code. Its Orca plugin is coming soon.
+
+## Install
+
+You need the Orca desktop app, version 1.4.248 or later, with plugins turned on (Settings →
+Plugins → **Turn on plugins**).
 
 ### From Orca's plugin directory
 
-Open a modeler's page in Orca's directory with **Open in Orca** in the table above, or search for
+Open a modeler's page in Orca's directory with **Open in Orca** in the tables above, or search for
 **Miragon** in Settings → Plugins, and install it.
 
 ### From this repository
