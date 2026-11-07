@@ -17,11 +17,9 @@ import {
 import { join } from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
 import { parseArgs } from "node:util";
+import { github } from "./github.mjs";
 import { orca } from "./orca-cli.mjs";
 
-const BOT_NAME = "miragon-release-please[bot]";
-const BOT_EMAIL =
-  "292359359+miragon-release-please[bot]@users.noreply.github.com";
 const CATALOG_URL = "https://github.com/miragon/orca-modelers.git";
 const CHECKS_APPEAR_WITHIN_MS = 120_000;
 const MERGE_ATTEMPTS = 3;
@@ -64,6 +62,13 @@ const readJson = (path) => JSON.parse(readFileSync(path, "utf8"));
 const writeJson = (path, value) =>
   writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`);
 
+const checkoutRepository = () => {
+  const origin = git("config", "--get", "remote.origin.url");
+  const match = /github\.com[/:]([^/]+\/[^/]+?)(?:\.git)?$/.exec(origin);
+  if (!match) throw new Error(`origin ${origin} is no GitHub repository`);
+  return match[1];
+};
+const api = github(process.env.GH_TOKEN, checkoutRepository());
 const sources = readJson("sources.json").plugins;
 const catalogKey = (id) => `miragon.${id}`;
 
@@ -139,18 +144,27 @@ function listRelease(catalog, { id, manifest, release: built }) {
   if (!listed) catalog.plugins.push(plugin);
 }
 
-function commitAsBot(message) {
-  git(
-    "-c",
-    `user.name=${BOT_NAME}`,
-    "-c",
-    `user.email=${BOT_EMAIL}`,
-    "commit",
-    "--quiet",
-    "-m",
-    message,
-  );
+function stagedChanges() {
+  const fields = git("diff", "--cached", "--raw", "--no-renames", "-z", "HEAD")
+    .split("\0")
+    .filter(Boolean);
+  const files = [];
+  const removed = [];
+  for (let index = 0; index < fields.length; index += 2) {
+    const [, mode, , , status] = fields[index].split(" ");
+    const path = fields[index + 1];
+    if (status === "D") removed.push(path);
+    else files.push({ path, mode, content: readFileSync(path) });
+  }
+  return { files, removed };
 }
+
+const commitStaged = (message) =>
+  api.commitFiles({
+    parent: git("rev-parse", "HEAD"),
+    message,
+    ...stagedChanges(),
+  });
 
 async function waitForRequiredChecks(url) {
   const givingUpOnMissingChecksAt = Date.now() + CHECKS_APPEAR_WITHIN_MS;
@@ -182,9 +196,8 @@ async function squashMerge(url, head) {
   }
 }
 
-async function pullRequest(branch, title) {
-  const head = git("rev-parse", "HEAD");
-  git("push", "--quiet", "origin", `${head}:refs/heads/${branch}`);
+async function pullRequest(branch, title, head) {
+  await api.createBranch(branch, head);
   const body = [
     `From ${sourceRepo}@${sourceRef}.`,
     workflowRun ? `Published by ${workflowRun}.` : "",
@@ -233,10 +246,14 @@ if (run("git", ["diff", "--cached", "--quiet"]).ok) {
   console.log(`plugins/ on main holds these bytes already: ${versions}`);
 } else {
   const title = `feat: publish ${versions} from ${sourceRepo}@${sourceRef.slice(0, 12)}`;
-  commitAsBot(title);
-  await pullRequest(`${branchPrefix}-plugins`, title);
+  await pullRequest(
+    `${branchPrefix}-plugins`,
+    title,
+    await commitStaged(title),
+  );
 }
 
+git("reset", "--quiet", "--hard");
 git("fetch", "--quiet", "origin", "main");
 git("checkout", "--quiet", "--detach", "origin/main");
 const catalog = readJson("orca-catalog.json");
@@ -244,6 +261,5 @@ for (const plugin of plugins) listRelease(catalog, plugin);
 writeJson("orca-catalog.json", catalog);
 git("add", "orca-catalog.json");
 const title = `feat: list ${versions} in the catalog`;
-commitAsBot(title);
-await pullRequest(`${branchPrefix}-catalog`, title);
+await pullRequest(`${branchPrefix}-catalog`, title, await commitStaged(title));
 console.log(`published ${versions}`);
