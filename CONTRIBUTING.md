@@ -76,8 +76,9 @@ repository. Per plugin it writes a `cover.webp` (1600×1000: the plugin's icon, 
 title and claim on Miragon's blue, which turns green towards the top right, next to the editor of
 the first example) and per example and theme a shot of the editor in a whole Orca window
 (`screenshot-orca.webp`, then `screenshot-orca-2.webp` and so on; `-dark` before `.webp` in the
-dark theme). Orca runs on a throwaway profile with a demo folder of the examples, so the images
-hold nothing of the machine that makes them.
+dark theme). Each listed feature adds `feature-<name>.webp`: the editor alone (1600×1000) after
+clicks and keys that open what the feature shows. Orca runs on a throwaway profile with a demo
+folder of the examples, so the images hold nothing of the machine that makes them.
 
 List the plugins in a file of the source repository; paths are relative to it:
 
@@ -94,6 +95,16 @@ List the plugins in a file of the source repository; paths are relative to it:
           "name": "conference-program.cm"
         }
       ],
+      "features": [
+        {
+          "name": "legend",
+          "act": [
+            { "click": [32, 32] },
+            { "click": [120, 121] },
+            { "key": "Shift" }
+          ]
+        }
+      ],
       "title": "Context Maps",
       "claim": "Context maps from plain .cm files, edited by you and your agents.",
       "out": "modelers/context-maps/apps/orca/images"
@@ -104,10 +115,14 @@ List the plugins in a file of the source repository; paths are relative to it:
 
 `themes` defaults to `["light"]`; Orca starts once per theme. `name` is the example's file name in
 the demo folder (its own name by default) and must be unique across the listing, `out` the folder
-the images go to. The script needs Linux with a display, Node
-22.13 or later, Chrome or Chromium (`CHROME`, a `chrome-headless-shell` or Chrome on the `PATH`, or
-Playwright's) and network access to GitHub (Orca's release) and jsDelivr (the Geist font). On
-Linux:
+the images go to. A feature shows the first example unless it names another in `example`; `act`
+takes the steps of `orca plugin shot --act`, in the editor's pixels of the 1600×1000 shot. Menus and
+panels fade in, so end with a few harmless keys such as `Shift`; a shot without them catches them
+half drawn. Take a feature shot without `act` first to find the pixels.
+
+The script needs Linux with a display, Node 22.13 or later, Chrome or Chromium (`CHROME`, a
+`chrome-headless-shell` or Chrome on the `PATH`, or Playwright's) and network access to GitHub
+(Orca's release) and jsDelivr (the Geist font). On Linux:
 
 ```sh
 xvfb-run -a -s "-screen 0 1920x1200x24" \
@@ -139,10 +154,11 @@ build copy them into the plugin folder:
   { "path": "images/cover.webp", "alt": "…", "caption": "…" },
   { "path": "images/screenshot-orca.webp", "alt": "…", "caption": "Runs right inside Orca, next to your files" },
   { "path": "images/screenshot-orca-dark.webp", "alt": "…", "caption": "…", "theme": "dark" },
-  { "path": "images/screenshot-orca-2.webp", "alt": "…", "caption": "…" }
+  { "path": "images/screenshot-orca-2.webp", "alt": "…", "caption": "…" },
+  { "path": "images/feature-legend.webp", "alt": "…", "caption": "…" }
 ]
 ```
 
 Orca's limits: a cover at least 800×500 and at most 1024 KB, screenshots at least 1280×800 and at
-most 1536 KB, at most 6 (the cover first, then examples times themes), `alt` at most 160 and
+most 1536 KB, at most 6 (the cover first, then examples times themes and features), `alt` at most 160 and
 `caption` at most 120 characters; 16:10 is recommended. `orca plugin validate` checks them.

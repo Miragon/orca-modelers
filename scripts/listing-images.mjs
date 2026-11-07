@@ -46,6 +46,26 @@ try {
   for (const editor of firstExamples) {
     session.shootEditor(editor, shot(editor, "editor"), firstTheme);
   }
+  const features = listing.plugins.flatMap((plugin) =>
+    plugin.features.map((feature) => ({
+      plugin,
+      feature,
+      png: join(shots, `${plugin.id}-feature-${feature.name}.png`),
+      editor: editors.find(
+        (editor) =>
+          editor.plugin === plugin &&
+          editor.file === join(folder, feature.example),
+      ),
+    })),
+  );
+  for (const { plugin, feature, png, editor } of features) {
+    console.log(`${plugin.id}: shooting ${feature.name}`);
+    session.shootEditor(editor, png, firstTheme, {
+      width: Cover.WIDTH,
+      height: Cover.HEIGHT,
+      act: feature.act,
+    });
+  }
   for (const theme of otherThemes) {
     await session.restart(theme);
     await session.openAll(editors);
@@ -71,6 +91,11 @@ try {
       chrome.webp(shot(editor, `window-${theme}`), image);
       console.log(`${plugin.id}: ${image}`);
     }
+  }
+  for (const { plugin, feature, png } of features) {
+    const image = join(plugin.out, `feature-${feature.name}.webp`);
+    chrome.webp(png, image);
+    console.log(`${plugin.id}: ${image}`);
   }
 } finally {
   await session.close();
