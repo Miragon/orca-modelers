@@ -1,140 +1,135 @@
 #!/usr/bin/env node
-// Publishes one built plugin into this repository, as two commits on main:
-//   1. plugins/<id>/ replaced by the built folder, with SOURCE.json (where the bytes come from);
-//   2. the release entry Orca computes for commit 1 at the top of the plugin's releases in
-//      orca-catalog.json.
-// Run by the publish-plugin action in a checkout of this repository, with the release-please
-// app's token. A race with another publish starts over from the new main.
+// Publishes the plugins of one source release into this repository, as two pull requests the
+// release-please app opens and squash-merges once validate passes:
+//   1. plugins/<id>/ replaced by each built folder, with SOURCE.json (where the bytes come from);
+//   2. the release entry Orca computes for main after that merge at the top of each plugin's
+//      releases in orca-catalog.json.
+// Run by the publish-plugin action in a checkout of this repository, with the app's token. A
+// re-run after the first merge finds no change in plugins/ and opens only the second.
 import { spawnSync } from "node:child_process";
-import { readFileSync, readdirSync, statSync } from "node:fs";
-import { join, relative } from "node:path";
+import {
+  cpSync,
+  readFileSync,
+  readdirSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
+import { join } from "node:path";
+import { setTimeout as sleep } from "node:timers/promises";
 import { parseArgs } from "node:util";
-import { github } from "./github.mjs";
 import { orca } from "./orca-cli.mjs";
+
+const BOT_NAME = "miragon-release-please[bot]";
+const BOT_EMAIL =
+  "292359359+miragon-release-please[bot]@users.noreply.github.com";
+const CATALOG_URL = "https://github.com/miragon/orca-modelers.git";
+const CHECKS_APPEAR_WITHIN_MS = 120_000;
+const MERGE_ATTEMPTS = 3;
 
 const { values } = parseArgs({
   options: {
-    "plugin-id": { type: "string" },
-    "plugin-dir": { type: "string" },
+    "plugins-dir": { type: "string" },
     "source-repo": { type: "string" },
     "source-ref": { type: "string" },
-    "source-tag": { type: "string" },
-    "workflow-run": { type: "string" },
-    changelog: { type: "string", default: "" },
-    repository: { type: "string" },
   },
 });
-for (const name of ["plugin-id", "plugin-dir", "source-repo", "source-ref"]) {
+for (const name of ["plugins-dir", "source-repo", "source-ref"]) {
   if (!values[name]) throw new Error(`--${name} is required`);
 }
-const token = process.env.GH_TOKEN;
-if (!token)
-  throw new Error("GH_TOKEN (the release-please app's token) is required");
-
-const id = values["plugin-id"];
-const sources = JSON.parse(readFileSync("sources.json", "utf8")).plugins;
-if (
-  sources[id]?.repository?.toLowerCase() !== values["source-repo"].toLowerCase()
-) {
-  throw new Error(
-    `${values["source-repo"]} may not publish ${id} (sources.json)`,
-  );
+for (const name of ["GH_TOKEN", "RUN_KEY"]) {
+  if (!process.env[name]) throw new Error(`${name} is required`);
 }
-const manifest = JSON.parse(
-  readFileSync(join(values["plugin-dir"], "orca-plugin.json"), "utf8"),
-);
-if (manifest.id !== id)
-  throw new Error(`the manifest's id is ${manifest.id}, not ${id}`);
-orca(["plugin", "validate", values["plugin-dir"]]);
+const sourceRepo = values["source-repo"];
+const sourceRef = values["source-ref"];
+const runKey = process.env.RUN_KEY;
+const workflowRun = process.env.WORKFLOW_RUN;
 
-const git = (...args) => {
-  const run = spawnSync("git", args, { encoding: "utf8" });
-  if (run.status !== 0) throw new Error(`git ${args.join(" ")}: ${run.stderr}`);
-  return run.stdout.trim();
+const run = (command, args) => {
+  const result = spawnSync(command, args, { encoding: "utf8" });
+  return {
+    ok: result.status === 0,
+    output: `${result.stdout}${result.stderr}`.trim(),
+    stdout: result.stdout.trim(),
+  };
 };
+const must = (command, args) => {
+  const result = run(command, args);
+  if (!result.ok)
+    throw new Error(`${command} ${args.join(" ")}: ${result.output}`);
+  return result.stdout;
+};
+const git = (...args) => must("git", args);
+const gh = (...args) => must("gh", args);
+const readJson = (path) => JSON.parse(readFileSync(path, "utf8"));
+const writeJson = (path, value) =>
+  writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`);
 
-// The repository this checkout belongs to. Never GITHUB_REPOSITORY: in the source repository's
-// workflow that names the source repository, and a workflow cannot override it.
-const checkoutRepository = () => {
-  const origin = git("remote", "get-url", "origin");
-  const match = /github\.com[/:]([^/]+\/[^/]+?)(?:\.git)?$/.exec(origin);
-  if (!match) throw new Error(`origin ${origin} is no GitHub repository`);
-  return match[1];
-};
-const repository = values.repository ?? checkoutRepository();
-if (repository.toLowerCase() !== checkoutRepository().toLowerCase()) {
-  throw new Error(
-    `--repository ${repository} is not this checkout's ${checkoutRepository()}`,
+const sources = readJson("sources.json").plugins;
+const catalogKey = (id) => `miragon.${id}`;
+
+function readBuiltPlugin(artifact) {
+  const folder = join(values["plugins-dir"], artifact, "plugin");
+  const manifest = readJson(join(folder, "orca-plugin.json"));
+  const release = readJson(
+    join(values["plugins-dir"], artifact, "release.json"),
   );
-}
-const filesUnder = (directory) =>
-  readdirSync(directory).flatMap((name) => {
-    const path = join(directory, name);
-    return statSync(path).isDirectory() ? filesUnder(path) : [path];
-  });
-
-const target = `plugins/${id}`;
-const built = filesUnder(values["plugin-dir"]).map((path) => ({
-  path: `${target}/${relative(values["plugin-dir"], path)}`,
-  content: readFileSync(path),
-}));
-const source = {
-  repository: values["source-repo"],
-  commit: values["source-ref"],
-  ...(values["source-tag"] ? { tag: values["source-tag"] } : {}),
-  ...(values["workflow-run"] ? { workflowRun: values["workflow-run"] } : {}),
-};
-built.push({
-  path: `${target}/SOURCE.json`,
-  content: Buffer.from(`${JSON.stringify(source, null, 2)}\n`),
-});
-
-const api = github(token, repository);
-
-for (let attempt = 1; ; attempt++) {
-  const main = await api.head("main");
-  git("fetch", "--quiet", "origin", main);
-  git("checkout", "--quiet", "--detach", main);
-  const published = new Set(built.map((file) => file.path));
-  const stale = git("ls-files", target)
-    .split("\n")
-    .filter((path) => path !== "" && !published.has(path));
-
-  const catalog = JSON.parse(readFileSync("orca-catalog.json", "utf8"));
-  const key = `miragon.${id}`;
-  const listed = catalog.plugins.find((plugin) => plugin.id === key);
   if (
-    listed?.releases.some((release) => release.version === manifest.version)
+    sources[manifest.id]?.repository?.toLowerCase() !== sourceRepo.toLowerCase()
   ) {
     throw new Error(
-      `${key} ${manifest.version} is listed already; a listed version never changes`,
+      `${sourceRepo} may not publish ${manifest.id} (sources.json)`,
     );
   }
+  orca(["plugin", "validate", folder]);
+  return { id: manifest.id, folder, manifest, release };
+}
 
-  const bytes = await api.commitFiles({
-    parent: main,
-    message: `feat(${id}): publish ${manifest.version} from ${values["source-repo"]}@${values["source-ref"].slice(0, 12)}`,
-    files: built,
-    removed: stale,
+function refuseListedVersions(plugins) {
+  const catalog = readJson("orca-catalog.json");
+  for (const { id, manifest } of plugins) {
+    const listed = catalog.plugins.find(
+      (plugin) => plugin.id === catalogKey(id),
+    );
+    if (
+      listed?.releases.some((release) => release.version === manifest.version)
+    ) {
+      throw new Error(
+        `${catalogKey(id)} ${manifest.version} is listed already; a listed version never changes`,
+      );
+    }
+  }
+}
+
+function placeBytes({ id, folder, release }) {
+  const target = `plugins/${id}`;
+  rmSync(target, { recursive: true, force: true });
+  cpSync(folder, target, { recursive: true });
+  writeJson(join(target, "SOURCE.json"), {
+    repository: sourceRepo,
+    commit: sourceRef,
+    ...(release.tag ? { tag: release.tag } : {}),
+    ...(workflowRun ? { workflowRun } : {}),
   });
-  git("fetch", "--quiet", "origin", bytes);
-  git("checkout", "--quiet", "--detach", bytes);
-  const { entry } = orca(["plugin", "release-entry", target]);
+}
+
+function listRelease(catalog, { id, manifest, release: built }) {
+  const { entry } = orca(["plugin", "release-entry", `plugins/${id}`]);
   const release = {
     ...entry,
     ...(manifest.license ? { license: manifest.license } : {}),
     ...(manifest.repository ? { repository: manifest.repository } : {}),
     ...(manifest.homepage ? { homepage: manifest.homepage } : {}),
     updatedAt: new Date().toISOString().slice(0, 10),
-    ...(values.changelog ? { changelog: values.changelog.slice(0, 2000) } : {}),
+    ...(built.changelog ? { changelog: built.changelog.slice(0, 2000) } : {}),
   };
+  const listed = catalog.plugins.find((plugin) => plugin.id === catalogKey(id));
   const plugin = listed ?? {
-    id: key,
+    id: catalogKey(id),
     source: {
       kind: "git",
-      url: `https://github.com/${repository}.git`,
+      url: CATALOG_URL,
       ref: "main",
-      path: target,
+      path: `plugins/${id}`,
     },
     description: manifest.description,
     categories: ["editors", "diagrams"],
@@ -142,27 +137,113 @@ for (let attempt = 1; ; attempt++) {
   };
   plugin.releases = [release, ...plugin.releases].slice(0, 32);
   if (!listed) catalog.plugins.push(plugin);
-  const listing = await api.commitFiles({
-    parent: bytes,
-    message: `feat(${id}): list ${manifest.version} in the catalog`,
-    files: [
-      {
-        path: "orca-catalog.json",
-        content: Buffer.from(`${JSON.stringify(catalog, null, 2)}\n`),
-      },
-    ],
-  });
+}
 
-  try {
-    await api.moveBranch("main", listing);
-    console.log(
-      `published ${key} ${manifest.version}: ${bytes} (plugin), ${listing} (catalog)`,
-    );
-    break;
-  } catch (error) {
-    if (error.status !== 422 || attempt >= 5) throw error;
-    console.log(
-      `main moved during the publish (attempt ${attempt}); starting over`,
-    );
+function commitAsBot(message) {
+  git(
+    "-c",
+    `user.name=${BOT_NAME}`,
+    "-c",
+    `user.email=${BOT_EMAIL}`,
+    "commit",
+    "--quiet",
+    "-m",
+    message,
+  );
+}
+
+async function waitForRequiredChecks(url) {
+  const givingUpOnMissingChecksAt = Date.now() + CHECKS_APPEAR_WITHIN_MS;
+  for (;;) {
+    const checks = run("gh", ["pr", "checks", url, "--watch", "--required"]);
+    if (checks.ok) return;
+    const noChecksYet = /no (required )?checks reported/i.test(checks.output);
+    if (!noChecksYet || Date.now() > givingUpOnMissingChecksAt) {
+      throw new Error(`the required checks did not pass:\n${checks.output}`);
+    }
+    await sleep(10_000);
   }
 }
+
+async function squashMerge(url, head) {
+  for (let attempt = 1; ; attempt++) {
+    const merge = run("gh", [
+      "pr",
+      "merge",
+      url,
+      "--squash",
+      "--match-head-commit",
+      head,
+    ]);
+    if (merge.ok) return;
+    if (attempt >= MERGE_ATTEMPTS)
+      throw new Error(`merge failed:\n${merge.output}`);
+    await sleep(5_000);
+  }
+}
+
+async function pullRequest(branch, title) {
+  const head = git("rev-parse", "HEAD");
+  git("push", "--quiet", "origin", `${head}:refs/heads/${branch}`);
+  const body = [
+    `From ${sourceRepo}@${sourceRef}.`,
+    workflowRun ? `Published by ${workflowRun}.` : "",
+  ]
+    .filter(Boolean)
+    .join("\n\n");
+  const url = gh(
+    "pr",
+    "create",
+    "--base",
+    "main",
+    "--head",
+    branch,
+    "--title",
+    title,
+    "--body",
+    body,
+  );
+  try {
+    await waitForRequiredChecks(url);
+    await squashMerge(url, head);
+    console.log(`merged ${url}`);
+  } catch (error) {
+    run("gh", ["pr", "close", url, "--delete-branch"]);
+    throw new Error(`${url} closed: ${error.message}`);
+  }
+}
+
+const plugins = readdirSync(values["plugins-dir"], { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => readBuiltPlugin(entry.name));
+if (plugins.length === 0)
+  throw new Error(`${values["plugins-dir"]} holds no built plugin`);
+refuseListedVersions(plugins);
+
+const versions = plugins
+  .map(({ id, manifest }) => `${id} ${manifest.version}`)
+  .join(", ");
+const branchPrefix = `publish/${sourceRef.slice(0, 12)}-${runKey}`;
+
+git("fetch", "--quiet", "origin", "main");
+git("checkout", "--quiet", "--detach", "origin/main");
+plugins.forEach(placeBytes);
+git("add", "-A", "plugins/");
+if (run("git", ["diff", "--cached", "--quiet"]).ok) {
+  console.log(`plugins/ on main holds these bytes already: ${versions}`);
+} else {
+  const title = `feat: publish ${versions} from ${sourceRepo}@${sourceRef.slice(0, 12)}`;
+  commitAsBot(title);
+  await pullRequest(`${branchPrefix}-plugins`, title);
+}
+
+git("fetch", "--quiet", "origin", "main");
+git("checkout", "--quiet", "--detach", "origin/main");
+const catalog = readJson("orca-catalog.json");
+for (const plugin of plugins) listRelease(catalog, plugin);
+writeJson("orca-catalog.json", catalog);
+git("add", "orca-catalog.json");
+const title = `feat: list ${versions} in the catalog`;
+commitAsBot(title);
+await pullRequest(`${branchPrefix}-catalog`, title);
+console.log(`published ${versions}`);

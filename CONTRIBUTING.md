@@ -10,33 +10,45 @@ code owner's review. `plugins/` and `orca-catalog.json` change only through a re
 
 ## How a release gets here
 
-1. A release in the source repository builds the plugin and smoke-tests exactly that folder in a
+1. A release in the source repository builds its plugins and smoke-tests exactly those folders in a
    real Orca.
 2. The source repository's release job calls [`publish-plugin`](.github/actions/publish-plugin/action.yml)
-   with the release-please app's token. The action checks [`sources.json`](sources.json), which
-   names the one repository that may publish each plugin. Then it makes two commits on `main`
-   through GitHub's API:
-   - the built folder in `plugins/<id>/`, with a `SOURCE.json` naming the source commit, tag and
-     workflow run;
-   - the release entry Orca computes for that commit (`orca plugin release-entry`), at the top of
-     the plugin's releases in [`orca-catalog.json`](orca-catalog.json).
+   once, with all plugins of the release and the release-please app's token. The action checks
+   each plugin against [`sources.json`](sources.json), which names the one repository that may
+   publish it, and validates it. Then the app opens two pull requests, one after the other, and
+   squash-merges each once [`validate`](.github/workflows/validate.yml) passes:
+   - the built folders in `plugins/<id>/`, each with a `SOURCE.json` naming the source commit, tag
+     and workflow run;
+   - the release entry Orca computes for `main` after that merge (`orca plugin release-entry`), at
+     the top of each plugin's releases in [`orca-catalog.json`](orca-catalog.json).
 3. [`tag.yml`](.github/workflows/tag.yml) tags the catalog change with the next `vX.Y.Z`. The tag
-   counts catalog changes; each plugin keeps its own version.
+   counts catalog changes, one per release; each plugin keeps its own version.
+
+If a pull request fails, the action closes it and fails. Run the job again: a re-run finds the
+bytes on `main` already and opens only the catalog pull request.
 
 Each release pins its commit and the hash of its files, and Orca refuses bytes that differ.
-[`validate.yml`](.github/workflows/validate.yml) checks every plugin and the catalog on every push
-and pull request. It fails when a listed version would change its commit or its bytes.
+`validate` checks every plugin and the catalog on every push and pull request. It fails when a
+listed version would change its commit or its bytes.
 
-Only the release-please app pushes to `main` and creates tags.
+`plugins/` and the catalog change only through the release-please app's pull requests. Only the
+app creates tags.
 
 ## Adding a source repository
 
-Add the plugin id and the repository to `sources.json` in a pull request, give the release-please
-app access to the source repository, and call the action from its release job:
+Add the plugin id and the repository to `sources.json` in a pull request, and give the
+release-please app access to the source repository. Build each plugin in its own job, and upload
+the built `plugin/` folder with a `release.json` (`{"tag": "...", "changelog": "..."}`) as an
+artifact named `orca-plugin-<id>`. Then call the action once, from a job that needs all of them:
 
 ```yaml
 publish-orca:
+  needs: build-orca
   steps:
+    - uses: actions/download-artifact@<sha>
+      with:
+        pattern: orca-plugin-*
+        path: orca-plugins
     - uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
       id: app
       with:
@@ -47,15 +59,11 @@ publish-orca:
     - uses: miragon/orca-modelers/.github/actions/publish-plugin@<sha>
       with:
         token: ${{ steps.app.outputs.token }}
-        plugin-id: bpmn-modeler
-        plugin-dir: apps/orca/plugin
+        plugins-dir: orca-plugins
         source-repo: ${{ github.repository }}
         source-ref: ${{ github.sha }}
 ```
 
 Publishes from different source repositories may overlap: a GitHub concurrency group only applies
-within one repository, so it can't serialize them. The action moves `main` to its two commits only
-if `main` has not moved since it read it, and otherwise starts over from the new `main`, up to five
-attempts ([`publish-plugin.mjs`](scripts/publish-plugin.mjs)). To publish several plugins from one
-release, run the job as a matrix with `max-parallel: 1`: a concurrency group cancels all but one
-of its pending jobs.
+within one repository, so it can't serialize them. A pull request that conflicts with one merged
+in the meantime fails; run the job again.
