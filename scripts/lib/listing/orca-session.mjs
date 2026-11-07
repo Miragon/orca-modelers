@@ -28,15 +28,11 @@ export class OrcaSession {
 
   // A fresh profile shows its onboarding, feature tips and tours over the editor. They can only be
   // marked seen once the first start wrote the profile, and only while Orca is stopped.
-  async start(folder) {
+  async start(folder, theme) {
     await this.#launch();
     this.#call(["repo", "add", "--path", folder, "--kind", "folder"]);
     await sleep(8000);
-    await this.#stopApp();
-    new ProfileState(this.#home).skipIntroductions();
-    console.log("Orca's introductions marked seen, starting again");
-    await this.#launch();
-    await sleep(10_000);
+    await this.restart(theme, (state) => state.skipIntroductions());
   }
 
   loadPlugin(folder) {
@@ -59,15 +55,15 @@ export class OrcaSession {
   }
 
   // Before any editor shot: an editor shot resizes the editor for its capture.
-  async shootWindow({ pluginKey, file }, out) {
+  async shootWindow({ pluginKey, file }, out, theme) {
     this.#open(pluginKey, file);
     await sleep(3000);
-    this.#shot(pluginKey, ["--window", "--out", out]);
+    this.#shot(pluginKey, theme, ["--window", "--out", out]);
   }
 
-  shootEditor({ pluginKey, file }, out) {
+  shootEditor({ pluginKey, file }, out, theme) {
     this.#open(pluginKey, file);
-    this.#shot(pluginKey, [
+    this.#shot(pluginKey, theme, [
       "--editor",
       file,
       "--width",
@@ -79,6 +75,18 @@ export class OrcaSession {
     ]);
   }
 
+  // `plugin shot --theme` repaints Orca too late for some captures, so each theme gets its own start.
+  async restart(theme, edit = () => {}) {
+    await this.#stopApp();
+    const state = new ProfileState(this.#home);
+    edit(state);
+    state.useTheme(theme);
+    state.close();
+    console.log(`starting Orca again in its ${theme} theme`);
+    await this.#launch();
+    await sleep(10_000);
+  }
+
   async close() {
     await this.#stopApp();
     rmSync(this.#home, { recursive: true, force: true });
@@ -88,8 +96,21 @@ export class OrcaSession {
     this.#call(["plugin", "open", pluginKey, "--editor", file]);
   }
 
-  #shot(pluginKey, args) {
-    this.#call(["plugin", "shot", pluginKey, "--theme", "light", ...args]);
+  // Orca paints a theme for a shot only while its window is hidden, else it keeps its own.
+  #shot(pluginKey, theme, args) {
+    const { result } = this.#call([
+      "plugin",
+      "shot",
+      pluginKey,
+      "--theme",
+      theme,
+      ...args,
+    ]);
+    if (result?.themeApplied === false) {
+      throw new Error(
+        `Orca kept its theme instead of ${theme}: ${result.themeReason}`,
+      );
+    }
   }
 
   #call(args, { allowFailure = false } = {}) {
