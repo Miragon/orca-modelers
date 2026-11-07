@@ -19,6 +19,78 @@
       ],
       "releases": [
         {
+          "version": "0.3.0",
+          "commit": "b5f100826a63a27585dd412843f7c67a2094078f",
+          "contentHash": "25e4707fe0fec316dab963742ca894d2b7f30195eba7687a09e3407bafbfd843",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Value Chain Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Value Chain",
+              "detail": ".vc, .vc.json"
+            }
+          ],
+          "fileTypes": [
+            "vc"
+          ],
+          "editorFileTypes": [
+            "vc"
+          ],
+          "images": {
+            "icon": {
+              "path": "assets/miragon.value-chain-modeler/4c24a8280cdcf892.png",
+              "alt": "Value Chain Modeler",
+              "sha256": "4c24a8280cdcf892c62dbd924a99aedffea4922620c199a5c6437ca9865bb9b5",
+              "width": 256,
+              "height": 256
+            },
+            "cover": {
+              "path": "assets/miragon.value-chain-modeler/31f95e21c2ca93cf.webp",
+              "alt": "Miragon Modeler for Value Chain: Value chains from plain .vc files, edited by you and your agents.",
+              "sha256": "31f95e21c2ca93cf06c36399348b55e8e93e7cf75ccafae5a675a0ab9d56b5ab",
+              "width": 1600,
+              "height": 1000
+            },
+            "screenshots": [
+              {
+                "path": "assets/miragon.value-chain-modeler/31f95e21c2ca93cf.webp",
+                "alt": "Miragon Modeler for Value Chain: Value chains from plain .vc files, edited by you and your agents.",
+                "sha256": "31f95e21c2ca93cf06c36399348b55e8e93e7cf75ccafae5a675a0ab9d56b5ab",
+                "width": 1600,
+                "height": 1000
+              },
+              {
+                "path": "assets/miragon.value-chain-modeler/0c336d2d3a5a85bc.webp",
+                "alt": "Orca with the strategy-workshop folder open and porter.vc.json in the Value Chain editor, next to the project sidebar and the file tree",
+                "sha256": "0c336d2d3a5a85bc43cdc7e50a38b9b5fd32dc2ee379b76ef249f3148c21bd42",
+                "width": 1919,
+                "height": 1199
+              },
+              {
+                "path": "assets/miragon.value-chain-modeler/af440eb7889fd2ab.webp",
+                "alt": "Orca with the Value Chain editor and five steps selected and the align menu open: align left, center, right, top, middle, bottom, distribute",
+                "sha256": "af440eb7889fd2abaa19f7bcfc9c638c8b895819c400310b28a11640a449d17c",
+                "width": 1919,
+                "height": 1199
+              },
+              {
+                "path": "assets/miragon.value-chain-modeler/f9748a30a6d08ce7.webp",
+                "alt": "Orca with the Value Chain editor and the Operations step selected and its context pad for appending steps, sub-steps and units",
+                "sha256": "f9748a30a6d08ce73518c871b8daaa06964d79551db17eb4af78a6e79bc70883",
+                "width": 1919,
+                "height": 1199
+              }
+            ]
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-07",
+          "changelog": "\n\n### Features\n\n* show two features of each modeler on its Orca page ([#589](https://github.com/Miragon/modeler-suite/issues/589)) ([3a6f05b](https://github.com/Miragon/modeler-suite/commit/3a6f05bec6c99253e1fd2814a8d3984a7fe989be)), closes [#572](https://github.com/Miragon/modeler-suite/issues/572)"
+        },
+        {
           "version": "0.2.0",
           "commit": "69324a849376a3ac3c2ea1bf5e8c6a091ad38b04",
           "contentHash": "0a4d329c1d79d0e82774d52524e24ad45700a9a6ffe9f5c8a2dac10298d29850",
@@ -232,6 +304,80 @@
         "diagrams"
       ],
       "releases": [
+        {
+          "version": "0.3.0",
+          "commit": "b5f100826a63a27585dd412843f7c67a2094078f",
+          "contentHash": "766f92d6319748f978e717438d5d9deb0d67da5722cc06cee0422a9e2caa5ff2",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Wardley Maps Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Wardley Map",
+              "detail": ".wmap, .owm"
+            }
+          ],
+          "fileTypes": [
+            "wmap",
+            "owm"
+          ],
+          "editorFileTypes": [
+            "wmap",
+            "owm"
+          ],
+          "images": {
+            "icon": {
+              "path": "assets/miragon.wardley-maps-modeler/76fda4a378f199ca.png",
+              "alt": "Wardley Maps Modeler",
+              "sha256": "76fda4a378f199ca8032ab969561df1a8cec1379e1ece1951ad5a234577d2fef",
+              "width": 256,
+              "height": 256
+            },
+            "cover": {
+              "path": "assets/miragon.wardley-maps-modeler/176e4cc962ed0a98.webp",
+              "alt": "Miragon Modeler for Wardley Maps: Wardley maps from plain .wmap files, edited by you and your agents.",
+              "sha256": "176e4cc962ed0a98980adb88ad972b698395fe946c4c6e79ba4f5866ad9bb2e1",
+              "width": 1600,
+              "height": 1000
+            },
+            "screenshots": [
+              {
+                "path": "assets/miragon.wardley-maps-modeler/176e4cc962ed0a98.webp",
+                "alt": "Miragon Modeler for Wardley Maps: Wardley maps from plain .wmap files, edited by you and your agents.",
+                "sha256": "176e4cc962ed0a98980adb88ad972b698395fe946c4c6e79ba4f5866ad9bb2e1",
+                "width": 1600,
+                "height": 1000
+              },
+              {
+                "path": "assets/miragon.wardley-maps-modeler/5c75c5a5ac9a6800.webp",
+                "alt": "Orca with the strategy-workshop folder open and online-grocery.wmap in the Wardley Maps editor, next to the project sidebar and the file tree",
+                "sha256": "5c75c5a5ac9a6800bf28080e90b053c70cde2bfc7ef50b81adbb109ee572cce8",
+                "width": 1919,
+                "height": 1199
+              },
+              {
+                "path": "assets/miragon.wardley-maps-modeler/9826d5f6da9745db.webp",
+                "alt": "Orca with the Wardley Maps editor and Product Catalogue selected and its settings open: type, sourcing (build, buy, outsource) and inertia",
+                "sha256": "9826d5f6da9745db1c0275b136141eb752efaef7491a4ebb4adb3f8a9d7c33be",
+                "width": 1919,
+                "height": 1199
+              },
+              {
+                "path": "assets/miragon.wardley-maps-modeler/ef27935ed8e67afe.webp",
+                "alt": "Orca with the Wardley Maps editor and the X-axis labels dialog open, showing a preset and the four evolution stages",
+                "sha256": "ef27935ed8e67afe9402e7c9d1ab5dde1cdac975a65bc2ab18f759565d2d3e92",
+                "width": 1919,
+                "height": 1199
+              }
+            ]
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-07",
+          "changelog": "\n\n### Features\n\n* show two features of each modeler on its Orca page ([#589](https://github.com/Miragon/modeler-suite/issues/589)) ([3a6f05b](https://github.com/Miragon/modeler-suite/commit/3a6f05bec6c99253e1fd2814a8d3984a7fe989be)), closes [#572](https://github.com/Miragon/modeler-suite/issues/572)"
+        },
         {
           "version": "0.2.0",
           "commit": "69324a849376a3ac3c2ea1bf5e8c6a091ad38b04",
@@ -457,6 +603,78 @@
       ],
       "releases": [
         {
+          "version": "0.3.0",
+          "commit": "b5f100826a63a27585dd412843f7c67a2094078f",
+          "contentHash": "be165d791f5706368e077c3308f3f3f08f76f6e5f15bacca4e37fadc2401f31b",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Event Storming Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Event Storming",
+              "detail": ".storm"
+            }
+          ],
+          "fileTypes": [
+            "storm"
+          ],
+          "editorFileTypes": [
+            "storm"
+          ],
+          "images": {
+            "icon": {
+              "path": "assets/miragon.event-storming-modeler/99809fe3d5de90d8.png",
+              "alt": "Event Storming Modeler",
+              "sha256": "99809fe3d5de90d8bc1ff143795cc78c9911c152da6b2ed6b4a25fa0a771c3bb",
+              "width": 256,
+              "height": 256
+            },
+            "cover": {
+              "path": "assets/miragon.event-storming-modeler/1920db6d3fccfe2c.webp",
+              "alt": "Miragon Modeler for Event Storming: Event Storming boards from plain .storm files, edited by you and your agents.",
+              "sha256": "1920db6d3fccfe2c9e268afcfc5df57f0fc9561559795062dac095b27afb261b",
+              "width": 1600,
+              "height": 1000
+            },
+            "screenshots": [
+              {
+                "path": "assets/miragon.event-storming-modeler/1920db6d3fccfe2c.webp",
+                "alt": "Miragon Modeler for Event Storming: Event Storming boards from plain .storm files, edited by you and your agents.",
+                "sha256": "1920db6d3fccfe2c9e268afcfc5df57f0fc9561559795062dac095b27afb261b",
+                "width": 1600,
+                "height": 1000
+              },
+              {
+                "path": "assets/miragon.event-storming-modeler/681154f735816be7.webp",
+                "alt": "Orca with the strategy-workshop folder open and order-checkout.storm in the Event Storming editor, next to the project sidebar and the file tree",
+                "sha256": "681154f735816be71d8e363817d89e91547dbfda9e67ff2022bd1a3b39f8b663",
+                "width": 1919,
+                "height": 1199
+              },
+              {
+                "path": "assets/miragon.event-storming-modeler/5305ad459820d375.webp",
+                "alt": "Orca with the Event Storming editor and the Aggregates dialog listing each aggregate with its commands and events",
+                "sha256": "5305ad459820d3753094266000de79784c1a9e70929faef7d3cff49c71f0a15e",
+                "width": 1919,
+                "height": 1199
+              },
+              {
+                "path": "assets/miragon.event-storming-modeler/de852ab003dfdcd6.webp",
+                "alt": "Orca with the Event Storming editor and its menu open at the levels big picture, process modeling and software design",
+                "sha256": "de852ab003dfdcd60fc294b57c2b381676b62ee8e1a4738b1a5cae94bf46fe26",
+                "width": 1919,
+                "height": 1199
+              }
+            ]
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-07",
+          "changelog": "\n\n### Features\n\n* show two features of each modeler on its Orca page ([#589](https://github.com/Miragon/modeler-suite/issues/589)) ([3a6f05b](https://github.com/Miragon/modeler-suite/commit/3a6f05bec6c99253e1fd2814a8d3984a7fe989be)), closes [#572](https://github.com/Miragon/modeler-suite/issues/572)"
+        },
+        {
           "version": "0.2.0",
           "commit": "69324a849376a3ac3c2ea1bf5e8c6a091ad38b04",
           "contentHash": "0ced8d749342a45155d8f1a865b4c24399bba777da98486662c927b68929c786",
@@ -671,6 +889,77 @@
       ],
       "releases": [
         {
+          "version": "0.20.0",
+          "commit": "b5f100826a63a27585dd412843f7c67a2094078f",
+          "contentHash": "0a0dde5c5a9577a76fcf21093e94831ed0fccfcd187a5a3f7c4f30e52a4059f4",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Team Topologies Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Team Topologies",
+              "detail": ".tt, .ttm.json"
+            }
+          ],
+          "fileTypes": [
+            "tt"
+          ],
+          "editorFileTypes": [
+            "tt"
+          ],
+          "images": {
+            "icon": {
+              "path": "assets/miragon.team-topologies-modeler/5baee532eae5ca5a.png",
+              "alt": "Team Topologies Modeler",
+              "sha256": "5baee532eae5ca5a41154494d9c125470667d7a9c156d4e6040a62094f754b1a",
+              "width": 512,
+              "height": 512
+            },
+            "cover": {
+              "path": "assets/miragon.team-topologies-modeler/a9b35ec3183a4213.webp",
+              "alt": "Miragon Modeler for Team Topologies: Team Topologies diagrams from plain .tt files, edited by you and your agents.",
+              "sha256": "a9b35ec3183a421374e13a0dba1233c1438bbeee5b9d27a2444fed04611c2f9d",
+              "width": 1600,
+              "height": 1000
+            },
+            "screenshots": [
+              {
+                "path": "assets/miragon.team-topologies-modeler/a9b35ec3183a4213.webp",
+                "alt": "Miragon Modeler for Team Topologies: Team Topologies diagrams from plain .tt files, edited by you and your agents.",
+                "sha256": "a9b35ec3183a421374e13a0dba1233c1438bbeee5b9d27a2444fed04611c2f9d",
+                "width": 1600,
+                "height": 1000
+              },
+              {
+                "path": "assets/miragon.team-topologies-modeler/8a078d791f23bc23.webp",
+                "alt": "Orca with the strategy-workshop folder open and ride-hailing.tt in the Team Topologies editor, next to the project sidebar and the file tree",
+                "sha256": "8a078d791f23bc2366d91f8d5d97fa4bef40a4a49cb36eb1d3fb240b9f2a84d7",
+                "width": 1919,
+                "height": 1199
+              },
+              {
+                "path": "assets/miragon.team-topologies-modeler/bf364ccfa073d1ef.webp",
+                "alt": "Orca with the Team Topologies editor and the Booking & Dispatch team selected and its properties open: type, name, description and colours",
+                "sha256": "bf364ccfa073d1ef1fd9dd2fe715bc720cabb6e7fa8b2bf398eeb757785ffd22",
+                "width": 1919,
+                "height": 1199
+              },
+              {
+                "path": "assets/miragon.team-topologies-modeler/dc3ae1d85cb00e10.webp",
+                "alt": "Orca with the Team Topologies editor and its legend open, explaining the team types, interaction modes and other elements",
+                "sha256": "dc3ae1d85cb00e107de0cd82deb83a416672e0cb694e6e2bd93fe9f4ad9eb705",
+                "width": 1919,
+                "height": 1199
+              }
+            ]
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-07"
+        },
+        {
           "version": "0.19.0",
           "commit": "69324a849376a3ac3c2ea1bf5e8c6a091ad38b04",
           "contentHash": "158cf82463dcff8305e85ba1e035c46f3a206d71645a5ac9fd8e71cffce6121e",
@@ -879,6 +1168,78 @@
         "diagrams"
       ],
       "releases": [
+        {
+          "version": "0.3.0",
+          "commit": "b5f100826a63a27585dd412843f7c67a2094078f",
+          "contentHash": "e72721c6717fb75ce0b1a5bd0b9ac937031412172f0a89471318ef71b84cebae",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Context Maps Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Context Map",
+              "detail": ".cm, .cm.json"
+            }
+          ],
+          "fileTypes": [
+            "cm"
+          ],
+          "editorFileTypes": [
+            "cm"
+          ],
+          "images": {
+            "icon": {
+              "path": "assets/miragon.context-maps-modeler/ad75604c53bd3392.png",
+              "alt": "Context Maps Modeler",
+              "sha256": "ad75604c53bd3392644f6b29806530ad9fd4644025e9d0b0ecb39064d18d9325",
+              "width": 256,
+              "height": 256
+            },
+            "cover": {
+              "path": "assets/miragon.context-maps-modeler/0d5d0bc8026f14e2.webp",
+              "alt": "Miragon Modeler for Context Maps: Context maps from plain .cm files, edited by you and your agents.",
+              "sha256": "0d5d0bc8026f14e2d352cdd0fb6e9d907fbf72252a16a10bd62e6b85c3fd94a0",
+              "width": 1600,
+              "height": 1000
+            },
+            "screenshots": [
+              {
+                "path": "assets/miragon.context-maps-modeler/0d5d0bc8026f14e2.webp",
+                "alt": "Miragon Modeler for Context Maps: Context maps from plain .cm files, edited by you and your agents.",
+                "sha256": "0d5d0bc8026f14e2d352cdd0fb6e9d907fbf72252a16a10bd62e6b85c3fd94a0",
+                "width": 1600,
+                "height": 1000
+              },
+              {
+                "path": "assets/miragon.context-maps-modeler/b49534cd5c7f52fc.webp",
+                "alt": "Orca with the strategy-workshop folder open and conference-program.cm in the Context Maps editor, next to the project sidebar and the file tree",
+                "sha256": "b49534cd5c7f52fc53555969af7709b7c73f070948cf96b2781e7be128c84a0d",
+                "width": 1919,
+                "height": 1199
+              },
+              {
+                "path": "assets/miragon.context-maps-modeler/bd9679507b0858ce.webp",
+                "alt": "Orca with the Context Maps editor and a relationship selected and its pattern menu open: partnership, shared kernel, customer-supplier",
+                "sha256": "bd9679507b0858ce52f1dda35a9073b1de3f4ddf4d340793d4107b1a50336eff",
+                "width": 1919,
+                "height": 1199
+              },
+              {
+                "path": "assets/miragon.context-maps-modeler/6bdef1ecfb83c658.webp",
+                "alt": "Orca with the Context Maps editor and its legend open, explaining subdomain types, integration roles and relationship patterns",
+                "sha256": "6bdef1ecfb83c658712e514e5fa98377068d42a11889b073e1ae0f6067cf30d7",
+                "width": 1919,
+                "height": 1199
+              }
+            ]
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-07",
+          "changelog": "\n\n### Features\n\n* show two features of each modeler on its Orca page ([#589](https://github.com/Miragon/modeler-suite/issues/589)) ([3a6f05b](https://github.com/Miragon/modeler-suite/commit/3a6f05bec6c99253e1fd2814a8d3984a7fe989be)), closes [#572](https://github.com/Miragon/modeler-suite/issues/572)"
+        },
         {
           "version": "0.2.0",
           "commit": "69324a849376a3ac3c2ea1bf5e8c6a091ad38b04",
