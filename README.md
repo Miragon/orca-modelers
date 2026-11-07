@@ -32,8 +32,13 @@ Plugins → **Turn on plugins**).
 | [Team Topologies](https://github.com/Miragon/modeler-suite/tree/main/modelers/team-topologies) | `.tt`, `.ttm.json` | `miragon.team-topologies-modeler` | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/team-topologies-modeler) |
 | [Context Maps](https://github.com/Miragon/modeler-suite/tree/main/modelers/context-maps)       | `.cm`, `.cm.json`  | `miragon.context-maps-modeler`    | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/context-maps-modeler)    |
 | [Value Chain](https://github.com/Miragon/modeler-suite/tree/main/modelers/value-chain)         | `.vc`, `.vc.json`  | `miragon.value-chain-modeler`     | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/value-chain-modeler)     |
-| [BPMN & DMN](https://github.com/Miragon/bpmn-modeler)                                          | `.bpmn`, `.dmn`    | `miragon.bpmn-modeler`            | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/bpmn-modeler)            |
+| [BPMN & DMN](https://github.com/Miragon/bpmn-modeler) (beta)                                   | `.bpmn`, `.dmn`    | `miragon.bpmn-modeler`            | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/bpmn-modeler)            |
 | [C4](https://github.com/Miragon/modeler-suite/tree/main/modelers/c4)                           | `.c4`, `.dsl`      | –                                 | Coming soon                                                                                  |
+
+The BPMN & DMN modeler is a beta. It views BPMN processes and DMN decisions, simulates them and
+models lightly. It does not deploy, jump into code or open forms yet, and it may change between
+releases; its [guide](https://miragon.github.io/bpmn-modeler/orca/getting-started#limits) lists
+what it leaves out.
 
 ### From Orca's plugin directory
 
