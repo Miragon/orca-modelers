@@ -73,8 +73,8 @@ in the meantime fails; run the job again.
 Orca's plugin directory shows a plugin's `cover` and `screenshots` from its manifest. Make them with
 `scripts/listing-images.mjs` from a checkout of this repository, for the built plugins of a source
 repository: per plugin a `cover.webp` (1600×1000: the plugin's icon, "Miragon Modeler", title and
-claim on brand blue, next to the editor) and a `screenshot-orca.webp` (the editor in a whole Orca
-window). Orca runs on a throwaway profile with a demo folder of the examples, so the images hold
+claim on Miragon's blue, which turns green towards the top right, next to the editor) and a
+`screenshot-orca.webp` (the editor in a whole Orca window). Orca runs on a throwaway profile with a demo folder of the examples, so the images hold
 nothing of the machine that makes them.
 
 List the plugins in a file of the source repository; paths are relative to it:
