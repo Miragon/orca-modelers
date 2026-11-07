@@ -57,7 +57,7 @@ export class OrcaSession {
   // Before any editor shot: an editor shot resizes the editor for its capture.
   async shootWindow({ pluginKey, file }, out, theme) {
     this.#open(pluginKey, file);
-    await sleep(3000);
+    await sleep(5000);
     this.#shot(pluginKey, theme, ["--window", "--out", out]);
   }
 
