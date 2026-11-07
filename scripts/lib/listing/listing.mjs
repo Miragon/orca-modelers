@@ -77,14 +77,16 @@ export class ListedPlugin {
   #folder;
   #manifest;
   #examples;
+  #features;
   #title;
   #claim;
   #out;
 
-  constructor({ folder, manifest, examples, title, claim, out }) {
+  constructor({ folder, manifest, examples, features, title, claim, out }) {
     this.#folder = folder;
     this.#manifest = manifest;
     this.#examples = examples;
+    this.#features = features;
     this.#title = title;
     this.#claim = claim;
     this.#out = out;
@@ -100,17 +102,32 @@ export class ListedPlugin {
     const folder = resolve(base, entry.plugin);
     const manifest = new JsonFile(join(folder, "orca-plugin.json")).read();
     if (!manifest.icon) throw new Error(`${folder}: the manifest has no icon`);
+    const examples = entry.examples.map(({ file, name }) => ({
+      file: resolve(base, file),
+      name: name ?? basename(file),
+    }));
     return new ListedPlugin({
       folder,
       manifest,
-      examples: entry.examples.map(({ file, name }) => ({
-        file: resolve(base, file),
-        name: name ?? basename(file),
-      })),
+      examples,
+      features: (entry.features ?? []).map((feature) =>
+        ListedPlugin.#feature(feature, examples, entry.plugin),
+      ),
       title: entry.title,
       claim: entry.claim,
       out: resolve(base, entry.out),
     });
+  }
+
+  static #feature({ name, example, act = [] }, examples, plugin) {
+    if (!name) throw new Error(`${plugin}: a feature needs "name"`);
+    const shown = example ?? examples[0].name;
+    if (!examples.some((listed) => listed.name === shown)) {
+      throw new Error(
+        `${plugin}: feature ${name} shows ${shown}, no listed example`,
+      );
+    }
+    return { name, example: shown, act };
   }
 
   get id() {
@@ -127,6 +144,10 @@ export class ListedPlugin {
 
   get examples() {
     return this.#examples;
+  }
+
+  get features() {
+    return this.#features;
   }
 
   get title() {

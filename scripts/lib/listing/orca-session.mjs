@@ -61,15 +61,22 @@ export class OrcaSession {
     this.#shot(pluginKey, theme, ["--window", "--out", out]);
   }
 
-  shootEditor({ pluginKey, file }, out, theme) {
+  // With acts, Orca shoots a copy of the file, so the clicks and keys never change the example.
+  shootEditor(
+    { pluginKey, file },
+    out,
+    theme,
+    { width = 1280, height = 800, act = [] } = {},
+  ) {
     this.#open(pluginKey, file);
     this.#shot(pluginKey, theme, [
       "--editor",
       file,
       "--width",
-      "1280",
+      String(width),
       "--height",
-      "800",
+      String(height),
+      ...(act.length ? ["--act", JSON.stringify(act)] : []),
       "--out",
       out,
     ]);
