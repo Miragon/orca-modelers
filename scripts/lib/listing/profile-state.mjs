@@ -57,6 +57,13 @@ export class ProfileState {
       featureTipsSeenIds: FEATURE_TIPS,
       contextualToursSeenIds: CONTEXTUAL_TOURS,
     });
+  }
+
+  useTheme(theme) {
+    this.#write("settings", { ...this.#read("settings"), theme });
+  }
+
+  close() {
     this.#database.close();
   }
 

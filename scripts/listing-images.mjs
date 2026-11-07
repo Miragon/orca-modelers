@@ -21,7 +21,8 @@ const shots = mkdtempSync(join(tmpdir(), "orca-listing-shots-"));
 try {
   console.log("starting Orca on a throwaway profile");
   const folder = listing.writeDemoFolder();
-  await session.start(folder);
+  const [firstTheme, ...otherThemes] = listing.themes;
+  await session.start(folder, firstTheme);
   const editors = listing.plugins.flatMap((plugin) => {
     const pluginKey = session.loadPlugin(plugin.folder);
     return plugin.examples.map(({ name }, index) => ({
@@ -36,11 +37,19 @@ try {
   const shot = ({ plugin, index }, kind) =>
     join(shots, `${plugin.id}-${index}-${kind}.png`);
   const firstExamples = editors.filter(({ index }) => index === 0);
-  for (const editor of editors) {
-    await session.shootWindow(editor, shot(editor, "window"));
-  }
+  const shootWindows = async (theme) => {
+    for (const editor of editors) {
+      await session.shootWindow(editor, shot(editor, `window-${theme}`), theme);
+    }
+  };
+  await shootWindows(firstTheme);
   for (const editor of firstExamples) {
-    session.shootEditor(editor, shot(editor, "editor"));
+    session.shootEditor(editor, shot(editor, "editor"), firstTheme);
+  }
+  for (const theme of otherThemes) {
+    await session.restart(theme);
+    await session.openAll(editors);
+    await shootWindows(theme);
   }
 
   for (const editor of firstExamples) {
@@ -53,16 +62,15 @@ try {
       shots,
     );
   }
-  for (const editor of editors) {
-    const { plugin, index } = editor;
-    const image = join(
-      plugin.out,
-      index === 0
-        ? "screenshot-orca.webp"
-        : `screenshot-orca-${index + 1}.webp`,
-    );
-    chrome.webp(shot(editor, "window"), image);
-    console.log(`${plugin.id}: ${image}`);
+  for (const theme of listing.themes) {
+    for (const editor of editors) {
+      const { plugin, index } = editor;
+      const number = index === 0 ? "" : `-${index + 1}`;
+      const suffix = theme === "light" ? "" : `-${theme}`;
+      const image = join(plugin.out, `screenshot-orca${number}${suffix}.webp`);
+      chrome.webp(shot(editor, `window-${theme}`), image);
+      console.log(`${plugin.id}: ${image}`);
+    }
   }
 } finally {
   await session.close();

@@ -3,23 +3,39 @@ import { tmpdir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
 import { JsonFile } from "../json-file.mjs";
 
+const THEMES = ["light", "dark"];
+
 export class Listing {
   #folderName;
+  #themes;
   #plugins;
 
-  constructor({ folderName, plugins }) {
+  constructor({ folderName, themes, plugins }) {
     this.#folderName = folderName;
+    this.#themes = themes;
     this.#plugins = plugins;
   }
 
   static read(path) {
     const base = dirname(resolve(path));
-    const { folder = "strategy-workshop", plugins } = new JsonFile(path).read();
+    const {
+      folder = "strategy-workshop",
+      themes = ["light"],
+      plugins,
+    } = new JsonFile(path).read();
     if (!plugins?.length) throw new Error(`${path} lists no plugin`);
+    if (!themes.length || themes.some((theme) => !THEMES.includes(theme))) {
+      throw new Error(`${path}: "themes" takes "light" and "dark"`);
+    }
     return new Listing({
       folderName: folder,
+      themes,
       plugins: plugins.map((entry) => ListedPlugin.from(entry, base)),
     });
+  }
+
+  get themes() {
+    return this.#themes;
   }
 
   get plugins() {

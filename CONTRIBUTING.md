@@ -74,15 +74,17 @@ Orca's plugin directory shows a plugin's `cover` and `screenshots` from its mani
 `scripts/listing-images.mjs` from a checkout of this repository, for the built plugins of a source
 repository. Per plugin it writes a `cover.webp` (1600×1000: the plugin's icon, "Miragon Modeler",
 title and claim on Miragon's blue, which turns green towards the top right, next to the editor of
-the first example) and per example a shot of the editor in a whole Orca window
-(`screenshot-orca.webp`, then `screenshot-orca-2.webp` and so on). Orca runs on a throwaway profile
-with a demo folder of the examples, so the images hold nothing of the machine that makes them.
+the first example) and per example and theme a shot of the editor in a whole Orca window
+(`screenshot-orca.webp`, then `screenshot-orca-2.webp` and so on; `-dark` before `.webp` in the
+dark theme). Orca runs on a throwaway profile with a demo folder of the examples, so the images
+hold nothing of the machine that makes them.
 
 List the plugins in a file of the source repository; paths are relative to it:
 
 ```json
 {
   "folder": "strategy-workshop",
+  "themes": ["light", "dark"],
   "plugins": [
     {
       "plugin": "modelers/context-maps/apps/orca/plugin",
@@ -100,8 +102,9 @@ List the plugins in a file of the source repository; paths are relative to it:
 }
 ```
 
-`name` is the example's file name in the demo folder (its own name by default) and must be unique
-across the listing, `out` the folder the images go to. The script needs Linux with a display, Node
+`themes` defaults to `["light"]`; Orca starts once per theme. `name` is the example's file name in
+the demo folder (its own name by default) and must be unique across the listing, `out` the folder
+the images go to. The script needs Linux with a display, Node
 22.13 or later, Chrome or Chromium (`CHROME`, a `chrome-headless-shell` or Chrome on the `PATH`, or
 Playwright's) and network access to GitHub (Orca's release) and jsDelivr (the Geist font). On
 Linux:
@@ -135,10 +138,11 @@ build copy them into the plugin folder:
 "screenshots": [
   { "path": "images/cover.webp", "alt": "…", "caption": "…" },
   { "path": "images/screenshot-orca.webp", "alt": "…", "caption": "Runs right inside Orca, next to your files" },
+  { "path": "images/screenshot-orca-dark.webp", "alt": "…", "caption": "…", "theme": "dark" },
   { "path": "images/screenshot-orca-2.webp", "alt": "…", "caption": "…" }
 ]
 ```
 
 Orca's limits: a cover at least 800×500 and at most 1024 KB, screenshots at least 1280×800 and at
-most 1536 KB, at most 6 (with the cover as the first, room for five examples), `alt` at most 160
-and `caption` at most 120 characters; 16:10 is recommended. `orca plugin validate` checks them.
+most 1536 KB, at most 6 (the cover first, then examples times themes), `alt` at most 160 and
+`caption` at most 120 characters; 16:10 is recommended. `orca plugin validate` checks them.
