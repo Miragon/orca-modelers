@@ -42445,4 +42445,3 @@ export {
 /*! @miragon/context-maps-renderer notation glyphs
  * Material Icons star and pan_tool @license Apache-2.0
  * Copyright Google LLC */
-//# sourceMappingURL=main.js.map
