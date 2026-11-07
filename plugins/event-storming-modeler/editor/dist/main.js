@@ -44880,4 +44880,3 @@ export {
  * minus, plus, triangle-alert (alert-triangle) and x. Feather @license MIT
  * Copyright (c) 2013-present Cole Bemis
  * Full notices: THIRD_PARTY_NOTICES.md of @miragon/modeler-shell */
-//# sourceMappingURL=main.js.map
