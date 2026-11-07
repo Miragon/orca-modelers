@@ -45,7 +45,7 @@ artifact named `orca-plugin-<id>`. Then call the action once, from a job that ne
 publish-orca:
   needs: build-orca
   steps:
-    - uses: actions/download-artifact@<sha>
+    - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
       with:
         pattern: orca-plugin-*
         path: orca-plugins
