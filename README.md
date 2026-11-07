@@ -5,10 +5,10 @@
 
 See the diagrams your agent writes, and edit them right next to it.
 
-Open a Wardley map, an Event Storming board, a team topology, a context map or a value chain in
-[Orca](https://www.onorca.dev), and it opens as a diagram instead of text. The file stays plain
-text in your repository, so your agent reads and writes it like code, and every change it makes
-shows up on the canvas.
+Open a Wardley map, an Event Storming board, a team topology, a context map, a value chain, a
+BPMN process or a DMN decision in [Orca](https://www.onorca.dev), and it opens as a diagram instead
+of text. The file stays plain text in your repository, so your agent reads and writes it like
+code, and every change it makes shows up on the canvas.
 
 - **Live while your agent writes.** Each change your agent makes to the file shows up on the
   canvas right away. If it writes while you have unsaved edits, Orca asks whether to reload or
@@ -32,7 +32,7 @@ Plugins → **Turn on plugins**).
 | [Team Topologies](https://github.com/Miragon/modeler-suite/tree/main/modelers/team-topologies) | `.tt`, `.ttm.json` | `miragon.team-topologies-modeler` | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/team-topologies-modeler) |
 | [Context Maps](https://github.com/Miragon/modeler-suite/tree/main/modelers/context-maps)       | `.cm`, `.cm.json`  | `miragon.context-maps-modeler`    | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/context-maps-modeler)    |
 | [Value Chain](https://github.com/Miragon/modeler-suite/tree/main/modelers/value-chain)         | `.vc`, `.vc.json`  | `miragon.value-chain-modeler`     | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/value-chain-modeler)     |
-| [BPMN](https://github.com/Miragon/bpmn-modeler)                                                | `.bpmn`            | –                                 | Coming soon                                                                                  |
+| [BPMN & DMN](https://github.com/Miragon/bpmn-modeler)                                          | `.bpmn`, `.dmn`    | `miragon.bpmn-modeler`            | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/bpmn-modeler)            |
 | [C4](https://github.com/Miragon/modeler-suite/tree/main/modelers/c4)                           | `.c4`, `.dsl`      | –                                 | Coming soon                                                                                  |
 
 ### From Orca's plugin directory
@@ -69,7 +69,8 @@ board for you:
 
 Found a bug or missing something? Open an issue in
 [Miragon/modeler-suite](https://github.com/Miragon/modeler-suite/issues), where the modelers are
-built. Report security issues privately, as described in [SECURITY.md](SECURITY.md). How the
+built, or in [Miragon/bpmn-modeler](https://github.com/Miragon/bpmn-modeler/issues) for BPMN and
+DMN. Report security issues privately, as described in [SECURITY.md](SECURITY.md). How the
 plugins get here is in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
