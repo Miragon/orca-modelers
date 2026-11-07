@@ -140,6 +140,43 @@
       ],
       "releases": [
         {
+          "version": "0.1.2",
+          "commit": "bedae7e579f37a65827016cdde2f5efd097d3e99",
+          "contentHash": "61eebb23a5234901e505c566358ac384054251dd551661fd1c50b094b9b2073f",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Wardley Maps Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Wardley Map",
+              "detail": ".wmap, .owm"
+            }
+          ],
+          "fileTypes": [
+            "wmap",
+            "owm"
+          ],
+          "editorFileTypes": [
+            "wmap",
+            "owm"
+          ],
+          "images": {
+            "icon": {
+              "path": "plugins/wardley-maps-modeler/assets/icon.png",
+              "alt": "Wardley Maps Modeler",
+              "sha256": "76fda4a378f199ca8032ab969561df1a8cec1379e1ece1951ad5a234577d2fef",
+              "width": 256,
+              "height": 256
+            }
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-07",
+          "changelog": "\n\n### Bug Fixes\n\n* ship the Orca plugins without sourcemaps ([#565](https://github.com/Miragon/modeler-suite/issues/565)) ([32241a3](https://github.com/Miragon/modeler-suite/commit/32241a33cc36a13ec7720719cb5eaec7b425d0fb)), closes [#563](https://github.com/Miragon/modeler-suite/issues/563)"
+        },
+        {
           "version": "0.1.1",
           "commit": "ef7b6afa38a60838b529cd0e787c200dcabf601d",
           "contentHash": "64bd0b511ea03a94d06e79ce0e8af6c9ebbcf8271eed10655d722c669a067be7",
