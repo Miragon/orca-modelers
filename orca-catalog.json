@@ -19,6 +19,41 @@
       ],
       "releases": [
         {
+          "version": "0.1.3",
+          "commit": "17561da0f12d143f119bdd911972ad73002b6a8e",
+          "contentHash": "cd68735d69c27432868ff20c5c8749b0c60b5b8cfc25d30ce9671260ac412d69",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Value Chain Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Value Chain",
+              "detail": ".vc, .vc.json"
+            }
+          ],
+          "fileTypes": [
+            "vc"
+          ],
+          "editorFileTypes": [
+            "vc"
+          ],
+          "images": {
+            "icon": {
+              "path": "plugins/value-chain-modeler/assets/icon.png",
+              "alt": "Value Chain Modeler",
+              "sha256": "4c24a8280cdcf892c62dbd924a99aedffea4922620c199a5c6437ca9865bb9b5",
+              "width": 256,
+              "height": 256
+            }
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-07",
+          "changelog": "\n\n### Bug Fixes\n\n* bundle only zod's English messages in the Orca plugins ([#571](https://github.com/Miragon/modeler-suite/issues/571)) ([dbe0258](https://github.com/Miragon/modeler-suite/commit/dbe0258ee6e80897af3b637ca87b22ca4849217a))"
+        },
+        {
           "version": "0.1.2",
           "commit": "7a81895efb54bce1f08d51c667dccff6a069fc00",
           "contentHash": "c2741b5a767911ba763744abd23dd59f605205e72696912473d69e6125cc484b",
@@ -139,6 +174,43 @@
         "diagrams"
       ],
       "releases": [
+        {
+          "version": "0.1.3",
+          "commit": "17561da0f12d143f119bdd911972ad73002b6a8e",
+          "contentHash": "d89367bb00e8b34dc2c59ee8a12b711444880ae77ced5bee48f38d11bddd7783",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Wardley Maps Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Wardley Map",
+              "detail": ".wmap, .owm"
+            }
+          ],
+          "fileTypes": [
+            "wmap",
+            "owm"
+          ],
+          "editorFileTypes": [
+            "wmap",
+            "owm"
+          ],
+          "images": {
+            "icon": {
+              "path": "plugins/wardley-maps-modeler/assets/icon.png",
+              "alt": "Wardley Maps Modeler",
+              "sha256": "76fda4a378f199ca8032ab969561df1a8cec1379e1ece1951ad5a234577d2fef",
+              "width": 256,
+              "height": 256
+            }
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-07",
+          "changelog": "\n\n### Bug Fixes\n\n* bundle only zod's English messages in the Orca plugins ([#571](https://github.com/Miragon/modeler-suite/issues/571)) ([dbe0258](https://github.com/Miragon/modeler-suite/commit/dbe0258ee6e80897af3b637ca87b22ca4849217a))"
+        },
         {
           "version": "0.1.2",
           "commit": "bedae7e579f37a65827016cdde2f5efd097d3e99",
@@ -267,6 +339,41 @@
       ],
       "releases": [
         {
+          "version": "0.1.3",
+          "commit": "17561da0f12d143f119bdd911972ad73002b6a8e",
+          "contentHash": "d5d43fb46593fe686cab0152728d1395726eccfd7ea2f5d382d770be301b4e09",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Event Storming Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Event Storming",
+              "detail": ".storm"
+            }
+          ],
+          "fileTypes": [
+            "storm"
+          ],
+          "editorFileTypes": [
+            "storm"
+          ],
+          "images": {
+            "icon": {
+              "path": "plugins/event-storming-modeler/assets/icon.png",
+              "alt": "Event Storming Modeler",
+              "sha256": "99809fe3d5de90d8bc1ff143795cc78c9911c152da6b2ed6b4a25fa0a771c3bb",
+              "width": 256,
+              "height": 256
+            }
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-07",
+          "changelog": "\n\n### Bug Fixes\n\n* bundle only zod's English messages in the Orca plugins ([#571](https://github.com/Miragon/modeler-suite/issues/571)) ([dbe0258](https://github.com/Miragon/modeler-suite/commit/dbe0258ee6e80897af3b637ca87b22ca4849217a))"
+        },
+        {
           "version": "0.1.2",
           "commit": "cf99fe4fbe00dd7edd7cc5930684954a4bbbffc9",
           "contentHash": "463cdfa39efd73dfcefd1d92c1057e8dd4b092a7cb7342b13ac0fa8763f0eb5e",
@@ -388,6 +495,40 @@
       ],
       "releases": [
         {
+          "version": "0.18.3",
+          "commit": "17561da0f12d143f119bdd911972ad73002b6a8e",
+          "contentHash": "9e9b8d2587e455627f5ab3f38fc75e9efb077b4883fded719ff1c0da0eef92f1",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Team Topologies Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Team Topologies",
+              "detail": ".tt, .ttm.json"
+            }
+          ],
+          "fileTypes": [
+            "tt"
+          ],
+          "editorFileTypes": [
+            "tt"
+          ],
+          "images": {
+            "icon": {
+              "path": "plugins/team-topologies-modeler/assets/icon.png",
+              "alt": "Team Topologies Modeler",
+              "sha256": "5baee532eae5ca5a41154494d9c125470667d7a9c156d4e6040a62094f754b1a",
+              "width": 512,
+              "height": 512
+            }
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-07"
+        },
+        {
           "version": "0.18.2",
           "commit": "a64e32d38f46c18019773c3b24a761c01c58172a",
           "contentHash": "16687aaab100e7d73164f1b96efe3a17e5247b4b67c218ea6fd0004248cefd15",
@@ -505,6 +646,41 @@
         "diagrams"
       ],
       "releases": [
+        {
+          "version": "0.1.3",
+          "commit": "17561da0f12d143f119bdd911972ad73002b6a8e",
+          "contentHash": "f15bb326ca801ac2dd4e83ba1f8a7cf098742a146a9e3c3a27554b320a0c77cc",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "Context Maps Modeler",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "Context Map",
+              "detail": ".cm, .cm.json"
+            }
+          ],
+          "fileTypes": [
+            "cm"
+          ],
+          "editorFileTypes": [
+            "cm"
+          ],
+          "images": {
+            "icon": {
+              "path": "plugins/context-maps-modeler/assets/icon.png",
+              "alt": "Context Maps Modeler",
+              "sha256": "ad75604c53bd3392644f6b29806530ad9fd4644025e9d0b0ecb39064d18d9325",
+              "width": 256,
+              "height": 256
+            }
+          },
+          "license": "MIT",
+          "repository": "https://github.com/Miragon/modeler-suite",
+          "homepage": "https://miragon.github.io/modeler-suite/",
+          "updatedAt": "2026-11-07",
+          "changelog": "\n\n### Bug Fixes\n\n* bundle only zod's English messages in the Orca plugins ([#571](https://github.com/Miragon/modeler-suite/issues/571)) ([dbe0258](https://github.com/Miragon/modeler-suite/commit/dbe0258ee6e80897af3b637ca87b22ca4849217a))"
+        },
         {
           "version": "0.1.2",
           "commit": "5518f943609041e751a113b6744068145e1d5a53",
