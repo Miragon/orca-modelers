@@ -1,0 +1,511 @@
+/**
+ * Semantic tokens, copied from `@bpmn-io/theme` to style the components
+ * according to this theme.
+ *
+ * Names and values of the tokens should stay intact with the `@bpmn-io/theme`
+ * source of truth, to ensure matching styles and allow overrides with an
+ * alternative theme.
+ */
+.bio-theme-parent {
+  --bio-surface-subtle: hsl(225, 10%, 97%);
+  --bio-text: hsl(225, 10%, 15%);
+  --bio-text-subtle: hsl(225, 10%, 35%);
+  --bio-text-on-primary: hsl(0, 0%, 100%);
+  --bio-border: hsl(225, 10%, 75%);
+  --bio-border-subtle: hsl(225, 10%, 85%);
+  --bio-neutral-subtle: hsl(225, 10%, 80%);
+  --bio-danger: hsl(360, 100%, 45%);
+  --bio-info: hsl(205, 100%, 40%);
+  --bio-danger-marker: var(--bio-danger);
+  --bio-warning-marker: hsl(28, 100%, 45%);
+  --bio-success-marker: hsl(150, 86%, 30%);
+  --bio-info-marker: var(--bio-info);
+  --bio-radius-sm: 2px;
+}
+
+.djs-parent {
+  --bjsl-color-info: var(--bio-info-marker);
+  --bjsl-color-warning: var(--bio-warning-marker);
+  --bjsl-color-error: var(--bio-danger-marker);
+  --bjsl-color-success: var(--bio-success-marker);
+
+  --bjsl-font-color: var(--bio-text);
+  --bjsl-font-family: 'Arial', sans-serif;
+  --bjsl-font-size: 13px;
+}
+
+.bjsl-overlay {
+  z-index: 500;
+}
+
+.bjsl-overlay * {
+  box-sizing: border-box;
+}
+
+.bjsl-overlay:hover {
+  z-index: 1000;
+}
+
+.bjsl-dropdown {
+  display: none;
+}
+
+.bjsl-overlay:hover .bjsl-dropdown,
+.bjsl-dropdown.open {
+  display: block;
+}
+
+.bjsl-issues {
+  padding: 8px;
+  color: var(--bjsl-font-color);
+  font-family: var(--bjsl-font-family);
+  font-size: var(--bjsl-font-size);
+  background: var(--bio-surface-subtle);
+  border: solid 1px var(--bio-border);
+  border-radius: var(--bio-radius-sm);
+}
+
+.bjsl-icon {
+  --icon-color: var(--bio-text-on-primary);
+  background: var(--icon-bg-color);
+  color: var(--icon-color);
+  border-radius: 100%;
+  height: 20px;
+  width: 20px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bjsl-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.bjsl-icon-error {
+  --icon-bg-color: var(--bjsl-color-error);
+}
+
+.bjsl-icon-warning {
+  --icon-bg-color: var(--bjsl-color-warning);
+}
+
+.bjsl-icon-info {
+  --icon-bg-color: var(--bjsl-color-info);
+}
+
+.bjsl-overlay {
+  position: relative;
+}
+
+.bjsl-issues-top-right .bjsl-dropdown,
+.bjsl-issues-bottom-right .bjsl-dropdown-content {
+  top: 0;
+  left: 0;
+}
+
+.bjsl-issues-bottom-right .bjsl-dropdown,
+.bjsl-issues-top-right .bjsl-dropdown-content {
+  bottom: 0;
+  left: 0;
+}
+
+.bjsl-issues-top-right .bjsl-dropdown-content {
+  padding-bottom: 5px;
+}
+
+.bjsl-issues-bottom-right .bjsl-dropdown-content {
+  padding-top: 5px;
+}
+
+.bjsl-dropdown-content {
+  min-width: 260px;
+  position:  absolute;
+}
+
+.bjsl-dropdown {
+  position: absolute;
+}
+
+.bjsl-issues {
+  list-style: none;
+  margin: 0;
+}
+
+.bjsl-issues ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bjsl-issues li {
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
+}
+
+.bjsl-issues .icon {
+  width: 1em;
+  height: 1em;
+  margin-top: 1px;
+}
+
+.bjsl-issues li + li {
+  margin-top: .5rem;
+}
+
+.bjsl-issues .icon {
+  --icon-color: var(--bjsl-font-color);
+
+  color: var(--icon-color);
+}
+
+.bjsl-issues .error .icon {
+  --icon-color: var(--bjsl-color-error);
+}
+
+.bjsl-issues .warning .icon {
+  --icon-color: var(--bjsl-color-warning);
+}
+
+.bjsl-issues .info .icon {
+  --icon-color: var(--bjsl-color-info);
+}
+
+.bjsl-issues .message {
+  color: var(--bjsl-font-color);
+  margin-left: .5em;
+  text-decoration: none;
+}
+
+.bjsl-issues .rule {
+  color: var(--bjsl-font-color);
+  margin-left: .5em;
+  font-family: monospace;
+}
+
+.bjsl-issues .bjsl-issue-heading {
+  margin-left: 0px;
+  font-weight: bold;
+  margin-bottom: 100px;
+}
+
+.bjsl-child-issues hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid var(--bio-border-subtle);
+}
+
+.bjsl-child-issues ul {
+  margin-top: 7px;
+}
+
+.bjsl-issues a:hover {
+  text-decoration: none;
+}
+
+.bjsl-id-hint {
+  background-color: var(--bio-neutral-subtle);
+  padding: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-weight: bold;
+  border-radius: 20px;
+}
+
+
+/**
+ * Summary button styles
+ */
+
+.bjsl-button {
+  border-radius: 100px;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translate(-50%);
+  background-color: var(--bio-surface-subtle);
+  padding: 5px 10px;
+  border: none;
+  color: var(--bio-text-subtle);
+  display: flex;
+  outline: none;
+  font-weight: bold;
+  font-size: var(--bjsl-font-size);
+}
+
+.bjsl-button-inactive:hover {
+  color: var(--bio-text);
+}
+
+.bjsl-button .icon {
+  margin-right: 10px;
+  margin-top: 1px;
+  width: .9em;
+  height: .9em;
+}
+
+.bjsl-button-success {
+  background-color: var(--bjsl-color-success);
+  color: var(--bio-text-on-primary);
+}
+
+.bjsl-button-error {
+  background-color: var(--bjsl-color-error);
+  color: var(--bio-text-on-primary);
+}
+
+.bjsl-button-warning {
+  background-color: var(--bjsl-color-warning);
+  color: var(--bio-text-on-primary);
+}/**
+ * Hide-until-configured: the bpmn-js-bpmnlint status button is hidden until a
+ * `.bpmnlintrc` is applied, so a workspace with no lint config looks exactly as
+ * it did before this feature. LintConfigService toggles `.bpmnlint-active` on
+ * this modeler's canvas container `.djs-container` (add on config, remove on
+ * null) — container-scoped, not on <body>, so two modelers on one page keep
+ * independent lint chrome.
+ */
+.bjsl-button {
+    display: none;
+}
+
+/**
+ * Flat, chip-like restyle of the in-canvas lint summary button.
+ *
+ * Replaces bpmn-js-bpmnlint's saturated pill (bold white-on-red/amber/green)
+ * with a compact tinted chip: soft state-coloured fill, matching text, hairline
+ * border, no depth. `inline-flex` (not the vendor's `flex`, and crucially not
+ * `block`, which stacked the icon above the count) keeps icon and count on one
+ * row and shrink-wraps the chip to its content. The icon is a `currentColor`
+ * SVG, so the per-state text colour repaints it for free. The canvas stays white
+ * in every VS Code theme, so the palette is tuned for a light background and
+ * needs no dark-mode variant.
+ */
+.djs-container.bpmnlint-active .bjsl-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    bottom: 16px;
+    padding: 4px 10px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background-color: #f0f0f0;
+    color: #555;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.4;
+    transition:
+        background-color 0.12s ease,
+        border-color 0.12s ease,
+        color 0.12s ease;
+}
+
+.djs-container.bpmnlint-active .bjsl-button .icon {
+    margin: 0;
+    width: 13px;
+    height: 13px;
+}
+
+.djs-container.bpmnlint-active .bjsl-button-success {
+    background-color: #eaf6ea;
+    border-color: #cbe7c4;
+    color: #2e7d22;
+}
+
+.djs-container.bpmnlint-active .bjsl-button-warning {
+    background-color: #fbf1d3;
+    border-color: #f0dfa3;
+    color: #7a5d10;
+}
+
+.djs-container.bpmnlint-active .bjsl-button-error {
+    background-color: #fbe6e6;
+    border-color: #f1c2c0;
+    color: #c0392b;
+}
+
+.djs-container.bpmnlint-active .bjsl-button-success:hover {
+    background-color: #e0f0df;
+}
+
+.djs-container.bpmnlint-active .bjsl-button-warning:hover {
+    background-color: #f7e9bf;
+}
+
+.djs-container.bpmnlint-active .bjsl-button-error:hover {
+    background-color: #f7d9d7;
+}
+
+.djs-container.bpmnlint-active .bjsl-button:focus-visible {
+    outline: 2px solid rgba(0, 120, 212, 0.7);
+    outline-offset: 1px;
+}
+
+/**
+ * Match the issues dropdown to the chip: flat panel, soft hairline border, and a
+ * gentle lift so it stays legible floating over the diagram.
+ */
+.djs-container.bpmnlint-active .bjsl-issues {
+    padding: 10px 12px;
+    border: 1px solid #e4e4e4;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.djs-container.bpmnlint-active .bjsl-id-hint {
+    padding: 1px 6px;
+    background-color: #ededed;
+    color: #555;
+    font-weight: 500;
+    border-radius: 4px;
+}
+
+/**
+ * Disable affordance. The summary pill only toggles overlay visibility, so the
+ * "turn linting off" entry point is a small button wrapped into a flex row
+ * beside it; once disabled, a muted chip takes its place so the user can turn it
+ * back on without leaving the canvas. The canvas is white in every theme, so the
+ * palette matches the light chip above and needs no dark-mode variant.
+ *
+ * The toolbar hosts the vendor pill, whose own absolute centering is neutralised
+ * so it flows inside the row; the row itself carries the bottom-centre anchor.
+ */
+.lint-toolbar {
+    display: none;
+}
+
+.djs-container.bpmnlint-active .lint-toolbar {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 100;
+}
+
+.djs-container.bpmnlint-active .lint-toolbar .bjsl-button {
+    position: static;
+    bottom: auto;
+    left: auto;
+    transform: none;
+}
+
+.djs-container.bpmnlint-active .lint-off-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    background-color: #f7f7f7;
+    color: #666;
+    cursor: pointer;
+    transition:
+        background-color 0.12s ease,
+        border-color 0.12s ease,
+        color 0.12s ease;
+}
+
+.djs-container.bpmnlint-active .lint-off-button:hover {
+    background-color: #f7d9d7;
+    border-color: #f1c2c0;
+    color: #c0392b;
+}
+
+.djs-container.bpmnlint-active .lint-off-button:focus-visible {
+    outline: 2px solid rgba(0, 120, 212, 0.7);
+    outline-offset: 1px;
+}
+
+.lint-off-button[hidden] {
+    display: none;
+}
+
+.lint-disabled-chip {
+    display: none;
+}
+
+.djs-container.bpmnlint-disabled .lint-disabled-chip {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px 4px 12px;
+    border: 1px solid #e4e4e4;
+    border-radius: 6px;
+    background-color: #f4f4f4;
+    color: #777;
+    font-size: 12px;
+    line-height: 1.4;
+    z-index: 100;
+}
+
+.lint-disabled-chip[hidden] {
+    display: none;
+}
+
+.djs-container.bpmnlint-disabled .lint-enable-button {
+    border: none;
+    background: transparent;
+    padding: 2px 4px;
+    color: #0b6cbf;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.djs-container.bpmnlint-disabled .lint-enable-button:hover {
+    text-decoration: underline;
+}
+
+/* Token simulation pins its speed control to the same bottom-centre spot. */
+.bjs-container.simulation .lint-toolbar,
+.bjs-container.simulation .lint-disabled-chip {
+    display: none;
+}
+
+/**
+ * Below 0.7 zoom diagram-js scales each overlay wrapper, which traps the vendor's
+ * hover z-index inside it; raise the wrapper so the issue list covers
+ * neighbouring lint icons. Hover outranks a pinned list.
+ */
+.djs-container.bpmnlint-active .djs-overlay:has(> .bjsl-overlay > .bjsl-dropdown.open) {
+    z-index: 1000;
+}
+
+.djs-container.bpmnlint-active .djs-overlay:has(> .bjsl-overlay:hover) {
+    z-index: 1001;
+}
+
+.djs-container.bpmnlint-active .bjsl-icon {
+    cursor: pointer;
+}
+
+.djs-container.bpmnlint-active .bjsl-icon:focus-visible {
+    outline: 2px solid rgba(0, 120, 212, 0.7);
+    outline-offset: 1px;
+}
+
+.djs-container.bpmnlint-active .bjsl-dropdown:focus {
+    outline: none;
+}
+
+.djs-container.bpmnlint-active .bjsl-issues {
+    user-select: text;
+}
+
+.djs-container.bpmnlint-active .bjsl-overlay.lint-popover-left .bjsl-dropdown,
+.djs-container.bpmnlint-active .bjsl-overlay.lint-popover-left .bjsl-dropdown-content {
+    left: auto;
+    right: 0;
+}
