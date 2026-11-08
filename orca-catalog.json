@@ -1439,6 +1439,108 @@
           "changelog": "\n\n### Features\n\n* **context-maps:** open context maps in Orca ([#547](https://github.com/Miragon/modeler-suite/issues/547)) ([7a63989](https://github.com/Miragon/modeler-suite/commit/7a639897f0109b959c3b5ca7938c067863ce3479)), closes [#537](https://github.com/Miragon/modeler-suite/issues/537)\n\n\n### Dependencies\n\n* The following workspace dependencies were updated\n  * dependencies\n    * @miragon/modeler-shell bumped from 0.10.0 to 0.11.0\n    * context-maps-ide-editor bumped from 0.0.0 to 0.1.0"
         }
       ]
+    },
+    {
+      "id": "miragon.bpmn-modeler",
+      "source": {
+        "kind": "git",
+        "url": "https://github.com/miragon/orca-modelers.git",
+        "ref": "main",
+        "path": "plugins/bpmn-modeler"
+      },
+      "description": "Experimental. Open .bpmn and .dmn files as diagrams: view, simulate and lightly model BPMN processes and DMN decisions, and see an agent's changes to the file as they happen. No deployment, code links or Form editor yet.",
+      "categories": [
+        "editors",
+        "diagrams"
+      ],
+      "releases": [
+        {
+          "version": "0.1.0",
+          "commit": "52a24fadd720c9abead732063bccdf1d5d0130f4",
+          "contentHash": "9a352f0ad45a6ed15286267abf4e353f91b09a92eb614d4f5e9004a237ee871a",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "BPMN & DMN Modeler (Experimental)",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "BPMN Modeler",
+              "detail": ".bpmn"
+            },
+            {
+              "kind": "customEditors",
+              "name": "DMN Modeler",
+              "detail": ".dmn"
+            }
+          ],
+          "fileTypes": [
+            "bpmn",
+            "dmn"
+          ],
+          "editorFileTypes": [
+            "bpmn",
+            "dmn"
+          ],
+          "images": {
+            "icon": {
+              "path": "assets/miragon.bpmn-modeler/c0730da4918a86a7.png",
+              "alt": "BPMN & DMN Modeler (Experimental)",
+              "sha256": "c0730da4918a86a7354f01668bc0cf4d98086c86abd027f618490000f760cbf4",
+              "width": 256,
+              "height": 256
+            },
+            "cover": {
+              "path": "assets/miragon.bpmn-modeler/bb3df4d45d0d335f.webp",
+              "alt": "Miragon Modeler for BPMN, experimental: processes and decisions from plain .bpmn and .dmn files, edited by you and your agents.",
+              "sha256": "bb3df4d45d0d335f492c0b0b87414ef924d0b3d0161986bc30bac4c826ffd707",
+              "width": 1600,
+              "height": 1000
+            },
+            "screenshots": [
+              {
+                "path": "assets/miragon.bpmn-modeler/bb3df4d45d0d335f.webp",
+                "alt": "Miragon Modeler for BPMN, experimental: processes and decisions from plain .bpmn and .dmn files, edited by you and your agents.",
+                "sha256": "bb3df4d45d0d335f492c0b0b87414ef924d0b3d0161986bc30bac4c826ffd707",
+                "width": 1600,
+                "height": 1000
+              },
+              {
+                "path": "assets/miragon.bpmn-modeler/87bba38ee99f7b1f.webp",
+                "alt": "Orca with order-fulfilment.bpmn open, the user task Pack order selected and its implementation, assignment and form groups in the properties panel",
+                "sha256": "87bba38ee99f7b1f83c077f83dfac8e059b24fb06ca87039fd44b1129eea2cb4",
+                "width": 1919,
+                "height": 1199
+              },
+              {
+                "path": "assets/miragon.bpmn-modeler/e1715afa51b0468f.webp",
+                "alt": "The order fulfilment process in token simulation, a token waiting after Pack order and the log listing In stock? and Pack order",
+                "sha256": "e1715afa51b0468fcbace6cab040992e4a13ad3543388c55ed6edc0835eb6c73",
+                "width": 1919,
+                "height": 1199
+              },
+              {
+                "path": "assets/miragon.bpmn-modeler/19b9f221d6d6bee1.webp",
+                "alt": "return-handling.bpmn with red error markers on a service task without a job type and on two flows without a condition, and 3 Errors at the bottom",
+                "sha256": "19b9f221d6d6bee16a2e0e67004c4911083f62dbb1e8fac7dff2b61aac95fc02",
+                "width": 1919,
+                "height": 1199
+              },
+              {
+                "path": "assets/miragon.bpmn-modeler/14470d8ed034f949.webp",
+                "alt": "The Choose carrier decision table from shipping.dmn, simulated for a 3 kg express parcel without a country: rule 8 matches, UPS Express for 39",
+                "sha256": "14470d8ed034f949465296fb68693507c0fb5d61f9dbd18604de742f4a5ecc56",
+                "width": 1919,
+                "height": 1199
+              }
+            ]
+          },
+          "license": "Apache-2.0",
+          "repository": "https://github.com/Miragon/bpmn-modeler",
+          "homepage": "https://miragon.github.io/bpmn-modeler/",
+          "updatedAt": "2026-11-08",
+          "changelog": "\n\n### 🎉 New Features\n\n* **orca-plugin:** open .bpmn and .dmn files in Orca ([#2210](https://github.com/Miragon/bpmn-modeler/issues/2210)) ([b7d4773](https://github.com/Miragon/bpmn-modeler/commit/b7d4773f0aa9e80d757a87b8ed613a923e2d7db0))\n\n\n### 📔 Documentation\n\n* make the store images with the product-shots skill and rewrite the store READMEs ([#2254](https://github.com/Miragon/bpmn-modeler/issues/2254)) ([4eb590a](https://github.com/Miragon/bpmn-modeler/commit/4eb590a154b892e19ce9d6f1e06e7b25555d65dd))\n* write each README for one reader, its users or its developers ([#2253](https://github.com/Miragon/bpmn-modeler/issues/2253)) ([3d28322](https://github.com/Miragon/bpmn-modeler/commit/3d28322c3ad26e0038fb88fc90f3dd44dc4a1417))"
+        }
+      ]
     }
   ]
 }
