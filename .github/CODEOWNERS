@@ -1,7 +1,1 @@
-# Marco owns the repo. plugins/, assets/ and orca-catalog.json have no owner: they only ever change through the pull
-# requests the release-please app opens and merges from a source repository's release, and a required code owner
-# review would block the app.
 * @emaarco
-/plugins/
-/assets/
-/orca-catalog.json
