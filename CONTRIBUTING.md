@@ -35,6 +35,11 @@ The action and `validate` check with the Orca pinned as `ORCA_VERSION` in
 [`scripts/lib/orca.mjs`](scripts/lib/orca.mjs), and refuse a plugin whose `engines.orca` asks for a
 newer one: Orca's rules for that version would go unchecked. Raise the pin first.
 
+They also refuse what [Orca's community directory](https://onorca.dev/plugins/add/) rejects and
+`orca plugin validate` lets through: an id starting with `orca-`, no `license` in
+`orca-plugin.json`, a `publisher` other than `miragon`, a symlink, and a binary file other than an
+image or a WOFF font (a TTF or OTF font, an executable, a native module, an archive, a video).
+
 Orca also checks every listed release's icon, cover and screenshots against the files at their
 paths, so a release's images are stored once, named by their hash, in `assets/<plugin id>/`, as in
 Orca's community catalog. The catalog pull request puts a new release's images there; the bytes
