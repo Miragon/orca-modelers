@@ -1,0 +1,25 @@
+name: Directory status
+
+# Orca's community directory lists this catalog by rules it does not document. This reads its
+# outcome and fails when it holds back this repository or the newest release of a plugin.
+on:
+  schedule:
+    - cron: "23 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  directory-status:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - name: Check that the directory lists every newest release
+        run: node scripts/check-directory-status.mjs

@@ -46,6 +46,10 @@ export class GitRepository {
     return run("git", ["cat-file", "-e", `${commit}^{commit}`]).ok;
   }
 
+  commitDate(commit) {
+    return new Date(this.#git("show", "--no-patch", "--format=%cI", commit));
+  }
+
   fileAt(commit, path) {
     const show = run("git", ["show", `${commit}:${path}`]);
     return show.ok ? show.stdout : undefined;

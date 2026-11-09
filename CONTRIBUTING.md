@@ -40,6 +40,14 @@ They also refuse what [Orca's community directory](https://onorca.dev/plugins/ad
 `orca-plugin.json`, a `publisher` other than `miragon`, a symlink, and a binary file other than an
 image or a WOFF font (a TTF or OTF font, an executable, a native module, an archive, a video).
 
+The directory has rules it does not document, so
+[`directory-status.yml`](.github/workflows/directory-status.yml) checks its outcome every six hours
+and on demand: it fails when the directory's `status.json` does not show this repository as
+`listed`, or when its catalog lacks the newest release of a plugin six hours after that release's
+commit. The job summary lists the directory's reasons. GitHub reports a failed scheduled run to
+whoever last changed the workflow's schedule. Fix what the reasons name in the source repository
+and release again; a release `under-review` waits for Orca's maintainers.
+
 Orca also checks every listed release's icon, cover and screenshots against the files at their
 paths, so a release's images are stored once, named by their hash, in `assets/<plugin id>/`, as in
 Orca's community catalog. The catalog pull request puts a new release's images there; the bytes
