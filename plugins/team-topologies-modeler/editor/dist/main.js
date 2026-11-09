@@ -26860,5352 +26860,6 @@ function date4(params) {
 // ../ide-editor/src/zod-jitless.ts
 config({ jitless: true });
 
-// ../../../../packages/shell/dist/chunk-OJ7T5HEP.js
-var SHELL = {
-  edge: 12,
-  gap: 8,
-  row: 40,
-  target: 32,
-  entry: 36,
-  free: 64,
-  menuMinWidth: 248,
-  inspectorWidth: 288,
-  fitInsetTop: 88,
-  fitInsetTopSecondRow: 140,
-  fitInsetSide: 24,
-  fitInsetBottom: 64,
-  fitInsetBottomWeb: 92,
-  narrow: 760,
-  veryNarrow: 440,
-  low: 820,
-  layerIslands: 20,
-  layerInspector: 25,
-  layerTopRow: 30,
-  layerPopups: 40,
-  layerDialog: 50,
-  layerToast: 60
-};
-var LEGAL_LINE_HEIGHT = 20;
-function legalLineHeight(measured) {
-  if (measured === void 0 || !Number.isFinite(measured) || measured <= 0)
-    return LEGAL_LINE_HEIGHT;
-  return Math.max(1, Math.round(measured / LEGAL_LINE_HEIGHT)) * LEGAL_LINE_HEIGHT;
-}
-function zoomRowRaised(input2) {
-  const { containerWidth, legalRight, zoomWidth } = input2;
-  if (legalRight === void 0 || zoomWidth === void 0) return false;
-  const zoomLeft = containerWidth - SHELL.edge - zoomWidth;
-  return legalRight + SHELL.gap > zoomLeft;
-}
-var MAX_FIT_ZOOM = 1;
-var FIT_ANIMATION_MS = 250;
-function fitViewbox(bounds, container, insets, maxZoom = MAX_FIT_ZOOM) {
-  if (!(container.width > 0 && container.height > 0)) return void 0;
-  const hasWidth = bounds.width > 0;
-  const hasHeight = bounds.height > 0;
-  if (!hasWidth && !hasHeight) return void 0;
-  const horizontal = freeExtent(container.width, insets.left, insets.right);
-  const vertical = freeExtent(container.height, insets.top, insets.bottom);
-  const contentWidth = hasWidth ? bounds.width : 0;
-  const contentHeight = hasHeight ? bounds.height : 0;
-  const scale = Math.min(
-    maxZoom,
-    hasWidth ? horizontal.extent / contentWidth : Infinity,
-    hasHeight ? vertical.extent / contentHeight : Infinity
-  );
-  const box = {
-    x: bounds.x + contentWidth / 2 - (horizontal.start + horizontal.extent / 2) / scale,
-    y: bounds.y + contentHeight / 2 - (vertical.start + vertical.extent / 2) / scale,
-    width: container.width / scale,
-    height: container.height / scale,
-    scale
-  };
-  return Object.values(box).every(Number.isFinite) && scale > 0 ? box : void 0;
-}
-function freeExtent(total, before, after) {
-  const extent = total - before - after;
-  return extent > 0 ? { start: before, extent } : { start: 0, extent: total };
-}
-function freeRectCenter(container, insets) {
-  if (!(container.width > 0 && container.height > 0)) return void 0;
-  const horizontal = freeExtent(container.width, insets.left, insets.right);
-  const vertical = freeExtent(container.height, insets.top, insets.bottom);
-  return {
-    x: horizontal.start + horizontal.extent / 2,
-    y: vertical.start + vertical.extent / 2
-  };
-}
-function fitInsets(layout) {
-  const { container, host, paletteRow, problemsVisible, zoomRaised, legendWidth, inspector } = layout;
-  const raisedBottomRow = host === "web" && (problemsVisible || zoomRaised === true);
-  const wrappedLegalLines = legalLineHeight(layout.legalHeight) - LEGAL_LINE_HEIGHT;
-  const insets = {
-    top: paletteRow === "second-row" ? SHELL.fitInsetTopSecondRow : SHELL.fitInsetTop,
-    right: SHELL.fitInsetSide,
-    bottom: raisedBottomRow ? SHELL.fitInsetBottomWeb + wrappedLegalLines : SHELL.fitInsetBottom,
-    left: SHELL.fitInsetSide
-  };
-  const bottomSheetOpen = inspector !== void 0 && container.width <= SHELL.narrow;
-  if (inspector !== void 0 && !bottomSheetOpen) {
-    insets.right = SHELL.edge + SHELL.inspectorWidth + SHELL.fitInsetSide;
-  }
-  if (bottomSheetOpen) {
-    insets.bottom = inspector.sheetTop === void 0 ? SHELL.fitInsetBottom : container.height - inspector.sheetTop + SHELL.edge;
-  } else if (legendWidth !== void 0 && legendWidth > 0 && container.width > SHELL.veryNarrow) {
-    insets.left = SHELL.edge + legendWidth + SHELL.fitInsetSide;
-  }
-  return insets;
-}
-var VIEW_TOLERANCE = 1e-3;
-function sameView(a3, b3, tolerance = VIEW_TOLERANCE) {
-  const close = (first, second) => Math.abs(first - second) <= tolerance * Math.max(1, Math.abs(first), Math.abs(second));
-  return close(a3.scale, b3.scale) && close(a3.x * a3.scale, b3.x * b3.scale) && close(a3.y * a3.scale, b3.y * b3.scale);
-}
-function interpolateViewbox(from, to, progress) {
-  if (!(progress > 0)) return { ...from };
-  if (progress >= 1) return { ...to };
-  const linear = (start, end) => start + (end - start) * progress;
-  const scale = from.scale > 0 && to.scale > 0 ? Math.exp(linear(Math.log(from.scale), Math.log(to.scale))) : linear(from.scale, to.scale);
-  const centreX = linear(from.x + from.width / 2, to.x + to.width / 2);
-  const centreY = linear(from.y + from.height / 2, to.y + to.height / 2);
-  const width = linear(from.width * from.scale, to.width * to.scale) / scale;
-  const height = linear(from.height * from.scale, to.height * to.scale) / scale;
-  return { x: centreX - width / 2, y: centreY - height / 2, width, height, scale };
-}
-function easeStandard(progress) {
-  return STANDARD_EASING(progress);
-}
-var STANDARD_EASING = cubicBezier(0.4, 0, 0.2, 1);
-function cubicBezier(x1, y1, x22, y22) {
-  const polynomial = (first, second) => {
-    const c3 = 3 * first;
-    const b3 = 3 * (second - first) - c3;
-    const a3 = 1 - c3 - b3;
-    return {
-      at: (t4) => ((a3 * t4 + b3) * t4 + c3) * t4,
-      slope: (t4) => (3 * a3 * t4 + 2 * b3) * t4 + c3
-    };
-  };
-  const curveX = polynomial(x1, x22);
-  const curveY = polynomial(y1, y22);
-  const precision = 1e-7;
-  const parameterFor = (x3) => {
-    let t4 = x3;
-    for (let iteration = 0; iteration < 8; iteration++) {
-      const error2 = curveX.at(t4) - x3;
-      if (Math.abs(error2) < precision) return t4;
-      const slope = curveX.slope(t4);
-      if (Math.abs(slope) < 1e-6) break;
-      t4 -= error2 / slope;
-      if (t4 < 0 || t4 > 1) break;
-    }
-    let low = 0;
-    let high = 1;
-    t4 = x3;
-    for (let iteration = 0; iteration < 60; iteration++) {
-      const value = curveX.at(t4);
-      if (Math.abs(value - x3) < precision) break;
-      if (value < x3) low = t4;
-      else high = t4;
-      t4 = (low + high) / 2;
-    }
-    return t4;
-  };
-  return (progress) => {
-    if (!(progress > 0)) return 0;
-    if (progress >= 1) return 1;
-    return curveY.at(parameterFor(progress));
-  };
-}
-var ZOOM_MIN = 0.2;
-var ZOOM_MAX = 4;
-function canZoomOut(zoom2) {
-  return zoom2 > ZOOM_MIN * 1.001;
-}
-function canZoomIn(zoom2) {
-  return zoom2 < ZOOM_MAX * 0.999;
-}
-function formatPercent(zoom2, lang) {
-  return numberFormat(lang, "percent").format(zoom2);
-}
-function formatNumber(value, lang) {
-  return numberFormat(lang, "decimal").format(value);
-}
-var FALLBACK_LANG = "en";
-var formats = /* @__PURE__ */ new Map();
-function numberFormat(lang, style) {
-  const key = `${style}|${lang}`;
-  let format = formats.get(key);
-  if (!format) {
-    const options = style === "percent" ? { style, maximumFractionDigits: 0 } : { style };
-    try {
-      format = new Intl.NumberFormat(lang, options);
-    } catch {
-      format = new Intl.NumberFormat(FALLBACK_LANG, options);
-    }
-    formats.set(key, format);
-  }
-  return format;
-}
-function zoomReadout(zoom2, lang, messages) {
-  const text = formatPercent(zoom2, lang);
-  return {
-    text,
-    ariaLabel: messages.zoomToActualNow(formatPercent(1, lang), text),
-    canZoomOut: canZoomOut(zoom2),
-    canZoomIn: canZoomIn(zoom2)
-  };
-}
-function matchChromeKey(event2) {
-  if (event2.altKey) return void 0;
-  if (isCommand(event2)) {
-    if (event2.key === "+" || event2.key === "=" || event2.code === "NumpadAdd") return "zoomIn";
-    if (event2.key === "-" || event2.key === "_" || event2.code === "NumpadSubtract") return "zoomOut";
-    if (event2.key === "0" || event2.code === "Numpad0") return "zoomToActual";
-    return void 0;
-  }
-  return event2.shiftKey && event2.code === "Digit1" ? "fit" : void 0;
-}
-function isCommand(event2) {
-  return event2.metaKey || event2.ctrlKey;
-}
-function isUndoRedoKey(event2) {
-  if (event2.altKey || !isCommand(event2)) return false;
-  const letter = undoRedoLetter(event2);
-  return letter === "z" || letter === "y" && !event2.shiftKey;
-}
-function undoRedoLetter(event2) {
-  if (event2.key.length === 1 && event2.key.charCodeAt(0) < 128) return event2.key.toLowerCase();
-  if (event2.code === "KeyZ") return "z";
-  if (event2.code === "KeyY") return "y";
-  return void 0;
-}
-var TEXT_FIELD_SELECTOR = "input, textarea, select, [contenteditable]:not([contenteditable='false'])";
-var CODE_EDITOR_SELECTOR = ".monaco-editor";
-function isElementLike(target) {
-  return typeof target === "object" && target !== null && typeof target.closest === "function";
-}
-function isTextField(target) {
-  if (!isElementLike(target)) return false;
-  return target.isContentEditable === true || target.editContext !== void 0 && target.editContext !== null || target.closest(`${TEXT_FIELD_SELECTOR}, ${CODE_EDITOR_SELECTOR}`) !== null;
-}
-function decideKey(event2, context) {
-  const stop = context.host === "ide";
-  const composing = event2.isComposing === true;
-  if (event2.key === "Escape" && !event2.metaKey && !event2.ctrlKey && !event2.altKey && !event2.shiftKey) {
-    if (context.menuOpen && !composing) {
-      return { action: "closeMenu", preventDefault: true, stopPropagation: stop };
-    }
-    if (context.menuOpen || context.dialogOpen)
-      return { preventDefault: false, stopPropagation: stop };
-  }
-  const chromeKey = matchChromeKey(event2);
-  if (chromeKey !== void 0) {
-    if (context.startScreen === true && !stop)
-      return { preventDefault: false, stopPropagation: false };
-    const blocked = composing || context.inTextField || context.modalOpen;
-    if (!blocked) return { action: chromeKey, preventDefault: true, stopPropagation: stop };
-    return { preventDefault: false, stopPropagation: chromeKey === "fit" ? false : stop };
-  }
-  if (context.inTextField && isUndoRedoKey(event2))
-    return { preventDefault: false, stopPropagation: stop };
-  if (context.defaultPrevented) return { preventDefault: false, stopPropagation: stop };
-  return { preventDefault: false, stopPropagation: false };
-}
-function detectPlatform(navigator2) {
-  const platform = navigator2?.userAgentData?.platform || navigator2?.platform || "";
-  return /mac/i.test(platform) ? "mac" : "other";
-}
-function shortcutLabel(key, platform, keyNames) {
-  if (platform === "mac") return MAC_SHORTCUT_LABELS[key];
-  switch (key) {
-    case "zoomIn":
-      return `${keyNames.ctrl}+${keyNames.plus}`;
-    case "zoomOut":
-      return `${keyNames.ctrl}+${keyNames.minus}`;
-    case "zoomToActual":
-      return `${keyNames.ctrl}+0`;
-    case "fit":
-      return `${keyNames.shift}+1`;
-  }
-}
-var MAC_SHORTCUT_LABELS = {
-  zoomIn: "\u2318+",
-  zoomOut: "\u2318\u2212",
-  zoomToActual: "\u23180",
-  fit: "\u21E71"
-};
-function ariaKeyShortcuts(key, platform) {
-  const command = platform === "mac" ? "Meta" : "Control";
-  switch (key) {
-    case "zoomIn":
-      return `${command}+= ${command}+Plus`;
-    case "zoomOut":
-      return `${command}+-`;
-    case "zoomToActual":
-      return `${command}+0`;
-    case "fit":
-      return "Shift+1";
-  }
-}
-var MAC_MODIFIER_SYMBOLS = {
-  "\u2318": "Meta",
-  "\u21E7": "Shift",
-  "\u2325": "Alt",
-  "\u2303": "Control"
-};
-var MODIFIER_NAMES = {
-  cmd: "Meta",
-  command: "Meta",
-  meta: "Meta",
-  ctrl: "Control",
-  control: "Control",
-  strg: "Control",
-  shift: "Shift",
-  umschalt: "Shift",
-  alt: "Alt",
-  option: "Alt",
-  opt: "Alt"
-};
-var NAMED_KEYS = {
-  esc: "Escape",
-  escape: "Escape",
-  del: "Delete",
-  delete: "Delete",
-  entf: "Delete",
-  backspace: "Backspace",
-  enter: "Enter",
-  return: "Enter",
-  tab: "Tab",
-  space: "Space",
-  home: "Home",
-  end: "End",
-  pageup: "PageUp",
-  pagedown: "PageDown",
-  arrowup: "ArrowUp",
-  arrowdown: "ArrowDown",
-  arrowleft: "ArrowLeft",
-  arrowright: "ArrowRight",
-  "\u2191": "ArrowUp",
-  "\u2193": "ArrowDown",
-  "\u2190": "ArrowLeft",
-  "\u2192": "ArrowRight"
-};
-var CHARACTER_SPELLINGS = {
-  plus: "+",
-  minus: "-",
-  "\u2212": "-"
-};
-var unshifted = (key) => ({ key, shift: false });
-var shifted = (key) => ({ key, shift: true });
-var SHIFTED_CHARACTER_KEYS = {
-  "!": [shifted("1"), shifted("1")],
-  '"': [shifted("'"), shifted("2")],
-  "#": [shifted("3"), unshifted("#")],
-  $: [shifted("4"), shifted("4")],
-  "%": [shifted("5"), shifted("5")],
-  "&": [shifted("7"), shifted("6")],
-  "'": [unshifted("'"), shifted("#")],
-  "(": [shifted("9"), shifted("8")],
-  ")": [shifted("0"), shifted("9")],
-  "*": [shifted("8"), shifted("Plus")],
-  "+": [shifted("="), unshifted("Plus")],
-  "/": [unshifted("/"), shifted("7")],
-  ":": [shifted(";"), shifted(".")],
-  ";": [unshifted(";"), shifted(",")],
-  "<": [shifted(","), unshifted("<")],
-  "=": [unshifted("="), shifted("0")],
-  ">": [shifted("."), shifted("<")],
-  "?": [shifted("/"), shifted("\xDF")],
-  _: [shifted("-"), shifted("-")]
-};
-function lookUp(table, key) {
-  return Object.hasOwn(table, key) ? table[key] : void 0;
-}
-function sameKeyName(key) {
-  const named = lookUp(NAMED_KEYS, key.toLowerCase());
-  if (named) return named;
-  if (/^f\d{1,2}$/i.test(key)) return key.toUpperCase();
-  if (key === " ") return "Space";
-  return /^[a-z0-9,.-]$/i.test(key) ? key.toUpperCase() : void 0;
-}
-function combination(modifiers, key) {
-  return [...new Set(modifiers), key].join("+");
-}
-function zoomInKeyShortcuts(modifiers, character) {
-  const [command] = modifiers;
-  if (modifiers.length !== 1 || command !== "Meta" && command !== "Control") return void 0;
-  return character === "+" || character === "=" ? `${command}+= ${command}+Plus` : void 0;
-}
-function parseChipLabel(label) {
-  let rest = label.trim();
-  const modifiers = [];
-  for (let symbol2 = lookUp(MAC_MODIFIER_SYMBOLS, rest.charAt(0)); symbol2 && rest.length > 1; ) {
-    modifiers.push(symbol2);
-    rest = rest.slice(1).trim();
-    symbol2 = lookUp(MAC_MODIFIER_SYMBOLS, rest.charAt(0));
-  }
-  if (!rest) return void 0;
-  const parts = rest.split("+").map((part) => part.trim());
-  if (parts.some((part) => /\s/.test(part))) return void 0;
-  let key = parts.pop() ?? "";
-  if (key === "" && parts.at(-1) === "") {
-    parts.pop();
-    key = "+";
-  }
-  for (const part of parts) {
-    const modifier = lookUp(MODIFIER_NAMES, part.toLowerCase());
-    if (!modifier) return void 0;
-    modifiers.push(modifier);
-  }
-  return {
-    modifiers: [...new Set(modifiers)],
-    key: lookUp(CHARACTER_SPELLINGS, key.toLowerCase()) ?? key
-  };
-}
-function ariaKeyShortcutsFromLabel(label) {
-  const chip = parseChipLabel(label);
-  if (!chip) return void 0;
-  const { modifiers, key } = chip;
-  const zoomIn = zoomInKeyShortcuts(modifiers, key);
-  if (zoomIn) return zoomIn;
-  const layoutKeys = lookUp(SHIFTED_CHARACTER_KEYS, key);
-  if (layoutKeys) {
-    const perLayout = layoutKeys.map(
-      ({ key: layoutKey, shift }) => combination(shift ? [...modifiers, "Shift"] : modifiers, layoutKey)
-    );
-    return [...new Set(perLayout)].join(" ");
-  }
-  const name = sameKeyName(key);
-  return name ? combination(modifiers, name) : void 0;
-}
-function resolveAppearance(requested, themes) {
-  const [fallback] = themes;
-  if (fallback === void 0) {
-    throw new Error(
-      "@miragon/modeler-shell: resolveAppearance needs at least one theme the modeler can show"
-    );
-  }
-  const theme = themes.includes(requested.theme) ? requested.theme : fallback;
-  return withKontrast(theme, requested.kontrast);
-}
-function withKontrast(theme, kontrast) {
-  return kontrast === "hoch" ? { theme, kontrast } : { theme };
-}
-var REDUCED_MOTION_CLASS = "cd-shell-reduce-motion";
-function appearanceAttributes(appearance) {
-  return appearance.kontrast === "hoch" ? { "data-cd-theme": appearance.theme, "data-cd-kontrast": "hoch" } : { "data-cd-theme": appearance.theme };
-}
-var defaultMessages = {
-  menu: "Menu",
-  tools: "Tools",
-  canvas: "Diagram",
-  zoom: "Zoom",
-  zoomOut: "Zoom out",
-  zoomIn: "Zoom in",
-  zoomToActual: (percent) => `Zoom to ${percent}`,
-  zoomToActualNow: (percent, now) => `Zoom to ${percent} (now ${now})`,
-  fit: "Fit to view",
-  legend: "Legend",
-  closeLegend: "Close legend",
-  problems: (count, formattedCount) => `${formattedCount} ${count === 1 ? "problem" : "problems"}`,
-  problemsLabel: (count, errors, formattedCount, formattedErrors) => `${formattedCount} ${count === 1 ? "problem" : "problems"}, ${errors === 0 ? "no errors" : `${formattedErrors} ${errors === 1 ? "error" : "errors"}`}`,
-  showProblems: "Show in Problems view",
-  emptyHint: "Pick a tool from the palette to start.",
-  insertExample: "Insert example",
-  invalidFile: (diagram) => `This file isn't a valid ${diagram} right now. The diagram shows the last valid version and is read-only until you fix the text.`,
-  keyNames: { ctrl: "Ctrl", shift: "Shift", plus: "Plus", minus: "Minus" },
-  share: "Share",
-  legal: "Legal",
-  copyright: (year) => `\xA9 ${year} Miragon GmbH`,
-  opensInNewTab: "Opens in a new tab",
-  newDiagram: "New diagram",
-  openFile: "Open\u2026",
-  showExample: "Show example",
-  importFile: "Import\u2026",
-  appearance: "Appearance",
-  appearanceSystem: "System",
-  appearanceLight: "Light",
-  appearanceDark: "Dark",
-  problemsTitle: "Problems",
-  problemSeverity: (severity) => severity === "error" ? "Error" : "Warning",
-  close: "Close",
-  dropFile: "Drop file here",
-  dropForbidden: (reason) => reason === "multiple" ? "Drop one file at a time" : reason === "dialog" ? "Close the dialog to drop a file" : "This modeler can't open this file type",
-  dropHint: "Or drop a file here",
-  openFileLink: "Open a file\u2026",
-  cannotOpenFile: (name, accepted) => `Couldn't open \u201C${name}\u201D. Drop a ${accepted} file.`,
-  shortcutsTitle: "Keyboard shortcuts",
-  shortcutsView: "View",
-  shortcutsEdit: "Edit",
-  shortcutsTools: "Tools"
-};
-function resolveMessages(overrides) {
-  const { keyNames, ...texts } = overrides ?? {};
-  return {
-    ...defaultMessages,
-    ...definedEntries(texts),
-    keyNames: { ...defaultMessages.keyNames, ...definedEntries(keyNames ?? {}) }
-  };
-}
-function definedEntries(partial2) {
-  return Object.fromEntries(Object.entries(partial2).filter(([, value]) => value !== void 0));
-}
-var CHROME_KEYS = ["zoomIn", "zoomOut", "zoomToActual", "fit"];
-function chromeAction(key, chrome) {
-  const { messages } = chrome;
-  switch (key) {
-    case "zoomIn":
-      return messages.zoomIn;
-    case "zoomOut":
-      return messages.zoomOut;
-    case "zoomToActual":
-      return messages.zoomToActual(formatPercent(1, chrome.lang));
-    case "fit":
-      return messages.fit;
-  }
-}
-function chromeShortcutRows(chrome) {
-  return CHROME_KEYS.map((chromeKey) => ({
-    chromeKey,
-    action: chromeAction(chromeKey, chrome),
-    keys: [shortcutLabel(chromeKey, chrome.platform, chrome.messages.keyNames)]
-  }));
-}
-function withChromeShortcuts(groups, chrome) {
-  const chromeRows = chromeShortcutRows(chrome);
-  const chromeActions = new Set(chromeRows.map((row) => row.action));
-  const title = chrome.messages.shortcutsView;
-  const viewIndex = groups.findIndex((group) => group.title === title);
-  const shown = groups.map(
-    (group, index2) => index2 === viewIndex ? {
-      title,
-      rows: [...chromeRows, ...group.rows.filter((row) => !chromeActions.has(row.action))]
-    } : group
-  );
-  if (viewIndex < 0) shown.unshift({ title, rows: chromeRows });
-  return shown.filter((group) => group.rows.length > 0);
-}
-function isChromeShortcutRow(row) {
-  return "chromeKey" in row;
-}
-var PALETTE_CLEARANCE = 16;
-var TOOLTIP_DELAY_MS = 300;
-var INVALID_STATUS_DELAY_MS = 800;
-function decidePaletteRow(input2) {
-  const { containerWidth, paletteWidth, menuRight, primaryLeft } = input2;
-  if (containerWidth <= SHELL.narrow) return "second-row";
-  const paletteLeft = (containerWidth - paletteWidth) / 2;
-  const paletteRight = (containerWidth + paletteWidth) / 2;
-  if (paletteLeft < menuRight + PALETTE_CLEARANCE) return "second-row";
-  if (primaryLeft !== void 0 && paletteRight > primaryLeft - PALETTE_CLEARANCE)
-    return "second-row";
-  return "top";
-}
-function placeTooltip(input2) {
-  const { anchor: anchor2, island, tooltip, container } = input2;
-  const inUpperHalf = island.y + island.height / 2 < container.height / 2;
-  const y3 = inUpperHalf ? island.y + island.height + SHELL.gap : island.y - SHELL.gap - tooltip.height;
-  const centred = anchor2.x + anchor2.width / 2 - tooltip.width / 2;
-  const rightmost = container.width - SHELL.edge - tooltip.width;
-  const x3 = Math.max(SHELL.edge, Math.min(centred, rightmost));
-  return { x: x3, y: y3 };
-}
-function decideTopRow(input2) {
-  const { containerWidth, paletteWidth, menuRight, primary } = input2;
-  if (!primary) {
-    return {
-      paletteRow: decidePaletteRow({ containerWidth, paletteWidth, menuRight }),
-      primaryLabel: "shown"
-    };
-  }
-  const paletteRowBeside = (primaryWidth) => decidePaletteRow({
-    containerWidth,
-    paletteWidth,
-    menuRight,
-    primaryLeft: containerWidth - SHELL.edge - primaryWidth
-  });
-  if (paletteRowBeside(primary.withLabel) === "top")
-    return { paletteRow: "top", primaryLabel: "shown" };
-  if (paletteRowBeside(primary.iconOnly) === "top")
-    return { paletteRow: "top", primaryLabel: "collapsed" };
-  const labelledLeft = containerWidth - SHELL.edge - primary.withLabel;
-  return {
-    paletteRow: "second-row",
-    primaryLabel: menuRight + PALETTE_CLEARANCE <= labelledLeft ? "shown" : "collapsed"
-  };
-}
-function acceptEntries(accept) {
-  const entries = accept.map((entry) => entry.trim().toLowerCase()).filter((entry) => entry !== "");
-  return {
-    extensions: entries.filter((entry) => entry.startsWith(".")),
-    mimeTypes: entries.filter((entry) => !entry.startsWith(".") && entry.includes("/"))
-  };
-}
-function matchesMimeType(type, mimeTypes) {
-  const normalized = type.trim().toLowerCase();
-  if (normalized === "") return false;
-  return mimeTypes.some(
-    (entry) => entry.endsWith("/*") ? normalized.startsWith(entry.slice(0, -1)) : normalized === entry
-  );
-}
-function dragVerdict(items, context) {
-  const files = items.filter((item) => item.kind === "file");
-  if (files.length === 0) return { state: "none" };
-  if (context.dialogOpen) return { state: "forbidden", reason: "dialog" };
-  if (files.length > 1 && !context.multiple) return { state: "forbidden", reason: "multiple" };
-  const { mimeTypes } = acceptEntries(context.accept);
-  const foreignType = (item) => item.type.trim() !== "" && !matchesMimeType(item.type, mimeTypes);
-  if (mimeTypes.length > 0 && files.every(foreignType))
-    return { state: "forbidden", reason: "type" };
-  return { state: "over" };
-}
-function acceptsFile(file2, accept) {
-  const { extensions, mimeTypes } = acceptEntries(accept);
-  if (extensions.length === 0 && mimeTypes.length === 0) return true;
-  const name = file2.name.toLowerCase();
-  return extensions.some((extension) => name.endsWith(extension)) || matchesMimeType(file2.type, mimeTypes);
-}
-var MAX_TOASTS = 3;
-var TOAST_DURATION_MS = {
-  success: 2800,
-  info: 2800,
-  warning: 5e3,
-  danger: 5e3
-};
-var TOAST_MAX_WIDTH = 480;
-function toastLifetime(request) {
-  if (request.action) return void 0;
-  const requested = request.durationMs;
-  const longer = requested !== void 0 && Number.isFinite(requested) ? requested : 0;
-  return Math.max(TOAST_DURATION_MS[request.status], longer);
-}
-function toastToEvict(stack) {
-  if (stack.length < MAX_TOASTS) return void 0;
-  const evicted = stack.find((slot) => !slot.engaged && !slot.hasAction) ?? stack.find((slot) => !slot.engaged) ?? stack[0];
-  return evicted?.id;
-}
-function toastStackWidth(containerWidth) {
-  return Math.max(0, Math.min(TOAST_MAX_WIDTH, containerWidth - 2 * SHELL.edge));
-}
-function toastStackBottom(input2) {
-  const stackWidth = toastStackWidth(input2.containerWidth);
-  const { cardWidth } = input2;
-  const width = cardWidth !== void 0 && Number.isFinite(cardWidth) ? Math.min(stackWidth, Math.max(0, cardWidth)) : stackWidth;
-  const left = (input2.containerWidth - width) / 2;
-  const right = left + width;
-  let highest;
-  for (const obstacle of input2.obstacles) {
-    const distance2 = Math.max(obstacle.left - right, left - obstacle.right);
-    if (distance2 >= SHELL.gap) continue;
-    highest = highest === void 0 ? obstacle.top : Math.max(highest, obstacle.top);
-  }
-  return highest === void 0 ? SHELL.edge : Math.max(SHELL.edge, highest + SHELL.gap);
-}
-var APPEARANCE_STORAGE_KEY = "miragon.darstellung";
-function parseAppearanceChoice(stored) {
-  return stored === "light" || stored === "dark" ? stored : "system";
-}
-function documentMode(choice, themes, colors) {
-  if (!themes.includes("dark")) return fixedMode("light", colors.light);
-  const parsed = parseAppearanceChoice(choice);
-  if (parsed === "system") {
-    return {
-      theme: "system",
-      colorScheme: "light dark",
-      themeColor: { light: colors.light, dark: colors.dark }
-    };
-  }
-  return fixedMode(parsed, colors[parsed]);
-}
-function fixedMode(theme, color) {
-  return { theme, colorScheme: theme, themeColor: { light: color, dark: color } };
-}
-
-// ../../../../packages/shell/dist/chunk-7GKXJQWI.js
-var TOOLS_GROUP = "tools";
-var READ_ONLY_ACTIONS = /* @__PURE__ */ new Set(["lasso-tool", "hand-tool"]);
-var TOOL_ACTION_SUFFIX = "-tool";
-var ENTRIES_SELECTOR = ".djs-palette-entries";
-var ENTRY_SELECTOR = ".entry";
-var PaletteSkin = class {
-  constructor(element, readEntries) {
-    this.element = element;
-    this.readEntries = readEntries;
-    element.setAttribute("data-chrome", "palette");
-    element.addEventListener("keydown", this.onKeydown);
-    element.addEventListener("focusin", this.onFocusIn);
-    element.addEventListener("focusout", this.onFocusOut);
-    this.refresh();
-  }
-  element;
-  readEntries;
-  label = defaultMessages.tools;
-  activeTool = null;
-  /** The veto of a read-only canvas, at once with the invalid import. */
-  locked = false;
-  /** The `aria-disabled` marks of a read-only canvas, once the shell's delay has passed. */
-  readOnlyShown = false;
-  entries = {};
-  rovingAction;
-  focusedEntry;
-  /** The `aria-disabled` an entry had before read-only marked it (`null`: none). */
-  disabledEntries = /* @__PURE__ */ new WeakMap();
-  setLabel(label) {
-    this.label = label;
-    this.apply();
-  }
-  setActiveTool(tool) {
-    this.activeTool = tool;
-    this.apply();
-  }
-  setReadOnly(state) {
-    this.locked = state.locked;
-    this.readOnlyShown = state.locked && state.shown;
-    this.apply();
-  }
-  /**
-   * Whether `palette.trigger` must refuse `entry`: on a locked canvas every entry but Lasso and
-   * Hand, also before their marks show. `palette.trigger` carries the entry definition without its
-   * id, so the entry element is found through the DOM event; without one, only the tools group
-   * passes.
-   */
-  vetoes(entry, event2) {
-    if (!this.locked) return false;
-    const element = this.entryOf(
-      event2?.delegateTarget ?? event2?.target ?? null
-    );
-    if (element) return !staysActive(element);
-    return entry.group !== TOOLS_GROUP;
-  }
-  /** After `palette.changed`: re-read the entries and re-apply every attribute. */
-  refresh() {
-    this.entries = this.readEntries();
-    this.apply();
-  }
-  entryTooltip(entry) {
-    const action = entry.getAttribute("data-action");
-    const definition = action === null ? void 0 : this.entries[action];
-    if (!definition?.title) return null;
-    return definition.shortcut ? { label: definition.title, shortcut: definition.shortcut } : { label: definition.title };
-  }
-  destroy() {
-    this.element.removeEventListener("keydown", this.onKeydown);
-    this.element.removeEventListener("focusin", this.onFocusIn);
-    this.element.removeEventListener("focusout", this.onFocusOut);
-    this.focusedEntry = void 0;
-  }
-  apply() {
-    const container = this.element.querySelector(ENTRIES_SELECTOR);
-    if (container) {
-      container.setAttribute("role", "toolbar");
-      container.setAttribute("aria-label", this.label);
-    }
-    const entries = this.entryElements();
-    for (const entry of entries) {
-      if (!entry.hasAttribute("role")) entry.setAttribute("role", "button");
-      this.applyKeyShortcuts(entry);
-      this.applyPressed(entry);
-      this.applyDisabled(entry);
-    }
-    const stop = this.applyTabStops(entries);
-    this.restoreFocus(entries, stop);
-  }
-  // Guide §5.6: a button with a shortcut names it for assistive technology, not only in the chip.
-  applyKeyShortcuts(entry) {
-    const action = actionOf(entry);
-    const definition = action === void 0 ? void 0 : this.entries[action];
-    const keyShortcuts = definition?.ariaKeyShortcuts ?? (definition?.shortcut ? ariaKeyShortcutsFromLabel(definition.shortcut) : void 0);
-    if (keyShortcuts) entry.setAttribute("aria-keyshortcuts", keyShortcuts);
-  }
-  applyPressed(entry) {
-    const action = actionOf(entry);
-    if (groupOf(entry) !== TOOLS_GROUP || !action?.endsWith(TOOL_ACTION_SUFFIX)) return;
-    const tool = action.slice(0, -TOOL_ACTION_SUFFIX.length);
-    entry.setAttribute("aria-pressed", String(tool === this.activeTool));
-  }
-  applyDisabled(entry) {
-    if (this.readOnlyShown && !staysActive(entry)) {
-      if (!this.disabledEntries.has(entry)) {
-        this.disabledEntries.set(entry, entry.getAttribute("aria-disabled"));
-      }
-      entry.setAttribute("aria-disabled", "true");
-      return;
-    }
-    if (!this.disabledEntries.has(entry)) return;
-    const previous = this.disabledEntries.get(entry);
-    this.disabledEntries.delete(entry);
-    if (previous === null || previous === void 0) entry.removeAttribute("aria-disabled");
-    else entry.setAttribute("aria-disabled", previous);
-  }
-  applyTabStops(entries) {
-    const stop = entries.find((entry) => actionOf(entry) === this.rovingAction) ?? entries[0];
-    for (const entry of entries) entry.tabIndex = entry === stop ? 0 : -1;
-    return stop;
-  }
-  // A rebuild removes the focused entry; without this the focus would fall back to <body>. An
-  // entry the rebuilt palette no longer offers (another level, another mode) hands the focus to the
-  // tab stop, so the keyboard user stays in the toolbar.
-  restoreFocus(entries, stop) {
-    const lost = this.focusedEntry;
-    if (!lost || lost.isConnected) return;
-    this.focusedEntry = void 0;
-    const replacement = entries.find((entry) => actionOf(entry) === actionOf(lost)) ?? stop;
-    const active = this.element.ownerDocument.activeElement;
-    const focusIsNowhere = !active || active === this.element.ownerDocument.body;
-    if (replacement && focusIsNowhere) replacement.focus();
-  }
-  entryElements() {
-    const container = this.element.querySelector(ENTRIES_SELECTOR);
-    return container ? Array.from(container.querySelectorAll(ENTRY_SELECTOR)) : [];
-  }
-  entryOf(target) {
-    if (!(target instanceof Element)) return void 0;
-    const entry = target.closest(ENTRY_SELECTOR);
-    return entry && this.element.contains(entry) ? entry : void 0;
-  }
-  onFocusIn = (event2) => {
-    const entry = this.entryOf(event2.target);
-    if (!entry) return;
-    this.focusedEntry = entry;
-    this.rovingAction = actionOf(entry);
-    this.applyTabStops(this.entryElements());
-  };
-  // A focus that leaves the palette is not brought back by a later rebuild. Chromium reports the
-  // removal of the focused entry as a focusout too, while the entry is still in the document, and
-  // the rebuild's `palette.changed` follows in the same task: so the entry counts as left only once
-  // that task is over and the focus has not come back to it.
-  onFocusOut = (event2) => {
-    const entry = this.entryOf(event2.target);
-    if (!entry || entry !== this.focusedEntry) return;
-    const next = event2.relatedTarget;
-    if (next instanceof Node && this.element.contains(next)) return;
-    queueMicrotask(() => {
-      if (this.focusedEntry === entry && entry.ownerDocument.activeElement !== entry) {
-        this.focusedEntry = void 0;
-      }
-    });
-  };
-  onKeydown = (event2) => {
-    if (event2.defaultPrevented || event2.altKey || event2.ctrlKey || event2.metaKey || event2.shiftKey)
-      return;
-    const entry = this.entryOf(event2.target);
-    if (!entry || entry.closest("[inert]") || !isRendered(entry)) return;
-    const entries = this.entryElements();
-    const index2 = entries.indexOf(entry);
-    const last = entries.length - 1;
-    let next;
-    switch (event2.key) {
-      case "ArrowLeft":
-        next = entries[index2 <= 0 ? last : index2 - 1];
-        break;
-      case "ArrowRight":
-        next = entries[index2 >= last ? 0 : index2 + 1];
-        break;
-      case "Home":
-        next = entries[0];
-        break;
-      case "End":
-        next = entries[last];
-        break;
-      case "Enter":
-      case " ":
-        event2.preventDefault();
-        event2.stopPropagation();
-        if (!event2.repeat) activate(entry);
-        return;
-      default:
-        return;
-    }
-    event2.preventDefault();
-    event2.stopPropagation();
-    if (!next) return;
-    this.rovingAction = actionOf(next);
-    this.applyTabStops(entries);
-    next.focus();
-  };
-};
-function isRendered(entry) {
-  return typeof entry.checkVisibility !== "function" || entry.checkVisibility({ visibilityProperty: true });
-}
-function actionOf(entry) {
-  return entry.getAttribute("data-action") ?? void 0;
-}
-function staysActive(entry) {
-  const action = actionOf(entry);
-  return action !== void 0 && READ_ONLY_ACTIONS.has(action);
-}
-function groupOf(entry) {
-  return entry.closest(".group")?.getAttribute("data-group") ?? void 0;
-}
-function activate(entry) {
-  const bounds = entry.getBoundingClientRect();
-  entry.dispatchEvent(
-    new MouseEvent("click", {
-      bubbles: true,
-      cancelable: true,
-      clientX: bounds.left + bounds.width / 2,
-      clientY: bounds.top + bounds.height / 2
-    })
-  );
-}
-var SHELL_SERVICE = "modelerShell";
-var KEYBOARD_PRIORITY = 2e3;
-var TRIGGER_PRIORITY = 2e3;
-var EDITABLE = { locked: false, shown: false };
-var CANVAS_ATTRIBUTES = ["role", "aria-label"];
-var ShellDiagramService = class {
-  constructor(eventBus, injector) {
-    this.eventBus = eventBus;
-    this.injector = injector;
-    this.subscribe("canvas.init", (event2) => {
-      this.svg = event2.svg;
-      this.nameCanvas();
-    });
-    this.subscribe(
-      "palette.create",
-      (event2) => this.onPaletteCreate(event2.container)
-    );
-    this.subscribe("palette.changed", () => this.skin?.refresh());
-    this.subscribe("tool-manager.update", (event2) => {
-      this.activeTool = event2.tool ?? null;
-      this.armedPrefix = this.activeTool === null ? void 0 : this.dragPrefix();
-      this.droppedTool = void 0;
-      this.skin?.setActiveTool(this.activeTool);
-    });
-    this.subscribe("drag.cleanup", () => this.onDragCleanup());
-    this.subscribe("drag.ended", () => {
-      this.droppedTool = void 0;
-    });
-    this.subscribe("palette.trigger", this.onPaletteTrigger, TRIGGER_PRIORITY);
-    this.subscribe("diagram.destroy", () => this.destroy());
-    const keyboard = injector.get("keyboard", false);
-    if (keyboard) {
-      keyboard.addListener(KEYBOARD_PRIORITY, this.onKeyboardKeydown);
-      this.subscriptions.push(["keyboard.keydown", this.onKeyboardKeydown]);
-    }
-  }
-  eventBus;
-  injector;
-  static $inject = ["eventBus", "injector"];
-  svg;
-  /** The canvas `<svg>`'s own `role` and `aria-label` before the shell named it. */
-  canvasOriginals;
-  skin;
-  activeTool = null;
-  /** The prefix of the drag that waits for the active tool's next press. */
-  armedPrefix;
-  droppedTool;
-  shell;
-  unregisterPalette;
-  subscriptions = [];
-  destroyed = false;
-  /**
-   * Hands the palette (now or once diagram-js creates it) to `shell`; returns the detach
-   * function. A later call replaces the earlier shell.
-   */
-  canvasOwnsHistory = true;
-  attachShell(shell, options = {}) {
-    this.detachShell();
-    if (this.destroyed) return () => void 0;
-    this.shell = shell;
-    this.canvasOwnsHistory = options.canvasOwnsHistory ?? shell.host !== "ide";
-    this.skin?.setLabel(shell.messages.tools);
-    this.nameCanvas();
-    this.registerPalette();
-    return () => {
-      if (this.shell === shell) this.detachShell();
-    };
-  }
-  registerPalette() {
-    const { shell, skin } = this;
-    if (!shell || !skin) return;
-    this.unregisterPalette?.();
-    this.unregisterPalette = shell.registerPalette({
-      element: skin.element,
-      entryTooltip: (entry) => skin.entryTooltip(entry),
-      setReadOnly: (state) => skin.setReadOnly(state)
-    });
-  }
-  detachShell() {
-    const unregister = this.unregisterPalette;
-    this.unregisterPalette = void 0;
-    this.shell = void 0;
-    unregister?.();
-    this.unnameCanvas();
-    this.skin?.setReadOnly(EDITABLE);
-    this.skin?.setLabel(defaultMessages.tools);
-  }
-  /**
-   * The focusable canvas is an application with a name (WCAG 4.1.2): screen readers switch to focus
-   * mode, so the canvas's single-key commands reach it. A role or name the modeler set stays.
-   */
-  nameCanvas() {
-    const { svg: svg2, shell } = this;
-    if (!svg2 || !shell || this.canvasOriginals) return;
-    this.canvasOriginals = new Map(CANVAS_ATTRIBUTES.map((name) => [name, svg2.getAttribute(name)]));
-    if (!svg2.hasAttribute("role")) svg2.setAttribute("role", "application");
-    if (!svg2.hasAttribute("aria-label") && !svg2.hasAttribute("aria-labelledby")) {
-      svg2.setAttribute("aria-label", shell.messages.canvas);
-    }
-  }
-  unnameCanvas() {
-    const { svg: svg2, canvasOriginals } = this;
-    this.canvasOriginals = void 0;
-    if (!svg2 || !canvasOriginals) return;
-    for (const [name, value] of canvasOriginals) {
-      if (value === null) svg2.removeAttribute(name);
-      else svg2.setAttribute(name, value);
-    }
-  }
-  onPaletteCreate(container) {
-    this.skin?.destroy();
-    const palette = this.injector.get("palette", false);
-    const skin = new PaletteSkin(container, () => palette?.getEntries() ?? {});
-    this.skin = skin;
-    skin.setActiveTool(this.activeTool);
-    if (this.shell) skin.setLabel(this.shell.messages.tools);
-    this.moveBeforeCanvas(container);
-    this.registerPalette();
-  }
-  // Palette#_init appends the palette after the <svg>; in front of it the palette comes first in
-  // the tab order (guide §5.14).
-  moveBeforeCanvas(container) {
-    const parent = container.parentElement ?? this.canvasContainer();
-    if (!parent) return;
-    const svg2 = this.svg?.parentNode === parent ? this.svg : Array.from(parent.children).find((child) => child.localName === "svg");
-    if (svg2) parent.insertBefore(container, svg2);
-  }
-  canvasContainer() {
-    const canvas = this.injector.get("canvas", false);
-    return canvas?.getContainer();
-  }
-  dragPrefix() {
-    const dragging = this.injector.get("dragging", false);
-    return dragging?.context()?.prefix;
-  }
-  /**
-   * diagram-js's tool manager puts a tool down when its drag ends, but on a cancel only for a drag
-   * the pointer has moved and not from the palette's tools group: Escape on a tool the palette armed
-   * before the pointer moved left it pressed (guide §5.5: pressed only while armed). The armed drag
-   * also goes when another tool's drag replaces it, whose init follows in the same task, so the
-   * decision waits until that task is over.
-   */
-  onDragCleanup() {
-    const prefix = this.dragPrefix();
-    const tool = this.activeTool;
-    if (prefix === void 0 || prefix !== this.armedPrefix || tool === null) return;
-    const dropped = { tool, prefix };
-    this.droppedTool = dropped;
-    queueMicrotask(() => {
-      if (this.droppedTool !== dropped) return;
-      this.droppedTool = void 0;
-      const toolManager = this.injector.get("toolManager", false);
-      if (!toolManager?.isActive(tool) || this.dragPrefix() === prefix) return;
-      toolManager.setActive(null);
-    });
-  }
-  onPaletteTrigger = (event2) => {
-    if (!event2.entry || !this.skin?.vetoes(event2.entry, event2.event)) return void 0;
-    event2.event?.preventDefault();
-    return false;
-  };
-  /**
-   * `true` stops the diagram-js keyboard (and makes it call `preventDefault`), `false` stops it
-   * without: a chrome key in a text field inside the `<svg>` stays the field's (Shift+1 types "!"),
-   * and where the canvas does not own the history (the IDE host but Orca) undo and redo stay the
-   * document's (guide §13.5), so they reach VS Code instead of the canvas `commandStack`.
-   */
-  onKeyboardKeydown = (context) => {
-    const event2 = context.keyEvent;
-    if (!event2) return void 0;
-    if (matchChromeKey(event2))
-      return !isTextField(event2.target) && this.shell?.isEmptyStateShown?.() !== true;
-    if (this.shell && !this.canvasOwnsHistory && isUndoRedoKey(event2)) return false;
-    return void 0;
-  };
-  subscribe(name, listener, priority) {
-    const handler = listener;
-    if (priority === void 0) this.eventBus.on(name, handler);
-    else this.eventBus.on(name, priority, handler);
-    this.subscriptions.push([name, handler]);
-  }
-  destroy() {
-    if (this.destroyed) return;
-    this.destroyed = true;
-    this.detachShell();
-    this.skin?.destroy();
-    this.skin = void 0;
-    this.svg = void 0;
-    this.droppedTool = void 0;
-    for (const [name, listener] of this.subscriptions.splice(0)) this.eventBus.off(name, listener);
-  }
-};
-function shellServiceOf(diagram) {
-  let service;
-  try {
-    service = diagram.get(SHELL_SERVICE);
-  } catch {
-    service = void 0;
-  }
-  if (!isShellService(service)) {
-    throw new Error(
-      "@miragon/modeler-shell: connectDiagramJs needs shellModule in the modeler's modules (additionalModules: [shellModule])"
-    );
-  }
-  return service;
-}
-function isShellService(value) {
-  return typeof value?.attachShell === "function";
-}
-var shellModule = {
-  __init__: [SHELL_SERVICE],
-  [SHELL_SERVICE]: ["type", ShellDiagramService],
-  paletteTooltip: ["value", null]
-};
-var IMPORT_START_EVENTS = ["import.parse.start", "import.render.start"];
-var IMPORT_DONE_EVENT = "import.done";
-var CONTENT_EVENTS = [
-  "shape.added",
-  "shape.removed",
-  "connection.added",
-  "connection.removed",
-  "diagram.clear"
-];
-var ZOOM_STEP = Math.log10(ZOOM_MAX / ZOOM_MIN) / 10;
-var CAPTURE = { capture: true };
-var INSET_SIDES = ["top", "right", "bottom", "left"];
-var DiagramViewport = class {
-  constructor(diagram, options) {
-    this.diagram = diagram;
-    this.options = options;
-    this.canvas = diagram.get("canvas");
-    this.eventBus = diagram.get("eventBus");
-    this.container = this.canvas.getContainer();
-    this.subscribe("canvas.viewbox.changing", this.notify);
-    this.subscribe("canvas.viewbox.changed", this.onViewboxChanged);
-    this.subscribe(IMPORT_START_EVENTS, this.onImportStart);
-    this.subscribe(IMPORT_DONE_EVENT, this.onImportDone);
-    this.subscribe("elements.changed", this.onElementsChanged);
-    this.subscribe(CONTENT_EVENTS, this.onContentChanged);
-    this.subscribe("diagram.destroy", () => this.destroy());
-    this.container.addEventListener("wheel", this.onPointerInput, { capture: true, passive: true });
-    this.container.addEventListener("pointerdown", this.onPointerInput, CAPTURE);
-    this.container.addEventListener("keydown", this.onKeyInput, CAPTURE);
-    if (typeof ResizeObserver === "function") {
-      this.observer = new ResizeObserver(this.onResizeObserved);
-      this.observer.observe(this.container);
-    }
-  }
-  diagram;
-  options;
-  canvas;
-  eventBus;
-  container;
-  listeners = /* @__PURE__ */ new Set();
-  subscriptions = [];
-  observer;
-  zoomScrollService;
-  /** The last view the viewport set as its own (fit target, restore); user moves differ from it. */
-  reference;
-  /** The last view written, animation frames included. */
-  lastWritten;
-  /** The container size the current view was set or last resized for. */
-  lastSize;
-  writing = 0;
-  userMoved = false;
-  importing = false;
-  imported = false;
-  firstFitPending = true;
-  /** Nothing has decided the view yet, so an empty first import shows 100 %. */
-  emptyViewPending = true;
-  /** The 100 % of an empty first import waits for the container to get a size (hidden tab). */
-  emptyViewDue = false;
-  /** `canFit()` of the current content; the zoom panel asks every frame, `contentBounds` may be costly. */
-  fittable;
-  lastZoom = 1;
-  /** An automatic fit is due but the container had no size yet (hidden tab). */
-  autoFitDue = false;
-  /** A restored view waits for the container to get a size. */
-  pendingView;
-  /** What the fit that set the current view measured; cleared once anything else sets the view. */
-  fitted;
-  animation;
-  resizeFrame;
-  destroyed = false;
-  zoom() {
-    if (!this.destroyed) this.lastZoom = this.canvas.zoom();
-    return this.lastZoom;
-  }
-  stepZoom(direction) {
-    if (this.destroyed) return;
-    this.beforeUserChange();
-    const zoom2 = this.canvas.zoom();
-    if (direction < 0 ? !canZoomOut(zoom2) : !canZoomIn(zoom2)) return;
-    const zoomScroll = this.zoomScroll();
-    if (zoomScroll) zoomScroll.stepZoom(direction);
-    else this.canvas.zoom(stepOnRaster(zoom2, direction));
-  }
-  zoomToActual() {
-    if (this.destroyed) return;
-    this.beforeUserChange();
-    this.canvas.zoom(1);
-  }
-  focus() {
-    if (!this.destroyed) this.canvas.focus?.();
-  }
-  fit(options) {
-    if (this.destroyed) return;
-    this.importing = false;
-    this.fitTo(options?.animate !== false && !this.prefersReducedMotion());
-  }
-  canFit() {
-    if (this.destroyed) return false;
-    this.fittable ??= hasExtent(this.options.contentBounds());
-    return this.fittable;
-  }
-  onChange(listener) {
-    this.listeners.add(listener);
-    return () => {
-      this.listeners.delete(listener);
-    };
-  }
-  afterImport() {
-    if (this.destroyed) return;
-    this.importing = false;
-    this.imported = true;
-    this.fittable = void 0;
-    if (this.firstFitPending && this.canFit()) {
-      this.firstFitPending = false;
-      this.emptyViewPending = false;
-      this.emptyViewDue = false;
-      if (!this.userMoved && !this.fitTo(false)) this.autoFitDue = true;
-    } else if (this.firstFitPending && this.emptyViewPending) {
-      this.emptyViewPending = false;
-      if (!this.userMoved && !this.showActualSize()) this.emptyViewDue = true;
-    }
-    this.notify();
-  }
-  newDocument() {
-    if (this.destroyed) return;
-    this.cancelAnimation();
-    this.fitted = void 0;
-    this.userMoved = false;
-    this.firstFitPending = true;
-    this.emptyViewPending = true;
-    this.emptyViewDue = false;
-    this.autoFitDue = false;
-    this.pendingView = void 0;
-    this.fittable = void 0;
-  }
-  restore(viewbox) {
-    if (this.destroyed) return;
-    this.importing = false;
-    this.imported = true;
-    this.fittable = void 0;
-    this.emptyViewPending = false;
-    this.emptyViewDue = false;
-    this.cancelAnimation();
-    this.show(viewbox);
-    this.notify();
-  }
-  freeRectCenter() {
-    if (this.destroyed) return void 0;
-    const centre = freeRectCenter(this.canvas.getSize(), this.options.insets());
-    const view = this.currentView();
-    if (!centre || !view) return void 0;
-    return { x: view.x + centre.x / view.scale, y: view.y + centre.y / view.scale };
-  }
-  getViewbox() {
-    if (this.destroyed) return void 0;
-    if (this.pendingView) return { ...this.pendingView };
-    const size2 = this.canvas.getSize();
-    if (!hasSize(size2)) return void 0;
-    const { x: x3, y: y3, scale } = this.canvas.viewbox();
-    return { x: x3, y: y3, width: size2.width / scale, height: size2.height / scale };
-  }
-  isAutomatic() {
-    return !this.userMoved;
-  }
-  getState() {
-    if (!this.imported) return void 0;
-    const viewbox = this.getViewbox();
-    return viewbox ? { viewbox, userMoved: this.userMoved } : void 0;
-  }
-  setState(state) {
-    if (this.destroyed) return;
-    this.importing = false;
-    this.imported = true;
-    this.fittable = void 0;
-    this.cancelAnimation();
-    this.userMoved = state.userMoved;
-    this.autoFitDue = false;
-    this.emptyViewPending = false;
-    this.emptyViewDue = false;
-    if (this.canFit()) this.firstFitPending = false;
-    this.show(state.viewbox);
-    this.notify();
-  }
-  /**
-   * Fits again (jump) when `insets()` differs from what the fit that set the current view measured
-   * on `side` and on no other side, while nothing else has set the view since and the content
-   * bounds are still the ones it fitted: chrome that settles after a fit (the open legend's card
-   * once its font has loaded) would leave the content off the free rectangle's centre, while any
-   * other change of the chrome, and content the user created, moved or deleted since, keeps the view
-   * (guide §5.9). A fit animation still running is retargeted instead. A container resize is left
-   * to the resize refit. True when it fit again.
-   */
-  refitIfOnlyInsetChanged(side) {
-    const fitted = this.fitted;
-    if (this.destroyed || !fitted) return false;
-    const size2 = this.canvas.getSize();
-    if (size2.width !== this.lastSize?.width || size2.height !== this.lastSize.height) return false;
-    const insets = this.options.insets();
-    if (insets[side] === fitted.insets[side]) return false;
-    if (INSET_SIDES.some((other) => other !== side && insets[other] !== fitted.insets[other]))
-      return false;
-    if (!sameBounds(this.options.contentBounds(), fitted.bounds)) return false;
-    return this.fitTo(this.animation !== void 0);
-  }
-  /** `canvas.resized()`; viewbox changes it causes (keep-selection-visible) are not user moves. */
-  resized() {
-    if (this.destroyed) return;
-    this.writing++;
-    try {
-      this.canvas.resized();
-    } finally {
-      this.writing--;
-    }
-  }
-  destroy() {
-    if (this.destroyed) return;
-    this.destroyed = true;
-    this.cancelAnimation();
-    if (this.resizeFrame !== void 0) cancelAnimationFrame(this.resizeFrame);
-    this.resizeFrame = void 0;
-    this.observer?.disconnect();
-    this.container.removeEventListener("wheel", this.onPointerInput, CAPTURE);
-    this.container.removeEventListener("pointerdown", this.onPointerInput, CAPTURE);
-    this.container.removeEventListener("keydown", this.onKeyInput, CAPTURE);
-    for (const [events, listener] of this.subscriptions.splice(0))
-      this.eventBus.off(events, listener);
-    this.listeners.clear();
-  }
-  /** Fits now (jump) or animated; false when there is nothing to fit or no container size. */
-  fitTo(animate) {
-    this.cancelAnimation();
-    const bounds = this.options.contentBounds();
-    if (!bounds) return false;
-    const insets = this.options.insets();
-    const target = fitViewbox(bounds, this.canvas.getSize(), insets);
-    if (!target) return false;
-    this.fitted = { bounds: { ...bounds }, insets: { ...insets } };
-    this.userMoved = false;
-    this.firstFitPending = false;
-    this.autoFitDue = false;
-    this.emptyViewPending = false;
-    this.emptyViewDue = false;
-    this.pendingView = void 0;
-    const from = this.currentView();
-    if (animate && from && !sameView(from, target) && typeof requestAnimationFrame === "function") {
-      this.animate(from, target);
-    } else {
-      this.write(target);
-    }
-    return true;
-  }
-  animate(from, target) {
-    this.reference = toView(target);
-    const animation = { frame: 0 };
-    const startedAt = performance.now();
-    const step = (timestamp) => {
-      if (this.animation !== animation) return;
-      if (!hasSize(this.canvas.getSize())) {
-        this.cancelAnimation();
-        this.autoFitDue = true;
-        return;
-      }
-      const progress = Math.min(1, Math.max(0, (timestamp - startedAt) / FIT_ANIMATION_MS));
-      if (progress >= 1) {
-        this.animation = void 0;
-        this.write(target);
-        return;
-      }
-      this.write(interpolateViewbox(from, target, easeStandard(progress)), false);
-      animation.frame = requestAnimationFrame(step);
-    };
-    this.animation = animation;
-    animation.frame = requestAnimationFrame(step);
-  }
-  cancelAnimation() {
-    const animation = this.animation;
-    if (!animation) return;
-    this.animation = void 0;
-    this.fitted = void 0;
-    cancelAnimationFrame(animation.frame);
-    if (this.lastWritten) this.reference = this.lastWritten;
-  }
-  /**
-   * 100 % around the centre of the free rectangle, written as the viewport's own view; true when
-   * the view is at 100 % afterwards, false while the container has no size.
-   */
-  showActualSize() {
-    const size2 = this.canvas.getSize();
-    const centre = freeRectCenter(size2, this.options.insets());
-    const view = this.currentView();
-    if (!centre || !view) return false;
-    if (Math.abs(view.scale - 1) <= VIEW_TOLERANCE) return true;
-    this.cancelAnimation();
-    this.write({
-      x: view.x + centre.x / view.scale - centre.x,
-      y: view.y + centre.y / view.scale - centre.y,
-      width: size2.width,
-      height: size2.height
-    });
-    return true;
-  }
-  /** Shows a restored view now, or once the container has a size. */
-  show(viewbox) {
-    this.fitted = void 0;
-    if (hasSize(this.canvas.getSize())) {
-      this.pendingView = void 0;
-      this.write(viewbox);
-    } else {
-      this.pendingView = {
-        x: viewbox.x,
-        y: viewbox.y,
-        width: viewbox.width,
-        height: viewbox.height
-      };
-    }
-  }
-  /** Callers make sure the container has a size: diagram-js would set a scale of 0 otherwise. */
-  write(box, asReference = true) {
-    const size2 = this.canvas.getSize();
-    const view = {
-      x: box.x,
-      y: box.y,
-      scale: Math.min(size2.width / box.width, size2.height / box.height)
-    };
-    this.writing++;
-    try {
-      this.canvas.viewbox({ x: box.x, y: box.y, width: box.width, height: box.height });
-    } finally {
-      this.writing--;
-    }
-    this.lastWritten = view;
-    if (asReference) this.reference = view;
-    this.lastSize = { width: size2.width, height: size2.height };
-  }
-  currentView() {
-    const size2 = this.canvas.getSize();
-    const { x: x3, y: y3, scale } = this.canvas.viewbox();
-    if (!(scale > 0 && Number.isFinite(scale))) return void 0;
-    return { x: x3, y: y3, width: size2.width / scale, height: size2.height / scale, scale };
-  }
-  beforeUserChange() {
-    this.importing = false;
-    this.cancelAnimation();
-  }
-  zoomScroll() {
-    if (this.zoomScrollService === void 0) {
-      try {
-        this.zoomScrollService = this.diagram.get("zoomScroll") ?? null;
-      } catch {
-        this.zoomScrollService = null;
-      }
-    }
-    return this.zoomScrollService;
-  }
-  prefersReducedMotion() {
-    if (this.options.prefersReducedMotion) return this.options.prefersReducedMotion();
-    if (this.container.ownerDocument.documentElement.classList.contains(REDUCED_MOTION_CLASS))
-      return true;
-    return typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  }
-  isOwnView(current) {
-    if (this.reference && sameView(current, this.reference)) return true;
-    return this.animation !== void 0 && this.lastWritten !== void 0 && sameView(current, this.lastWritten);
-  }
-  // Not a flag around the own writes alone: with `canvas.deferUpdate` the event of an own change
-  // arrives up to 300ms later, so it is recognised by its view.
-  onViewboxChanged = (event2) => {
-    if (this.writing === 0 && !this.importing) {
-      const current = event2?.viewbox ?? this.canvas.viewbox();
-      if (!this.isOwnView(current)) {
-        this.cancelAnimation();
-        this.fitted = void 0;
-        this.userMoved = true;
-        this.autoFitDue = false;
-        this.emptyViewDue = false;
-      }
-    }
-    this.notify();
-  };
-  onImportStart = () => {
-    this.importing = true;
-  };
-  onImportDone = () => {
-    this.importing = false;
-    this.fittable = void 0;
-    this.notify();
-  };
-  onContentChanged = () => {
-    this.fittable = void 0;
-  };
-  // Guide §5.9: an element the user creates on the canvas never fits. Once such content exists,
-  // only imports that keep the view follow, so the first automatic fit is no longer due.
-  onElementsChanged = () => {
-    this.fittable = void 0;
-    if (this.imported && !this.importing && this.firstFitPending && this.canFit()) {
-      this.firstFitPending = false;
-    }
-    this.notify();
-  };
-  // User input also ends an import window a failed import never closed with `import.done`.
-  onPointerInput = () => {
-    this.importing = false;
-    this.cancelAnimation();
-  };
-  onKeyInput = (event2) => {
-    this.importing = false;
-    if (matchChromeKey(event2)) this.cancelAnimation();
-  };
-  onResizeObserved = () => {
-    if (this.destroyed || this.resizeFrame !== void 0) return;
-    if (typeof requestAnimationFrame !== "function") {
-      this.onResize();
-      return;
-    }
-    this.resizeFrame = requestAnimationFrame(() => {
-      this.resizeFrame = void 0;
-      this.onResize();
-    });
-  };
-  onResize() {
-    if (this.destroyed) return;
-    const size2 = this.canvas.getSize();
-    if (!hasSize(size2)) return;
-    const changed = this.lastSize?.width !== size2.width || this.lastSize.height !== size2.height;
-    if (!changed && !this.pendingView && !this.autoFitDue && !this.emptyViewDue) return;
-    this.lastSize = { width: size2.width, height: size2.height };
-    this.resized();
-    const restored = this.pendingView;
-    if (restored) {
-      this.pendingView = void 0;
-      this.write(restored);
-    }
-    if (this.userMoved) return;
-    if (this.emptyViewDue) {
-      this.emptyViewDue = false;
-      this.showActualSize();
-      return;
-    }
-    if (this.autoFitDue || !restored && !this.firstFitPending) this.fitTo(false);
-  }
-  subscribe(events, listener) {
-    this.eventBus.on(events, listener);
-    this.subscriptions.push([events, listener]);
-  }
-  notify = () => {
-    for (const listener of [...this.listeners]) listener();
-  };
-};
-function toView(box) {
-  return { x: box.x, y: box.y, scale: box.scale };
-}
-function hasSize(size2) {
-  return size2.width > 0 && size2.height > 0;
-}
-function hasExtent(bounds) {
-  return bounds !== void 0 && (bounds.width > 0 || bounds.height > 0);
-}
-function sameBounds(bounds, other) {
-  return bounds !== void 0 && bounds.x === other.x && bounds.y === other.y && bounds.width === other.width && bounds.height === other.height;
-}
-function stepOnRaster(zoom2, direction) {
-  const level = Math.round(Math.log10(zoom2) / ZOOM_STEP) * ZOOM_STEP + ZOOM_STEP * direction;
-  return Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, 10 ** level));
-}
-var HINT_SYNC_PRIORITY = 500;
-function contentBoundsOf(options) {
-  if (options.contentBounds) return () => options.contentBounds?.();
-  const { modeler } = options;
-  if (typeof modeler?.contentBounds === "function") return () => modeler.contentBounds?.();
-  throw new Error(
-    "@miragon/modeler-shell: connectDiagramJs needs the content bounds: pass options.contentBounds, or options.modeler with contentBounds() (@miragon/modeler-api 1.3)"
-  );
-}
-function whenFontsSettle(fonts, settled) {
-  let cancelled = false;
-  let frame;
-  const afterTwoFrames = (then) => {
-    frame = requestAnimationFrame(() => {
-      frame = requestAnimationFrame(() => {
-        frame = void 0;
-        then();
-      });
-    });
-  };
-  const waitForFonts = () => {
-    void fonts.ready.then(() => {
-      if (cancelled) return;
-      afterTwoFrames(() => {
-        if (fonts.status === "loading") waitForFonts();
-        else settled();
-      });
-    });
-  };
-  waitForFonts();
-  return () => {
-    cancelled = true;
-    if (frame !== void 0) cancelAnimationFrame(frame);
-  };
-}
-function refitWhenLegendSettles(shell, viewport) {
-  const legend = shell.legend;
-  const fonts = legend?.element.ownerDocument.fonts;
-  if (!legend?.isOpen() || !fonts || typeof ResizeObserver !== "function" || typeof requestAnimationFrame !== "function") {
-    return () => void 0;
-  }
-  let stopped = false;
-  const observer = new ResizeObserver(() => {
-    if (!legend.isOpen() || viewport.refitIfOnlyInsetChanged("left")) stop();
-  });
-  const unsubscribe = viewport.onChange(() => {
-    if (!viewport.isAutomatic()) stop();
-  });
-  const cancelFontWait = whenFontsSettle(fonts, stop);
-  function stop() {
-    if (stopped) return;
-    stopped = true;
-    observer.disconnect();
-    unsubscribe();
-    cancelFontWait();
-  }
-  observer.observe(legend.element);
-  return stop;
-}
-function connectDiagramJs(shell, diagram, options) {
-  const service = shellServiceOf(diagram);
-  const contentBounds = contentBoundsOf(options);
-  const eventBus = diagram.get("eventBus");
-  const prefersReducedMotion2 = options.prefersReducedMotion?.bind(options);
-  const viewport = new DiagramViewport(diagram, {
-    contentBounds,
-    insets: () => shell.fitInsets(),
-    ...prefersReducedMotion2 ? { prefersReducedMotion: prefersReducedMotion2 } : {}
-  });
-  shell.setZoomTarget(viewport);
-  const detachPalette = service.attachShell(
-    shell,
-    options.canvasOwnsHistory === void 0 ? {} : { canvasOwnsHistory: options.canvasOwnsHistory }
-  );
-  viewport.resized();
-  const isEmpty = options.isEmpty ? () => options.isEmpty?.() === true : () => !viewport.canFit();
-  const syncHint = () => shell.setEmptyHint(isEmpty());
-  eventBus.on(["import.done", "elements.changed"], HINT_SYNC_PRIORITY, syncHint);
-  const stopLegendWatch = refitWhenLegendSettles(shell, viewport);
-  let destroyed = false;
-  const destroy = () => {
-    if (destroyed) return;
-    destroyed = true;
-    eventBus.off(["import.done", "elements.changed"], syncHint);
-    eventBus.off("diagram.destroy", destroy);
-    stopLegendWatch();
-    detachPalette();
-    shell.setZoomTarget(null);
-    viewport.destroy();
-  };
-  eventBus.on("diagram.destroy", destroy);
-  return { viewport, destroy };
-}
-
-// ../../../../packages/shell/dist/chunk-RZZ7MILX.js
-function withBeforeDestroy(shell, beforeDestroy) {
-  return {
-    get root() {
-      return shell.root;
-    },
-    get canvas() {
-      return shell.canvas;
-    },
-    get host() {
-      return shell.host;
-    },
-    get lang() {
-      return shell.lang;
-    },
-    get platform() {
-      return shell.platform;
-    },
-    get messages() {
-      return shell.messages;
-    },
-    get menu() {
-      return shell.menu;
-    },
-    get tooltip() {
-      return shell.tooltip;
-    },
-    get legend() {
-      return shell.legend;
-    },
-    get inspector() {
-      return shell.inspector;
-    },
-    get primary() {
-      return shell.primary;
-    },
-    get appearance() {
-      return shell.appearance;
-    },
-    setZoomTarget: (target) => shell.setZoomTarget(target),
-    fitInsets: () => shell.fitInsets(),
-    registerPalette: (palette) => shell.registerPalette(palette),
-    setProblems: (summary) => shell.setProblems(summary),
-    setStatus: (status, options) => shell.setStatus(status, options),
-    setEmptyHint: (visible) => shell.setEmptyHint(visible),
-    setReadOnly: (readOnly, options) => shell.setReadOnly(readOnly, options),
-    isReadOnly: () => shell.isReadOnly(),
-    setEmptyState: (shown) => shell.setEmptyState(shown),
-    isEmptyStateShown: () => shell.isEmptyStateShown(),
-    toast: (request) => shell.toast(request),
-    showShortcutsDialog: (groups) => shell.showShortcutsDialog(groups),
-    destroy() {
-      beforeDestroy();
-      shell.destroy();
-    }
-  };
-}
-function optionalService(diagram, name) {
-  try {
-    return diagram.get(name);
-  } catch {
-    return void 0;
-  }
-}
-function commandName(format) {
-  return `export${format.split("-").map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join("")}`;
-}
-function mountIdeEditor(host, definition, root = document.getElementById("app")) {
-  if (!root) throw new Error("@miragon/modeler-shell: the editor HTML has no #app root");
-  const modeler = definition.createModeler({
-    additionalModules: [shellModule],
-    undoRedoKeys: host.canvasOwnsHistory,
-    fitInsets: () => shell.fitInsets(),
-    freeRectCenter: () => connection?.viewport.freeRectCenter()
-  });
-  const { diagram } = modeler;
-  diagram.get("canvas");
-  const selection = optionalService(diagram, "selection");
-  const registry2 = diagram.get("elementRegistry");
-  const selectedIds = () => selection?.get().map((element) => element.id) ?? [];
-  const reselect = (ids2) => {
-    const elements = ids2.map((id) => registry2.get(id)).filter((element) => element !== void 0);
-    if (elements.length) selection?.select(elements);
-  };
-  async function withoutSelection(task) {
-    const ids2 = selectedIds();
-    selection?.select(null);
-    try {
-      return await task();
-    } finally {
-      reselect(ids2);
-    }
-  }
-  async function runExport(format) {
-    const exported = definition.exports[format];
-    if (!exported) throw new Error(`@miragon/modeler-shell: no export "${format}"`);
-    try {
-      const produce = async () => exported.produce(modeler);
-      const result = exported.picture ? await withoutSelection(produce) : await produce();
-      await host.saveExport({
-        format,
-        suggestedName: exported.suggestedName,
-        mimeType: exported.mimeType,
-        data: result.data,
-        fontFallback: result.fontFallback
-      });
-    } catch (error2) {
-      console.error(`[${format}-export]`, error2);
-      host.notify("error", exported.failure);
-    }
-  }
-  let documentConnection;
-  let connection;
-  const context = {
-    host,
-    get shell() {
-      return shell;
-    },
-    modeler,
-    get connection() {
-      return connection;
-    },
-    exportAction: (format) => ({ onSelect: () => void runExport(format) }),
-    refreshMenu: () => shell.menu.setGroups(definition.menu(context))
-  };
-  const shell = host.mountShell(root, {
-    themes: definition.themes,
-    canvas: diagram.container,
-    messages: { canvas: definition.name },
-    emptyHint: { onInsertExample: () => documentConnection?.insertExample() },
-    ...definition.shellOptions?.(modeler, host),
-    menu: definition.menu(context)
-  });
-  connection = connectDiagramJs(shell, diagram, {
-    modeler,
-    isEmpty: () => definition.isEmpty(modeler),
-    canvasOwnsHistory: host.canvasOwnsHistory
-  });
-  const { viewport } = connection;
-  const stopPersistingView = host.state.persistView(viewport);
-  function lock(readOnly, delayMs) {
-    const options = delayMs === void 0 ? void 0 : { delayMs };
-    definition.setCanvasReadOnly(modeler, readOnly, options);
-    shell.setReadOnly(readOnly, options);
-  }
-  function showValid() {
-    lock(documentConnection?.readOnly === true);
-    shell.setStatus(null);
-    shell.setEmptyHint(definition.isEmpty(modeler));
-  }
-  function showInvalid() {
-    lock(true, INVALID_STATUS_DELAY_MS);
-    shell.setEmptyHint(false);
-    shell.setStatus(
-      { severity: "danger", text: shell.messages.invalidFile(definition.name) },
-      { delayMs: INVALID_STATUS_DELAY_MS }
-    );
-  }
-  async function importText(text, { first, reconciledText }) {
-    if (!first && definition.sameText(text, modeler.exportText(), reconciledText)) {
-      showValid();
-      return true;
-    }
-    const keep = first ? void 0 : viewport.getViewbox();
-    const selected = first ? [] : selectedIds();
-    const wasEmpty = definition.isEmpty(modeler);
-    try {
-      await modeler.importText(text);
-      showValid();
-      if (keep) viewport.restore(keep);
-      else if (first && host.state.view) viewport.setState(host.state.view);
-      reselect(selected);
-      viewport.afterImport();
-      definition.imported?.(context, { first, wasEmpty });
-      context.refreshMenu();
-      return true;
-    } catch {
-      showInvalid();
-      return false;
-    }
-  }
-  diagram.get("eventBus").on("commandStack.changed", () => context.refreshMenu());
-  const stopExtras = definition.afterMount?.(context);
-  diagram.get("eventBus").on("diagram.destroy", () => {
-    stopExtras?.();
-    stopPersistingView();
-    documentConnection?.disconnect();
-  });
-  const commands = { fitView: () => viewport.fit() };
-  for (const format of Object.keys(definition.exports)) {
-    commands[commandName(format)] = () => runExport(format);
-  }
-  const documentReady = host.connectDocument(shell, {
-    importText,
-    exportText: (reconciledText) => definition.exportText ? definition.exportText(modeler, reconciledText) : modeler.exportText(),
-    canWrite: () => !shell.isReadOnly(),
-    commands,
-    withExampleInserted: definition.withExampleInserted
-  });
-  const ready = documentReady.then(async (connected) => {
-    documentConnection = connected;
-    modeler.onContentChanged(connected.pushEdit);
-    await connected.ready;
-    if (connected.readOnly) lock(true);
-  });
-  return { shell, modeler, connection, ready, document: documentReady };
-}
-
-// ../../../../packages/shell/dist/chunk-YLRABADC.js
-var ICONS = {
-  menu: [
-    ["path", { d: "M4 5h16" }],
-    ["path", { d: "M4 12h16" }],
-    ["path", { d: "M4 19h16" }]
-  ],
-  minus: [["path", { d: "M5 12h14" }]],
-  plus: [
-    ["path", { d: "M5 12h14" }],
-    ["path", { d: "M12 5v14" }]
-  ],
-  maximize: [
-    ["path", { d: "M8 3H5a2 2 0 0 0-2 2v3" }],
-    ["path", { d: "M21 8V5a2 2 0 0 0-2-2h-3" }],
-    ["path", { d: "M3 16v3a2 2 0 0 0 2 2h3" }],
-    ["path", { d: "M16 21h3a2 2 0 0 0 2-2v-3" }]
-  ],
-  check: [["path", { d: "M20 6 9 17l-5-5" }]],
-  x: [
-    ["path", { d: "M18 6 6 18" }],
-    ["path", { d: "m6 6 12 12" }]
-  ],
-  "file-plus": [
-    [
-      "path",
-      {
-        d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
-      }
-    ],
-    ["path", { d: "M14 2v5a1 1 0 0 0 1 1h5" }],
-    ["path", { d: "M9 15h6" }],
-    ["path", { d: "M12 18v-6" }]
-  ],
-  "folder-open": [
-    [
-      "path",
-      {
-        d: "m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"
-      }
-    ]
-  ],
-  import: [
-    ["path", { d: "M12 3v12" }],
-    ["path", { d: "m8 11 4 4 4-4" }],
-    ["path", { d: "M8 5H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-4" }]
-  ],
-  "file-image": [
-    [
-      "path",
-      {
-        d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
-      }
-    ],
-    ["path", { d: "M14 2v5a1 1 0 0 0 1 1h5" }],
-    ["circle", { cx: "10", cy: "12", r: "2" }],
-    ["path", { d: "m20 17-1.296-1.296a2.41 2.41 0 0 0-3.408 0L9 22" }]
-  ],
-  "file-code-corner": [
-    [
-      "path",
-      {
-        d: "M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35"
-      }
-    ],
-    ["path", { d: "M14 2v5a1 1 0 0 0 1 1h5" }],
-    ["path", { d: "m5 16-3 3 3 3" }],
-    ["path", { d: "m9 22 3-3-3-3" }]
-  ],
-  keyboard: [
-    ["path", { d: "M10 8h.01" }],
-    ["path", { d: "M12 12h.01" }],
-    ["path", { d: "M14 8h.01" }],
-    ["path", { d: "M16 12h.01" }],
-    ["path", { d: "M18 8h.01" }],
-    ["path", { d: "M6 8h.01" }],
-    ["path", { d: "M7 16h10" }],
-    ["path", { d: "M8 12h.01" }],
-    ["rect", { width: "20", height: "16", x: "2", y: "4", rx: "2" }]
-  ],
-  "share-2": [
-    ["circle", { cx: "18", cy: "5", r: "3" }],
-    ["circle", { cx: "6", cy: "12", r: "3" }],
-    ["circle", { cx: "18", cy: "19", r: "3" }],
-    ["line", { x1: "8.59", x2: "15.42", y1: "13.51", y2: "17.49" }],
-    ["line", { x1: "15.41", x2: "8.59", y1: "6.51", y2: "10.49" }]
-  ],
-  "circle-x": [
-    ["circle", { cx: "12", cy: "12", r: "10" }],
-    ["path", { d: "m15 9-6 6" }],
-    ["path", { d: "m9 9 6 6" }]
-  ],
-  "triangle-alert": [
-    ["path", { d: "m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" }],
-    ["path", { d: "M12 9v4" }],
-    ["path", { d: "M12 17h.01" }]
-  ],
-  "square-dashed-mouse-pointer": [
-    [
-      "path",
-      {
-        d: "M12.034 12.681a.498.498 0 0 1 .647-.647l9 3.5a.5.5 0 0 1-.033.943l-3.444 1.068a1 1 0 0 0-.66.66l-1.067 3.443a.5.5 0 0 1-.943.033z"
-      }
-    ],
-    ["path", { d: "M5 3a2 2 0 0 0-2 2" }],
-    ["path", { d: "M19 3a2 2 0 0 1 2 2" }],
-    ["path", { d: "M5 21a2 2 0 0 1-2-2" }],
-    ["path", { d: "M9 3h1" }],
-    ["path", { d: "M9 21h2" }],
-    ["path", { d: "M14 3h1" }],
-    ["path", { d: "M3 9v1" }],
-    ["path", { d: "M21 9v2" }],
-    ["path", { d: "M3 14v1" }]
-  ],
-  hand: [
-    ["path", { d: "M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2" }],
-    ["path", { d: "M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2" }],
-    ["path", { d: "M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8" }],
-    [
-      "path",
-      {
-        d: "M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"
-      }
-    ]
-  ],
-  "line-segment": [
-    ["circle", { cx: "19", cy: "5", r: "2" }],
-    ["circle", { cx: "5", cy: "19", r: "2" }],
-    ["path", { d: "M6.5 17.5 17.5 6.5" }]
-  ],
-  "unfold-horizontal": [
-    ["path", { d: "M16 12h6" }],
-    ["path", { d: "M8 12H2" }],
-    ["path", { d: "M12 2v2" }],
-    ["path", { d: "M12 8v2" }],
-    ["path", { d: "M12 14v2" }],
-    ["path", { d: "M12 20v2" }],
-    ["path", { d: "m19 15 3-3-3-3" }],
-    ["path", { d: "m5 9-3 3 3 3" }]
-  ],
-  workflow: [
-    ["rect", { width: "8", height: "8", x: "3", y: "3", rx: "2" }],
-    ["path", { d: "M7 11v4a2 2 0 0 0 2 2h4" }],
-    ["rect", { width: "8", height: "8", x: "13", y: "13", rx: "2" }]
-  ]
-};
-var DEFAULT_SIZE = 16;
-var DEFAULT_STROKE_WIDTH = 2.5;
-var SVG_NAMESPACE = "http://www.w3.org/2000/svg";
-var ICON_ELEMENTS = /* @__PURE__ */ new Set([
-  "path",
-  "circle",
-  "ellipse",
-  "line",
-  "polyline",
-  "polygon",
-  "rect"
-]);
-var GEOMETRY_ATTRIBUTES = /* @__PURE__ */ new Set([
-  "d",
-  "cx",
-  "cy",
-  "r",
-  "rx",
-  "ry",
-  "x",
-  "y",
-  "x1",
-  "y1",
-  "x2",
-  "y2",
-  "width",
-  "height",
-  "points"
-]);
-function positiveOr(value, fallback) {
-  return typeof value === "number" && Number.isFinite(value) && value > 0 ? value : fallback;
-}
-function iconNodeOf(icon) {
-  if (typeof icon !== "string") return icon;
-  return Object.prototype.hasOwnProperty.call(ICONS, icon) ? ICONS[icon] : [];
-}
-function sanitize(icon, options = {}) {
-  const size2 = String(positiveOr(options.size, DEFAULT_SIZE));
-  const root = [];
-  if (options.className) root.push(["class", options.className]);
-  root.push(
-    ["width", size2],
-    ["height", size2],
-    ["viewBox", "0 0 24 24"],
-    ["fill", "none"],
-    ["stroke", "currentColor"],
-    ["stroke-width", String(positiveOr(options.strokeWidth, DEFAULT_STROKE_WIDTH))],
-    ["stroke-linecap", "round"],
-    ["stroke-linejoin", "round"],
-    ["aria-hidden", "true"],
-    ["focusable", "false"]
-  );
-  const children = [];
-  for (const node3 of iconNodeOf(icon)) {
-    const [tag, attributes] = node3;
-    if (!ICON_ELEMENTS.has(tag)) continue;
-    const kept = Object.entries(attributes).filter(([name]) => GEOMETRY_ATTRIBUTES.has(name)).map(([name, value]) => [name, String(value)]);
-    children.push([tag, kept]);
-  }
-  return { root, children };
-}
-function iconElement(icon, options) {
-  const { root, children } = sanitize(icon, options);
-  const svg2 = document.createElementNS(SVG_NAMESPACE, "svg");
-  for (const [name, value] of root) svg2.setAttribute(name, value);
-  for (const [tag, attributes] of children) {
-    const child = document.createElementNS(SVG_NAMESPACE, tag);
-    for (const [name, value] of attributes) child.setAttribute(name, value);
-    svg2.append(child);
-  }
-  return svg2;
-}
-var BAND_PX = 16;
-var ROUNDING_PX = 1;
-var CONTAINER_WIDTH_PROPERTY = "--modeler-shell-container-width";
-var CONTAINER_HEIGHT_PROPERTY = "--modeler-shell-container-height";
-function measureWindow(ownerDocument) {
-  const viewportElement = ownerDocument.compatMode === "BackCompat" ? ownerDocument.body : ownerDocument.documentElement;
-  const view = ownerDocument.defaultView;
-  return {
-    width: viewportElement?.clientWidth || (view?.innerWidth ?? 0),
-    height: viewportElement?.clientHeight || (view?.innerHeight ?? 0)
-  };
-}
-function contentSize(container, style) {
-  const { clientWidth, clientHeight } = container;
-  if (clientWidth === 0 && clientHeight === 0) return null;
-  const padding = (side) => parseFloat(style[`padding${side}`]) || 0;
-  return {
-    width: Math.max(0, clientWidth - padding("Left") - padding("Right")),
-    height: Math.max(0, clientHeight - padding("Top") - padding("Bottom"))
-  };
-}
-function setInline(element, property, value) {
-  const current = element.style.getPropertyValue(property);
-  if (value === null) {
-    if (current !== "") element.style.removeProperty(property);
-    return;
-  }
-  if (current !== value) element.style.setProperty(property, value);
-}
-function clipsOverflow(overflow) {
-  return overflow !== "" && overflow !== "visible";
-}
-function clipByOverflow(shown, element, style) {
-  const clipX = clipsOverflow(style.overflowX);
-  const clipY = clipsOverflow(style.overflowY);
-  if (!clipX && !clipY) return shown;
-  const rect = element.getBoundingClientRect();
-  const left = rect.left + element.clientLeft;
-  const top = rect.top + element.clientTop;
-  return {
-    left: clipX ? Math.max(shown.left, left) : shown.left,
-    top: clipY ? Math.max(shown.top, top) : shown.top,
-    right: clipX ? Math.min(shown.right, left + element.clientWidth) : shown.right,
-    bottom: clipY ? Math.min(shown.bottom, top + element.clientHeight) : shown.bottom
-  };
-}
-var CONTAINING_BLOCK_PROPERTIES = [
-  "transform",
-  "translate",
-  "rotate",
-  "scale",
-  "perspective",
-  "filter",
-  "backdrop-filter"
-];
-function isSet(value) {
-  return value !== "" && value !== "none";
-}
-function containsPositioned(style, position) {
-  const positioned = position === "absolute" && isSet(style.position) && style.position !== "static";
-  return positioned || CONTAINING_BLOCK_PROPERTIES.some((property) => isSet(style.getPropertyValue(property))) || /\b(layout|paint|strict|content)\b/.test(style.contain) || /\b(transform|perspective|filter)\b/.test(style.willChange);
-}
-function shownPart(container, windowSize) {
-  const ownerDocument = container.ownerDocument;
-  const view = ownerDocument.defaultView;
-  const own2 = container.getBoundingClientRect();
-  let shown = {
-    left: Math.max(own2.left, 0),
-    top: Math.max(own2.top, 0),
-    right: Math.min(own2.right, windowSize.width),
-    bottom: Math.min(own2.bottom, windowSize.height)
-  };
-  const isRoot2 = (element2) => element2 === ownerDocument.body || element2 === ownerDocument.documentElement;
-  let element = container;
-  while (view) {
-    const { position } = view.getComputedStyle(element);
-    let around = element.parentElement;
-    if (position === "absolute" || position === "fixed") {
-      while (around && !isRoot2(around) && !containsPositioned(view.getComputedStyle(around), position)) {
-        around = around.parentElement;
-      }
-    }
-    if (!around || isRoot2(around)) break;
-    shown = clipByOverflow(shown, around, view.getComputedStyle(around));
-    element = around;
-  }
-  return shown.right > shown.left && shown.bottom > shown.top ? shown : null;
-}
-function zoomOf(dialog, renderedWidth) {
-  const laidOutWidth = dialog.offsetWidth;
-  const zoom2 = laidOutWidth > 0 ? Math.round(renderedWidth / laidOutWidth * 100) / 100 : 1;
-  return zoom2 > 0 ? zoom2 : 1;
-}
-function centreOverContainer(dialog, container) {
-  const ownerDocument = dialog.ownerDocument;
-  const view = ownerDocument.defaultView;
-  function size2() {
-    const room = view ? contentSize(container, view.getComputedStyle(container)) : null;
-    setInline(dialog, CONTAINER_WIDTH_PROPERTY, room ? `${room.width}px` : null);
-    setInline(dialog, CONTAINER_HEIGHT_PROPERTY, room ? `${room.height}px` : null);
-  }
-  function place() {
-    size2();
-    const windowSize = measureWindow(ownerDocument);
-    const shown = shownPart(container, windowSize);
-    const { width, height } = dialog.getBoundingClientRect();
-    const zoom2 = zoomOf(dialog, width);
-    const band = 2 * BAND_PX * zoom2;
-    const fits = shown !== null && shown.right - shown.left + ROUNDING_PX >= width + band && shown.bottom - shown.top + ROUNDING_PX >= height + band;
-    const x3 = fits ? Math.round((shown.left + shown.right - windowSize.width) / 2 / zoom2) : 0;
-    const y3 = fits ? Math.round((shown.top + shown.bottom - windowSize.height) / 2 / zoom2) : 0;
-    setInline(dialog, "translate", x3 === 0 && y3 === 0 ? null : `${x3}px ${y3}px`);
-  }
-  let following = true;
-  let frame;
-  function follow() {
-    frame = void 0;
-    if (!following || !dialog.isConnected) return;
-    place();
-    frame = requestAnimationFrame(follow);
-  }
-  place();
-  if (typeof requestAnimationFrame === "function") frame = requestAnimationFrame(follow);
-  return () => {
-    following = false;
-    if (frame !== void 0 && typeof cancelAnimationFrame === "function") {
-      cancelAnimationFrame(frame);
-    }
-    frame = void 0;
-  };
-}
-function createElement(ownerDocument, tag, attributes = {}, ...children) {
-  const element = ownerDocument.createElement(tag);
-  for (const [name, value] of Object.entries(attributes)) {
-    if (value !== void 0) element.setAttribute(name, value);
-  }
-  for (const child of children) {
-    if (child === void 0 || child === null || child === false) continue;
-    element.append(child);
-  }
-  return element;
-}
-function toggleAttribute(element, name, value) {
-  if (value === null || value === false) element.removeAttribute(name);
-  else element.setAttribute(name, value);
-}
-function boxRelativeTo(element, root) {
-  const box = element.getBoundingClientRect();
-  const origin = root.getBoundingClientRect();
-  return {
-    x: box.left - origin.left - root.clientLeft,
-    y: box.top - origin.top - root.clientTop,
-    width: box.width,
-    height: box.height
-  };
-}
-function accessibleName(control) {
-  return (control.getAttribute("aria-label") ?? control.textContent ?? "").trim();
-}
-function hasVisibleFocus(element) {
-  try {
-    return element.matches(":focus-visible");
-  } catch {
-    return true;
-  }
-}
-function isPointerClick(event2) {
-  return event2.detail > 0;
-}
-function isShown(element) {
-  if (element.localName === "dialog" && !element.hasAttribute("open")) return false;
-  if (element.closest("[hidden]")) return false;
-  return typeof element.checkVisibility !== "function" || element.checkVisibility({ visibilityProperty: true });
-}
-function isModal(element) {
-  if (element.getAttribute("aria-modal") === "true") return true;
-  try {
-    return element.matches(":modal");
-  } catch {
-    return false;
-  }
-}
-function openDialogs(scope) {
-  return [...scope.querySelectorAll('[role="dialog"], [role="alertdialog"], dialog')].filter(
-    isShown
-  );
-}
-function isModalOpen(scope) {
-  return openDialogs(scope).some(isModal);
-}
-function stopEscapeKeyup(ownerDocument) {
-  const onKeyup = (event2) => {
-    if (event2.key !== "Escape") return;
-    event2.stopPropagation();
-    release();
-  };
-  const onKeydown = (event2) => {
-    if (event2.key === "Escape" && !event2.repeat) release();
-  };
-  function release() {
-    ownerDocument.removeEventListener("keyup", onKeyup, true);
-    ownerDocument.removeEventListener("keydown", onKeydown, true);
-  }
-  ownerDocument.addEventListener("keyup", onKeyup, true);
-  ownerDocument.addEventListener("keydown", onKeydown, true);
-}
-function isNode(target) {
-  return typeof target?.nodeType === "number";
-}
-function isLayerEscape(event2, dialogs) {
-  if (event2.key !== "Escape") return false;
-  const target = event2.target;
-  return dialogs.some((dialog) => isModal(dialog) || isNode(target) && dialog.contains(target));
-}
-function createChromeEscapeListener(ownerDocument, isChrome) {
-  return (event2) => {
-    if (event2.key === "Escape" && isNode(event2.target) && isChrome(event2.target)) {
-      stopEscapeKeyup(ownerDocument);
-    }
-  };
-}
-function createKeyListener(context) {
-  return (event2) => {
-    if (event2.key === "Escape") context.hideTooltip();
-    const dialogs = openDialogs(context.dialogScope);
-    if (isLayerEscape(event2, dialogs)) stopEscapeKeyup(context.ownerDocument);
-    const decision = decideKey(event2, {
-      host: context.host,
-      inTextField: isTextField(event2.target),
-      menuOpen: context.menuOpen(),
-      dialogOpen: dialogs.length > 0,
-      modalOpen: dialogs.some(isModal),
-      defaultPrevented: event2.defaultPrevented,
-      startScreen: context.startScreen?.() ?? false
-    });
-    if (decision.preventDefault) event2.preventDefault();
-    if (decision.stopPropagation) event2.stopPropagation();
-    if (decision.action === "closeMenu") context.closeMenu();
-    else if (decision.action) context.run(decision.action);
-  };
-}
-var DIALOG_COUNTER = /* @__PURE__ */ Symbol.for("@miragon/modeler-shell.dialogs");
-function uniqueDialogId(name) {
-  const scope = globalThis;
-  const index2 = (scope[DIALOG_COUNTER] ?? 0) + 1;
-  scope[DIALOG_COUNTER] = index2;
-  return `cd-shell-${name}-${index2}`;
-}
-var TABBABLE_SELECTOR = [
-  "a[href]",
-  "area[href]",
-  "button",
-  "input",
-  "select",
-  "textarea",
-  "iframe",
-  "summary",
-  "[tabindex]",
-  '[contenteditable]:not([contenteditable="false"])'
-].join(", ");
-function isShown2(element) {
-  if (element.closest("[hidden], [inert]")) return false;
-  return typeof element.checkVisibility !== "function" || element.checkVisibility({ visibilityProperty: true });
-}
-function isRadioGroupStop(element, candidates) {
-  if (!(element instanceof HTMLInputElement) || element.type !== "radio" || element.name === "") {
-    return true;
-  }
-  const group = candidates.filter(
-    (other) => other instanceof HTMLInputElement && other.type === "radio" && other.name === element.name && other.form === element.form
-  );
-  return (group.find((radio) => radio.checked) ?? group[0]) === element;
-}
-function tabStops(dialog) {
-  const candidates = [...dialog.querySelectorAll(TABBABLE_SELECTOR)].filter(
-    (element) => element.tabIndex >= 0 && !element.matches(":disabled") && isShown2(element)
-  );
-  return candidates.filter((element) => isRadioGroupStop(element, candidates));
-}
-function adjacentStop(dialog, stops, from, forward) {
-  const inside = from !== null && from !== dialog && dialog.contains(from);
-  if (inside && forward) {
-    const next = stops.find(
-      (stop) => from.compareDocumentPosition(stop) & Node.DOCUMENT_POSITION_FOLLOWING
-    );
-    if (next) return next;
-  }
-  if (inside && !forward) {
-    for (let index2 = stops.length - 1; index2 >= 0; index2--) {
-      const stop = stops[index2];
-      if (from.compareDocumentPosition(stop) & Node.DOCUMENT_POSITION_PRECEDING) return stop;
-    }
-  }
-  return forward ? stops[0] : stops.at(-1);
-}
-function focusInOtherDialog(dialog, active) {
-  const owner = active?.closest("dialog") ?? null;
-  return owner !== null && owner !== dialog && owner.open && !dialog.contains(owner);
-}
-function canTakeFocus(element) {
-  return element.isConnected && (!(element instanceof HTMLElement) || isShown2(element));
-}
-function focusedElement(ownerDocument) {
-  const active = ownerDocument.activeElement;
-  if (!active || active === ownerDocument.body) return null;
-  return active instanceof HTMLElement || active instanceof SVGElement ? active : null;
-}
-function outside(dialog, event2) {
-  const box = dialog.getBoundingClientRect();
-  return event2.clientX < box.left || event2.clientX > box.right || event2.clientY < box.top || event2.clientY > box.bottom;
-}
-function openOwnedShellDialog(options) {
-  const { container } = options;
-  const ownerDocument = container.ownerDocument;
-  const opener = focusedElement(ownerDocument);
-  const titleId = uniqueDialogId("dialog-title");
-  const dialog = createElement(ownerDocument, "dialog", {
-    class: options.className ? `cd-shell-dialog ${options.className}` : "cd-shell-dialog",
-    "aria-labelledby": titleId,
-    lang: options.lang
-  });
-  const close = createElement(
-    ownerDocument,
-    "button",
-    {
-      type: "button",
-      class: "cd-shell-dialog-close",
-      "aria-label": options.closeLabel ?? defaultMessages.close
-    },
-    iconElement("x")
-  );
-  const header = createElement(
-    ownerDocument,
-    "div",
-    { class: "cd-shell-dialog-header" },
-    createElement(
-      ownerDocument,
-      "h2",
-      { class: "cd-shell-dialog-title", id: titleId },
-      options.title
-    ),
-    close
-  );
-  const body = createElement(ownerDocument, "div", { class: "cd-shell-dialog-body" });
-  options.render(body);
-  dialog.append(header, body);
-  let finished = false;
-  let stopCentring;
-  const ResizeObserverClass = globalThis.ResizeObserver;
-  function updateScrollStop() {
-    const scrolls = body.scrollHeight > body.clientHeight + 1;
-    if (scrolls === body.hasAttribute("tabindex")) return;
-    if (scrolls) {
-      body.setAttribute("tabindex", "0");
-      return;
-    }
-    const bodyHadFocus = ownerDocument.activeElement === body;
-    body.removeAttribute("tabindex");
-    if (bodyHadFocus) adjacentStop(dialog, tabStops(dialog), body, true)?.focus();
-  }
-  const resizeObserver = ResizeObserverClass ? new ResizeObserverClass(() => updateScrollStop()) : void 0;
-  function onTab(event2) {
-    if (event2.key !== "Tab" || event2.altKey || event2.ctrlKey || event2.metaKey) return;
-    if (event2.defaultPrevented || !dialog.open) return;
-    const active = ownerDocument.activeElement;
-    if (focusInOtherDialog(dialog, active)) return;
-    const target = adjacentStop(dialog, tabStops(dialog), active, !event2.shiftKey);
-    if (!target) {
-      event2.preventDefault();
-      return;
-    }
-    target.focus();
-    if (ownerDocument.activeElement === target) event2.preventDefault();
-  }
-  function onEscape(event2) {
-    if (event2.key === "Escape" && dialog.open) stopEscapeKeyup(ownerDocument);
-  }
-  let pressedOnBackdrop = false;
-  const onPointerDown = (event2) => {
-    pressedOnBackdrop = event2.target === dialog && outside(dialog, event2);
-  };
-  const onClick = (event2) => {
-    const onBackdrop = pressedOnBackdrop && event2.target === dialog && outside(dialog, event2);
-    pressedOnBackdrop = false;
-    if (onBackdrop) dialog.close();
-  };
-  function finish(restoreFocus) {
-    if (finished) return;
-    finished = true;
-    ownerDocument.removeEventListener("keydown", onTab);
-    ownerDocument.removeEventListener("keydown", onEscape, true);
-    stopCentring?.();
-    resizeObserver?.disconnect();
-    if (dialog.open) dialog.close();
-    dialog.remove();
-    options.onClose?.();
-    if (!restoreFocus) return;
-    if (opener && canTakeFocus(opener)) opener.focus({ preventScroll: true });
-    if (!opener || ownerDocument.activeElement !== opener) options.focusFallback?.();
-  }
-  close.addEventListener("click", () => dialog.close());
-  dialog.addEventListener("pointerdown", onPointerDown);
-  dialog.addEventListener("click", onClick);
-  dialog.addEventListener("close", () => finish(true));
-  container.append(dialog);
-  try {
-    dialog.showModal();
-  } catch (error2) {
-    dialog.remove();
-    throw error2;
-  }
-  stopCentring = centreOverContainer(dialog, container);
-  ownerDocument.addEventListener("keydown", onTab);
-  ownerDocument.addEventListener("keydown", onEscape, true);
-  resizeObserver?.observe(body);
-  updateScrollStop();
-  return {
-    isOpen: () => !finished && dialog.open,
-    close: () => finish(true),
-    discard: () => finish(false)
-  };
-}
-function shortcutTable(ownerDocument, group, headingId) {
-  const table = createElement(ownerDocument, "table", {
-    class: "cd-shell-shortcuts-table",
-    "aria-labelledby": headingId
-  });
-  const rows = table.createTBody();
-  for (const row of group.rows) {
-    const line = rows.insertRow();
-    if (isChromeShortcutRow(row)) line.setAttribute("data-chrome-key", row.chromeKey);
-    const keys2 = createElement(ownerDocument, "td", { class: "cd-shell-shortcuts-keys" });
-    for (const key of row.keys) {
-      keys2.append(createElement(ownerDocument, "kbd", { class: "cd-shell-kbd" }, key));
-    }
-    line.append(
-      createElement(
-        ownerDocument,
-        "th",
-        { class: "cd-shell-shortcuts-action", scope: "row" },
-        row.action
-      ),
-      keys2
-    );
-  }
-  return createElement(
-    ownerDocument,
-    "section",
-    { class: "cd-shell-shortcuts-group" },
-    createElement(
-      ownerDocument,
-      "h3",
-      { class: "cd-shell-shortcuts-title", id: headingId },
-      group.title
-    ),
-    table
-  );
-}
-function openShortcutsDialog(groups, messages, options) {
-  return openOwnedShellDialog({
-    container: options.container,
-    title: messages.shortcutsTitle,
-    closeLabel: messages.close,
-    className: "cd-shell-shortcuts",
-    lang: options.lang,
-    focusFallback: options.focusFallback,
-    render(body) {
-      const ownerDocument = body.ownerDocument;
-      body.append(
-        ...groups.filter((group) => group.rows.length > 0).map((group) => shortcutTable(ownerDocument, group, uniqueDialogId("shortcuts-group")))
-      );
-    }
-  });
-}
-var NO_TRANSITION_CLASS = "cd-shell-no-transition";
-var CONTRAST_QUERY = "(prefers-contrast: more)";
-var SCHEME_MEDIA = {
-  light: "(prefers-color-scheme: light)",
-  dark: "(prefers-color-scheme: dark)"
-};
-function onMediaChange(query2, listener) {
-  if (typeof query2.addEventListener === "function") {
-    query2.addEventListener("change", listener);
-    return () => query2.removeEventListener("change", listener);
-  }
-  query2.addListener(listener);
-  return () => query2.removeListener(listener);
-}
-function connectWebAppearance(context) {
-  const { ownerDocument, themes, options } = context;
-  const darkCapable = themes.includes("dark");
-  if (darkCapable && !options) {
-    throw new Error(
-      '@miragon/modeler-shell: a web modeler whose themes include "dark" needs the appearance option ({ themeColors } from its vendored cd-tokens.generated.json)'
-    );
-  }
-  const html = ownerDocument.documentElement;
-  const view = ownerDocument.defaultView;
-  const cleanups = [];
-  const contrast = typeof view?.matchMedia === "function" ? view.matchMedia(CONTRAST_QUERY) : void 0;
-  if (contrast) {
-    const mirrorContrast = () => toggleAttribute(html, "data-cd-kontrast", contrast.matches && "hoch");
-    mirrorContrast();
-    cleanups.push(onMediaChange(contrast, mirrorContrast));
-  }
-  function destroy() {
-    for (const cleanup of cleanups.splice(0)) cleanup();
-  }
-  if (!darkCapable || !options) {
-    return { choice: () => "system", setChoice() {
-    }, destroy };
-  }
-  const { themeColors } = options;
-  function storage() {
-    if (options?.storage) return options.storage;
-    try {
-      return globalThis.localStorage;
-    } catch {
-      return void 0;
-    }
-  }
-  function readStored() {
-    try {
-      return parseAppearanceChoice(storage()?.getItem(APPEARANCE_STORAGE_KEY));
-    } catch {
-      return "system";
-    }
-  }
-  function store(choice) {
-    try {
-      const target = storage();
-      if (choice === "system") target?.removeItem(APPEARANCE_STORAGE_KEY);
-      else target?.setItem(APPEARANCE_STORAGE_KEY, choice);
-    } catch {
-    }
-  }
-  function nextFrame(callback) {
-    if (view && typeof view.requestAnimationFrame === "function") {
-      const frame = view.requestAnimationFrame(() => callback());
-      return () => view.cancelAnimationFrame(frame);
-    }
-    const timer = setTimeout(callback, 16);
-    return () => clearTimeout(timer);
-  }
-  let cancelTransitionFrame;
-  function allowTransitions() {
-    cancelTransitionFrame?.();
-    cancelTransitionFrame = void 0;
-    html.classList.remove(NO_TRANSITION_CLASS);
-  }
-  cleanups.push(() => {
-    if (cancelTransitionFrame) allowTransitions();
-  });
-  function suspendTransitions() {
-    cancelTransitionFrame?.();
-    html.classList.add(NO_TRANSITION_CLASS);
-    cancelTransitionFrame = nextFrame(() => {
-      cancelTransitionFrame = nextFrame(allowTransitions);
-    });
-  }
-  function metaFor(name, media) {
-    const normalize = (value) => (value ?? "").replace(/\s+/g, "").toLowerCase();
-    const existing = [
-      ...ownerDocument.querySelectorAll(`meta[name="${name}"]`)
-    ].find(
-      (meta3) => media === void 0 ? true : normalize(meta3.getAttribute("media")) === normalize(media)
-    );
-    if (existing) return existing;
-    const created = createElement(ownerDocument, "meta", { name, media });
-    (ownerDocument.head ?? html).append(created);
-    return created;
-  }
-  function apply(choice) {
-    const mode = documentMode(choice, themes, themeColors);
-    suspendTransitions();
-    html.setAttribute("data-cd-theme", mode.theme);
-    metaFor("color-scheme").setAttribute("content", mode.colorScheme);
-    metaFor("theme-color", SCHEME_MEDIA.light).setAttribute("content", mode.themeColor.light);
-    metaFor("theme-color", SCHEME_MEDIA.dark).setAttribute("content", mode.themeColor.dark);
-  }
-  let current = readStored();
-  const onStorage = (event2) => {
-    if (event2.key !== null && event2.key !== APPEARANCE_STORAGE_KEY) return;
-    const next = event2.key === null ? "system" : parseAppearanceChoice(event2.newValue);
-    if (next === current) return;
-    current = next;
-    apply(next);
-  };
-  if (view) {
-    view.addEventListener("storage", onStorage);
-    cleanups.push(() => view.removeEventListener("storage", onStorage));
-  }
-  return {
-    choice: () => current,
-    setChoice(choice) {
-      const next = parseAppearanceChoice(choice);
-      current = next;
-      store(next);
-      apply(next);
-    },
-    destroy
-  };
-}
-var PILL_ATTRIBUTES = ["aria-haspopup", "aria-expanded", "aria-controls"];
-function isPrintable(event2) {
-  return event2.key.length === 1 && /\S/.test(event2.key) && !event2.ctrlKey && !event2.metaKey && !event2.altKey;
-}
-function createProblemsPopover(context) {
-  const { ownerDocument, root, layer, pill, id, titleId, messages } = context;
-  const view = ownerDocument.defaultView;
-  const list = createElement(ownerDocument, "ul", {
-    class: "cd-shell-problems-list",
-    role: "list"
-  });
-  const element = createElement(
-    ownerDocument,
-    "div",
-    {
-      class: "cd-shell-problems-popover",
-      "data-chrome": "problems-popover",
-      role: "dialog",
-      id,
-      "aria-labelledby": titleId,
-      tabindex: "-1"
-    },
-    createElement(
-      ownerDocument,
-      "h2",
-      { class: "cd-shell-problems-popover-title", id: titleId },
-      messages.problemsTitle
-    ),
-    list
-  );
-  element.hidden = true;
-  layer.append(element);
-  pill.setAttribute("aria-haspopup", "dialog");
-  pill.setAttribute("aria-expanded", "false");
-  pill.setAttribute("aria-controls", id);
-  let items = [];
-  let rows = [];
-  let destroyed = false;
-  const isOpen = () => !element.hidden;
-  function keyOf(item) {
-    return `${item.elementId ?? ""}\0${item.severity}\0${item.message}`;
-  }
-  function rowElement(item) {
-    const severity = item.severity === "error" ? "error" : "warning";
-    const parts = [
-      // The shape and colour of the icon carry the severity on screen, its name for screen readers.
-      createElement(
-        ownerDocument,
-        "span",
-        {
-          class: "cd-shell-problem-icon",
-          role: "img",
-          "aria-label": messages.problemSeverity(severity)
-        },
-        iconElement(severity === "error" ? "circle-x" : "triangle-alert")
-      ),
-      createElement(ownerDocument, "span", { class: "cd-shell-problem-message" }, item.message),
-      item.location ? createElement(
-        ownerDocument,
-        "span",
-        { class: "cd-shell-problem-location" },
-        item.location
-      ) : void 0
-    ];
-    const attributes = { class: "cd-shell-problem", "data-severity": severity };
-    if (!item.elementId) {
-      const text = createElement(ownerDocument, "div", { ...attributes, tabindex: "-1" }, ...parts);
-      rows.push({ key: keyOf(item), element: text });
-      return text;
-    }
-    const button = createElement(
-      ownerDocument,
-      "button",
-      { type: "button", ...attributes },
-      ...parts
-    );
-    button.addEventListener("click", () => select(item));
-    rows.push({ key: keyOf(item), element: button });
-    return button;
-  }
-  function focusedRowIndex() {
-    return rows.findIndex((row) => row.element === ownerDocument.activeElement);
-  }
-  function render() {
-    const focusedIndex = focusedRowIndex();
-    const focusedKey = rows[focusedIndex]?.key;
-    rows = [];
-    list.replaceChildren(
-      ...items.map((item) => createElement(ownerDocument, "li", {}, rowElement(item)))
-    );
-    if (focusedKey === void 0 || !isOpen()) return;
-    const kept = rows.find((row) => row.key === focusedKey) ?? rows[Math.min(focusedIndex, rows.length - 1)];
-    if (kept) focusRowElement(kept.element);
-    else element.focus({ preventScroll: true });
-  }
-  function revealInList(row) {
-    const rowBox = row.getBoundingClientRect();
-    const listBox = list.getBoundingClientRect();
-    if (rowBox.top < listBox.top) list.scrollTop -= listBox.top - rowBox.top;
-    else if (rowBox.bottom > listBox.bottom) list.scrollTop += rowBox.bottom - listBox.bottom;
-  }
-  function focusRowElement(row) {
-    row.focus({ preventScroll: true });
-    revealInList(row);
-  }
-  function focusCanvas() {
-    const canvas = root.querySelector(".cd-shell-canvas svg[tabindex]");
-    canvas?.focus({ preventScroll: true });
-    if ((!canvas || ownerDocument.activeElement !== canvas) && !pill.hidden)
-      pill.focus({ preventScroll: true });
-  }
-  function select(item) {
-    close();
-    focusCanvas();
-    context.onSelectItem?.(item);
-  }
-  function focusRow(index2) {
-    if (rows.length === 0) return;
-    const row = rows[(index2 + rows.length) % rows.length];
-    if (row) focusRowElement(row.element);
-  }
-  const onOutsidePointerDown = (event2) => {
-    const target = event2.target;
-    if (target && (element.contains(target) || pill.contains(target))) return;
-    close();
-  };
-  const onWindowBlur = () => close();
-  function open2() {
-    if (destroyed || isOpen()) return;
-    element.hidden = false;
-    pill.setAttribute("aria-expanded", "true");
-    ownerDocument.addEventListener("pointerdown", onOutsidePointerDown, true);
-    view?.addEventListener("blur", onWindowBlur);
-    list.scrollTop = 0;
-    const first = rows[0];
-    if (first) focusRowElement(first.element);
-    else element.focus({ preventScroll: true });
-  }
-  function close(options = {}) {
-    if (!isOpen()) return;
-    element.hidden = true;
-    pill.setAttribute("aria-expanded", "false");
-    ownerDocument.removeEventListener("pointerdown", onOutsidePointerDown, true);
-    view?.removeEventListener("blur", onWindowBlur);
-    if (options.restoreFocus && !pill.hidden) pill.focus({ preventScroll: true });
-  }
-  function consume(event2) {
-    event2.preventDefault();
-    event2.stopPropagation();
-  }
-  element.addEventListener("keydown", (event2) => {
-    if (matchChromeKey(event2)) return;
-    const index2 = focusedRowIndex();
-    switch (event2.key) {
-      case "Escape":
-        consume(event2);
-        close({ restoreFocus: true });
-        stopEscapeKeyup(ownerDocument);
-        return;
-      case "Tab": {
-        const first = index2 <= 0;
-        const last = rows.length === 0 || index2 === rows.length - 1;
-        if (event2.shiftKey && first) {
-          consume(event2);
-          close({ restoreFocus: true });
-        } else if (!event2.shiftKey && last) {
-          event2.stopPropagation();
-          close({ restoreFocus: true });
-        }
-        return;
-      }
-      case "ArrowDown":
-        focusRow(index2 + 1);
-        break;
-      case "ArrowUp":
-        focusRow(index2 < 0 ? rows.length - 1 : index2 - 1);
-        break;
-      case "Home":
-        focusRow(0);
-        break;
-      case "End":
-        focusRow(rows.length - 1);
-        break;
-      case "Enter":
-      case " ":
-      case "Delete":
-      case "Backspace":
-        event2.stopPropagation();
-        return;
-      default:
-        if (isPrintable(event2)) event2.stopPropagation();
-        return;
-    }
-    consume(event2);
-  });
-  return {
-    element,
-    isOpen,
-    toggle() {
-      if (isOpen()) close({ restoreFocus: true });
-      else open2();
-    },
-    open: open2,
-    close,
-    setItems(next) {
-      items = next;
-      if (!destroyed) render();
-    },
-    destroy() {
-      if (destroyed) return;
-      close();
-      destroyed = true;
-      for (const name of PILL_ATTRIBUTES) pill.removeAttribute(name);
-      element.remove();
-    }
-  };
-}
-var TOAST_RESUME_MIN_MS = 1500;
-var TOAST_LEAVE_FALLBACK_MS = 400;
-var LEAVE_ANIMATION = "cd-shell-toast-out";
-var TOAST_ANNOUNCE_DELAY_MS = 100;
-var INERT_HANDLE = Object.freeze({ dismiss() {
-} });
-function createToaster(context) {
-  const { ownerDocument, messages } = context;
-  const element = createElement(ownerDocument, "div", {
-    class: "cd-shell-toasts",
-    "data-chrome": "toasts",
-    popover: "manual"
-  });
-  const liveRegion = (politeness) => createElement(ownerDocument, "div", {
-    class: "cd-shell-live-region",
-    "data-live": politeness,
-    role: politeness === "polite" ? "status" : "alert",
-    "aria-live": politeness,
-    "aria-atomic": "true"
-  });
-  const politeRegion = liveRegion("polite");
-  const assertiveRegion = liveRegion("assertive");
-  const announcer = createElement(
-    ownerDocument,
-    "div",
-    { class: "cd-shell-live" },
-    politeRegion,
-    assertiveRegion
-  );
-  const live = [];
-  const leaveTimers = /* @__PURE__ */ new Set();
-  const announceTimers = /* @__PURE__ */ new Map();
-  let lastId = 0;
-  let destroyed = false;
-  function regionFor(request) {
-    return request.status === "danger" ? assertiveRegion : politeRegion;
-  }
-  function announce(request) {
-    const region = regionFor(request);
-    clearTimeout(announceTimers.get(region));
-    region.textContent = "";
-    announceTimers.set(
-      region,
-      setTimeout(() => {
-        announceTimers.delete(region);
-        if (!destroyed) region.textContent = request.text;
-      }, TOAST_ANNOUNCE_DELAY_MS)
-    );
-  }
-  function silence(request) {
-    const region = regionFor(request);
-    if (region.textContent === request.text) region.textContent = "";
-  }
-  function changed() {
-    if (!destroyed) context.onChange?.();
-  }
-  function supportsPopover() {
-    return typeof element.showPopover === "function" && typeof element.hidePopover === "function";
-  }
-  function popoverOpen() {
-    try {
-      return element.matches(":popover-open");
-    } catch {
-      return false;
-    }
-  }
-  function modalOpen() {
-    try {
-      return ownerDocument.querySelector(":modal") !== null;
-    } catch {
-      return true;
-    }
-  }
-  function raise() {
-    if (!supportsPopover() || !element.isConnected) return;
-    if (popoverOpen() && !modalOpen()) return;
-    const focused = ownerDocument.activeElement;
-    const keepFocus = focused && element.contains(focused) ? focused : void 0;
-    try {
-      element.hidePopover();
-      element.showPopover();
-    } catch {
-      return;
-    }
-    if (keepFocus && ownerDocument.activeElement !== keepFocus)
-      keepFocus.focus({ preventScroll: true });
-  }
-  function lowerWhenEmpty() {
-    if (element.childElementCount > 0 || !supportsPopover()) return;
-    try {
-      element.hidePopover();
-    } catch {
-    }
-  }
-  function engaged(toast) {
-    return toast.hovered || toast.focused;
-  }
-  function stopTimer(toast) {
-    clearTimeout(toast.timer);
-    toast.timer = void 0;
-  }
-  function runTimer(toast) {
-    stopTimer(toast);
-    if (toast.remaining === void 0 || engaged(toast)) return;
-    toast.startedAt = Date.now();
-    toast.timer = setTimeout(() => close(toast), toast.remaining);
-  }
-  function pause(toast) {
-    if (toast.timer === void 0) return;
-    stopTimer(toast);
-    if (toast.remaining !== void 0) {
-      toast.remaining = Math.max(0, toast.remaining - (Date.now() - toast.startedAt));
-    }
-  }
-  function setEngagement(toast, hovered, focused) {
-    if (!live.includes(toast)) return;
-    const wasEngaged = engaged(toast);
-    toast.hovered = hovered;
-    toast.focused = focused;
-    if (engaged(toast) === wasEngaged) return;
-    if (wasEngaged) {
-      if (toast.remaining !== void 0)
-        toast.remaining = Math.max(toast.remaining, TOAST_RESUME_MIN_MS);
-      runTimer(toast);
-    } else {
-      pause(toast);
-    }
-  }
-  function reducedMotion() {
-    if (ownerDocument.documentElement.classList.contains(REDUCED_MOTION_CLASS)) return true;
-    const view = ownerDocument.defaultView;
-    return typeof view?.matchMedia === "function" && view.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  }
-  function removeElement2(toastElement) {
-    toastElement.remove();
-    lowerWhenEmpty();
-    changed();
-  }
-  function leave(toastElement) {
-    toastElement.setAttribute("data-leaving", "");
-    toastElement.inert = true;
-    if (reducedMotion()) {
-      removeElement2(toastElement);
-      return;
-    }
-    let done = false;
-    const finish = () => {
-      if (done) return;
-      done = true;
-      clearTimeout(fallback);
-      leaveTimers.delete(fallback);
-      removeElement2(toastElement);
-    };
-    toastElement.addEventListener("animationend", (event2) => {
-      if (event2.target === toastElement && event2.animationName === LEAVE_ANIMATION) finish();
-    });
-    const fallback = setTimeout(finish, TOAST_LEAVE_FALLBACK_MS);
-    leaveTimers.add(fallback);
-  }
-  function close(toast, byPointer = false) {
-    const index2 = live.indexOf(toast);
-    if (index2 < 0) return;
-    live.splice(index2, 1);
-    stopTimer(toast);
-    silence(toast.request);
-    if (byPointer) {
-      context.focusFallback();
-    } else if (toast.element.contains(ownerDocument.activeElement)) {
-      const next = live[index2] ?? live[index2 - 1];
-      if (next) next.closeButton.focus({ preventScroll: true });
-      else context.focusFallback();
-    }
-    leave(toast.element);
-  }
-  function setAction(toast, action) {
-    const previous = toast.actionButton;
-    const hadFocus = previous !== void 0 && ownerDocument.activeElement === previous;
-    previous?.remove();
-    toast.actionButton = void 0;
-    if (action) {
-      const button = createElement(
-        ownerDocument,
-        "button",
-        { type: "button", class: "cd-shell-toast-action cd-shell-button", "data-variant": "ghost" },
-        action.label
-      );
-      button.addEventListener("click", (event2) => {
-        close(toast, isPointerClick(event2));
-        action.onSelect();
-      });
-      toast.closeButton.before(button);
-      toast.actionButton = button;
-    }
-    if (hadFocus) (toast.actionButton ?? toast.closeButton).focus({ preventScroll: true });
-  }
-  function slotOf(toast) {
-    return { id: toast.id, hasAction: toast.request.action !== void 0, engaged: engaged(toast) };
-  }
-  function render(request) {
-    const id = ++lastId;
-    const textId = `${context.idPrefix}-${id}`;
-    const closeButton = createElement(
-      ownerDocument,
-      "button",
-      {
-        type: "button",
-        class: "cd-shell-toast-close",
-        "aria-label": messages.close,
-        "aria-describedby": textId
-      },
-      iconElement("x")
-    );
-    const toastElement = createElement(
-      ownerDocument,
-      "div",
-      { class: "cd-shell-toast", "data-status": request.status },
-      createElement(ownerDocument, "span", { class: "cd-shell-toast-dot", "aria-hidden": "true" }),
-      createElement(
-        ownerDocument,
-        "span",
-        { class: "cd-shell-toast-text", id: textId },
-        request.text
-      ),
-      closeButton
-    );
-    const toast = {
-      id,
-      element: toastElement,
-      closeButton,
-      handle: Object.freeze({ dismiss: () => close(toast) }),
-      request,
-      actionButton: void 0,
-      hovered: false,
-      focused: false,
-      remaining: toastLifetime(request),
-      startedAt: Date.now(),
-      timer: void 0
-    };
-    setAction(toast, request.action);
-    closeButton.addEventListener("click", (event2) => close(toast, isPointerClick(event2)));
-    toastElement.addEventListener("mouseenter", () => setEngagement(toast, true, toast.focused));
-    toastElement.addEventListener("mouseleave", () => setEngagement(toast, false, toast.focused));
-    toastElement.addEventListener("focusin", () => setEngagement(toast, toast.hovered, true));
-    toastElement.addEventListener(
-      "focusout",
-      (event2) => setEngagement(
-        toast,
-        toast.hovered,
-        toastElement.contains(event2.relatedTarget)
-      )
-    );
-    return toast;
-  }
-  function show(request) {
-    if (destroyed) return INERT_HANDLE;
-    const same = live.find(
-      (toast2) => toast2.request.status === request.status && toast2.request.text === request.text
-    );
-    if (same) {
-      same.request = request;
-      setAction(same, request.action);
-      same.remaining = toastLifetime(request);
-      runTimer(same);
-      raise();
-      announce(request);
-      changed();
-      return same.handle;
-    }
-    while (live.length >= MAX_TOASTS) {
-      const evictedId = toastToEvict(live.map(slotOf));
-      const evicted = live.find((toast2) => toast2.id === evictedId) ?? live[0];
-      if (!evicted) break;
-      close(evicted);
-    }
-    const toast = render(request);
-    live.push(toast);
-    element.append(toast.element);
-    raise();
-    runTimer(toast);
-    announce(request);
-    changed();
-    return toast.handle;
-  }
-  return {
-    element,
-    announcer,
-    show,
-    setBottom(bottom) {
-      element.style.bottom = `${bottom}px`;
-    },
-    widestCard() {
-      let widest;
-      for (const card of element.children) {
-        const width = card.getBoundingClientRect().width;
-        if (width > 0) widest = Math.max(widest ?? 0, width);
-      }
-      return widest;
-    },
-    destroy() {
-      if (destroyed) return;
-      destroyed = true;
-      for (const toast of live.splice(0)) stopTimer(toast);
-      for (const timer of leaveTimers) clearTimeout(timer);
-      leaveTimers.clear();
-      for (const timer of announceTimers.values()) clearTimeout(timer);
-      announceTimers.clear();
-      element.remove();
-      announcer.remove();
-    }
-  };
-}
-function createEmptyHint(ownerDocument, messages, options) {
-  const { onInsertExample } = options;
-  const action = onInsertExample ? createElement(
-    ownerDocument,
-    "button",
-    { type: "button", class: "cd-shell-hint-action" },
-    messages.insertExample
-  ) : void 0;
-  action?.addEventListener("click", () => onInsertExample?.());
-  const element = createElement(
-    ownerDocument,
-    "div",
-    { class: "cd-shell-hint" },
-    createElement(ownerDocument, "p", { class: "cd-shell-hint-text" }, messages.emptyHint),
-    action
-  );
-  element.hidden = true;
-  return {
-    element,
-    isShown: () => !element.hidden,
-    setShown(shown) {
-      element.hidden = !shown;
-    },
-    place({ top, right, bottom, left }) {
-      element.style.inset = `${top}px ${right}px ${bottom}px ${left}px`;
-    },
-    destroy() {
-      element.remove();
-    }
-  };
-}
-function createInspector(ownerDocument, options, onChange) {
-  const element = createElement(ownerDocument, "aside", {
-    class: "cd-shell-inspector",
-    "data-chrome": "inspector",
-    "aria-label": options.label
-  });
-  element.hidden = true;
-  function setOpen(open2) {
-    if (open2 === !element.hidden) return;
-    element.hidden = !open2;
-    onChange(open2);
-  }
-  return {
-    element,
-    isOpen: () => !element.hidden,
-    open: () => setOpen(true),
-    close: () => setOpen(false),
-    destroy() {
-      element.remove();
-    }
-  };
-}
-var Ledger = class {
-  undo = [];
-  originalAttributes = /* @__PURE__ */ new Map();
-  closed = false;
-  get isClosed() {
-    return this.closed;
-  }
-  /** Runs `task` on `close()`, in reverse order of registration. */
-  defer(task) {
-    this.undo.push(task);
-  }
-  /** Adds `className` unless present; `close()` removes it only if this ledger added it. */
-  addClass(element, className) {
-    if (element.classList.contains(className)) return;
-    const hadClassAttribute = element.hasAttribute("class");
-    element.classList.add(className);
-    this.defer(() => {
-      element.classList.remove(className);
-      if (!hadClassAttribute && element.classList.length === 0) element.removeAttribute("class");
-    });
-  }
-  /** Sets (string) or removes (`null`) an attribute; `close()` restores the value before the first change. */
-  attribute(element, name, value) {
-    let originals = this.originalAttributes.get(element);
-    if (!originals) {
-      originals = /* @__PURE__ */ new Map();
-      this.originalAttributes.set(element, originals);
-    }
-    if (!originals.has(name)) {
-      originals.set(name, element.getAttribute(name));
-      this.defer(() => {
-        const original = originals.get(name) ?? null;
-        if (original === null) element.removeAttribute(name);
-        else element.setAttribute(name, original);
-      });
-    }
-    if (value === null) element.removeAttribute(name);
-    else element.setAttribute(name, value);
-  }
-  listen(target, type, listener, options) {
-    const handler = listener;
-    target.addEventListener(type, handler, options);
-    this.defer(() => target.removeEventListener(type, handler, options));
-  }
-  /** Runs every undo task once; later calls are no-ops. */
-  close() {
-    if (this.closed) return;
-    this.closed = true;
-    for (const task of this.undo.reverse()) {
-      try {
-        task();
-      } catch {
-      }
-    }
-    this.undo.length = 0;
-    this.originalAttributes.clear();
-  }
-};
-function createLegend(context) {
-  const { ownerDocument, messages, tooltip, titleId, options } = context;
-  const close = createElement(ownerDocument, "button", {
-    type: "button",
-    class: "cd-shell-legend-close",
-    "aria-label": messages.closeLegend
-  });
-  close.append(iconElement("x"));
-  const body = createElement(ownerDocument, "div", { class: "cd-shell-legend-body" });
-  const element = createElement(
-    ownerDocument,
-    "section",
-    {
-      class: "cd-shell-legend cd-shell-island",
-      "data-chrome": "legend",
-      "aria-labelledby": titleId
-    },
-    createElement(
-      ownerDocument,
-      "div",
-      { class: "cd-shell-legend-header" },
-      createElement(
-        ownerDocument,
-        "div",
-        { class: "cd-shell-legend-title", id: titleId },
-        messages.legend
-      ),
-      close
-    ),
-    body
-  );
-  element.hidden = true;
-  options.render(body);
-  let open2 = false;
-  let started = false;
-  const detachTooltip = tooltip.attach(close, { label: messages.closeLegend });
-  function apply(next, byPointer = false) {
-    started = true;
-    if (next === open2) return false;
-    open2 = next;
-    element.hidden = !open2;
-    if (!open2 && (byPointer || element.contains(ownerDocument.activeElement))) {
-      context.focusAfterClose();
-    }
-    context.onChange(open2);
-    return true;
-  }
-  function setOpen(next, byPointer = false) {
-    if (apply(next, byPointer)) options.onToggle?.(next);
-  }
-  close.addEventListener("click", (event2) => setOpen(false, isPointerClick(event2)));
-  return {
-    element,
-    body,
-    isOpen: () => open2,
-    setOpen,
-    toggle: () => setOpen(!open2),
-    start(initial) {
-      if (!started) apply(initial);
-    },
-    destroy() {
-      detachTooltip();
-      element.remove();
-    }
-  };
-}
-var GROUP_ORDER = ["file", "model", "export", "appearance", "help"];
-function isModelerGroup(name) {
-  return name === "model" || name === "export" || name === "help";
-}
-var CANVAS_GROUPS = /* @__PURE__ */ new Set(["file", "model"]);
-function isPrintable2(event2) {
-  return event2.key.length === 1 && /\S/.test(event2.key) && !event2.ctrlKey && !event2.metaKey && !event2.altKey;
-}
-function createMenu(context) {
-  const { root, layer, id, messages, tooltip } = context;
-  const ownerDocument = root.ownerDocument;
-  let groups = context.groups;
-  let items = [];
-  let destroyed = false;
-  const trigger = createElement(ownerDocument, "button", {
-    type: "button",
-    class: "cd-shell-menu-trigger cd-shell-island",
-    "data-chrome": "menu",
-    "aria-label": messages.menu,
-    "aria-haspopup": "menu",
-    "aria-expanded": "false",
-    "aria-controls": id
-  });
-  trigger.append(iconElement("menu"));
-  const dropdown = createElement(ownerDocument, "div", {
-    class: "cd-shell-menu",
-    id,
-    role: "menu",
-    "aria-label": messages.menu
-  });
-  dropdown.hidden = true;
-  layer.prepend(dropdown);
-  const isOpen = () => !dropdown.hidden;
-  function entriesOf(name) {
-    const own2 = isModelerGroup(name) ? groups[name] ?? [] : [];
-    const added = context.shellEntries(name);
-    return added.length > 0 ? [...own2, ...added] : own2;
-  }
-  function hasEntries() {
-    return GROUP_ORDER.some((name) => entriesOf(name).length > 0);
-  }
-  function updateTriggerVisibility() {
-    trigger.hidden = !hasEntries();
-    if (trigger.hidden) close();
-  }
-  function isDisabled(entry, group) {
-    if (group === "model" && context.isReadOnly() && entry.keepEnabledWhenReadOnly !== true)
-      return true;
-    return entry.disabled?.() ?? false;
-  }
-  function itemElement(role, label, options) {
-    const iconSlot = createElement(ownerDocument, "span", { class: "cd-shell-menu-item-icon" });
-    if (options.icon) iconSlot.append(iconElement(options.icon));
-    const element = createElement(
-      ownerDocument,
-      "button",
-      { type: "button", class: "cd-shell-menu-item", role, tabindex: "-1" },
-      iconSlot,
-      createElement(ownerDocument, "span", { class: "cd-shell-menu-item-label" }, label),
-      options.end && createElement(ownerDocument, "span", { class: "cd-shell-menu-item-end" }, options.end)
-    );
-    toggleAttribute(element, "aria-disabled", options.disabled && "true");
-    if (options.checked !== void 0)
-      element.setAttribute("aria-checked", String(options.checked));
-    return element;
-  }
-  function checkMark() {
-    return iconElement("check", { className: "cd-shell-menu-check" });
-  }
-  function renderEntry(entry, group, chipId) {
-    const disabled = isDisabled(entry, group);
-    if (entry.kind === "checkbox") {
-      const checked = entry.checked();
-      const element2 = itemElement("menuitemcheckbox", entry.label, {
-        icon: entry.icon,
-        end: checkMark(),
-        disabled,
-        checked
-      });
-      element2.dataset.menuId = entry.id;
-      element2.dataset.menuGroup = group;
-      return {
-        key: entry.id,
-        element: element2,
-        label: entry.label,
-        disabled,
-        activate() {
-          entry.onToggle(!entry.checked());
-          refresh();
-        }
-      };
-    }
-    const keyShortcuts = entry.ariaKeyShortcuts ?? (entry.shortcut ? ariaKeyShortcutsFromLabel(entry.shortcut) : void 0);
-    const chipDescribes = Boolean(entry.shortcut) && !keyShortcuts;
-    const shortcut = entry.shortcut ? createElement(
-      ownerDocument,
-      "span",
-      {
-        class: "cd-shell-menu-shortcut",
-        "aria-hidden": "true",
-        id: chipDescribes ? chipId : void 0
-      },
-      entry.shortcut
-    ) : void 0;
-    const element = itemElement("menuitem", entry.label, {
-      icon: entry.icon,
-      end: shortcut,
-      disabled
-    });
-    element.dataset.menuId = entry.id;
-    element.dataset.menuGroup = group;
-    toggleAttribute(element, "aria-keyshortcuts", keyShortcuts || null);
-    toggleAttribute(element, "aria-describedby", chipDescribes && chipId);
-    if (entry.kind === "dialog") element.setAttribute("aria-haspopup", "dialog");
-    if (entry.kind === "action" && entry.danger) element.dataset.danger = "";
-    const actsOnCanvas = entry.kind === "action" && CANVAS_GROUPS.has(group);
-    return {
-      key: entry.id,
-      element,
-      label: entry.label,
-      disabled,
-      activate(event2) {
-        close();
-        if (!(actsOnCanvas && isPointerClick(event2) && context.focusCanvas())) focusTrigger();
-        entry.onSelect();
-      }
-    };
-  }
-  function renderRadioGroup(entry, group) {
-    const disabled = isDisabled(entry, group);
-    const value = entry.value();
-    const container = createElement(
-      ownerDocument,
-      "div",
-      {
-        class: "cd-shell-menu-group",
-        role: "group",
-        "aria-label": entry.label,
-        "data-menu-id": entry.id,
-        "data-menu-group": group
-      },
-      // The group's aria-label carries the heading; a menu holds no loose text.
-      createElement(
-        ownerDocument,
-        "div",
-        { class: "cd-shell-menu-heading", "aria-hidden": "true" },
-        entry.label
-      )
-    );
-    const radioItems = entry.options.map((option) => {
-      const element = itemElement("menuitemradio", option.label, {
-        end: checkMark(),
-        disabled,
-        checked: option.value === value
-      });
-      element.dataset.menuValue = option.value;
-      container.append(element);
-      return {
-        key: `${entry.id}\0${option.value}`,
-        element,
-        label: option.label,
-        disabled,
-        activate() {
-          if (entry.value() !== option.value) entry.onSelect(option.value);
-          refresh();
-        }
-      };
-    });
-    return { element: container, items: radioItems };
-  }
-  function render() {
-    const focusedKey = items.find((item) => item.element === ownerDocument.activeElement)?.key;
-    const nodes = [];
-    const rendered = [];
-    for (const name of GROUP_ORDER) {
-      const entries = entriesOf(name);
-      if (entries.length === 0) continue;
-      if (nodes.length > 0) {
-        nodes.push(
-          createElement(ownerDocument, "div", {
-            class: "cd-shell-menu-separator",
-            role: "separator"
-          })
-        );
-      }
-      for (const entry of entries) {
-        if (entry.kind === "radio") {
-          const radio = renderRadioGroup(entry, name);
-          nodes.push(radio.element);
-          rendered.push(...radio.items);
-        } else {
-          const item = renderEntry(entry, name, `${id}-shortcut-${rendered.length}`);
-          nodes.push(item.element);
-          rendered.push(item);
-        }
-      }
-    }
-    for (const item of rendered) {
-      item.element.addEventListener("click", (event2) => {
-        if (!item.disabled) item.activate(event2);
-      });
-    }
-    dropdown.replaceChildren(...nodes);
-    items = rendered;
-    if (focusedKey !== void 0 && isOpen()) {
-      (items.find((item) => item.key === focusedKey) ?? items[0])?.element.focus();
-    }
-  }
-  function focusAt(index2) {
-    if (items.length === 0) return;
-    items[(index2 + items.length) % items.length]?.element.focus();
-  }
-  function currentIndex() {
-    return items.findIndex((item) => item.element === ownerDocument.activeElement);
-  }
-  function typeAhead(character) {
-    const start = currentIndex();
-    const lower = character.toLowerCase();
-    for (let step = 1; step <= items.length; step++) {
-      const index2 = (Math.max(start, -1) + step) % items.length;
-      if (items[index2]?.label.toLowerCase().startsWith(lower)) {
-        focusAt(index2);
-        return;
-      }
-    }
-  }
-  const onOutsidePointerDown = (event2) => {
-    const target = event2.target;
-    if (target && (dropdown.contains(target) || trigger.contains(target))) return;
-    close();
-  };
-  const onWindowBlur = () => close();
-  function open2(focus = "first") {
-    if (destroyed || !hasEntries()) return;
-    tooltip.hide();
-    const wasOpen = isOpen();
-    render();
-    if (!wasOpen) {
-      dropdown.hidden = false;
-      trigger.setAttribute("aria-expanded", "true");
-      ownerDocument.addEventListener("pointerdown", onOutsidePointerDown, true);
-      ownerDocument.defaultView?.addEventListener("blur", onWindowBlur);
-    }
-    focusAt(focus === "last" ? items.length - 1 : 0);
-  }
-  function close(options = {}) {
-    if (!isOpen()) return;
-    dropdown.hidden = true;
-    trigger.setAttribute("aria-expanded", "false");
-    ownerDocument.removeEventListener("pointerdown", onOutsidePointerDown, true);
-    ownerDocument.defaultView?.removeEventListener("blur", onWindowBlur);
-    if (options.restoreFocus) focusTrigger();
-  }
-  function focusTrigger() {
-    if (!trigger.hidden) trigger.focus();
-  }
-  function refresh() {
-    if (isOpen()) render();
-  }
-  trigger.addEventListener("click", () => {
-    if (isOpen()) close();
-    else open2("first");
-  });
-  function consume(event2) {
-    event2.preventDefault();
-    event2.stopPropagation();
-  }
-  trigger.addEventListener("keydown", (event2) => {
-    if (event2.key === "Enter" || event2.key === " " || event2.key === "ArrowDown") {
-      consume(event2);
-      open2("first");
-    } else if (event2.key === "ArrowUp") {
-      consume(event2);
-      open2("last");
-    }
-  });
-  dropdown.addEventListener("keydown", (event2) => {
-    if (matchChromeKey(event2)) return;
-    switch (event2.key) {
-      case "ArrowDown":
-        focusAt(currentIndex() + 1);
-        break;
-      case "ArrowUp": {
-        const index2 = currentIndex();
-        focusAt(index2 < 0 ? items.length - 1 : index2 - 1);
-        break;
-      }
-      case "Home":
-        focusAt(0);
-        break;
-      case "End":
-        focusAt(items.length - 1);
-        break;
-      case "Tab":
-        close({ restoreFocus: true });
-        return;
-      case "Escape":
-        return;
-      case "Enter":
-      case " ":
-      case "Delete":
-      case "Backspace":
-        event2.stopPropagation();
-        return;
-      default:
-        if (!isPrintable2(event2)) return;
-        typeAhead(event2.key);
-    }
-    consume(event2);
-  });
-  updateTriggerVisibility();
-  return {
-    trigger,
-    dropdown,
-    isOpen,
-    open: open2,
-    close,
-    refresh,
-    setGroups(next) {
-      groups = next;
-      updateTriggerVisibility();
-      refresh();
-    },
-    destroy() {
-      if (destroyed) return;
-      close();
-      destroyed = true;
-      trigger.remove();
-      dropdown.remove();
-    }
-  };
-}
-function createProblemsPill(context) {
-  const { ownerDocument, messages, lang, tooltip } = context;
-  const icon = createElement(ownerDocument, "span", { class: "cd-shell-problems-icon" });
-  const text = createElement(ownerDocument, "span", { class: "cd-shell-problems-text" });
-  const element = createElement(
-    ownerDocument,
-    "button",
-    { type: "button", class: "cd-shell-problems cd-shell-island", "data-chrome": "problems" },
-    icon,
-    text
-  );
-  element.hidden = true;
-  element.addEventListener("click", () => context.onActivate());
-  const detachTooltip = context.showTooltip ? tooltip.attach(element, { label: messages.showProblems }) : void 0;
-  let severity;
-  return {
-    element,
-    isShown: () => !element.hidden,
-    set({ count, errors }) {
-      const shown = count > 0;
-      element.hidden = !shown;
-      if (!shown) {
-        tooltip.hide();
-        return;
-      }
-      const formattedCount = formatNumber(count, lang);
-      text.textContent = messages.problems(count, formattedCount);
-      element.setAttribute(
-        "aria-label",
-        messages.problemsLabel(count, errors, formattedCount, formatNumber(errors, lang))
-      );
-      const next = errors > 0 ? "danger" : "warning";
-      if (next !== severity) {
-        severity = next;
-        element.dataset.severity = next;
-        icon.replaceChildren(iconElement(next === "danger" ? "circle-x" : "triangle-alert"));
-      }
-    },
-    destroy() {
-      detachTooltip?.();
-      element.remove();
-    }
-  };
-}
-function createStatusBox(ownerDocument) {
-  const icon = createElement(ownerDocument, "span", { class: "cd-shell-status-icon" });
-  const text = createElement(ownerDocument, "p", { class: "cd-shell-status-text" });
-  const element = createElement(
-    ownerDocument,
-    "div",
-    { class: "cd-shell-status", "data-chrome": "status" },
-    icon,
-    text
-  );
-  element.hidden = true;
-  let pending;
-  function cancelPending() {
-    if (pending) clearTimeout(pending.timer);
-    pending = void 0;
-  }
-  function show(status) {
-    pending = void 0;
-    if (element.dataset.severity !== status.severity) {
-      element.dataset.severity = status.severity;
-      element.setAttribute("role", status.severity === "danger" ? "alert" : "status");
-      icon.replaceChildren(
-        iconElement(status.severity === "danger" ? "circle-x" : "triangle-alert")
-      );
-    }
-    if (text.textContent !== status.text) text.textContent = status.text;
-    element.hidden = false;
-  }
-  return {
-    element,
-    set(status, delayMs) {
-      if (status === null) {
-        cancelPending();
-        element.hidden = true;
-        return;
-      }
-      if (!element.hidden) {
-        show(status);
-        return;
-      }
-      if (pending) {
-        pending.status = status;
-        return;
-      }
-      if (delayMs > 0) {
-        const entry = { status, timer: setTimeout(() => show(entry.status), delayMs) };
-        pending = entry;
-      } else {
-        show(status);
-      }
-    },
-    destroy() {
-      cancelPending();
-      element.remove();
-    }
-  };
-}
-function createTooltip({ root, layer, id }) {
-  const ownerDocument = root.ownerDocument;
-  const label = createElement(ownerDocument, "span", { class: "cd-shell-tooltip-label" });
-  const shortcut = createElement(ownerDocument, "kbd", { class: "cd-shell-kbd" });
-  const element = createElement(ownerDocument, "div", {
-    class: "cd-shell-tooltip",
-    role: "tooltip",
-    id
-  });
-  element.hidden = true;
-  element.append(label, shortcut);
-  layer.append(element);
-  let shown;
-  let pending;
-  let warmUntil = 0;
-  let pressed;
-  const detachers = /* @__PURE__ */ new Set();
-  const resizeObserver = typeof ResizeObserver === "function" ? new ResizeObserver(() => {
-    if (shown) place(shown.control);
-  }) : void 0;
-  resizeObserver?.observe(element);
-  function cancelPending() {
-    if (pending) clearTimeout(pending.timer);
-    pending = void 0;
-  }
-  function resolve(source) {
-    return typeof source === "function" ? source() : source;
-  }
-  function place(control) {
-    const island = control.closest("[data-chrome]") ?? control;
-    const point = placeTooltip({
-      anchor: boxRelativeTo(control, root),
-      island: boxRelativeTo(island, root),
-      tooltip: { width: element.offsetWidth, height: element.offsetHeight },
-      container: { width: root.clientWidth, height: root.clientHeight }
-    });
-    element.style.left = `${point.x}px`;
-    element.style.top = `${point.y}px`;
-  }
-  function hide2() {
-    cancelPending();
-    if (!shown) return;
-    const { control, describedBy } = shown;
-    shown = void 0;
-    element.hidden = true;
-    if (describedBy === null) control.removeAttribute("aria-describedby");
-    else control.setAttribute("aria-describedby", describedBy);
-  }
-  function show(control, source) {
-    cancelPending();
-    const content = resolve(source);
-    if (!content || !control.isConnected) {
-      if (shown?.control === control) hide2();
-      return;
-    }
-    if (shown && shown.control !== control) hide2();
-    label.textContent = content.label;
-    shortcut.textContent = content.shortcut ?? "";
-    shortcut.hidden = !content.shortcut;
-    element.hidden = false;
-    if (!shown) {
-      const describedBy = control.getAttribute("aria-describedby");
-      shown = { control, describedBy };
-      const saysMore = !accessibleName(control).includes(content.label) || Boolean(content.shortcut) && !control.hasAttribute("aria-keyshortcuts");
-      if (saysMore) {
-        control.setAttribute("aria-describedby", [describedBy, id].filter(Boolean).join(" "));
-      }
-    }
-    place(control);
-  }
-  function onEnter(control, source, event2) {
-    if (event2.pointerType === "touch" || pressed === control) return;
-    if (shown || Date.now() < warmUntil) {
-      show(control, source);
-      return;
-    }
-    cancelPending();
-    pending = { control, timer: setTimeout(() => show(control, source), TOOLTIP_DELAY_MS) };
-  }
-  function onLeave(control) {
-    if (pressed === control) pressed = void 0;
-    if (pending?.control === control) cancelPending();
-    if (shown?.control === control) {
-      hide2();
-      warmUntil = Date.now() + TOOLTIP_DELAY_MS;
-    }
-  }
-  function onFocus(control, source) {
-    if (hasVisibleFocus(control)) show(control, source);
-  }
-  function onBlur(control) {
-    if (pending?.control === control) cancelPending();
-    if (shown?.control === control) hide2();
-  }
-  function onPress(control, event2) {
-    if (event2.type === "pointerdown") pressed = control;
-    if (pending?.control === control) cancelPending();
-    if (shown?.control === control) hide2();
-  }
-  function attach(control, source) {
-    const enter = (event2) => onEnter(control, source, event2);
-    const leave = () => onLeave(control);
-    const focus = () => onFocus(control, source);
-    const blur = () => onBlur(control);
-    const press = (event2) => onPress(control, event2);
-    control.addEventListener("pointerenter", enter);
-    control.addEventListener("pointerleave", leave);
-    control.addEventListener("focus", focus);
-    control.addEventListener("blur", blur);
-    control.addEventListener("pointerdown", press);
-    control.addEventListener("click", press);
-    const detach = () => {
-      if (!detachers.delete(detach)) return;
-      control.removeEventListener("pointerenter", enter);
-      control.removeEventListener("pointerleave", leave);
-      control.removeEventListener("focus", focus);
-      control.removeEventListener("blur", blur);
-      control.removeEventListener("pointerdown", press);
-      control.removeEventListener("click", press);
-      if (shown?.control === control || pending?.control === control) hide2();
-      if (pressed === control) pressed = void 0;
-    };
-    detachers.add(detach);
-    return detach;
-  }
-  function delegate2(container, selector, content) {
-    let hovered;
-    const controlOf = (target) => {
-      if (!target || typeof target.closest !== "function") return void 0;
-      const match = target.closest(selector);
-      return match && container.contains(match) ? match : void 0;
-    };
-    const sourceOf = (control) => () => content(control);
-    const over = (event2) => {
-      const control = controlOf(event2.target);
-      if (control === hovered) return;
-      if (hovered) onLeave(hovered);
-      hovered = control;
-      if (control) onEnter(control, sourceOf(control), event2);
-    };
-    const out = (event2) => {
-      if (!hovered) return;
-      if (controlOf(event2.relatedTarget) === hovered) return;
-      onLeave(hovered);
-      hovered = void 0;
-    };
-    const focusIn = (event2) => {
-      const control = controlOf(event2.target);
-      if (control) onFocus(control, sourceOf(control));
-    };
-    const focusOut = (event2) => {
-      const control = controlOf(event2.target);
-      if (control) onBlur(control);
-    };
-    const press = (event2) => {
-      const control = controlOf(event2.target);
-      if (control) onPress(control, event2);
-    };
-    container.addEventListener("pointerover", over);
-    container.addEventListener("pointerout", out);
-    container.addEventListener("focusin", focusIn);
-    container.addEventListener("focusout", focusOut);
-    container.addEventListener("pointerdown", press);
-    container.addEventListener("click", press);
-    const detach = () => {
-      if (!detachers.delete(detach)) return;
-      container.removeEventListener("pointerover", over);
-      container.removeEventListener("pointerout", out);
-      container.removeEventListener("focusin", focusIn);
-      container.removeEventListener("focusout", focusOut);
-      container.removeEventListener("pointerdown", press);
-      container.removeEventListener("click", press);
-      if (shown && container.contains(shown.control) || pending && container.contains(pending.control)) {
-        hide2();
-      }
-      hovered = void 0;
-    };
-    detachers.add(detach);
-    return detach;
-  }
-  return {
-    element,
-    attach,
-    delegate: delegate2,
-    hide: hide2,
-    destroy() {
-      hide2();
-      for (const detach of [...detachers]) detach();
-      resizeObserver?.disconnect();
-      element.remove();
-    }
-  };
-}
-var DRAG_EVENTS = ["dragenter", "dragover", "dragleave", "drop"];
-function carriesFiles(transfer) {
-  if (!transfer) return false;
-  if (Array.from(transfer.types ?? []).includes("Files")) return true;
-  return Array.from(transfer.items ?? []).some((item) => item.kind === "file");
-}
-function dragItems(transfer) {
-  const items = Array.from(transfer.items ?? [], (item) => ({ kind: item.kind, type: item.type }));
-  return items.length > 0 ? items : [{ kind: "file", type: "" }];
-}
-function acceptList(accept, lang) {
-  const entries = accept.map((entry) => entry.trim()).filter((entry) => entry !== "");
-  const extensions = entries.filter((entry) => entry.startsWith("."));
-  const listed = extensions.length > 0 ? extensions : entries;
-  let format;
-  try {
-    format = new Intl.ListFormat(lang, { type: "disjunction" });
-  } catch {
-    format = new Intl.ListFormat("en", { type: "disjunction" });
-  }
-  return format.format(listed);
-}
-function createDropZone(context) {
-  const { ownerDocument, layer, messages, lang, options, modalOpen, toast, setState } = context;
-  const chip = createElement(ownerDocument, "span", { class: "cd-shell-drop-zone-chip" });
-  const element = createElement(
-    ownerDocument,
-    "div",
-    { class: "cd-shell-drop-zone", "data-chrome": "drop-zone", "aria-hidden": "true" },
-    chip
-  );
-  element.hidden = true;
-  layer.append(element);
-  const view = ownerDocument.defaultView;
-  let depth = 0;
-  let current = null;
-  function verdictFor(items) {
-    return dragVerdict(items, {
-      accept: options.accept,
-      multiple: options.multiple ?? false,
-      dialogOpen: modalOpen()
-    });
-  }
-  function show(verdict) {
-    const next = verdict.state === "none" ? null : verdict.state;
-    if (verdict.state === "over") chip.textContent = messages.dropFile;
-    if (verdict.state === "forbidden") chip.textContent = messages.dropForbidden(verdict.reason);
-    if (next === current) return;
-    current = next;
-    element.hidden = next === null;
-    if (next === null) element.removeAttribute("data-state");
-    else element.setAttribute("data-state", next);
-    setState(next);
-  }
-  function track(transfer) {
-    const verdict = verdictFor(dragItems(transfer));
-    show(verdict);
-    transfer.dropEffect = verdict.state === "forbidden" ? "none" : "copy";
-  }
-  function rejectByDefault(files) {
-    const accepted = acceptList(options.accept, lang);
-    for (const file2 of files)
-      toast({ status: "danger", text: messages.cannotOpenFile(file2.name, accepted) });
-  }
-  function receive(files, verdict) {
-    if (verdict.state === "forbidden" && verdict.reason !== "type") return;
-    const accepted = files.filter((file2) => acceptsFile(file2, options.accept));
-    const rejected = files.filter((file2) => !accepted.includes(file2));
-    if (accepted.length > 0) options.onDrop(accepted);
-    if (rejected.length > 0) (options.onReject ?? rejectByDefault)(rejected);
-  }
-  const onDragEvent = (event2) => {
-    const transfer = event2.dataTransfer;
-    if (!carriesFiles(transfer)) return;
-    event2.preventDefault();
-    switch (event2.type) {
-      case "dragenter":
-        depth += 1;
-        track(transfer);
-        break;
-      case "dragover":
-        depth = Math.max(depth, 1);
-        track(transfer);
-        break;
-      case "dragleave":
-        depth = Math.max(0, depth - 1);
-        if (depth === 0) show({ state: "none" });
-        break;
-      case "drop": {
-        depth = 0;
-        show({ state: "none" });
-        const files = Array.from(transfer.files ?? []);
-        const items = files.length > 0 ? files.map((file2) => ({ kind: "file", type: file2.type })) : dragItems(transfer);
-        receive(files, verdictFor(items));
-        break;
-      }
-    }
-  };
-  for (const type of DRAG_EVENTS) view?.addEventListener(type, onDragEvent);
-  return {
-    element,
-    state: () => current,
-    destroy() {
-      for (const type of DRAG_EVENTS) view?.removeEventListener(type, onDragEvent);
-      depth = 0;
-      if (current !== null) {
-        current = null;
-        setState(null);
-      }
-      element.remove();
-    }
-  };
-}
-var KOMET_SIZE = "64";
-function createEmptyState(context) {
-  const { ownerDocument, messages, options, dropHint, open: open2, titleId, onLeave } = context;
-  const button = (variant, label, run) => {
-    const element2 = createElement(
-      ownerDocument,
-      "button",
-      { type: "button", class: "cd-shell-button", "data-variant": variant },
-      label
-    );
-    element2.addEventListener("click", () => {
-      onLeave();
-      run();
-    });
-    return element2;
-  };
-  const onShowExample = options.onShowExample;
-  const newDiagram = button("primary", messages.newDiagram, () => options.onNewDiagram());
-  const element = createElement(
-    ownerDocument,
-    "section",
-    { class: "cd-shell-empty-state", "data-chrome": "empty-state", "aria-labelledby": titleId },
-    // Dragging the mark would start an image drag that some browsers carry as a file.
-    createElement(ownerDocument, "img", {
-      class: "cd-shell-empty-state-mark",
-      src: options.komet,
-      width: KOMET_SIZE,
-      height: KOMET_SIZE,
-      alt: "",
-      draggable: "false"
-    }),
-    createElement(
-      ownerDocument,
-      "h1",
-      { class: "cd-shell-empty-state-title", id: titleId },
-      options.title
-    ),
-    createElement(ownerDocument, "p", { class: "cd-shell-empty-state-text" }, options.text),
-    createElement(
-      ownerDocument,
-      "div",
-      { class: "cd-shell-empty-state-actions" },
-      newDiagram,
-      onShowExample && button("ghost", messages.showExample, () => onShowExample())
-    ),
-    hintParagraph()
-  );
-  function hintParagraph() {
-    const hasDropHint = dropHint !== void 0 && dropHint !== "";
-    if (!hasDropHint && !open2) return void 0;
-    const paragraph = createElement(ownerDocument, "p", { class: "cd-shell-empty-state-hint" });
-    if (hasDropHint) paragraph.append(dropHint);
-    if (!open2) return paragraph;
-    const shortcut = open2.shortcut?.trim();
-    const link = createElement(
-      ownerDocument,
-      "button",
-      {
-        type: "button",
-        class: "cd-shell-empty-state-open",
-        "aria-keyshortcuts": shortcut ? ariaKeyShortcutsFromLabel(shortcut) : void 0,
-        "aria-haspopup": open2.dialog ? "dialog" : void 0
-      },
-      messages.openFileLink
-    );
-    link.addEventListener("click", () => open2.onSelect());
-    if (hasDropHint) {
-      paragraph.append(
-        " ",
-        createElement(ownerDocument, "span", { "aria-hidden": "true" }, "\xB7"),
-        " "
-      );
-    }
-    const openItem = createElement(
-      ownerDocument,
-      "span",
-      { class: "cd-shell-empty-state-open-item" },
-      link
-    );
-    if (shortcut) {
-      openItem.append(
-        " ",
-        createElement(
-          ownerDocument,
-          "kbd",
-          { class: "cd-shell-empty-state-key", "aria-hidden": "true" },
-          shortcut
-        )
-      );
-    }
-    paragraph.append(openItem);
-    return paragraph;
-  }
-  element.hidden = true;
-  return {
-    element,
-    isShown: () => !element.hidden,
-    setShown(shown) {
-      element.hidden = !shown;
-    },
-    focus() {
-      newDiagram.focus({ preventScroll: true });
-    },
-    destroy() {
-      element.remove();
-    }
-  };
-}
-var MIRAGON_HOME = "https://www.miragon.io/";
-var MIRAGON_IMPRESSUM = "https://www.miragon.io/impressum/";
-var MIRAGON_DATENSCHUTZ = "https://www.miragon.io/datenschutz/";
-function createLegalLine(context) {
-  const { ownerDocument, messages, options } = context;
-  const year = options.year ?? (/* @__PURE__ */ new Date()).getFullYear();
-  const newTabId = `${context.idPrefix}-new-tab`;
-  const link = (label, href, lang) => createElement(
-    ownerDocument,
-    "a",
-    { href, lang, target: "_blank", rel: "noopener noreferrer", "aria-describedby": newTabId },
-    label
-  );
-  const separator = () => createElement(ownerDocument, "span", { "aria-hidden": "true" }, "\xB7");
-  const item = (anchor2) => createElement(ownerDocument, "span", { class: "cd-shell-legal-item" }, separator(), anchor2);
-  const links = [
-    link(messages.copyright(year), MIRAGON_HOME),
-    link("Impressum", MIRAGON_IMPRESSUM, "de"),
-    link("Datenschutz", MIRAGON_DATENSCHUTZ, "de"),
-    ...(options.links ?? []).map((extra) => link(extra.label, extra.href, extra.lang))
-  ];
-  const element = createElement(ownerDocument, "nav", {
-    class: "cd-shell-legal",
-    "data-chrome": "legal",
-    "aria-label": messages.legal
-  });
-  element.append(
-    ...links.map((anchor2, index2) => index2 === 0 ? anchor2 : item(anchor2)),
-    createElement(ownerDocument, "span", { id: newTabId, hidden: "" }, messages.opensInNewTab)
-  );
-  return {
-    element,
-    destroy() {
-      element.remove();
-    }
-  };
-}
-function fileEntry(spec, action) {
-  const common = {
-    id: spec.id,
-    label: spec.label,
-    ...spec.icon ? { icon: spec.icon } : {},
-    ...action.disabled ? { disabled: action.disabled } : {},
-    ...action.shortcut ? { shortcut: action.shortcut } : {},
-    onSelect: () => action.onSelect()
-  };
-  return action.dialog ? { kind: "dialog", ...common } : { kind: "action", ...common };
-}
-function fileMenuEntries(options, messages) {
-  const specs = [
-    { option: "newDiagram", id: "new-diagram", label: messages.newDiagram, icon: "file-plus" },
-    { option: "open", id: "open", label: messages.openFile, icon: "folder-open" },
-    // §5.14 gives "Show example" no icon.
-    { option: "showExample", id: "show-example", label: messages.showExample, icon: void 0 },
-    { option: "import", id: "import", label: messages.importFile, icon: "import" }
-  ];
-  return specs.flatMap((spec) => {
-    const action = options[spec.option];
-    return action ? [fileEntry(spec, action)] : [];
-  });
-}
-function appearanceMenuEntries(appearance, messages) {
-  return [
-    {
-      kind: "radio",
-      id: "appearance",
-      label: messages.appearance,
-      options: [
-        { value: "system", label: messages.appearanceSystem },
-        { value: "light", label: messages.appearanceLight },
-        { value: "dark", label: messages.appearanceDark }
-      ],
-      value: () => appearance.choice(),
-      onSelect: (value) => appearance.setChoice(parseAppearanceChoice(value))
-    }
-  ];
-}
-var COLLAPSED_ATTRIBUTE = "data-collapsed";
-function createPrimaryAction(context) {
-  const { ownerDocument, messages, tooltip, options, focusCanvas } = context;
-  const label = options.label ?? messages.share;
-  const labelElement = createElement(
-    ownerDocument,
-    "span",
-    { class: "cd-shell-primary-label" },
-    label
-  );
-  const element = createElement(
-    ownerDocument,
-    "button",
-    {
-      type: "button",
-      class: "cd-shell-primary cd-shell-button",
-      "data-variant": "primary",
-      "data-chrome": "primary",
-      "aria-label": label
-    },
-    iconElement(options.icon ?? "share-2"),
-    labelElement
-  );
-  let collapsed = false;
-  let disabled = false;
-  let labelledWidth;
-  function readDisabled() {
-    disabled = options.disabled?.() ?? false;
-    toggleAttribute(element, "aria-disabled", disabled ? "true" : null);
-  }
-  function showCollapsed(state) {
-    labelElement.hidden = state;
-    toggleAttribute(element, COLLAPSED_ATTRIBUTE, state ? "" : null);
-  }
-  function measureLabelledWidth() {
-    if (!collapsed) return element.offsetWidth;
-    showCollapsed(false);
-    const width = element.offsetWidth;
-    showCollapsed(true);
-    return width;
-  }
-  function isEngaged() {
-    if (ownerDocument.activeElement === element) return true;
-    try {
-      return element.matches(":hover");
-    } catch {
-      return false;
-    }
-  }
-  const onClick = (event2) => {
-    if (isPointerClick(event2)) focusCanvas();
-    if (disabled) {
-      event2.preventDefault();
-      return;
-    }
-    options.onSelect();
-  };
-  element.addEventListener("click", onClick);
-  const detachTooltip = tooltip.attach(element, () => collapsed ? { label } : null);
-  readDisabled();
-  return {
-    element,
-    isCollapsed: () => collapsed,
-    refresh() {
-      readDisabled();
-      labelledWidth = void 0;
-    },
-    widths() {
-      if (!collapsed || labelledWidth === void 0) {
-        const measured = measureLabelledWidth();
-        if (measured > 0) labelledWidth = measured;
-      }
-      return { withLabel: labelledWidth ?? 0, iconOnly: SHELL.row };
-    },
-    setCollapsed(next) {
-      if (next === collapsed) return;
-      collapsed = next;
-      showCollapsed(next);
-      if (!next && isEngaged()) tooltip.hide();
-    },
-    destroy() {
-      detachTooltip();
-      element.removeEventListener("click", onClick);
-      element.remove();
-    }
-  };
-}
-function createZoomPanel(context) {
-  const { ownerDocument, messages, lang, platform, tooltip, focusCanvas } = context;
-  let target = null;
-  let unsubscribe;
-  let frame;
-  const detachers = [];
-  function button(zoom2, key, tooltipLabel, options) {
-    const element2 = createElement(ownerDocument, "button", {
-      type: "button",
-      class: options.className ?? "cd-shell-target",
-      "data-zoom": zoom2,
-      "aria-label": options.label,
-      "aria-keyshortcuts": ariaKeyShortcuts(key, platform)
-    });
-    if (options.icon) element2.append(iconElement(options.icon));
-    element2.addEventListener("click", (event2) => {
-      run(key);
-      if (isPointerClick(event2)) focusCanvas();
-    });
-    detachers.push(
-      tooltip.attach(element2, {
-        label: tooltipLabel,
-        shortcut: shortcutLabel(key, platform, messages.keyNames)
-      })
-    );
-    return element2;
-  }
-  const zoomOut = button("out", "zoomOut", messages.zoomOut, {
-    label: messages.zoomOut,
-    icon: "minus"
-  });
-  const readout = button("actual", "zoomToActual", messages.zoomToActual(formatPercent(1, lang)), {
-    className: "cd-shell-target cd-shell-zoom-readout"
-  });
-  const zoomIn = button("in", "zoomIn", messages.zoomIn, { label: messages.zoomIn, icon: "plus" });
-  const fit = button("fit", "fit", messages.fit, { label: messages.fit, icon: "maximize" });
-  const separator = createElement(ownerDocument, "span", {
-    class: "cd-shell-zoom-separator",
-    "aria-hidden": "true"
-  });
-  const element = createElement(
-    ownerDocument,
-    "div",
-    {
-      class: "cd-shell-zoom cd-shell-island",
-      "data-chrome": "zoom",
-      role: "group",
-      "aria-label": messages.zoom
-    },
-    zoomOut,
-    readout,
-    zoomIn,
-    separator,
-    fit
-  );
-  function render() {
-    frame = void 0;
-    const zoom2 = target?.zoom() ?? 1;
-    const state = zoomReadout(zoom2, lang, messages);
-    if (readout.textContent !== state.text) readout.textContent = state.text;
-    readout.setAttribute("aria-label", state.ariaLabel);
-    toggleAttribute(zoomOut, "aria-disabled", (!target || !state.canZoomOut) && "true");
-    toggleAttribute(zoomIn, "aria-disabled", (!target || !state.canZoomIn) && "true");
-    toggleAttribute(fit, "aria-disabled", (!target || !target.canFit()) && "true");
-  }
-  function schedule() {
-    if (frame === void 0) frame = requestAnimationFrame(render);
-  }
-  function cancelFrame() {
-    if (frame !== void 0) cancelAnimationFrame(frame);
-    frame = void 0;
-  }
-  function run(key) {
-    if (!target) return;
-    const zoom2 = target.zoom();
-    switch (key) {
-      case "zoomIn":
-        if (canZoomIn(zoom2)) target.stepZoom(1);
-        break;
-      case "zoomOut":
-        if (canZoomOut(zoom2)) target.stepZoom(-1);
-        break;
-      case "zoomToActual":
-        if (zoom2 !== 1) target.zoomToActual();
-        break;
-      case "fit":
-        if (target.canFit()) target.fit();
-        break;
-    }
-  }
-  render();
-  return {
-    element,
-    run,
-    setTarget(next) {
-      unsubscribe?.();
-      unsubscribe = void 0;
-      cancelFrame();
-      target = next;
-      if (next) unsubscribe = next.onChange(schedule);
-      render();
-    },
-    destroy() {
-      unsubscribe?.();
-      unsubscribe = void 0;
-      cancelFrame();
-      target = null;
-      for (const detach of detachers) detach();
-      element.remove();
-    }
-  };
-}
-var MOUNT_COUNTER = /* @__PURE__ */ Symbol.for("@miragon/modeler-shell.mounts");
-function nextMountIndex() {
-  const scope = globalThis;
-  const index2 = (scope[MOUNT_COUNTER] ?? 0) + 1;
-  scope[MOUNT_COUNTER] = index2;
-  return index2;
-}
-var DEFAULT_THEMES = ["light"];
-var LEGAL_HEIGHT_PROPERTY = "--modeler-shell-legal-height";
-var INERT_TOAST = Object.freeze({ dismiss() {
-} });
-var CLOSED_DIALOG = Object.freeze({ isOpen: () => false, close() {
-} });
-function visibleBoxIn(element, root) {
-  if (!element || element.hidden || !element.isConnected) return void 0;
-  if (typeof element.checkVisibility === "function" && !element.checkVisibility({ visibilityProperty: true }))
-    return void 0;
-  const box = boxRelativeTo(element, root);
-  return box.width > 0 && box.height > 0 ? box : void 0;
-}
-function languageOf(root, host, requested) {
-  if (requested) return requested;
-  const declared = host === "embedded" ? root.getAttribute("lang") : root.closest("[lang]")?.getAttribute("lang");
-  return declared || "en";
-}
-function hostKontrast(root) {
-  const carrier = root.parentElement?.closest("[data-cd-theme], [data-cd-kontrast]");
-  return carrier?.getAttribute("data-cd-kontrast") === "hoch" ? "hoch" : null;
-}
-function mountShell(root, options) {
-  const themes = options.themes ?? DEFAULT_THEMES;
-  if (themes.length === 0)
-    throw new Error("@miragon/modeler-shell: mountShell needs at least one theme");
-  const ledger = new Ledger();
-  try {
-    return renderShell(root, options, themes, ledger);
-  } catch (error2) {
-    ledger.close();
-    throw error2;
-  }
-}
-function renderShell(root, options, themes, ledger) {
-  const ownerDocument = root.ownerDocument;
-  const { host } = options;
-  const index2 = nextMountIndex();
-  const messages = resolveMessages(options.messages);
-  const platform = options.platform ?? detectPlatform(globalThis.navigator);
-  const lang = languageOf(root, host, options.lang);
-  const keyScope = options.keyScope ?? (host === "embedded" ? "root" : "document");
-  const web = host === "web";
-  ledger.addClass(root, "cd-shell");
-  ledger.attribute(root, "data-cd-shell-host", host);
-  ledger.attribute(root, "data-palette", "top");
-  if (host === "embedded") {
-    ledger.attribute(root, "lang", lang);
-    carryOwnMode(root, themes[0] ?? "light", ledger);
-  } else {
-    ledger.addClass(ownerDocument.documentElement, "cd-shell-document");
-  }
-  const setState = (name, value) => {
-    if (!ledger.isClosed) ledger.attribute(root, name, value);
-  };
-  const appearance = web ? connectWebAppearance({ ownerDocument, themes, options: options.appearance }) : void 0;
-  if (appearance) ledger.defer(() => appearance.destroy());
-  const darkCapable = themes.includes("dark");
-  const layer = createElement(ownerDocument, "div", { class: "cd-shell-layer" });
-  ledger.defer(() => layer.remove());
-  const tooltip = createTooltip({ root, layer, id: `cd-shell-tooltip-${index2}` });
-  ledger.defer(() => tooltip.destroy());
-  let readOnly = false;
-  let readOnlyShown = false;
-  let readOnlyTimer;
-  ledger.defer(() => clearTimeout(readOnlyTimer));
-  const legend = options.legend ? createLegend({
-    ownerDocument,
-    messages,
-    tooltip,
-    titleId: `cd-shell-legend-title-${index2}`,
-    options: options.legend,
-    onChange(open2) {
-      setState("data-legend", open2 ? "open" : null);
-      placeHint();
-      menu.refresh();
-    },
-    focusAfterClose: () => menu.trigger.focus()
-  }) : void 0;
-  if (legend) ledger.defer(() => legend.destroy());
-  const legendEntry = legend && options.legend?.menuEntry !== false ? {
-    kind: "checkbox",
-    id: "legend",
-    label: messages.legend,
-    checked: () => legend.isOpen(),
-    onToggle: (checked) => legend.setOpen(checked),
-    keepEnabledWhenReadOnly: true
-  } : void 0;
-  const shellModelEntries = legendEntry ? [legendEntry] : [];
-  const fileEntries = web && options.file ? fileMenuEntries(options.file, messages) : [];
-  const appearanceEntries = appearance && darkCapable ? appearanceMenuEntries(appearance, messages) : [];
-  const shellEntries = (group) => {
-    if (group === "file") return fileEntries;
-    if (group === "model") return shellModelEntries;
-    if (group === "appearance") return appearanceEntries;
-    return [];
-  };
-  const menu = createMenu({
-    root,
-    layer,
-    id: `cd-shell-menu-${index2}`,
-    messages,
-    tooltip,
-    groups: options.menu ?? {},
-    shellEntries,
-    isReadOnly: () => readOnly,
-    focusCanvas
-  });
-  ledger.defer(() => menu.destroy());
-  ledger.defer(
-    tooltip.attach(menu.trigger, () => menu.isOpen() ? null : { label: messages.menu })
-  );
-  const primary = web && options.primary ? createPrimaryAction({
-    ownerDocument,
-    messages,
-    tooltip,
-    options: options.primary,
-    focusCanvas
-  }) : void 0;
-  if (primary) ledger.defer(() => primary.destroy());
-  const canvas = options.canvas ?? createElement(ownerDocument, "div");
-  ledger.addClass(canvas, "cd-shell-canvas");
-  if (web && !canvas.hasAttribute("role")) ledger.attribute(canvas, "role", "main");
-  if (!options.canvas) ledger.defer(() => canvas.remove());
-  function focusCanvasOrTrigger() {
-    const took = (target) => {
-      target?.focus({ preventScroll: true });
-      return target !== null && target !== void 0 && ownerDocument.activeElement === target;
-    };
-    if (emptyState?.isShown()) {
-      emptyState.focus();
-      if (emptyState.element.contains(ownerDocument.activeElement)) return;
-    }
-    if (took(canvas.querySelector("svg[tabindex]"))) return;
-    if (!menu.trigger.hidden) took(menu.trigger);
-  }
-  function moveFocusOutOf(island) {
-    if (island.contains(ownerDocument.activeElement)) focusCanvasOrTrigger();
-  }
-  function islandFocusTracker(island) {
-    let clickedByPointer = false;
-    island?.addEventListener(
-      "click",
-      (event2) => {
-        if (event2.target?.closest?.("button")) {
-          clickedByPointer = isPointerClick(event2);
-        }
-      },
-      true
-    );
-    return () => {
-      const active = ownerDocument.activeElement;
-      const focusNowhere = active === null || active === ownerDocument.body;
-      const held = (island?.contains(active) ?? false) || clickedByPointer && focusNowhere;
-      clickedByPointer = false;
-      return held;
-    };
-  }
-  let zoomTarget = null;
-  function focusCanvas() {
-    if (ledger.isClosed || !zoomTarget?.focus) return false;
-    zoomTarget.focus();
-    return canvas.contains(ownerDocument.activeElement);
-  }
-  const status = createStatusBox(ownerDocument);
-  ledger.defer(() => status.destroy());
-  const hint = options.emptyHint ? createEmptyHint(ownerDocument, messages, options.emptyHint) : void 0;
-  if (hint) ledger.defer(() => hint.destroy());
-  const hintHadFocus = islandFocusTracker(hint?.element);
-  const emptyState = web && options.emptyState ? createEmptyState({
-    ownerDocument,
-    messages,
-    options: options.emptyState,
-    dropHint: options.dropZone ? options.emptyState.dropHint ?? messages.dropHint : void 0,
-    open: options.file?.open,
-    titleId: `cd-shell-empty-state-title-${index2}`,
-    onLeave: () => setEmptyStateShown(false)
-  }) : void 0;
-  if (emptyState) ledger.defer(() => emptyState.destroy());
-  const cardHadFocus = islandFocusTracker(emptyState?.element);
-  const inspector = options.inspector ? createInspector(ownerDocument, options.inspector, (open2) => {
-    setState("data-inspector", open2 ? "open" : null);
-    updateBottomRow();
-    placeHint();
-  }) : void 0;
-  if (inspector) ledger.defer(() => inspector.destroy());
-  const problemsOptions = options.problems;
-  let popover;
-  const pill = problemsOptions ? createProblemsPill({
-    ownerDocument,
-    messages,
-    lang,
-    tooltip,
-    showTooltip: host === "ide",
-    onActivate() {
-      if (popover) popover.toggle();
-      else problemsOptions.onActivate?.();
-    }
-  }) : void 0;
-  if (pill) ledger.defer(() => pill.destroy());
-  if (pill && (web || host === "embedded" && !problemsOptions?.onActivate)) {
-    const created = createProblemsPopover({
-      ownerDocument,
-      root,
-      layer,
-      pill: pill.element,
-      id: `cd-shell-problems-${index2}`,
-      titleId: `cd-shell-problems-title-${index2}`,
-      messages,
-      onSelectItem: problemsOptions?.onSelectItem
-    });
-    popover = created;
-    ledger.defer(() => created.destroy());
-  }
-  const legal = web ? createLegalLine({
-    ownerDocument,
-    messages,
-    options: options.legal ?? {},
-    idPrefix: `cd-shell-legal-${index2}`
-  }) : void 0;
-  if (legal) ledger.defer(() => legal.destroy());
-  const zoomPanel = createZoomPanel({
-    ownerDocument,
-    messages,
-    lang,
-    platform,
-    tooltip,
-    focusCanvas
-  });
-  ledger.defer(() => zoomPanel.destroy());
-  const toaster = web ? createToaster({
-    ownerDocument,
-    messages,
-    idPrefix: `cd-shell-toast-${index2}`,
-    focusFallback: focusCanvasOrTrigger,
-    onChange: () => updateBottomRow()
-  }) : void 0;
-  if (toaster) ledger.defer(() => toaster.destroy());
-  const defined = (element) => element !== void 0;
-  root.prepend(...[menu.trigger, primary?.element, canvas].filter(defined));
-  root.append(
-    ...[
-      status.element,
-      hint?.element,
-      emptyState?.element,
-      inspector?.element,
-      pill?.element,
-      legend?.element,
-      legal?.element,
-      zoomPanel.element
-    ].filter(defined),
-    layer,
-    ...[toaster?.announcer, toaster?.element].filter(defined)
-  );
-  function showToast(request) {
-    return ledger.isClosed || !toaster ? INERT_TOAST : toaster.show(request);
-  }
-  const dropZone = web && options.dropZone ? createDropZone({
-    ownerDocument,
-    layer,
-    messages,
-    lang,
-    options: options.dropZone,
-    modalOpen: () => isModalOpen(ownerDocument),
-    toast: showToast,
-    setState: (state) => setState("data-drop", state)
-  }) : void 0;
-  if (dropZone) ledger.defer(() => dropZone.destroy());
-  let palette;
-  let paletteRow = "top";
-  let zoomRaised = false;
-  let legalHeight = LEGAL_LINE_HEIGHT;
-  if (legal) ledger.defer(() => root.style.removeProperty(LEGAL_HEIGHT_PROPERTY));
-  function containerSize() {
-    return { width: root.clientWidth, height: root.clientHeight };
-  }
-  function menuRight() {
-    const box = boxRelativeTo(menu.trigger, root);
-    return box.width > 0 ? box.x + box.width : SHELL.edge + SHELL.row;
-  }
-  function paletteWidth() {
-    const element = palette?.registration.element;
-    return element ? element.offsetWidth - element.clientWidth + element.scrollWidth : 0;
-  }
-  function currentFitInsets() {
-    const container = containerSize();
-    const layout = {
-      container,
-      host,
-      paletteRow,
-      problemsVisible: pill?.isShown() ?? false
-    };
-    if (web) {
-      layout.zoomRaised = zoomRaised;
-      layout.legalHeight = legalHeight;
-    }
-    if (legend?.isOpen()) layout.legendWidth = legend.element.getBoundingClientRect().width;
-    if (inspector?.isOpen()) {
-      layout.inspector = container.width > SHELL.narrow ? {} : { sheetTop: boxRelativeTo(inspector.element, root).y };
-    }
-    return fitInsets(layout);
-  }
-  function placeHint() {
-    if (hint?.isShown()) hint.place(currentFitInsets());
-  }
-  function updateLayout() {
-    if (ledger.isClosed) return;
-    const size2 = containerSize();
-    if (size2.width === 0 || size2.height === 0) return;
-    const topRow = decideTopRow({
-      containerWidth: size2.width,
-      paletteWidth: paletteWidth(),
-      menuRight: menuRight(),
-      primary: primary?.widths()
-    });
-    paletteRow = topRow.paletteRow;
-    setState("data-palette", paletteRow);
-    if (primary) {
-      const collapsed = topRow.primaryLabel === "collapsed";
-      primary.setCollapsed(collapsed);
-      setState("data-primary", collapsed ? "collapsed" : null);
-    }
-    updateBottomRow();
-    placeHint();
-  }
-  function updateBottomRow() {
-    if (ledger.isClosed) return;
-    const size2 = containerSize();
-    if (size2.width === 0 || size2.height === 0) return;
-    if (legal) {
-      const legalBox = visibleBoxIn(legal.element, root);
-      const height = legalLineHeight(legalBox?.height);
-      if (height !== legalHeight || !root.style.getPropertyValue(LEGAL_HEIGHT_PROPERTY)) {
-        legalHeight = height;
-        root.style.setProperty(LEGAL_HEIGHT_PROPERTY, `${height}px`);
-      }
-      zoomRaised = zoomRowRaised({
-        containerWidth: size2.width,
-        legalRight: legalBox && legalBox.x + legalBox.width,
-        zoomWidth: visibleBoxIn(zoomPanel.element, root)?.width
-      });
-      setState("data-zoom-row", zoomRaised ? "raised" : null);
-    }
-    if (toaster) {
-      const obstacles = [zoomPanel.element, legal?.element, pill?.element].flatMap(
-        (element) => {
-          const box = visibleBoxIn(element, root);
-          return box ? [{ left: box.x, right: box.x + box.width, top: size2.height - box.y }] : [];
-        }
-      );
-      toaster.setBottom(
-        toastStackBottom({
-          containerWidth: size2.width,
-          obstacles,
-          cardWidth: toaster.widestCard()
-        })
-      );
-    }
-  }
-  function setEmptyStateShown(shown) {
-    if (ledger.isClosed || !emptyState || emptyState.isShown() === shown) return;
-    const active = ownerDocument.activeElement;
-    const hadFocus = cardHadFocus();
-    const workHadFocus = shown && active !== null && root.contains(active) && ![emptyState.element, legal?.element, toaster?.element].some(
-      (kept) => kept?.contains(active)
-    );
-    emptyState.setShown(shown);
-    setState("data-empty-state", shown ? "shown" : null);
-    ledger.attribute(canvas, "inert", shown ? "" : null);
-    if (shown) {
-      menu.close();
-      popover?.close();
-      tooltip.hide();
-      if (workHadFocus) emptyState.focus();
-    } else if (hadFocus) {
-      focusCanvasOrTrigger();
-    }
-    updateLayout();
-  }
-  const ResizeObserverClass = globalThis.ResizeObserver;
-  const resizeObserver = ResizeObserverClass ? new ResizeObserverClass(() => updateLayout()) : void 0;
-  resizeObserver?.observe(root);
-  if (primary) resizeObserver?.observe(primary.element);
-  if (legal) resizeObserver?.observe(legal.element);
-  ledger.defer(() => resizeObserver?.disconnect());
-  legend?.start(options.legend?.open ?? false);
-  updateLayout();
-  const keyTarget = keyScope === "root" ? root : ownerDocument;
-  const onKeydown = createKeyListener({
-    host,
-    ownerDocument,
-    dialogScope: keyTarget,
-    menuOpen: () => menu.isOpen(),
-    startScreen: () => emptyState?.isShown() ?? false,
-    closeMenu() {
-      const active = ownerDocument.activeElement;
-      menu.close({ restoreFocus: active === menu.trigger || menu.dropdown.contains(active) });
-      stopEscapeKeyup(ownerDocument);
-    },
-    hideTooltip: () => tooltip.hide(),
-    // Behind the start screen the keys reach the browser instead: there is no diagram to zoom.
-    run: (key) => {
-      if (!emptyState?.isShown()) zoomPanel.run(key);
-    }
-  });
-  keyTarget.addEventListener("keydown", onKeydown);
-  ledger.defer(() => keyTarget.removeEventListener("keydown", onKeydown));
-  const onChromeEscape = createChromeEscapeListener(
-    ownerDocument,
-    (node3) => node3 !== root && !canvas.contains(node3) && !(palette?.registration.element.contains(node3) ?? false)
-  );
-  root.addEventListener("keydown", onChromeEscape, true);
-  ledger.defer(() => root.removeEventListener("keydown", onChromeEscape, true));
-  function readOnlyState() {
-    return { locked: readOnly, shown: readOnlyShown };
-  }
-  function applyReadOnly() {
-    setState("data-readonly", readOnlyShown ? "" : null);
-    palette?.registration.setReadOnly(readOnlyState());
-    menu.refresh();
-  }
-  function showReadOnly() {
-    readOnlyTimer = void 0;
-    if (ledger.isClosed || !readOnly) return;
-    readOnlyShown = true;
-    applyReadOnly();
-  }
-  function handFocusBackFrom(element) {
-    const onActivation = (event2) => {
-      if (event2.type === "click" && !isPointerClick(event2)) return;
-      const entry = event2.target?.closest?.(".entry");
-      if (entry && element.contains(entry)) focusCanvas();
-    };
-    element.addEventListener("click", onActivation);
-    element.addEventListener("dragstart", onActivation);
-    return () => {
-      element.removeEventListener("click", onActivation);
-      element.removeEventListener("dragstart", onActivation);
-    };
-  }
-  function unregisterPalette() {
-    if (!palette) return;
-    palette.detachTooltip();
-    palette.detachFocus();
-    resizeObserver?.unobserve(palette.registration.element);
-    palette = void 0;
-  }
-  ledger.defer(unregisterPalette);
-  const menuHandle = {
-    trigger: menu.trigger,
-    dropdown: menu.dropdown,
-    isOpen: () => menu.isOpen(),
-    open: (focus) => menu.open(focus),
-    close: (closeOptions) => menu.close(closeOptions),
-    refresh: () => menu.refresh(),
-    setGroups: (groups) => {
-      if (!ledger.isClosed) menu.setGroups(groups);
-    }
-  };
-  const tooltipHandle = {
-    attach: (control, content) => ledger.isClosed ? () => {
-    } : tooltip.attach(control, content),
-    hide: () => tooltip.hide()
-  };
-  const legendHandle = legend && {
-    element: legend.element,
-    body: legend.body,
-    isOpen: () => legend.isOpen(),
-    setOpen: (open2) => {
-      if (!ledger.isClosed) legend.setOpen(open2);
-    },
-    toggle: () => {
-      if (!ledger.isClosed) legend.toggle();
-    }
-  };
-  const primaryHandle = primary && {
-    element: primary.element,
-    isCollapsed: () => primary.isCollapsed(),
-    refresh: () => {
-      if (!ledger.isClosed) primary.refresh();
-    }
-  };
-  const appearanceHandle = appearance && darkCapable ? {
-    choice: () => appearance.choice(),
-    setChoice: (choice) => {
-      if (ledger.isClosed) return;
-      appearance.setChoice(choice);
-      menu.refresh();
-    }
-  } : void 0;
-  const inspectorHandle = inspector && {
-    element: inspector.element,
-    isOpen: () => inspector.isOpen(),
-    open: () => {
-      if (!ledger.isClosed) inspector.open();
-    },
-    close: () => {
-      if (ledger.isClosed) return;
-      if (inspector.isOpen()) moveFocusOutOf(inspector.element);
-      inspector.close();
-    }
-  };
-  let shortcutsDialog;
-  ledger.defer(() => shortcutsDialog?.owned.discard());
-  function showShortcutsDialog2(groups) {
-    if (ledger.isClosed) return CLOSED_DIALOG;
-    if (shortcutsDialog?.owned.isOpen()) return shortcutsDialog.handle;
-    if (menu.isOpen()) {
-      const active = ownerDocument.activeElement;
-      menu.close({ restoreFocus: active === menu.trigger || menu.dropdown.contains(active) });
-    }
-    tooltip.hide();
-    const owned = openShortcutsDialog(
-      withChromeShortcuts(groups, { platform, lang, messages }),
-      messages,
-      { container: root, focusFallback: focusCanvasOrTrigger }
-    );
-    shortcutsDialog = {
-      owned,
-      handle: { isOpen: () => owned.isOpen(), close: () => owned.close() }
-    };
-    return shortcutsDialog.handle;
-  }
-  return {
-    root,
-    canvas,
-    host,
-    lang,
-    platform,
-    messages,
-    menu: menuHandle,
-    tooltip: tooltipHandle,
-    legend: legendHandle,
-    inspector: inspectorHandle,
-    primary: primaryHandle,
-    appearance: appearanceHandle,
-    setZoomTarget(target) {
-      if (ledger.isClosed) return;
-      zoomTarget = target;
-      zoomPanel.setTarget(target);
-    },
-    fitInsets: currentFitInsets,
-    registerPalette(registration) {
-      if (ledger.isClosed) return () => {
-      };
-      unregisterPalette();
-      palette = {
-        registration,
-        detachTooltip: tooltip.delegate(
-          registration.element,
-          ".entry",
-          (entry) => registration.entryTooltip(entry)
-        ),
-        detachFocus: handFocusBackFrom(registration.element)
-      };
-      resizeObserver?.observe(registration.element);
-      registration.setReadOnly(readOnlyState());
-      updateLayout();
-      const registered = palette;
-      return () => {
-        if (palette !== registered) return;
-        unregisterPalette();
-        updateLayout();
-      };
-    },
-    setProblems(summary) {
-      if (ledger.isClosed || !pill) return;
-      const listHadFocus = popover?.element.contains(ownerDocument.activeElement) ?? false;
-      pill.set(summary);
-      setState("data-problems", pill.isShown() ? "shown" : null);
-      popover?.setItems(summary.items ?? []);
-      if (!pill.isShown() && popover?.isOpen()) {
-        popover.close();
-        if (listHadFocus) focusCanvasOrTrigger();
-      }
-      updateBottomRow();
-      placeHint();
-    },
-    setStatus(next, statusOptions) {
-      if (!ledger.isClosed) status.set(next, statusOptions?.delayMs ?? 0);
-    },
-    setEmptyHint(visible) {
-      if (ledger.isClosed || !hint) return;
-      if (visible !== hint.isShown()) {
-        const hadFocus = hintHadFocus();
-        if (hadFocus && !visible) focusCanvasOrTrigger();
-      }
-      hint.setShown(visible);
-      placeHint();
-    },
-    setReadOnly(next, readOnlyOptions) {
-      if (ledger.isClosed) return;
-      if (!next) {
-        clearTimeout(readOnlyTimer);
-        readOnlyTimer = void 0;
-        readOnly = false;
-        readOnlyShown = false;
-      } else {
-        readOnly = true;
-        const delayMs = readOnlyOptions?.delayMs ?? 0;
-        if (!readOnlyShown && readOnlyTimer === void 0) {
-          if (delayMs > 0) readOnlyTimer = setTimeout(showReadOnly, delayMs);
-          else readOnlyShown = true;
-        }
-      }
-      applyReadOnly();
-    },
-    isReadOnly: () => readOnly,
-    setEmptyState: setEmptyStateShown,
-    isEmptyStateShown: () => emptyState?.isShown() ?? false,
-    toast: showToast,
-    showShortcutsDialog: showShortcutsDialog2,
-    destroy() {
-      ledger.close();
-    }
-  };
-}
-function carryOwnMode(root, theme, ledger) {
-  ledger.attribute(root, "data-cd-theme", theme);
-  const mirror = () => {
-    if (ledger.isClosed) return;
-    const kontrast = hostKontrast(root);
-    if (root.getAttribute("data-cd-kontrast") !== kontrast)
-      ledger.attribute(root, "data-cd-kontrast", kontrast);
-  };
-  mirror();
-  const MutationObserverClass = globalThis.MutationObserver;
-  if (!MutationObserverClass) return;
-  const observer = new MutationObserverClass(mirror);
-  observer.observe(root.ownerDocument.documentElement, {
-    attributes: true,
-    attributeFilter: ["data-cd-theme", "data-cd-kontrast"],
-    subtree: true
-  });
-  ledger.defer(() => observer.disconnect());
-}
-
-// ../../../../packages/shell/dist/chunk-4LSZLK2T.js
-var NO_TRANSITION_CLASS2 = "cd-shell-no-transition";
-var latestSwitch = /* @__PURE__ */ new WeakMap();
-function applyAppearance(appearance, element) {
-  const target = element ?? document.documentElement;
-  const html = target.ownerDocument.documentElement;
-  const attributes = appearanceAttributes(appearance);
-  const kontrast = attributes["data-cd-kontrast"];
-  const switchId = (latestSwitch.get(html) ?? 0) + 1;
-  latestSwitch.set(html, switchId);
-  html.classList.add(NO_TRANSITION_CLASS2);
-  target.setAttribute("data-cd-theme", attributes["data-cd-theme"]);
-  if (kontrast) target.setAttribute("data-cd-kontrast", kontrast);
-  else target.removeAttribute("data-cd-kontrast");
-  requestAnimationFrame(
-    () => requestAnimationFrame(() => {
-      if (latestSwitch.get(html) !== switchId) return;
-      latestSwitch.delete(html);
-      html.classList.remove(NO_TRANSITION_CLASS2);
-    })
-  );
-}
-
-// ../../../../packages/shell/dist/orca-webview.js
-function orcaEditorApi() {
-  if (typeof orca === "undefined" || typeof orca.document?.session !== "function") {
-    throw new Error(
-      "@miragon/modeler-shell: this page does not run as an Orca custom editor with document.session"
-    );
-  }
-  return orca;
-}
-var MORE_CONTRAST = "(prefers-contrast: more)";
-function requestedAppearance(colorScheme, moreContrast) {
-  const theme = colorScheme === "dark" ? "dark" : "light";
-  return moreContrast ? { theme, kontrast: "hoch" } : { theme };
-}
-function htmlColorScheme() {
-  return document.documentElement.classList.contains("dark") ? "dark" : "light";
-}
-function connectOrcaAppearance(themes) {
-  if (themes.length === 0) {
-    throw new Error("@miragon/modeler-shell: connectOrcaAppearance needs at least one theme");
-  }
-  const contrast = window.matchMedia(MORE_CONTRAST);
-  let colorScheme = htmlColorScheme();
-  const show = () => applyAppearance(resolveAppearance(requestedAppearance(colorScheme, contrast.matches), themes));
-  show();
-  const subscription = orcaEditorApi().on("theme", (theme) => {
-    colorScheme = theme.colorScheme;
-    show();
-  });
-  contrast.addEventListener("change", show);
-  return () => {
-    subscription.dispose();
-    contrast.removeEventListener("change", show);
-  };
-}
-function mountOrcaShell(root, options) {
-  const disconnectAppearance = connectOrcaAppearance(options.themes);
-  let shell;
-  try {
-    shell = mountShell(root, { ...options, host: "ide", keyScope: "document" });
-  } catch (error2) {
-    disconnectAppearance();
-    throw error2;
-  }
-  return withBeforeDestroy(shell, disconnectAppearance);
-}
-async function connectOrcaDocumentSync(options) {
-  const session = await orcaEditorApi().document.session(
-    options.debounceMs === void 0 ? {} : { debounceMs: options.debounceMs }
-  );
-  let reconciledText = "";
-  let initialized = false;
-  let imports = Promise.resolve();
-  async function show(text) {
-    const first = !initialized;
-    try {
-      if (await options.importText(text, { first, reconciledText })) reconciledText = text;
-    } finally {
-      initialized = true;
-    }
-  }
-  function enqueue(text) {
-    imports = imports.then(() => show(text)).catch((error2) => console.error("@miragon/modeler-shell: import failed", error2));
-    return imports;
-  }
-  const ready = enqueue(session.value);
-  const replacements = session.onReplace((text) => void enqueue(text));
-  return {
-    session,
-    get readOnly() {
-      return session.readOnly;
-    },
-    pushEdit: () => {
-      if (!initialized || session.readOnly || options.canWrite && !options.canWrite()) return;
-      const text = options.exportText(reconciledText);
-      if (text === reconciledText) return;
-      reconciledText = text;
-      session.change(text);
-    },
-    ready,
-    imported: () => imports,
-    replaceDocument: (text) => {
-      if (session.readOnly) return;
-      session.change(text);
-      void enqueue(text);
-    },
-    disconnect: () => {
-      replacements.dispose();
-      session.dispose();
-    }
-  };
-}
-async function saveExport(file2) {
-  const { files } = orcaEditorApi();
-  if (!files) throw new Error("@miragon/modeler-shell: exports need the Orca desktop app");
-  const data = file2.data instanceof Blob ? await file2.data.arrayBuffer() : file2.data;
-  return files.saveAs({ suggestedName: file2.suggestedName, mimeType: file2.mimeType, data });
-}
-var STATE_PREFIX = "miragon.modeler.";
-function storedValue(key) {
-  try {
-    const raw = localStorage.getItem(STATE_PREFIX + key);
-    return raw === null ? void 0 : JSON.parse(raw);
-  } catch {
-    return void 0;
-  }
-}
-function storeValue(key, value) {
-  try {
-    localStorage.setItem(STATE_PREFIX + key, JSON.stringify(value));
-  } catch {
-  }
-}
-var LEGEND_KEY = "legendOpen";
-function orcaEditorHost(options = {}) {
-  const legendOpen = storedValue(LEGEND_KEY);
-  return {
-    kind: "orca",
-    canvasOwnsHistory: true,
-    state: {
-      view: void 0,
-      legendOpen: typeof legendOpen === "boolean" ? legendOpen : void 0,
-      writeLegendOpen: (open2) => storeValue(LEGEND_KEY, open2),
-      read: storedValue,
-      write: storeValue,
-      persistView: () => () => void 0
-    },
-    mountShell: (root, shellOptions) => mountOrcaShell(root, shellOptions),
-    async connectDocument(_shell, documentOptions) {
-      const sync = await connectOrcaDocumentSync({
-        importText: documentOptions.importText,
-        exportText: documentOptions.exportText,
-        canWrite: documentOptions.canWrite,
-        debounceMs: options.debounceMs
-      });
-      const { withExampleInserted: withExampleInserted2 } = documentOptions;
-      return {
-        pushEdit: sync.pushEdit,
-        ready: sync.ready,
-        imported: sync.imported,
-        get readOnly() {
-          return sync.readOnly;
-        },
-        insertExample: () => {
-          if (!withExampleInserted2 || sync.readOnly) return;
-          sync.replaceDocument(withExampleInserted2(sync.session.value));
-        },
-        disconnect: sync.disconnect
-      };
-    },
-    async saveExport(file2) {
-      await saveExport({
-        suggestedName: file2.suggestedName,
-        mimeType: file2.mimeType,
-        data: file2.data
-      });
-    },
-    notify: (severity, message) => severity === "error" ? console.error(message) : console.warn(message)
-  };
-}
-
 // ../../../../node_modules/diagram-js/node_modules/didi/dist/index.js
 var CLASS_PATTERN = /^class[ {]/;
 function isClass(fn) {
@@ -36632,7 +31286,7 @@ var TOP_INSET = 88;
 var TOP_INSET_NARROW = 120;
 var PADDING = 56;
 var SIDE_PADDING_NARROW = 24;
-var MAX_FIT_ZOOM2 = 1;
+var MAX_FIT_ZOOM = 1;
 function diagramContentBounds(elementRegistry) {
   let minX = Infinity;
   let minY = Infinity;
@@ -36687,7 +31341,7 @@ var TtViewport = class {
     const scale = Math.min(
       (viewportWidth - 2 * sidePadding) / contentWidth,
       (viewportHeight - topInset - PADDING) / contentHeight,
-      MAX_FIT_ZOOM2
+      MAX_FIT_ZOOM
     );
     if (!(scale > 0)) {
       this.canvas.zoom("fit-viewport");
@@ -36721,7 +31375,7 @@ var TtViewport = class {
 // ../../packages/renderer/src/io/saveSvg.ts
 var MARGIN = 40;
 var EMPTY_CANVAS_BOUNDS = { minX: 0, minY: 0, maxX: 100, maxY: 100 };
-var SVG_NAMESPACE2 = "http://www.w3.org/2000/svg";
+var SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 var INTERACTION_CHROME_SELECTOR = [
   ".djs-outline",
   ".djs-resizer",
@@ -36750,7 +31404,7 @@ function saveSVG(canvas, elementRegistry) {
     node3.classList.remove(...TRANSIENT_CLASSES);
   }
   removeCanvasRoleClasses(clone3);
-  clone3.setAttribute("xmlns", SVG_NAMESPACE2);
+  clone3.setAttribute("xmlns", SVG_NAMESPACE);
   clone3.setAttribute("viewBox", `${x3} ${y3} ${width} ${height}`);
   clone3.setAttribute("width", String(width));
   clone3.setAttribute("height", String(height));
@@ -37987,7 +32641,7 @@ function SelectionBehavior(eventBus, selection, canvas, elementRegistry) {
       if (isArray2(autoSelect)) {
         selection.select(autoSelect);
       } else {
-        selection.select(elements.filter(isShown3));
+        selection.select(elements.filter(isShown));
       }
     }
   });
@@ -38036,7 +32690,7 @@ SelectionBehavior.$inject = [
   "canvas",
   "elementRegistry"
 ];
-function isShown3(element) {
+function isShown(element) {
   return !element.hidden;
 }
 
@@ -42573,8 +37227,8 @@ function escapeCSS(str) {
 
 // ../../../../node_modules/diagram-js/lib/features/palette/Palette.js
 var TOGGLE_SELECTOR = ".djs-palette-toggle";
-var ENTRY_SELECTOR2 = ".entry";
-var ELEMENT_SELECTOR = TOGGLE_SELECTOR + ", " + ENTRY_SELECTOR2;
+var ENTRY_SELECTOR = ".entry";
+var ELEMENT_SELECTOR = TOGGLE_SELECTOR + ", " + ENTRY_SELECTOR;
 var PALETTE_PREFIX = "djs-palette-";
 var PALETTE_SHOWN_CLS = "shown";
 var PALETTE_OPEN_CLS = "open";
@@ -42641,7 +37295,7 @@ Palette.prototype._init = function() {
   event.bind(container, "mousedown", function(event2) {
     event2.stopPropagation();
   });
-  delegate.bind(container, ENTRY_SELECTOR2, "dragstart", function(event2) {
+  delegate.bind(container, ENTRY_SELECTOR, "dragstart", function(event2) {
     self.trigger("dragstart", event2);
   });
   eventBus.on("canvas.resized", this._layoutChanged, this);
@@ -43546,17 +38200,17 @@ var ARROW_DIRECTIONS = {
   ArrowDown: { x: 0, y: 1 }
 };
 var MODAL_SELECTOR = '[aria-modal="true"], dialog[open]';
-function isNode2(target) {
+function isNode(target) {
   return typeof target?.nodeType === "number";
 }
 function isOnCanvas(target, svg2) {
-  return isNode2(target) && svg2.contains(target) && !svg2.closest("[inert]") && isRendered2(svg2);
+  return isNode(target) && svg2.contains(target) && !svg2.closest("[inert]") && isRendered(svg2);
 }
 function isKeyOnHiddenTarget(event2) {
   const target = event2.target;
-  return target instanceof globalThis.Element && (target.closest("[inert]") !== null || !isRendered2(target));
+  return target instanceof globalThis.Element && (target.closest("[inert]") !== null || !isRendered(target));
 }
-function isRendered2(element) {
+function isRendered(element) {
   return typeof element.checkVisibility !== "function" || element.checkVisibility({ visibilityProperty: true });
 }
 function isShape(element) {
@@ -43724,13 +38378,13 @@ var ttReadOnlyModule = {
 
 // ../../packages/renderer/src/palette/TtPaletteToolbar.ts
 var TOOLBAR_LABEL = "Tools";
-var TOOLS_GROUP2 = "tools";
-var TOOL_ACTION_SUFFIX2 = "-tool";
-var ENTRIES_SELECTOR2 = ".djs-palette-entries";
-var ENTRY_SELECTOR3 = ".entry";
+var TOOLS_GROUP = "tools";
+var TOOL_ACTION_SUFFIX = "-tool";
+var ENTRIES_SELECTOR = ".djs-palette-entries";
+var ENTRY_SELECTOR2 = ".entry";
 var SINGLE_KEY_SHORTCUT = /^[a-z0-9]$/i;
-var READ_ONLY_ACTIONS2 = /* @__PURE__ */ new Set(["lasso-tool", "hand-tool"]);
-var TRIGGER_PRIORITY2 = 2e3;
+var READ_ONLY_ACTIONS = /* @__PURE__ */ new Set(["lasso-tool", "hand-tool"]);
+var TRIGGER_PRIORITY = 2e3;
 var TtPaletteToolbar = class {
   constructor(eventBus, palette, canvas, injector) {
     this.palette = palette;
@@ -43747,7 +38401,7 @@ var TtPaletteToolbar = class {
       this.apply();
     });
     eventBus.on(READ_ONLY_CHANGED_EVENT, () => this.apply());
-    eventBus.on("palette.trigger", TRIGGER_PRIORITY2, this.onTrigger);
+    eventBus.on("palette.trigger", TRIGGER_PRIORITY, this.onTrigger);
   }
   palette;
   canvas;
@@ -43782,20 +38436,20 @@ var TtPaletteToolbar = class {
   apply() {
     if (!this.container || this.skinnedByChrome()) return;
     this.moveBeforeCanvas(this.container);
-    const toolbar = this.container.querySelector(ENTRIES_SELECTOR2);
+    const toolbar = this.container.querySelector(ENTRIES_SELECTOR);
     toolbar?.setAttribute("role", "toolbar");
     toolbar?.setAttribute("aria-label", TOOLBAR_LABEL);
     const definitions = this.palette.getEntries();
     const entries = this.entryElements();
     for (const entry of entries) {
-      const action = actionOf2(entry);
+      const action = actionOf(entry);
       if (!entry.hasAttribute("role")) entry.setAttribute("role", "button");
       const shortcut = action === void 0 ? void 0 : definitions[action]?.shortcut;
       if (shortcut && SINGLE_KEY_SHORTCUT.test(shortcut)) {
         entry.setAttribute("aria-keyshortcuts", shortcut.toUpperCase());
       }
       if (isTool(entry, action)) {
-        const tool = action.slice(0, -TOOL_ACTION_SUFFIX2.length);
+        const tool = action.slice(0, -TOOL_ACTION_SUFFIX.length);
         entry.setAttribute("aria-pressed", String(tool === this.activeTool));
       }
       this.applyDisabled(entry);
@@ -43811,7 +38465,7 @@ var TtPaletteToolbar = class {
   // aria-disabled, not disabled: the entry stays in the toolbar's tab order and shows its tooltip on
   // focus (guide §5.6), so a keyboard user still learns what it is and why Enter does nothing.
   applyDisabled(entry) {
-    if (this.lockShown() && !staysActive2(entry)) {
+    if (this.lockShown() && !staysActive(entry)) {
       if (!this.disabledEntries.has(entry)) {
         this.disabledEntries.set(entry, entry.getAttribute("aria-disabled"));
       }
@@ -43831,7 +38485,7 @@ var TtPaletteToolbar = class {
       return void 0;
     }
     const element = this.entryOf(event2.event?.delegateTarget ?? event2.event?.target ?? null);
-    const vetoed = element ? !staysActive2(element) : event2.entry.group !== TOOLS_GROUP2;
+    const vetoed = element ? !staysActive(element) : event2.entry.group !== TOOLS_GROUP;
     if (!vetoed) return void 0;
     const trigger = event2.event;
     if (trigger) {
@@ -43841,22 +38495,22 @@ var TtPaletteToolbar = class {
     return false;
   };
   applyTabStops(entries) {
-    const stop = entries.find((entry) => actionOf2(entry) === this.rovingAction) ?? entries[0];
+    const stop = entries.find((entry) => actionOf(entry) === this.rovingAction) ?? entries[0];
     for (const entry of entries) entry.tabIndex = entry === stop ? 0 : -1;
   }
   entryElements() {
-    const toolbar = this.container?.querySelector(ENTRIES_SELECTOR2);
-    return toolbar ? Array.from(toolbar.querySelectorAll(ENTRY_SELECTOR3)) : [];
+    const toolbar = this.container?.querySelector(ENTRIES_SELECTOR);
+    return toolbar ? Array.from(toolbar.querySelectorAll(ENTRY_SELECTOR2)) : [];
   }
   entryOf(target) {
     if (!(target instanceof Element)) return void 0;
-    const entry = target.closest(ENTRY_SELECTOR3);
+    const entry = target.closest(ENTRY_SELECTOR2);
     return entry && this.container?.contains(entry) ? entry : void 0;
   }
   onFocusIn = (event2) => {
     const entry = this.entryOf(event2.target);
     if (!entry || this.skinnedByChrome()) return;
-    this.rovingAction = actionOf2(entry);
+    this.rovingAction = actionOf(entry);
     this.applyTabStops(this.entryElements());
   };
   onKeydown = (event2) => {
@@ -43885,7 +38539,7 @@ var TtPaletteToolbar = class {
       case " ":
         event2.preventDefault();
         event2.stopPropagation();
-        if (!event2.repeat) activate2(entry);
+        if (!event2.repeat) activate(entry);
         return;
       default:
         return;
@@ -43893,7 +38547,7 @@ var TtPaletteToolbar = class {
     event2.preventDefault();
     event2.stopPropagation();
     if (!next) return;
-    this.rovingAction = actionOf2(next);
+    this.rovingAction = actionOf(next);
     this.applyTabStops(entries);
     next.focus();
   };
@@ -43905,17 +38559,17 @@ var TtPaletteToolbar = class {
     this.canvas.focus();
   };
 };
-function actionOf2(entry) {
+function actionOf(entry) {
   return entry.getAttribute("data-action") ?? void 0;
 }
-function staysActive2(entry) {
-  const action = actionOf2(entry);
-  return action !== void 0 && READ_ONLY_ACTIONS2.has(action);
+function staysActive(entry) {
+  const action = actionOf(entry);
+  return action !== void 0 && READ_ONLY_ACTIONS.has(action);
 }
 function isTool(entry, action) {
-  return action?.endsWith(TOOL_ACTION_SUFFIX2) === true && entry.closest(".group")?.getAttribute("data-group") === TOOLS_GROUP2;
+  return action?.endsWith(TOOL_ACTION_SUFFIX) === true && entry.closest(".group")?.getAttribute("data-group") === TOOLS_GROUP;
 }
-function activate2(entry) {
+function activate(entry) {
   const box = entry.getBoundingClientRect();
   entry.dispatchEvent(
     new MouseEvent("click", {
@@ -43928,7 +38582,7 @@ function activate2(entry) {
 }
 
 // ../../packages/renderer/src/palette/TtPaletteTooltip.ts
-var ENTRY_SELECTOR4 = ".djs-palette-entries .entry";
+var ENTRY_SELECTOR3 = ".djs-palette-entries .entry";
 var SHOW_DELAY_MS = 300;
 var PALETTE_GAP = 8;
 var CONTAINER_EDGE = 12;
@@ -43992,7 +38646,7 @@ var TtPaletteTooltip = class {
   }
   entryOf(target) {
     if (!(target instanceof Element)) return void 0;
-    const entry = target.closest(ENTRY_SELECTOR4);
+    const entry = target.closest(ENTRY_SELECTOR3);
     return entry && this.paletteContainer?.contains(entry) ? entry : void 0;
   }
   onPointerOver = (event2) => {
@@ -45327,7 +39981,7 @@ var TtContextPadPlacement = class {
 };
 
 // ../../packages/renderer/src/context-pad/TtContextPadProvider.ts
-var ENTRY_SELECTOR5 = ".djs-context-pad .entry[data-action]";
+var ENTRY_SELECTOR4 = ".djs-context-pad .entry[data-action]";
 var PAD_PARENT_SELECTOR = ":scope > .djs-context-pad-parent";
 function cpHtml(icon, title, focusable = true) {
   return `<div class="entry tt-cp-entry" role="button" tabindex="${focusable ? 0 : -1}" aria-label="${title}">${iconMarkup(icon)}</div>`;
@@ -45358,7 +40012,7 @@ var TtContextPadProvider = class {
     if (padParent) {
       const stopWatching = watchDroppedFocus(
         padParent,
-        (lost) => this.focusSameEntryOrCanvas(lost.closest(ENTRY_SELECTOR5)?.getAttribute("data-action"))
+        (lost) => this.focusSameEntryOrCanvas(lost.closest(ENTRY_SELECTOR4)?.getAttribute("data-action"))
       );
       eventBus.on("diagram.destroy", stopWatching);
     }
@@ -45426,7 +40080,7 @@ var TtContextPadProvider = class {
   onEntryKeyDown(event2) {
     if (event2.key !== "Enter" && event2.key !== " " || event2.repeat || isKeyOnHiddenTarget(event2))
       return;
-    const entry = event2.target?.closest?.(ENTRY_SELECTOR5);
+    const entry = event2.target?.closest?.(ENTRY_SELECTOR4);
     const action = entry?.getAttribute("data-action");
     if (!action) return;
     event2.preventDefault();
@@ -46229,8 +40883,122 @@ var Modeler = class extends NavigatedViewer {
   }
 };
 
-// ../../../../packages/api/dist/chunk-ENLUVZLZ.js
-var MODELER_API_VERSION = "1.6.0";
+// ../../../../packages/api/dist/chunk-NROWWN6X.js
+var MERGE_CONFLICT = "MergeConflictError";
+var MergeConflictError = class extends Error {
+  name = MERGE_CONFLICT;
+  conflictingIds;
+  constructor(conflictingIds, message) {
+    super(
+      message ?? (conflictingIds.length > 0 ? `both sides changed ${conflictingIds.join(", ")}` : "the texts cannot be merged")
+    );
+    this.conflictingIds = conflictingIds;
+  }
+};
+function sameJsonValue(a3, b3) {
+  if (Object.is(a3, b3)) return true;
+  if (typeof a3 !== "object" || typeof b3 !== "object" || a3 === null || b3 === null) return false;
+  if (Array.isArray(a3) !== Array.isArray(b3)) return false;
+  if (Array.isArray(a3) && Array.isArray(b3)) {
+    return a3.length === b3.length && a3.every((item, index2) => sameJsonValue(item, b3[index2]));
+  }
+  const left = a3;
+  const right = b3;
+  const definedKeys = (record2) => Object.keys(record2).filter((key) => record2[key] !== void 0);
+  const leftKeys = definedKeys(left);
+  return leftKeys.length === definedKeys(right).length && leftKeys.every((key) => Object.hasOwn(right, key) && sameJsonValue(left[key], right[key]));
+}
+function sameOrBothAbsent(a3, b3, isSame) {
+  if (a3 === void 0 || b3 === void 0) return a3 === b3;
+  return isSame(a3, b3);
+}
+function mergeValue(lastSynced, external, draft, isSame = sameJsonValue) {
+  if (sameOrBothAbsent(external, lastSynced, isSame)) return { merged: draft };
+  if (sameOrBothAbsent(draft, lastSynced, isSame)) return { merged: external };
+  if (sameOrBothAbsent(external, draft, isSame)) return { merged: external };
+  return { conflict: true };
+}
+function indexById(items, idOf) {
+  const byId2 = /* @__PURE__ */ new Map();
+  const order = [];
+  const duplicates = /* @__PURE__ */ new Set();
+  for (const item of items) {
+    const id = idOf(item);
+    if (byId2.has(id)) duplicates.add(id);
+    else {
+      byId2.set(id, item);
+      order.push(id);
+    }
+  }
+  return { byId: byId2, order, duplicates };
+}
+function sameSequence(a3, b3) {
+  return a3.length === b3.length && a3.every((id, index2) => id === b3[index2]);
+}
+function mergedOrder(lastSynced, external, draft, kept) {
+  const externalKeptTheOrder = sameSequence(lastSynced, external);
+  const leading = externalKeptTheOrder ? draft : external;
+  const following = externalKeptTheOrder ? external : draft;
+  const order = leading.filter((id) => kept.has(id));
+  const placed = new Set(order);
+  let previous;
+  for (const id of following) {
+    if (kept.has(id) && !placed.has(id)) {
+      const at = previous === void 0 ? 0 : order.indexOf(previous) + 1;
+      order.splice(at, 0, id);
+      placed.add(id);
+    }
+    if (placed.has(id)) previous = id;
+  }
+  return order;
+}
+function mergeItemsById(lastSynced, external, draft, options = {}) {
+  const idOf = options.idOf ?? ((item) => item.id);
+  const isSameItem = options.isSameItem ?? sameJsonValue;
+  const sides = [lastSynced, external, draft].map((items) => indexById(items, idOf));
+  const [base, outside2, mine] = sides;
+  const allIds = [.../* @__PURE__ */ new Set([...base.order, ...outside2.order, ...mine.order])];
+  const conflictingIds = [];
+  const mergedById = /* @__PURE__ */ new Map();
+  for (const id of allIds) {
+    if (sides.some((side) => side.duplicates.has(id))) {
+      conflictingIds.push(id);
+      continue;
+    }
+    const result = mergeValue(
+      base.byId.get(id),
+      outside2.byId.get(id),
+      mine.byId.get(id),
+      isSameItem
+    );
+    if ("conflict" in result) conflictingIds.push(id);
+    else if (result.merged !== void 0) mergedById.set(id, result.merged);
+  }
+  if (conflictingIds.length > 0) return { conflictingIds };
+  const order = mergedOrder(base.order, outside2.order, mine.order, new Set(mergedById.keys()));
+  return { merged: order.map((id) => mergedById.get(id)) };
+}
+function mergeRecord(lastSynced, external, draft, options = {}) {
+  const [base, outside2, mine] = [lastSynced, external, draft];
+  const lists = new Set(options.keyedLists ?? []);
+  const keys2 = /* @__PURE__ */ new Set([...Object.keys(base), ...Object.keys(outside2), ...Object.keys(mine)]);
+  const merged = {};
+  const conflictingIds = [];
+  for (const key of keys2) {
+    if (lists.has(key)) {
+      const asList = (value) => Array.isArray(value) ? value : [];
+      const result2 = mergeItemsById(asList(base[key]), asList(outside2[key]), asList(mine[key]));
+      if (result2.conflictingIds) conflictingIds.push(...result2.conflictingIds);
+      else merged[key] = result2.merged;
+      continue;
+    }
+    const result = mergeValue(base[key], outside2[key], mine[key]);
+    if ("conflict" in result) conflictingIds.push(key);
+    else if (result.merged !== void 0) merged[key] = result.merged;
+  }
+  return conflictingIds.length > 0 ? { conflictingIds } : { merged };
+}
+var MODELER_API_VERSION = "1.7.0";
 
 // ../../packages/renderer/src/theme/themes.ts
 var TEAM_TOPOLOGIES_THEMES = Object.freeze(["light"]);
@@ -46573,6 +41341,31 @@ function isFiniteNumber(value) {
   return typeof value === "number" && Number.isFinite(value);
 }
 
+// ../../packages/renderer/src/collaborative/merge.ts
+function documentOf(text) {
+  try {
+    return parseDocumentText(text);
+  } catch (error2) {
+    throw new MergeConflictError([], `the text is no Team Topologies diagram: ${String(error2)}`);
+  }
+}
+var mergeTeamTopologiesText = (lastSyncedText, externalText, draftText) => {
+  const [base, external, draft] = [lastSyncedText, externalText, draftText].map(documentOf);
+  const result = mergeRecord(base, external, draft, {
+    keyedLists: ["nodes", "interactions", "flows", "annotations"]
+  });
+  if (result.conflictingIds) throw new MergeConflictError(result.conflictingIds);
+  const { nodes, interactions, flows, annotations } = result.merged;
+  const shapes = new Set([...nodes, ...interactions, ...flows].map((shape) => shape.id));
+  const dangling = annotations.filter(
+    (annotation) => annotation.attachedTo !== void 0 && !shapes.has(annotation.attachedTo)
+  ).map((annotation) => annotation.id);
+  if (dangling.length > 0) throw new MergeConflictError(dangling);
+  const merged = serializeDocument(result.merged);
+  documentOf(merged);
+  return merged;
+};
+
 // ../../packages/renderer/src/chrome/menu.ts
 var JSON_EXPORT_LABEL = "Export as JSON";
 var SHORTCUTS_DIALOG_KEY = "?";
@@ -46817,6 +41610,5366 @@ function renderLegend(body) {
   body.append(...rendered);
   return () => {
     for (const node3 of rendered.splice(0)) node3.remove();
+  };
+}
+
+// ../../../../packages/shell/dist/chunk-OJ7T5HEP.js
+var SHELL = {
+  edge: 12,
+  gap: 8,
+  row: 40,
+  target: 32,
+  entry: 36,
+  free: 64,
+  menuMinWidth: 248,
+  inspectorWidth: 288,
+  fitInsetTop: 88,
+  fitInsetTopSecondRow: 140,
+  fitInsetSide: 24,
+  fitInsetBottom: 64,
+  fitInsetBottomWeb: 92,
+  narrow: 760,
+  veryNarrow: 440,
+  low: 820,
+  layerIslands: 20,
+  layerInspector: 25,
+  layerTopRow: 30,
+  layerPopups: 40,
+  layerDialog: 50,
+  layerToast: 60
+};
+var LEGAL_LINE_HEIGHT = 20;
+function legalLineHeight(measured) {
+  if (measured === void 0 || !Number.isFinite(measured) || measured <= 0)
+    return LEGAL_LINE_HEIGHT;
+  return Math.max(1, Math.round(measured / LEGAL_LINE_HEIGHT)) * LEGAL_LINE_HEIGHT;
+}
+function zoomRowRaised(input2) {
+  const { containerWidth, legalRight, zoomWidth } = input2;
+  if (legalRight === void 0 || zoomWidth === void 0) return false;
+  const zoomLeft = containerWidth - SHELL.edge - zoomWidth;
+  return legalRight + SHELL.gap > zoomLeft;
+}
+var MAX_FIT_ZOOM2 = 1;
+var FIT_ANIMATION_MS = 250;
+function fitViewbox(bounds, container, insets, maxZoom = MAX_FIT_ZOOM2) {
+  if (!(container.width > 0 && container.height > 0)) return void 0;
+  const hasWidth = bounds.width > 0;
+  const hasHeight = bounds.height > 0;
+  if (!hasWidth && !hasHeight) return void 0;
+  const horizontal = freeExtent(container.width, insets.left, insets.right);
+  const vertical = freeExtent(container.height, insets.top, insets.bottom);
+  const contentWidth = hasWidth ? bounds.width : 0;
+  const contentHeight = hasHeight ? bounds.height : 0;
+  const scale = Math.min(
+    maxZoom,
+    hasWidth ? horizontal.extent / contentWidth : Infinity,
+    hasHeight ? vertical.extent / contentHeight : Infinity
+  );
+  const box = {
+    x: bounds.x + contentWidth / 2 - (horizontal.start + horizontal.extent / 2) / scale,
+    y: bounds.y + contentHeight / 2 - (vertical.start + vertical.extent / 2) / scale,
+    width: container.width / scale,
+    height: container.height / scale,
+    scale
+  };
+  return Object.values(box).every(Number.isFinite) && scale > 0 ? box : void 0;
+}
+function freeExtent(total, before, after) {
+  const extent = total - before - after;
+  return extent > 0 ? { start: before, extent } : { start: 0, extent: total };
+}
+function freeRectCenter(container, insets) {
+  if (!(container.width > 0 && container.height > 0)) return void 0;
+  const horizontal = freeExtent(container.width, insets.left, insets.right);
+  const vertical = freeExtent(container.height, insets.top, insets.bottom);
+  return {
+    x: horizontal.start + horizontal.extent / 2,
+    y: vertical.start + vertical.extent / 2
+  };
+}
+function fitInsets(layout) {
+  const { container, host, paletteRow, problemsVisible, zoomRaised, legendWidth, inspector } = layout;
+  const raisedBottomRow = host === "web" && (problemsVisible || zoomRaised === true);
+  const wrappedLegalLines = legalLineHeight(layout.legalHeight) - LEGAL_LINE_HEIGHT;
+  const insets = {
+    top: paletteRow === "second-row" ? SHELL.fitInsetTopSecondRow : SHELL.fitInsetTop,
+    right: SHELL.fitInsetSide,
+    bottom: raisedBottomRow ? SHELL.fitInsetBottomWeb + wrappedLegalLines : SHELL.fitInsetBottom,
+    left: SHELL.fitInsetSide
+  };
+  const bottomSheetOpen = inspector !== void 0 && container.width <= SHELL.narrow;
+  if (inspector !== void 0 && !bottomSheetOpen) {
+    insets.right = SHELL.edge + SHELL.inspectorWidth + SHELL.fitInsetSide;
+  }
+  if (bottomSheetOpen) {
+    insets.bottom = inspector.sheetTop === void 0 ? SHELL.fitInsetBottom : container.height - inspector.sheetTop + SHELL.edge;
+  } else if (legendWidth !== void 0 && legendWidth > 0 && container.width > SHELL.veryNarrow) {
+    insets.left = SHELL.edge + legendWidth + SHELL.fitInsetSide;
+  }
+  return insets;
+}
+var VIEW_TOLERANCE = 1e-3;
+function sameView(a3, b3, tolerance = VIEW_TOLERANCE) {
+  const close = (first, second) => Math.abs(first - second) <= tolerance * Math.max(1, Math.abs(first), Math.abs(second));
+  return close(a3.scale, b3.scale) && close(a3.x * a3.scale, b3.x * b3.scale) && close(a3.y * a3.scale, b3.y * b3.scale);
+}
+function interpolateViewbox(from, to, progress) {
+  if (!(progress > 0)) return { ...from };
+  if (progress >= 1) return { ...to };
+  const linear = (start, end) => start + (end - start) * progress;
+  const scale = from.scale > 0 && to.scale > 0 ? Math.exp(linear(Math.log(from.scale), Math.log(to.scale))) : linear(from.scale, to.scale);
+  const centreX = linear(from.x + from.width / 2, to.x + to.width / 2);
+  const centreY = linear(from.y + from.height / 2, to.y + to.height / 2);
+  const width = linear(from.width * from.scale, to.width * to.scale) / scale;
+  const height = linear(from.height * from.scale, to.height * to.scale) / scale;
+  return { x: centreX - width / 2, y: centreY - height / 2, width, height, scale };
+}
+function easeStandard(progress) {
+  return STANDARD_EASING(progress);
+}
+var STANDARD_EASING = cubicBezier(0.4, 0, 0.2, 1);
+function cubicBezier(x1, y1, x22, y22) {
+  const polynomial = (first, second) => {
+    const c3 = 3 * first;
+    const b3 = 3 * (second - first) - c3;
+    const a3 = 1 - c3 - b3;
+    return {
+      at: (t4) => ((a3 * t4 + b3) * t4 + c3) * t4,
+      slope: (t4) => (3 * a3 * t4 + 2 * b3) * t4 + c3
+    };
+  };
+  const curveX = polynomial(x1, x22);
+  const curveY = polynomial(y1, y22);
+  const precision = 1e-7;
+  const parameterFor = (x3) => {
+    let t4 = x3;
+    for (let iteration = 0; iteration < 8; iteration++) {
+      const error2 = curveX.at(t4) - x3;
+      if (Math.abs(error2) < precision) return t4;
+      const slope = curveX.slope(t4);
+      if (Math.abs(slope) < 1e-6) break;
+      t4 -= error2 / slope;
+      if (t4 < 0 || t4 > 1) break;
+    }
+    let low = 0;
+    let high = 1;
+    t4 = x3;
+    for (let iteration = 0; iteration < 60; iteration++) {
+      const value = curveX.at(t4);
+      if (Math.abs(value - x3) < precision) break;
+      if (value < x3) low = t4;
+      else high = t4;
+      t4 = (low + high) / 2;
+    }
+    return t4;
+  };
+  return (progress) => {
+    if (!(progress > 0)) return 0;
+    if (progress >= 1) return 1;
+    return curveY.at(parameterFor(progress));
+  };
+}
+var ZOOM_MIN = 0.2;
+var ZOOM_MAX = 4;
+function canZoomOut(zoom2) {
+  return zoom2 > ZOOM_MIN * 1.001;
+}
+function canZoomIn(zoom2) {
+  return zoom2 < ZOOM_MAX * 0.999;
+}
+function formatPercent(zoom2, lang) {
+  return numberFormat(lang, "percent").format(zoom2);
+}
+function formatNumber(value, lang) {
+  return numberFormat(lang, "decimal").format(value);
+}
+var FALLBACK_LANG = "en";
+var formats = /* @__PURE__ */ new Map();
+function numberFormat(lang, style) {
+  const key = `${style}|${lang}`;
+  let format = formats.get(key);
+  if (!format) {
+    const options = style === "percent" ? { style, maximumFractionDigits: 0 } : { style };
+    try {
+      format = new Intl.NumberFormat(lang, options);
+    } catch {
+      format = new Intl.NumberFormat(FALLBACK_LANG, options);
+    }
+    formats.set(key, format);
+  }
+  return format;
+}
+function zoomReadout(zoom2, lang, messages) {
+  const text = formatPercent(zoom2, lang);
+  return {
+    text,
+    ariaLabel: messages.zoomToActualNow(formatPercent(1, lang), text),
+    canZoomOut: canZoomOut(zoom2),
+    canZoomIn: canZoomIn(zoom2)
+  };
+}
+function matchChromeKey(event2) {
+  if (event2.altKey) return void 0;
+  if (isCommand(event2)) {
+    if (event2.key === "+" || event2.key === "=" || event2.code === "NumpadAdd") return "zoomIn";
+    if (event2.key === "-" || event2.key === "_" || event2.code === "NumpadSubtract") return "zoomOut";
+    if (event2.key === "0" || event2.code === "Numpad0") return "zoomToActual";
+    return void 0;
+  }
+  return event2.shiftKey && event2.code === "Digit1" ? "fit" : void 0;
+}
+function isCommand(event2) {
+  return event2.metaKey || event2.ctrlKey;
+}
+function isUndoRedoKey(event2) {
+  if (event2.altKey || !isCommand(event2)) return false;
+  const letter = undoRedoLetter(event2);
+  return letter === "z" || letter === "y" && !event2.shiftKey;
+}
+function undoRedoLetter(event2) {
+  if (event2.key.length === 1 && event2.key.charCodeAt(0) < 128) return event2.key.toLowerCase();
+  if (event2.code === "KeyZ") return "z";
+  if (event2.code === "KeyY") return "y";
+  return void 0;
+}
+var TEXT_FIELD_SELECTOR = "input, textarea, select, [contenteditable]:not([contenteditable='false'])";
+var CODE_EDITOR_SELECTOR = ".monaco-editor";
+function isElementLike(target) {
+  return typeof target === "object" && target !== null && typeof target.closest === "function";
+}
+function isTextField(target) {
+  if (!isElementLike(target)) return false;
+  return target.isContentEditable === true || target.editContext !== void 0 && target.editContext !== null || target.closest(`${TEXT_FIELD_SELECTOR}, ${CODE_EDITOR_SELECTOR}`) !== null;
+}
+function decideKey(event2, context) {
+  const stop = context.host === "ide";
+  const composing = event2.isComposing === true;
+  if (event2.key === "Escape" && !event2.metaKey && !event2.ctrlKey && !event2.altKey && !event2.shiftKey) {
+    if (context.menuOpen && !composing) {
+      return { action: "closeMenu", preventDefault: true, stopPropagation: stop };
+    }
+    if (context.menuOpen || context.dialogOpen)
+      return { preventDefault: false, stopPropagation: stop };
+  }
+  const chromeKey = matchChromeKey(event2);
+  if (chromeKey !== void 0) {
+    if (context.startScreen === true && !stop)
+      return { preventDefault: false, stopPropagation: false };
+    const blocked = composing || context.inTextField || context.modalOpen;
+    if (!blocked) return { action: chromeKey, preventDefault: true, stopPropagation: stop };
+    return { preventDefault: false, stopPropagation: chromeKey === "fit" ? false : stop };
+  }
+  if (context.inTextField && isUndoRedoKey(event2))
+    return { preventDefault: false, stopPropagation: stop };
+  if (context.defaultPrevented) return { preventDefault: false, stopPropagation: stop };
+  return { preventDefault: false, stopPropagation: false };
+}
+function detectPlatform(navigator2) {
+  const platform = navigator2?.userAgentData?.platform || navigator2?.platform || "";
+  return /mac/i.test(platform) ? "mac" : "other";
+}
+function shortcutLabel(key, platform, keyNames) {
+  if (platform === "mac") return MAC_SHORTCUT_LABELS[key];
+  switch (key) {
+    case "zoomIn":
+      return `${keyNames.ctrl}+${keyNames.plus}`;
+    case "zoomOut":
+      return `${keyNames.ctrl}+${keyNames.minus}`;
+    case "zoomToActual":
+      return `${keyNames.ctrl}+0`;
+    case "fit":
+      return `${keyNames.shift}+1`;
+  }
+}
+var MAC_SHORTCUT_LABELS = {
+  zoomIn: "\u2318+",
+  zoomOut: "\u2318\u2212",
+  zoomToActual: "\u23180",
+  fit: "\u21E71"
+};
+function ariaKeyShortcuts(key, platform) {
+  const command = platform === "mac" ? "Meta" : "Control";
+  switch (key) {
+    case "zoomIn":
+      return `${command}+= ${command}+Plus`;
+    case "zoomOut":
+      return `${command}+-`;
+    case "zoomToActual":
+      return `${command}+0`;
+    case "fit":
+      return "Shift+1";
+  }
+}
+var MAC_MODIFIER_SYMBOLS = {
+  "\u2318": "Meta",
+  "\u21E7": "Shift",
+  "\u2325": "Alt",
+  "\u2303": "Control"
+};
+var MODIFIER_NAMES = {
+  cmd: "Meta",
+  command: "Meta",
+  meta: "Meta",
+  ctrl: "Control",
+  control: "Control",
+  strg: "Control",
+  shift: "Shift",
+  umschalt: "Shift",
+  alt: "Alt",
+  option: "Alt",
+  opt: "Alt"
+};
+var NAMED_KEYS = {
+  esc: "Escape",
+  escape: "Escape",
+  del: "Delete",
+  delete: "Delete",
+  entf: "Delete",
+  backspace: "Backspace",
+  enter: "Enter",
+  return: "Enter",
+  tab: "Tab",
+  space: "Space",
+  home: "Home",
+  end: "End",
+  pageup: "PageUp",
+  pagedown: "PageDown",
+  arrowup: "ArrowUp",
+  arrowdown: "ArrowDown",
+  arrowleft: "ArrowLeft",
+  arrowright: "ArrowRight",
+  "\u2191": "ArrowUp",
+  "\u2193": "ArrowDown",
+  "\u2190": "ArrowLeft",
+  "\u2192": "ArrowRight"
+};
+var CHARACTER_SPELLINGS = {
+  plus: "+",
+  minus: "-",
+  "\u2212": "-"
+};
+var unshifted = (key) => ({ key, shift: false });
+var shifted = (key) => ({ key, shift: true });
+var SHIFTED_CHARACTER_KEYS = {
+  "!": [shifted("1"), shifted("1")],
+  '"': [shifted("'"), shifted("2")],
+  "#": [shifted("3"), unshifted("#")],
+  $: [shifted("4"), shifted("4")],
+  "%": [shifted("5"), shifted("5")],
+  "&": [shifted("7"), shifted("6")],
+  "'": [unshifted("'"), shifted("#")],
+  "(": [shifted("9"), shifted("8")],
+  ")": [shifted("0"), shifted("9")],
+  "*": [shifted("8"), shifted("Plus")],
+  "+": [shifted("="), unshifted("Plus")],
+  "/": [unshifted("/"), shifted("7")],
+  ":": [shifted(";"), shifted(".")],
+  ";": [unshifted(";"), shifted(",")],
+  "<": [shifted(","), unshifted("<")],
+  "=": [unshifted("="), shifted("0")],
+  ">": [shifted("."), shifted("<")],
+  "?": [shifted("/"), shifted("\xDF")],
+  _: [shifted("-"), shifted("-")]
+};
+function lookUp(table, key) {
+  return Object.hasOwn(table, key) ? table[key] : void 0;
+}
+function sameKeyName(key) {
+  const named = lookUp(NAMED_KEYS, key.toLowerCase());
+  if (named) return named;
+  if (/^f\d{1,2}$/i.test(key)) return key.toUpperCase();
+  if (key === " ") return "Space";
+  return /^[a-z0-9,.-]$/i.test(key) ? key.toUpperCase() : void 0;
+}
+function combination(modifiers, key) {
+  return [...new Set(modifiers), key].join("+");
+}
+function zoomInKeyShortcuts(modifiers, character) {
+  const [command] = modifiers;
+  if (modifiers.length !== 1 || command !== "Meta" && command !== "Control") return void 0;
+  return character === "+" || character === "=" ? `${command}+= ${command}+Plus` : void 0;
+}
+function parseChipLabel(label) {
+  let rest = label.trim();
+  const modifiers = [];
+  for (let symbol2 = lookUp(MAC_MODIFIER_SYMBOLS, rest.charAt(0)); symbol2 && rest.length > 1; ) {
+    modifiers.push(symbol2);
+    rest = rest.slice(1).trim();
+    symbol2 = lookUp(MAC_MODIFIER_SYMBOLS, rest.charAt(0));
+  }
+  if (!rest) return void 0;
+  const parts = rest.split("+").map((part) => part.trim());
+  if (parts.some((part) => /\s/.test(part))) return void 0;
+  let key = parts.pop() ?? "";
+  if (key === "" && parts.at(-1) === "") {
+    parts.pop();
+    key = "+";
+  }
+  for (const part of parts) {
+    const modifier = lookUp(MODIFIER_NAMES, part.toLowerCase());
+    if (!modifier) return void 0;
+    modifiers.push(modifier);
+  }
+  return {
+    modifiers: [...new Set(modifiers)],
+    key: lookUp(CHARACTER_SPELLINGS, key.toLowerCase()) ?? key
+  };
+}
+function ariaKeyShortcutsFromLabel(label) {
+  const chip = parseChipLabel(label);
+  if (!chip) return void 0;
+  const { modifiers, key } = chip;
+  const zoomIn = zoomInKeyShortcuts(modifiers, key);
+  if (zoomIn) return zoomIn;
+  const layoutKeys = lookUp(SHIFTED_CHARACTER_KEYS, key);
+  if (layoutKeys) {
+    const perLayout = layoutKeys.map(
+      ({ key: layoutKey, shift }) => combination(shift ? [...modifiers, "Shift"] : modifiers, layoutKey)
+    );
+    return [...new Set(perLayout)].join(" ");
+  }
+  const name = sameKeyName(key);
+  return name ? combination(modifiers, name) : void 0;
+}
+function resolveAppearance(requested, themes) {
+  const [fallback] = themes;
+  if (fallback === void 0) {
+    throw new Error(
+      "@miragon/modeler-shell: resolveAppearance needs at least one theme the modeler can show"
+    );
+  }
+  const theme = themes.includes(requested.theme) ? requested.theme : fallback;
+  return withKontrast(theme, requested.kontrast);
+}
+function withKontrast(theme, kontrast) {
+  return kontrast === "hoch" ? { theme, kontrast } : { theme };
+}
+var REDUCED_MOTION_CLASS = "cd-shell-reduce-motion";
+function appearanceAttributes(appearance) {
+  return appearance.kontrast === "hoch" ? { "data-cd-theme": appearance.theme, "data-cd-kontrast": "hoch" } : { "data-cd-theme": appearance.theme };
+}
+var defaultMessages = {
+  menu: "Menu",
+  tools: "Tools",
+  canvas: "Diagram",
+  zoom: "Zoom",
+  zoomOut: "Zoom out",
+  zoomIn: "Zoom in",
+  zoomToActual: (percent) => `Zoom to ${percent}`,
+  zoomToActualNow: (percent, now) => `Zoom to ${percent} (now ${now})`,
+  fit: "Fit to view",
+  legend: "Legend",
+  closeLegend: "Close legend",
+  problems: (count, formattedCount) => `${formattedCount} ${count === 1 ? "problem" : "problems"}`,
+  problemsLabel: (count, errors, formattedCount, formattedErrors) => `${formattedCount} ${count === 1 ? "problem" : "problems"}, ${errors === 0 ? "no errors" : `${formattedErrors} ${errors === 1 ? "error" : "errors"}`}`,
+  showProblems: "Show in Problems view",
+  emptyHint: "Pick a tool from the palette to start.",
+  insertExample: "Insert example",
+  invalidFile: (diagram) => `This file isn't a valid ${diagram} right now. The diagram shows the last valid version and is read-only until you fix the text.`,
+  keyNames: { ctrl: "Ctrl", shift: "Shift", plus: "Plus", minus: "Minus" },
+  share: "Share",
+  legal: "Legal",
+  copyright: (year) => `\xA9 ${year} Miragon GmbH`,
+  opensInNewTab: "Opens in a new tab",
+  newDiagram: "New diagram",
+  openFile: "Open\u2026",
+  showExample: "Show example",
+  importFile: "Import\u2026",
+  appearance: "Appearance",
+  appearanceSystem: "System",
+  appearanceLight: "Light",
+  appearanceDark: "Dark",
+  problemsTitle: "Problems",
+  problemSeverity: (severity) => severity === "error" ? "Error" : "Warning",
+  close: "Close",
+  dropFile: "Drop file here",
+  dropForbidden: (reason) => reason === "multiple" ? "Drop one file at a time" : reason === "dialog" ? "Close the dialog to drop a file" : "This modeler can't open this file type",
+  dropHint: "Or drop a file here",
+  openFileLink: "Open a file\u2026",
+  cannotOpenFile: (name, accepted) => `Couldn't open \u201C${name}\u201D. Drop a ${accepted} file.`,
+  shortcutsTitle: "Keyboard shortcuts",
+  shortcutsView: "View",
+  shortcutsEdit: "Edit",
+  shortcutsTools: "Tools"
+};
+function resolveMessages(overrides) {
+  const { keyNames, ...texts } = overrides ?? {};
+  return {
+    ...defaultMessages,
+    ...definedEntries(texts),
+    keyNames: { ...defaultMessages.keyNames, ...definedEntries(keyNames ?? {}) }
+  };
+}
+function definedEntries(partial2) {
+  return Object.fromEntries(Object.entries(partial2).filter(([, value]) => value !== void 0));
+}
+var CHROME_KEYS = ["zoomIn", "zoomOut", "zoomToActual", "fit"];
+function chromeAction(key, chrome) {
+  const { messages } = chrome;
+  switch (key) {
+    case "zoomIn":
+      return messages.zoomIn;
+    case "zoomOut":
+      return messages.zoomOut;
+    case "zoomToActual":
+      return messages.zoomToActual(formatPercent(1, chrome.lang));
+    case "fit":
+      return messages.fit;
+  }
+}
+function chromeShortcutRows(chrome) {
+  return CHROME_KEYS.map((chromeKey) => ({
+    chromeKey,
+    action: chromeAction(chromeKey, chrome),
+    keys: [shortcutLabel(chromeKey, chrome.platform, chrome.messages.keyNames)]
+  }));
+}
+function withChromeShortcuts(groups, chrome) {
+  const chromeRows = chromeShortcutRows(chrome);
+  const chromeActions = new Set(chromeRows.map((row) => row.action));
+  const title = chrome.messages.shortcutsView;
+  const viewIndex = groups.findIndex((group) => group.title === title);
+  const shown = groups.map(
+    (group, index2) => index2 === viewIndex ? {
+      title,
+      rows: [...chromeRows, ...group.rows.filter((row) => !chromeActions.has(row.action))]
+    } : group
+  );
+  if (viewIndex < 0) shown.unshift({ title, rows: chromeRows });
+  return shown.filter((group) => group.rows.length > 0);
+}
+function isChromeShortcutRow(row) {
+  return "chromeKey" in row;
+}
+var PALETTE_CLEARANCE = 16;
+var TOOLTIP_DELAY_MS = 300;
+var INVALID_STATUS_DELAY_MS = 800;
+function decidePaletteRow(input2) {
+  const { containerWidth, paletteWidth, menuRight, primaryLeft } = input2;
+  if (containerWidth <= SHELL.narrow) return "second-row";
+  const paletteLeft = (containerWidth - paletteWidth) / 2;
+  const paletteRight = (containerWidth + paletteWidth) / 2;
+  if (paletteLeft < menuRight + PALETTE_CLEARANCE) return "second-row";
+  if (primaryLeft !== void 0 && paletteRight > primaryLeft - PALETTE_CLEARANCE)
+    return "second-row";
+  return "top";
+}
+function placeTooltip(input2) {
+  const { anchor: anchor2, island, tooltip, container } = input2;
+  const inUpperHalf = island.y + island.height / 2 < container.height / 2;
+  const y3 = inUpperHalf ? island.y + island.height + SHELL.gap : island.y - SHELL.gap - tooltip.height;
+  const centred = anchor2.x + anchor2.width / 2 - tooltip.width / 2;
+  const rightmost = container.width - SHELL.edge - tooltip.width;
+  const x3 = Math.max(SHELL.edge, Math.min(centred, rightmost));
+  return { x: x3, y: y3 };
+}
+function decideTopRow(input2) {
+  const { containerWidth, paletteWidth, menuRight, primary } = input2;
+  if (!primary) {
+    return {
+      paletteRow: decidePaletteRow({ containerWidth, paletteWidth, menuRight }),
+      primaryLabel: "shown"
+    };
+  }
+  const paletteRowBeside = (primaryWidth) => decidePaletteRow({
+    containerWidth,
+    paletteWidth,
+    menuRight,
+    primaryLeft: containerWidth - SHELL.edge - primaryWidth
+  });
+  if (paletteRowBeside(primary.withLabel) === "top")
+    return { paletteRow: "top", primaryLabel: "shown" };
+  if (paletteRowBeside(primary.iconOnly) === "top")
+    return { paletteRow: "top", primaryLabel: "collapsed" };
+  const labelledLeft = containerWidth - SHELL.edge - primary.withLabel;
+  return {
+    paletteRow: "second-row",
+    primaryLabel: menuRight + PALETTE_CLEARANCE <= labelledLeft ? "shown" : "collapsed"
+  };
+}
+function acceptEntries(accept) {
+  const entries = accept.map((entry) => entry.trim().toLowerCase()).filter((entry) => entry !== "");
+  return {
+    extensions: entries.filter((entry) => entry.startsWith(".")),
+    mimeTypes: entries.filter((entry) => !entry.startsWith(".") && entry.includes("/"))
+  };
+}
+function matchesMimeType(type, mimeTypes) {
+  const normalized = type.trim().toLowerCase();
+  if (normalized === "") return false;
+  return mimeTypes.some(
+    (entry) => entry.endsWith("/*") ? normalized.startsWith(entry.slice(0, -1)) : normalized === entry
+  );
+}
+function dragVerdict(items, context) {
+  const files = items.filter((item) => item.kind === "file");
+  if (files.length === 0) return { state: "none" };
+  if (context.dialogOpen) return { state: "forbidden", reason: "dialog" };
+  if (files.length > 1 && !context.multiple) return { state: "forbidden", reason: "multiple" };
+  const { mimeTypes } = acceptEntries(context.accept);
+  const foreignType = (item) => item.type.trim() !== "" && !matchesMimeType(item.type, mimeTypes);
+  if (mimeTypes.length > 0 && files.every(foreignType))
+    return { state: "forbidden", reason: "type" };
+  return { state: "over" };
+}
+function acceptsFile(file2, accept) {
+  const { extensions, mimeTypes } = acceptEntries(accept);
+  if (extensions.length === 0 && mimeTypes.length === 0) return true;
+  const name = file2.name.toLowerCase();
+  return extensions.some((extension) => name.endsWith(extension)) || matchesMimeType(file2.type, mimeTypes);
+}
+var MAX_TOASTS = 3;
+var TOAST_DURATION_MS = {
+  success: 2800,
+  info: 2800,
+  warning: 5e3,
+  danger: 5e3
+};
+var TOAST_MAX_WIDTH = 480;
+function toastLifetime(request) {
+  if (request.action) return void 0;
+  const requested = request.durationMs;
+  const longer = requested !== void 0 && Number.isFinite(requested) ? requested : 0;
+  return Math.max(TOAST_DURATION_MS[request.status], longer);
+}
+function toastToEvict(stack) {
+  if (stack.length < MAX_TOASTS) return void 0;
+  const evicted = stack.find((slot) => !slot.engaged && !slot.hasAction) ?? stack.find((slot) => !slot.engaged) ?? stack[0];
+  return evicted?.id;
+}
+function toastStackWidth(containerWidth) {
+  return Math.max(0, Math.min(TOAST_MAX_WIDTH, containerWidth - 2 * SHELL.edge));
+}
+function toastStackBottom(input2) {
+  const stackWidth = toastStackWidth(input2.containerWidth);
+  const { cardWidth } = input2;
+  const width = cardWidth !== void 0 && Number.isFinite(cardWidth) ? Math.min(stackWidth, Math.max(0, cardWidth)) : stackWidth;
+  const left = (input2.containerWidth - width) / 2;
+  const right = left + width;
+  let highest;
+  for (const obstacle of input2.obstacles) {
+    const distance2 = Math.max(obstacle.left - right, left - obstacle.right);
+    if (distance2 >= SHELL.gap) continue;
+    highest = highest === void 0 ? obstacle.top : Math.max(highest, obstacle.top);
+  }
+  return highest === void 0 ? SHELL.edge : Math.max(SHELL.edge, highest + SHELL.gap);
+}
+var APPEARANCE_STORAGE_KEY = "miragon.darstellung";
+function parseAppearanceChoice(stored) {
+  return stored === "light" || stored === "dark" ? stored : "system";
+}
+function documentMode(choice, themes, colors) {
+  if (!themes.includes("dark")) return fixedMode("light", colors.light);
+  const parsed = parseAppearanceChoice(choice);
+  if (parsed === "system") {
+    return {
+      theme: "system",
+      colorScheme: "light dark",
+      themeColor: { light: colors.light, dark: colors.dark }
+    };
+  }
+  return fixedMode(parsed, colors[parsed]);
+}
+function fixedMode(theme, color) {
+  return { theme, colorScheme: theme, themeColor: { light: color, dark: color } };
+}
+
+// ../../../../packages/shell/dist/chunk-7GKXJQWI.js
+var TOOLS_GROUP2 = "tools";
+var READ_ONLY_ACTIONS2 = /* @__PURE__ */ new Set(["lasso-tool", "hand-tool"]);
+var TOOL_ACTION_SUFFIX2 = "-tool";
+var ENTRIES_SELECTOR2 = ".djs-palette-entries";
+var ENTRY_SELECTOR5 = ".entry";
+var PaletteSkin = class {
+  constructor(element, readEntries) {
+    this.element = element;
+    this.readEntries = readEntries;
+    element.setAttribute("data-chrome", "palette");
+    element.addEventListener("keydown", this.onKeydown);
+    element.addEventListener("focusin", this.onFocusIn);
+    element.addEventListener("focusout", this.onFocusOut);
+    this.refresh();
+  }
+  element;
+  readEntries;
+  label = defaultMessages.tools;
+  activeTool = null;
+  /** The veto of a read-only canvas, at once with the invalid import. */
+  locked = false;
+  /** The `aria-disabled` marks of a read-only canvas, once the shell's delay has passed. */
+  readOnlyShown = false;
+  entries = {};
+  rovingAction;
+  focusedEntry;
+  /** The `aria-disabled` an entry had before read-only marked it (`null`: none). */
+  disabledEntries = /* @__PURE__ */ new WeakMap();
+  setLabel(label) {
+    this.label = label;
+    this.apply();
+  }
+  setActiveTool(tool) {
+    this.activeTool = tool;
+    this.apply();
+  }
+  setReadOnly(state) {
+    this.locked = state.locked;
+    this.readOnlyShown = state.locked && state.shown;
+    this.apply();
+  }
+  /**
+   * Whether `palette.trigger` must refuse `entry`: on a locked canvas every entry but Lasso and
+   * Hand, also before their marks show. `palette.trigger` carries the entry definition without its
+   * id, so the entry element is found through the DOM event; without one, only the tools group
+   * passes.
+   */
+  vetoes(entry, event2) {
+    if (!this.locked) return false;
+    const element = this.entryOf(
+      event2?.delegateTarget ?? event2?.target ?? null
+    );
+    if (element) return !staysActive2(element);
+    return entry.group !== TOOLS_GROUP2;
+  }
+  /** After `palette.changed`: re-read the entries and re-apply every attribute. */
+  refresh() {
+    this.entries = this.readEntries();
+    this.apply();
+  }
+  entryTooltip(entry) {
+    const action = entry.getAttribute("data-action");
+    const definition = action === null ? void 0 : this.entries[action];
+    if (!definition?.title) return null;
+    return definition.shortcut ? { label: definition.title, shortcut: definition.shortcut } : { label: definition.title };
+  }
+  destroy() {
+    this.element.removeEventListener("keydown", this.onKeydown);
+    this.element.removeEventListener("focusin", this.onFocusIn);
+    this.element.removeEventListener("focusout", this.onFocusOut);
+    this.focusedEntry = void 0;
+  }
+  apply() {
+    const container = this.element.querySelector(ENTRIES_SELECTOR2);
+    if (container) {
+      container.setAttribute("role", "toolbar");
+      container.setAttribute("aria-label", this.label);
+    }
+    const entries = this.entryElements();
+    for (const entry of entries) {
+      if (!entry.hasAttribute("role")) entry.setAttribute("role", "button");
+      this.applyKeyShortcuts(entry);
+      this.applyPressed(entry);
+      this.applyDisabled(entry);
+    }
+    const stop = this.applyTabStops(entries);
+    this.restoreFocus(entries, stop);
+  }
+  // Guide §5.6: a button with a shortcut names it for assistive technology, not only in the chip.
+  applyKeyShortcuts(entry) {
+    const action = actionOf2(entry);
+    const definition = action === void 0 ? void 0 : this.entries[action];
+    const keyShortcuts = definition?.ariaKeyShortcuts ?? (definition?.shortcut ? ariaKeyShortcutsFromLabel(definition.shortcut) : void 0);
+    if (keyShortcuts) entry.setAttribute("aria-keyshortcuts", keyShortcuts);
+  }
+  applyPressed(entry) {
+    const action = actionOf2(entry);
+    if (groupOf(entry) !== TOOLS_GROUP2 || !action?.endsWith(TOOL_ACTION_SUFFIX2)) return;
+    const tool = action.slice(0, -TOOL_ACTION_SUFFIX2.length);
+    entry.setAttribute("aria-pressed", String(tool === this.activeTool));
+  }
+  applyDisabled(entry) {
+    if (this.readOnlyShown && !staysActive2(entry)) {
+      if (!this.disabledEntries.has(entry)) {
+        this.disabledEntries.set(entry, entry.getAttribute("aria-disabled"));
+      }
+      entry.setAttribute("aria-disabled", "true");
+      return;
+    }
+    if (!this.disabledEntries.has(entry)) return;
+    const previous = this.disabledEntries.get(entry);
+    this.disabledEntries.delete(entry);
+    if (previous === null || previous === void 0) entry.removeAttribute("aria-disabled");
+    else entry.setAttribute("aria-disabled", previous);
+  }
+  applyTabStops(entries) {
+    const stop = entries.find((entry) => actionOf2(entry) === this.rovingAction) ?? entries[0];
+    for (const entry of entries) entry.tabIndex = entry === stop ? 0 : -1;
+    return stop;
+  }
+  // A rebuild removes the focused entry; without this the focus would fall back to <body>. An
+  // entry the rebuilt palette no longer offers (another level, another mode) hands the focus to the
+  // tab stop, so the keyboard user stays in the toolbar.
+  restoreFocus(entries, stop) {
+    const lost = this.focusedEntry;
+    if (!lost || lost.isConnected) return;
+    this.focusedEntry = void 0;
+    const replacement = entries.find((entry) => actionOf2(entry) === actionOf2(lost)) ?? stop;
+    const active = this.element.ownerDocument.activeElement;
+    const focusIsNowhere = !active || active === this.element.ownerDocument.body;
+    if (replacement && focusIsNowhere) replacement.focus();
+  }
+  entryElements() {
+    const container = this.element.querySelector(ENTRIES_SELECTOR2);
+    return container ? Array.from(container.querySelectorAll(ENTRY_SELECTOR5)) : [];
+  }
+  entryOf(target) {
+    if (!(target instanceof Element)) return void 0;
+    const entry = target.closest(ENTRY_SELECTOR5);
+    return entry && this.element.contains(entry) ? entry : void 0;
+  }
+  onFocusIn = (event2) => {
+    const entry = this.entryOf(event2.target);
+    if (!entry) return;
+    this.focusedEntry = entry;
+    this.rovingAction = actionOf2(entry);
+    this.applyTabStops(this.entryElements());
+  };
+  // A focus that leaves the palette is not brought back by a later rebuild. Chromium reports the
+  // removal of the focused entry as a focusout too, while the entry is still in the document, and
+  // the rebuild's `palette.changed` follows in the same task: so the entry counts as left only once
+  // that task is over and the focus has not come back to it.
+  onFocusOut = (event2) => {
+    const entry = this.entryOf(event2.target);
+    if (!entry || entry !== this.focusedEntry) return;
+    const next = event2.relatedTarget;
+    if (next instanceof Node && this.element.contains(next)) return;
+    queueMicrotask(() => {
+      if (this.focusedEntry === entry && entry.ownerDocument.activeElement !== entry) {
+        this.focusedEntry = void 0;
+      }
+    });
+  };
+  onKeydown = (event2) => {
+    if (event2.defaultPrevented || event2.altKey || event2.ctrlKey || event2.metaKey || event2.shiftKey)
+      return;
+    const entry = this.entryOf(event2.target);
+    if (!entry || entry.closest("[inert]") || !isRendered2(entry)) return;
+    const entries = this.entryElements();
+    const index2 = entries.indexOf(entry);
+    const last = entries.length - 1;
+    let next;
+    switch (event2.key) {
+      case "ArrowLeft":
+        next = entries[index2 <= 0 ? last : index2 - 1];
+        break;
+      case "ArrowRight":
+        next = entries[index2 >= last ? 0 : index2 + 1];
+        break;
+      case "Home":
+        next = entries[0];
+        break;
+      case "End":
+        next = entries[last];
+        break;
+      case "Enter":
+      case " ":
+        event2.preventDefault();
+        event2.stopPropagation();
+        if (!event2.repeat) activate2(entry);
+        return;
+      default:
+        return;
+    }
+    event2.preventDefault();
+    event2.stopPropagation();
+    if (!next) return;
+    this.rovingAction = actionOf2(next);
+    this.applyTabStops(entries);
+    next.focus();
+  };
+};
+function isRendered2(entry) {
+  return typeof entry.checkVisibility !== "function" || entry.checkVisibility({ visibilityProperty: true });
+}
+function actionOf2(entry) {
+  return entry.getAttribute("data-action") ?? void 0;
+}
+function staysActive2(entry) {
+  const action = actionOf2(entry);
+  return action !== void 0 && READ_ONLY_ACTIONS2.has(action);
+}
+function groupOf(entry) {
+  return entry.closest(".group")?.getAttribute("data-group") ?? void 0;
+}
+function activate2(entry) {
+  const bounds = entry.getBoundingClientRect();
+  entry.dispatchEvent(
+    new MouseEvent("click", {
+      bubbles: true,
+      cancelable: true,
+      clientX: bounds.left + bounds.width / 2,
+      clientY: bounds.top + bounds.height / 2
+    })
+  );
+}
+var SHELL_SERVICE = "modelerShell";
+var KEYBOARD_PRIORITY = 2e3;
+var TRIGGER_PRIORITY2 = 2e3;
+var EDITABLE = { locked: false, shown: false };
+var CANVAS_ATTRIBUTES = ["role", "aria-label"];
+var ShellDiagramService = class {
+  constructor(eventBus, injector) {
+    this.eventBus = eventBus;
+    this.injector = injector;
+    this.subscribe("canvas.init", (event2) => {
+      this.svg = event2.svg;
+      this.nameCanvas();
+    });
+    this.subscribe(
+      "palette.create",
+      (event2) => this.onPaletteCreate(event2.container)
+    );
+    this.subscribe("palette.changed", () => this.skin?.refresh());
+    this.subscribe("tool-manager.update", (event2) => {
+      this.activeTool = event2.tool ?? null;
+      this.armedPrefix = this.activeTool === null ? void 0 : this.dragPrefix();
+      this.droppedTool = void 0;
+      this.skin?.setActiveTool(this.activeTool);
+    });
+    this.subscribe("drag.cleanup", () => this.onDragCleanup());
+    this.subscribe("drag.ended", () => {
+      this.droppedTool = void 0;
+    });
+    this.subscribe("palette.trigger", this.onPaletteTrigger, TRIGGER_PRIORITY2);
+    this.subscribe("diagram.destroy", () => this.destroy());
+    const keyboard = injector.get("keyboard", false);
+    if (keyboard) {
+      keyboard.addListener(KEYBOARD_PRIORITY, this.onKeyboardKeydown);
+      this.subscriptions.push(["keyboard.keydown", this.onKeyboardKeydown]);
+    }
+  }
+  eventBus;
+  injector;
+  static $inject = ["eventBus", "injector"];
+  svg;
+  /** The canvas `<svg>`'s own `role` and `aria-label` before the shell named it. */
+  canvasOriginals;
+  skin;
+  activeTool = null;
+  /** The prefix of the drag that waits for the active tool's next press. */
+  armedPrefix;
+  droppedTool;
+  shell;
+  unregisterPalette;
+  subscriptions = [];
+  destroyed = false;
+  /**
+   * Hands the palette (now or once diagram-js creates it) to `shell`; returns the detach
+   * function. A later call replaces the earlier shell.
+   */
+  canvasOwnsHistory = true;
+  attachShell(shell, options = {}) {
+    this.detachShell();
+    if (this.destroyed) return () => void 0;
+    this.shell = shell;
+    this.canvasOwnsHistory = options.canvasOwnsHistory ?? shell.host !== "ide";
+    this.skin?.setLabel(shell.messages.tools);
+    this.nameCanvas();
+    this.registerPalette();
+    return () => {
+      if (this.shell === shell) this.detachShell();
+    };
+  }
+  registerPalette() {
+    const { shell, skin } = this;
+    if (!shell || !skin) return;
+    this.unregisterPalette?.();
+    this.unregisterPalette = shell.registerPalette({
+      element: skin.element,
+      entryTooltip: (entry) => skin.entryTooltip(entry),
+      setReadOnly: (state) => skin.setReadOnly(state)
+    });
+  }
+  detachShell() {
+    const unregister = this.unregisterPalette;
+    this.unregisterPalette = void 0;
+    this.shell = void 0;
+    unregister?.();
+    this.unnameCanvas();
+    this.skin?.setReadOnly(EDITABLE);
+    this.skin?.setLabel(defaultMessages.tools);
+  }
+  /**
+   * The focusable canvas is an application with a name (WCAG 4.1.2): screen readers switch to focus
+   * mode, so the canvas's single-key commands reach it. A role or name the modeler set stays.
+   */
+  nameCanvas() {
+    const { svg: svg2, shell } = this;
+    if (!svg2 || !shell || this.canvasOriginals) return;
+    this.canvasOriginals = new Map(CANVAS_ATTRIBUTES.map((name) => [name, svg2.getAttribute(name)]));
+    if (!svg2.hasAttribute("role")) svg2.setAttribute("role", "application");
+    if (!svg2.hasAttribute("aria-label") && !svg2.hasAttribute("aria-labelledby")) {
+      svg2.setAttribute("aria-label", shell.messages.canvas);
+    }
+  }
+  unnameCanvas() {
+    const { svg: svg2, canvasOriginals } = this;
+    this.canvasOriginals = void 0;
+    if (!svg2 || !canvasOriginals) return;
+    for (const [name, value] of canvasOriginals) {
+      if (value === null) svg2.removeAttribute(name);
+      else svg2.setAttribute(name, value);
+    }
+  }
+  onPaletteCreate(container) {
+    this.skin?.destroy();
+    const palette = this.injector.get("palette", false);
+    const skin = new PaletteSkin(container, () => palette?.getEntries() ?? {});
+    this.skin = skin;
+    skin.setActiveTool(this.activeTool);
+    if (this.shell) skin.setLabel(this.shell.messages.tools);
+    this.moveBeforeCanvas(container);
+    this.registerPalette();
+  }
+  // Palette#_init appends the palette after the <svg>; in front of it the palette comes first in
+  // the tab order (guide §5.14).
+  moveBeforeCanvas(container) {
+    const parent = container.parentElement ?? this.canvasContainer();
+    if (!parent) return;
+    const svg2 = this.svg?.parentNode === parent ? this.svg : Array.from(parent.children).find((child) => child.localName === "svg");
+    if (svg2) parent.insertBefore(container, svg2);
+  }
+  canvasContainer() {
+    const canvas = this.injector.get("canvas", false);
+    return canvas?.getContainer();
+  }
+  dragPrefix() {
+    const dragging = this.injector.get("dragging", false);
+    return dragging?.context()?.prefix;
+  }
+  /**
+   * diagram-js's tool manager puts a tool down when its drag ends, but on a cancel only for a drag
+   * the pointer has moved and not from the palette's tools group: Escape on a tool the palette armed
+   * before the pointer moved left it pressed (guide §5.5: pressed only while armed). The armed drag
+   * also goes when another tool's drag replaces it, whose init follows in the same task, so the
+   * decision waits until that task is over.
+   */
+  onDragCleanup() {
+    const prefix = this.dragPrefix();
+    const tool = this.activeTool;
+    if (prefix === void 0 || prefix !== this.armedPrefix || tool === null) return;
+    const dropped = { tool, prefix };
+    this.droppedTool = dropped;
+    queueMicrotask(() => {
+      if (this.droppedTool !== dropped) return;
+      this.droppedTool = void 0;
+      const toolManager = this.injector.get("toolManager", false);
+      if (!toolManager?.isActive(tool) || this.dragPrefix() === prefix) return;
+      toolManager.setActive(null);
+    });
+  }
+  onPaletteTrigger = (event2) => {
+    if (!event2.entry || !this.skin?.vetoes(event2.entry, event2.event)) return void 0;
+    event2.event?.preventDefault();
+    return false;
+  };
+  /**
+   * `true` stops the diagram-js keyboard (and makes it call `preventDefault`), `false` stops it
+   * without: a chrome key in a text field inside the `<svg>` stays the field's (Shift+1 types "!"),
+   * and where the canvas does not own the history (the IDE host but Orca) undo and redo stay the
+   * document's (guide §13.5), so they reach VS Code instead of the canvas `commandStack`.
+   */
+  onKeyboardKeydown = (context) => {
+    const event2 = context.keyEvent;
+    if (!event2) return void 0;
+    if (matchChromeKey(event2))
+      return !isTextField(event2.target) && this.shell?.isEmptyStateShown?.() !== true;
+    if (this.shell && !this.canvasOwnsHistory && isUndoRedoKey(event2)) return false;
+    return void 0;
+  };
+  subscribe(name, listener, priority) {
+    const handler = listener;
+    if (priority === void 0) this.eventBus.on(name, handler);
+    else this.eventBus.on(name, priority, handler);
+    this.subscriptions.push([name, handler]);
+  }
+  destroy() {
+    if (this.destroyed) return;
+    this.destroyed = true;
+    this.detachShell();
+    this.skin?.destroy();
+    this.skin = void 0;
+    this.svg = void 0;
+    this.droppedTool = void 0;
+    for (const [name, listener] of this.subscriptions.splice(0)) this.eventBus.off(name, listener);
+  }
+};
+function shellServiceOf(diagram) {
+  let service;
+  try {
+    service = diagram.get(SHELL_SERVICE);
+  } catch {
+    service = void 0;
+  }
+  if (!isShellService(service)) {
+    throw new Error(
+      "@miragon/modeler-shell: connectDiagramJs needs shellModule in the modeler's modules (additionalModules: [shellModule])"
+    );
+  }
+  return service;
+}
+function isShellService(value) {
+  return typeof value?.attachShell === "function";
+}
+var shellModule = {
+  __init__: [SHELL_SERVICE],
+  [SHELL_SERVICE]: ["type", ShellDiagramService],
+  paletteTooltip: ["value", null]
+};
+var IMPORT_START_EVENTS = ["import.parse.start", "import.render.start"];
+var IMPORT_DONE_EVENT = "import.done";
+var CONTENT_EVENTS = [
+  "shape.added",
+  "shape.removed",
+  "connection.added",
+  "connection.removed",
+  "diagram.clear"
+];
+var ZOOM_STEP = Math.log10(ZOOM_MAX / ZOOM_MIN) / 10;
+var CAPTURE = { capture: true };
+var INSET_SIDES = ["top", "right", "bottom", "left"];
+var DiagramViewport = class {
+  constructor(diagram, options) {
+    this.diagram = diagram;
+    this.options = options;
+    this.canvas = diagram.get("canvas");
+    this.eventBus = diagram.get("eventBus");
+    this.container = this.canvas.getContainer();
+    this.subscribe("canvas.viewbox.changing", this.notify);
+    this.subscribe("canvas.viewbox.changed", this.onViewboxChanged);
+    this.subscribe(IMPORT_START_EVENTS, this.onImportStart);
+    this.subscribe(IMPORT_DONE_EVENT, this.onImportDone);
+    this.subscribe("elements.changed", this.onElementsChanged);
+    this.subscribe(CONTENT_EVENTS, this.onContentChanged);
+    this.subscribe("diagram.destroy", () => this.destroy());
+    this.container.addEventListener("wheel", this.onPointerInput, { capture: true, passive: true });
+    this.container.addEventListener("pointerdown", this.onPointerInput, CAPTURE);
+    this.container.addEventListener("keydown", this.onKeyInput, CAPTURE);
+    if (typeof ResizeObserver === "function") {
+      this.observer = new ResizeObserver(this.onResizeObserved);
+      this.observer.observe(this.container);
+    }
+  }
+  diagram;
+  options;
+  canvas;
+  eventBus;
+  container;
+  listeners = /* @__PURE__ */ new Set();
+  subscriptions = [];
+  observer;
+  zoomScrollService;
+  /** The last view the viewport set as its own (fit target, restore); user moves differ from it. */
+  reference;
+  /** The last view written, animation frames included. */
+  lastWritten;
+  /** The container size the current view was set or last resized for. */
+  lastSize;
+  writing = 0;
+  userMoved = false;
+  importing = false;
+  imported = false;
+  firstFitPending = true;
+  /** Nothing has decided the view yet, so an empty first import shows 100 %. */
+  emptyViewPending = true;
+  /** The 100 % of an empty first import waits for the container to get a size (hidden tab). */
+  emptyViewDue = false;
+  /** `canFit()` of the current content; the zoom panel asks every frame, `contentBounds` may be costly. */
+  fittable;
+  lastZoom = 1;
+  /** An automatic fit is due but the container had no size yet (hidden tab). */
+  autoFitDue = false;
+  /** A restored view waits for the container to get a size. */
+  pendingView;
+  /** What the fit that set the current view measured; cleared once anything else sets the view. */
+  fitted;
+  animation;
+  resizeFrame;
+  destroyed = false;
+  zoom() {
+    if (!this.destroyed) this.lastZoom = this.canvas.zoom();
+    return this.lastZoom;
+  }
+  stepZoom(direction) {
+    if (this.destroyed) return;
+    this.beforeUserChange();
+    const zoom2 = this.canvas.zoom();
+    if (direction < 0 ? !canZoomOut(zoom2) : !canZoomIn(zoom2)) return;
+    const zoomScroll = this.zoomScroll();
+    if (zoomScroll) zoomScroll.stepZoom(direction);
+    else this.canvas.zoom(stepOnRaster(zoom2, direction));
+  }
+  zoomToActual() {
+    if (this.destroyed) return;
+    this.beforeUserChange();
+    this.canvas.zoom(1);
+  }
+  focus() {
+    if (!this.destroyed) this.canvas.focus?.();
+  }
+  fit(options) {
+    if (this.destroyed) return;
+    this.importing = false;
+    this.fitTo(options?.animate !== false && !this.prefersReducedMotion());
+  }
+  canFit() {
+    if (this.destroyed) return false;
+    this.fittable ??= hasExtent(this.options.contentBounds());
+    return this.fittable;
+  }
+  onChange(listener) {
+    this.listeners.add(listener);
+    return () => {
+      this.listeners.delete(listener);
+    };
+  }
+  afterImport() {
+    if (this.destroyed) return;
+    this.importing = false;
+    this.imported = true;
+    this.fittable = void 0;
+    if (this.firstFitPending && this.canFit()) {
+      this.firstFitPending = false;
+      this.emptyViewPending = false;
+      this.emptyViewDue = false;
+      if (!this.userMoved && !this.fitTo(false)) this.autoFitDue = true;
+    } else if (this.firstFitPending && this.emptyViewPending) {
+      this.emptyViewPending = false;
+      if (!this.userMoved && !this.showActualSize()) this.emptyViewDue = true;
+    }
+    this.notify();
+  }
+  newDocument() {
+    if (this.destroyed) return;
+    this.cancelAnimation();
+    this.fitted = void 0;
+    this.userMoved = false;
+    this.firstFitPending = true;
+    this.emptyViewPending = true;
+    this.emptyViewDue = false;
+    this.autoFitDue = false;
+    this.pendingView = void 0;
+    this.fittable = void 0;
+  }
+  restore(viewbox) {
+    if (this.destroyed) return;
+    this.importing = false;
+    this.imported = true;
+    this.fittable = void 0;
+    this.emptyViewPending = false;
+    this.emptyViewDue = false;
+    this.cancelAnimation();
+    this.show(viewbox);
+    this.notify();
+  }
+  freeRectCenter() {
+    if (this.destroyed) return void 0;
+    const centre = freeRectCenter(this.canvas.getSize(), this.options.insets());
+    const view = this.currentView();
+    if (!centre || !view) return void 0;
+    return { x: view.x + centre.x / view.scale, y: view.y + centre.y / view.scale };
+  }
+  getViewbox() {
+    if (this.destroyed) return void 0;
+    if (this.pendingView) return { ...this.pendingView };
+    const size2 = this.canvas.getSize();
+    if (!hasSize(size2)) return void 0;
+    const { x: x3, y: y3, scale } = this.canvas.viewbox();
+    return { x: x3, y: y3, width: size2.width / scale, height: size2.height / scale };
+  }
+  isAutomatic() {
+    return !this.userMoved;
+  }
+  getState() {
+    if (!this.imported) return void 0;
+    const viewbox = this.getViewbox();
+    return viewbox ? { viewbox, userMoved: this.userMoved } : void 0;
+  }
+  setState(state) {
+    if (this.destroyed) return;
+    this.importing = false;
+    this.imported = true;
+    this.fittable = void 0;
+    this.cancelAnimation();
+    this.userMoved = state.userMoved;
+    this.autoFitDue = false;
+    this.emptyViewPending = false;
+    this.emptyViewDue = false;
+    if (this.canFit()) this.firstFitPending = false;
+    this.show(state.viewbox);
+    this.notify();
+  }
+  /**
+   * Fits again (jump) when `insets()` differs from what the fit that set the current view measured
+   * on `side` and on no other side, while nothing else has set the view since and the content
+   * bounds are still the ones it fitted: chrome that settles after a fit (the open legend's card
+   * once its font has loaded) would leave the content off the free rectangle's centre, while any
+   * other change of the chrome, and content the user created, moved or deleted since, keeps the view
+   * (guide §5.9). A fit animation still running is retargeted instead. A container resize is left
+   * to the resize refit. True when it fit again.
+   */
+  refitIfOnlyInsetChanged(side) {
+    const fitted = this.fitted;
+    if (this.destroyed || !fitted) return false;
+    const size2 = this.canvas.getSize();
+    if (size2.width !== this.lastSize?.width || size2.height !== this.lastSize.height) return false;
+    const insets = this.options.insets();
+    if (insets[side] === fitted.insets[side]) return false;
+    if (INSET_SIDES.some((other) => other !== side && insets[other] !== fitted.insets[other]))
+      return false;
+    if (!sameBounds(this.options.contentBounds(), fitted.bounds)) return false;
+    return this.fitTo(this.animation !== void 0);
+  }
+  /** `canvas.resized()`; viewbox changes it causes (keep-selection-visible) are not user moves. */
+  resized() {
+    if (this.destroyed) return;
+    this.writing++;
+    try {
+      this.canvas.resized();
+    } finally {
+      this.writing--;
+    }
+  }
+  destroy() {
+    if (this.destroyed) return;
+    this.destroyed = true;
+    this.cancelAnimation();
+    if (this.resizeFrame !== void 0) cancelAnimationFrame(this.resizeFrame);
+    this.resizeFrame = void 0;
+    this.observer?.disconnect();
+    this.container.removeEventListener("wheel", this.onPointerInput, CAPTURE);
+    this.container.removeEventListener("pointerdown", this.onPointerInput, CAPTURE);
+    this.container.removeEventListener("keydown", this.onKeyInput, CAPTURE);
+    for (const [events, listener] of this.subscriptions.splice(0))
+      this.eventBus.off(events, listener);
+    this.listeners.clear();
+  }
+  /** Fits now (jump) or animated; false when there is nothing to fit or no container size. */
+  fitTo(animate) {
+    this.cancelAnimation();
+    const bounds = this.options.contentBounds();
+    if (!bounds) return false;
+    const insets = this.options.insets();
+    const target = fitViewbox(bounds, this.canvas.getSize(), insets);
+    if (!target) return false;
+    this.fitted = { bounds: { ...bounds }, insets: { ...insets } };
+    this.userMoved = false;
+    this.firstFitPending = false;
+    this.autoFitDue = false;
+    this.emptyViewPending = false;
+    this.emptyViewDue = false;
+    this.pendingView = void 0;
+    const from = this.currentView();
+    if (animate && from && !sameView(from, target) && typeof requestAnimationFrame === "function") {
+      this.animate(from, target);
+    } else {
+      this.write(target);
+    }
+    return true;
+  }
+  animate(from, target) {
+    this.reference = toView(target);
+    const animation = { frame: 0 };
+    const startedAt = performance.now();
+    const step = (timestamp) => {
+      if (this.animation !== animation) return;
+      if (!hasSize(this.canvas.getSize())) {
+        this.cancelAnimation();
+        this.autoFitDue = true;
+        return;
+      }
+      const progress = Math.min(1, Math.max(0, (timestamp - startedAt) / FIT_ANIMATION_MS));
+      if (progress >= 1) {
+        this.animation = void 0;
+        this.write(target);
+        return;
+      }
+      this.write(interpolateViewbox(from, target, easeStandard(progress)), false);
+      animation.frame = requestAnimationFrame(step);
+    };
+    this.animation = animation;
+    animation.frame = requestAnimationFrame(step);
+  }
+  cancelAnimation() {
+    const animation = this.animation;
+    if (!animation) return;
+    this.animation = void 0;
+    this.fitted = void 0;
+    cancelAnimationFrame(animation.frame);
+    if (this.lastWritten) this.reference = this.lastWritten;
+  }
+  /**
+   * 100 % around the centre of the free rectangle, written as the viewport's own view; true when
+   * the view is at 100 % afterwards, false while the container has no size.
+   */
+  showActualSize() {
+    const size2 = this.canvas.getSize();
+    const centre = freeRectCenter(size2, this.options.insets());
+    const view = this.currentView();
+    if (!centre || !view) return false;
+    if (Math.abs(view.scale - 1) <= VIEW_TOLERANCE) return true;
+    this.cancelAnimation();
+    this.write({
+      x: view.x + centre.x / view.scale - centre.x,
+      y: view.y + centre.y / view.scale - centre.y,
+      width: size2.width,
+      height: size2.height
+    });
+    return true;
+  }
+  /** Shows a restored view now, or once the container has a size. */
+  show(viewbox) {
+    this.fitted = void 0;
+    if (hasSize(this.canvas.getSize())) {
+      this.pendingView = void 0;
+      this.write(viewbox);
+    } else {
+      this.pendingView = {
+        x: viewbox.x,
+        y: viewbox.y,
+        width: viewbox.width,
+        height: viewbox.height
+      };
+    }
+  }
+  /** Callers make sure the container has a size: diagram-js would set a scale of 0 otherwise. */
+  write(box, asReference = true) {
+    const size2 = this.canvas.getSize();
+    const view = {
+      x: box.x,
+      y: box.y,
+      scale: Math.min(size2.width / box.width, size2.height / box.height)
+    };
+    this.writing++;
+    try {
+      this.canvas.viewbox({ x: box.x, y: box.y, width: box.width, height: box.height });
+    } finally {
+      this.writing--;
+    }
+    this.lastWritten = view;
+    if (asReference) this.reference = view;
+    this.lastSize = { width: size2.width, height: size2.height };
+  }
+  currentView() {
+    const size2 = this.canvas.getSize();
+    const { x: x3, y: y3, scale } = this.canvas.viewbox();
+    if (!(scale > 0 && Number.isFinite(scale))) return void 0;
+    return { x: x3, y: y3, width: size2.width / scale, height: size2.height / scale, scale };
+  }
+  beforeUserChange() {
+    this.importing = false;
+    this.cancelAnimation();
+  }
+  zoomScroll() {
+    if (this.zoomScrollService === void 0) {
+      try {
+        this.zoomScrollService = this.diagram.get("zoomScroll") ?? null;
+      } catch {
+        this.zoomScrollService = null;
+      }
+    }
+    return this.zoomScrollService;
+  }
+  prefersReducedMotion() {
+    if (this.options.prefersReducedMotion) return this.options.prefersReducedMotion();
+    if (this.container.ownerDocument.documentElement.classList.contains(REDUCED_MOTION_CLASS))
+      return true;
+    return typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+  isOwnView(current) {
+    if (this.reference && sameView(current, this.reference)) return true;
+    return this.animation !== void 0 && this.lastWritten !== void 0 && sameView(current, this.lastWritten);
+  }
+  // Not a flag around the own writes alone: with `canvas.deferUpdate` the event of an own change
+  // arrives up to 300ms later, so it is recognised by its view.
+  onViewboxChanged = (event2) => {
+    if (this.writing === 0 && !this.importing) {
+      const current = event2?.viewbox ?? this.canvas.viewbox();
+      if (!this.isOwnView(current)) {
+        this.cancelAnimation();
+        this.fitted = void 0;
+        this.userMoved = true;
+        this.autoFitDue = false;
+        this.emptyViewDue = false;
+      }
+    }
+    this.notify();
+  };
+  onImportStart = () => {
+    this.importing = true;
+  };
+  onImportDone = () => {
+    this.importing = false;
+    this.fittable = void 0;
+    this.notify();
+  };
+  onContentChanged = () => {
+    this.fittable = void 0;
+  };
+  // Guide §5.9: an element the user creates on the canvas never fits. Once such content exists,
+  // only imports that keep the view follow, so the first automatic fit is no longer due.
+  onElementsChanged = () => {
+    this.fittable = void 0;
+    if (this.imported && !this.importing && this.firstFitPending && this.canFit()) {
+      this.firstFitPending = false;
+    }
+    this.notify();
+  };
+  // User input also ends an import window a failed import never closed with `import.done`.
+  onPointerInput = () => {
+    this.importing = false;
+    this.cancelAnimation();
+  };
+  onKeyInput = (event2) => {
+    this.importing = false;
+    if (matchChromeKey(event2)) this.cancelAnimation();
+  };
+  onResizeObserved = () => {
+    if (this.destroyed || this.resizeFrame !== void 0) return;
+    if (typeof requestAnimationFrame !== "function") {
+      this.onResize();
+      return;
+    }
+    this.resizeFrame = requestAnimationFrame(() => {
+      this.resizeFrame = void 0;
+      this.onResize();
+    });
+  };
+  onResize() {
+    if (this.destroyed) return;
+    const size2 = this.canvas.getSize();
+    if (!hasSize(size2)) return;
+    const changed = this.lastSize?.width !== size2.width || this.lastSize.height !== size2.height;
+    if (!changed && !this.pendingView && !this.autoFitDue && !this.emptyViewDue) return;
+    this.lastSize = { width: size2.width, height: size2.height };
+    this.resized();
+    const restored = this.pendingView;
+    if (restored) {
+      this.pendingView = void 0;
+      this.write(restored);
+    }
+    if (this.userMoved) return;
+    if (this.emptyViewDue) {
+      this.emptyViewDue = false;
+      this.showActualSize();
+      return;
+    }
+    if (this.autoFitDue || !restored && !this.firstFitPending) this.fitTo(false);
+  }
+  subscribe(events, listener) {
+    this.eventBus.on(events, listener);
+    this.subscriptions.push([events, listener]);
+  }
+  notify = () => {
+    for (const listener of [...this.listeners]) listener();
+  };
+};
+function toView(box) {
+  return { x: box.x, y: box.y, scale: box.scale };
+}
+function hasSize(size2) {
+  return size2.width > 0 && size2.height > 0;
+}
+function hasExtent(bounds) {
+  return bounds !== void 0 && (bounds.width > 0 || bounds.height > 0);
+}
+function sameBounds(bounds, other) {
+  return bounds !== void 0 && bounds.x === other.x && bounds.y === other.y && bounds.width === other.width && bounds.height === other.height;
+}
+function stepOnRaster(zoom2, direction) {
+  const level = Math.round(Math.log10(zoom2) / ZOOM_STEP) * ZOOM_STEP + ZOOM_STEP * direction;
+  return Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, 10 ** level));
+}
+var HINT_SYNC_PRIORITY = 500;
+function contentBoundsOf(options) {
+  if (options.contentBounds) return () => options.contentBounds?.();
+  const { modeler } = options;
+  if (typeof modeler?.contentBounds === "function") return () => modeler.contentBounds?.();
+  throw new Error(
+    "@miragon/modeler-shell: connectDiagramJs needs the content bounds: pass options.contentBounds, or options.modeler with contentBounds() (@miragon/modeler-api 1.3)"
+  );
+}
+function whenFontsSettle(fonts, settled) {
+  let cancelled = false;
+  let frame;
+  const afterTwoFrames = (then) => {
+    frame = requestAnimationFrame(() => {
+      frame = requestAnimationFrame(() => {
+        frame = void 0;
+        then();
+      });
+    });
+  };
+  const waitForFonts = () => {
+    void fonts.ready.then(() => {
+      if (cancelled) return;
+      afterTwoFrames(() => {
+        if (fonts.status === "loading") waitForFonts();
+        else settled();
+      });
+    });
+  };
+  waitForFonts();
+  return () => {
+    cancelled = true;
+    if (frame !== void 0) cancelAnimationFrame(frame);
+  };
+}
+function refitWhenLegendSettles(shell, viewport) {
+  const legend = shell.legend;
+  const fonts = legend?.element.ownerDocument.fonts;
+  if (!legend?.isOpen() || !fonts || typeof ResizeObserver !== "function" || typeof requestAnimationFrame !== "function") {
+    return () => void 0;
+  }
+  let stopped = false;
+  const observer = new ResizeObserver(() => {
+    if (!legend.isOpen() || viewport.refitIfOnlyInsetChanged("left")) stop();
+  });
+  const unsubscribe = viewport.onChange(() => {
+    if (!viewport.isAutomatic()) stop();
+  });
+  const cancelFontWait = whenFontsSettle(fonts, stop);
+  function stop() {
+    if (stopped) return;
+    stopped = true;
+    observer.disconnect();
+    unsubscribe();
+    cancelFontWait();
+  }
+  observer.observe(legend.element);
+  return stop;
+}
+function connectDiagramJs(shell, diagram, options) {
+  const service = shellServiceOf(diagram);
+  const contentBounds = contentBoundsOf(options);
+  const eventBus = diagram.get("eventBus");
+  const prefersReducedMotion2 = options.prefersReducedMotion?.bind(options);
+  const viewport = new DiagramViewport(diagram, {
+    contentBounds,
+    insets: () => shell.fitInsets(),
+    ...prefersReducedMotion2 ? { prefersReducedMotion: prefersReducedMotion2 } : {}
+  });
+  shell.setZoomTarget(viewport);
+  const detachPalette = service.attachShell(
+    shell,
+    options.canvasOwnsHistory === void 0 ? {} : { canvasOwnsHistory: options.canvasOwnsHistory }
+  );
+  viewport.resized();
+  const isEmpty = options.isEmpty ? () => options.isEmpty?.() === true : () => !viewport.canFit();
+  const syncHint = () => shell.setEmptyHint(isEmpty());
+  eventBus.on(["import.done", "elements.changed"], HINT_SYNC_PRIORITY, syncHint);
+  const stopLegendWatch = refitWhenLegendSettles(shell, viewport);
+  let destroyed = false;
+  const destroy = () => {
+    if (destroyed) return;
+    destroyed = true;
+    eventBus.off(["import.done", "elements.changed"], syncHint);
+    eventBus.off("diagram.destroy", destroy);
+    stopLegendWatch();
+    detachPalette();
+    shell.setZoomTarget(null);
+    viewport.destroy();
+  };
+  eventBus.on("diagram.destroy", destroy);
+  return { viewport, destroy };
+}
+
+// ../../../../packages/shell/dist/chunk-RZZ7MILX.js
+function withBeforeDestroy(shell, beforeDestroy) {
+  return {
+    get root() {
+      return shell.root;
+    },
+    get canvas() {
+      return shell.canvas;
+    },
+    get host() {
+      return shell.host;
+    },
+    get lang() {
+      return shell.lang;
+    },
+    get platform() {
+      return shell.platform;
+    },
+    get messages() {
+      return shell.messages;
+    },
+    get menu() {
+      return shell.menu;
+    },
+    get tooltip() {
+      return shell.tooltip;
+    },
+    get legend() {
+      return shell.legend;
+    },
+    get inspector() {
+      return shell.inspector;
+    },
+    get primary() {
+      return shell.primary;
+    },
+    get appearance() {
+      return shell.appearance;
+    },
+    setZoomTarget: (target) => shell.setZoomTarget(target),
+    fitInsets: () => shell.fitInsets(),
+    registerPalette: (palette) => shell.registerPalette(palette),
+    setProblems: (summary) => shell.setProblems(summary),
+    setStatus: (status, options) => shell.setStatus(status, options),
+    setEmptyHint: (visible) => shell.setEmptyHint(visible),
+    setReadOnly: (readOnly, options) => shell.setReadOnly(readOnly, options),
+    isReadOnly: () => shell.isReadOnly(),
+    setEmptyState: (shown) => shell.setEmptyState(shown),
+    isEmptyStateShown: () => shell.isEmptyStateShown(),
+    toast: (request) => shell.toast(request),
+    showShortcutsDialog: (groups) => shell.showShortcutsDialog(groups),
+    destroy() {
+      beforeDestroy();
+      shell.destroy();
+    }
+  };
+}
+function optionalService(diagram, name) {
+  try {
+    return diagram.get(name);
+  } catch {
+    return void 0;
+  }
+}
+function commandName(format) {
+  return `export${format.split("-").map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join("")}`;
+}
+function mountIdeEditor(host, definition, root = document.getElementById("app")) {
+  if (!root) throw new Error("@miragon/modeler-shell: the editor HTML has no #app root");
+  const modeler = definition.createModeler({
+    additionalModules: [shellModule],
+    undoRedoKeys: host.canvasOwnsHistory,
+    fitInsets: () => shell.fitInsets(),
+    freeRectCenter: () => connection?.viewport.freeRectCenter()
+  });
+  const { diagram } = modeler;
+  diagram.get("canvas");
+  const selection = optionalService(diagram, "selection");
+  const registry2 = diagram.get("elementRegistry");
+  const selectedIds = () => selection?.get().map((element) => element.id) ?? [];
+  const reselect = (ids2) => {
+    const elements = ids2.map((id) => registry2.get(id)).filter((element) => element !== void 0);
+    if (elements.length) selection?.select(elements);
+  };
+  async function withoutSelection(task) {
+    const ids2 = selectedIds();
+    selection?.select(null);
+    try {
+      return await task();
+    } finally {
+      reselect(ids2);
+    }
+  }
+  async function runExport(format) {
+    const exported = definition.exports[format];
+    if (!exported) throw new Error(`@miragon/modeler-shell: no export "${format}"`);
+    try {
+      const produce = async () => exported.produce(modeler);
+      const result = exported.picture ? await withoutSelection(produce) : await produce();
+      await host.saveExport({
+        format,
+        suggestedName: exported.suggestedName,
+        mimeType: exported.mimeType,
+        data: result.data,
+        fontFallback: result.fontFallback
+      });
+    } catch (error2) {
+      console.error(`[${format}-export]`, error2);
+      host.notify("error", exported.failure);
+    }
+  }
+  let documentConnection;
+  let connection;
+  const context = {
+    host,
+    get shell() {
+      return shell;
+    },
+    modeler,
+    get connection() {
+      return connection;
+    },
+    exportAction: (format) => ({ onSelect: () => void runExport(format) }),
+    refreshMenu: () => shell.menu.setGroups(definition.menu(context))
+  };
+  const shell = host.mountShell(root, {
+    themes: definition.themes,
+    canvas: diagram.container,
+    messages: { canvas: definition.name },
+    emptyHint: { onInsertExample: () => documentConnection?.insertExample() },
+    ...definition.shellOptions?.(modeler, host),
+    menu: definition.menu(context)
+  });
+  connection = connectDiagramJs(shell, diagram, {
+    modeler,
+    isEmpty: () => definition.isEmpty(modeler),
+    canvasOwnsHistory: host.canvasOwnsHistory
+  });
+  const { viewport } = connection;
+  const stopPersistingView = host.state.persistView(viewport);
+  function lock(readOnly, delayMs) {
+    const options = delayMs === void 0 ? void 0 : { delayMs };
+    definition.setCanvasReadOnly(modeler, readOnly, options);
+    shell.setReadOnly(readOnly, options);
+  }
+  function showValid() {
+    lock(documentConnection?.readOnly === true);
+    shell.setStatus(null);
+    shell.setEmptyHint(definition.isEmpty(modeler));
+  }
+  function showInvalid() {
+    lock(true, INVALID_STATUS_DELAY_MS);
+    shell.setEmptyHint(false);
+    shell.setStatus(
+      { severity: "danger", text: shell.messages.invalidFile(definition.name) },
+      { delayMs: INVALID_STATUS_DELAY_MS }
+    );
+  }
+  async function importText(text, { first, reconciledText }) {
+    if (!first && definition.sameText(text, modeler.exportText(), reconciledText)) {
+      showValid();
+      return true;
+    }
+    const keep = first ? void 0 : viewport.getViewbox();
+    const selected = first ? [] : selectedIds();
+    const wasEmpty = definition.isEmpty(modeler);
+    try {
+      await modeler.importText(text);
+      showValid();
+      if (keep) viewport.restore(keep);
+      else if (first && host.state.view) viewport.setState(host.state.view);
+      reselect(selected);
+      viewport.afterImport();
+      definition.imported?.(context, { first, wasEmpty });
+      context.refreshMenu();
+      return true;
+    } catch {
+      showInvalid();
+      return false;
+    }
+  }
+  diagram.get("eventBus").on("commandStack.changed", () => context.refreshMenu());
+  const stopExtras = definition.afterMount?.(context);
+  diagram.get("eventBus").on("diagram.destroy", () => {
+    stopExtras?.();
+    stopPersistingView();
+    documentConnection?.disconnect();
+  });
+  const commands = { fitView: () => viewport.fit() };
+  for (const format of Object.keys(definition.exports)) {
+    commands[commandName(format)] = () => runExport(format);
+  }
+  const documentReady = host.connectDocument(shell, {
+    importText,
+    exportText: (reconciledText) => definition.exportText ? definition.exportText(modeler, reconciledText) : modeler.exportText(),
+    canWrite: () => !shell.isReadOnly(),
+    commands,
+    withExampleInserted: definition.withExampleInserted
+  });
+  const ready = documentReady.then(async (connected) => {
+    documentConnection = connected;
+    modeler.onContentChanged(connected.pushEdit);
+    await connected.ready;
+    if (connected.readOnly) lock(true);
+  });
+  return { shell, modeler, connection, ready, document: documentReady };
+}
+
+// ../../../../packages/shell/dist/chunk-YLRABADC.js
+var ICONS = {
+  menu: [
+    ["path", { d: "M4 5h16" }],
+    ["path", { d: "M4 12h16" }],
+    ["path", { d: "M4 19h16" }]
+  ],
+  minus: [["path", { d: "M5 12h14" }]],
+  plus: [
+    ["path", { d: "M5 12h14" }],
+    ["path", { d: "M12 5v14" }]
+  ],
+  maximize: [
+    ["path", { d: "M8 3H5a2 2 0 0 0-2 2v3" }],
+    ["path", { d: "M21 8V5a2 2 0 0 0-2-2h-3" }],
+    ["path", { d: "M3 16v3a2 2 0 0 0 2 2h3" }],
+    ["path", { d: "M16 21h3a2 2 0 0 0 2-2v-3" }]
+  ],
+  check: [["path", { d: "M20 6 9 17l-5-5" }]],
+  x: [
+    ["path", { d: "M18 6 6 18" }],
+    ["path", { d: "m6 6 12 12" }]
+  ],
+  "file-plus": [
+    [
+      "path",
+      {
+        d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
+      }
+    ],
+    ["path", { d: "M14 2v5a1 1 0 0 0 1 1h5" }],
+    ["path", { d: "M9 15h6" }],
+    ["path", { d: "M12 18v-6" }]
+  ],
+  "folder-open": [
+    [
+      "path",
+      {
+        d: "m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"
+      }
+    ]
+  ],
+  import: [
+    ["path", { d: "M12 3v12" }],
+    ["path", { d: "m8 11 4 4 4-4" }],
+    ["path", { d: "M8 5H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-4" }]
+  ],
+  "file-image": [
+    [
+      "path",
+      {
+        d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
+      }
+    ],
+    ["path", { d: "M14 2v5a1 1 0 0 0 1 1h5" }],
+    ["circle", { cx: "10", cy: "12", r: "2" }],
+    ["path", { d: "m20 17-1.296-1.296a2.41 2.41 0 0 0-3.408 0L9 22" }]
+  ],
+  "file-code-corner": [
+    [
+      "path",
+      {
+        d: "M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35"
+      }
+    ],
+    ["path", { d: "M14 2v5a1 1 0 0 0 1 1h5" }],
+    ["path", { d: "m5 16-3 3 3 3" }],
+    ["path", { d: "m9 22 3-3-3-3" }]
+  ],
+  keyboard: [
+    ["path", { d: "M10 8h.01" }],
+    ["path", { d: "M12 12h.01" }],
+    ["path", { d: "M14 8h.01" }],
+    ["path", { d: "M16 12h.01" }],
+    ["path", { d: "M18 8h.01" }],
+    ["path", { d: "M6 8h.01" }],
+    ["path", { d: "M7 16h10" }],
+    ["path", { d: "M8 12h.01" }],
+    ["rect", { width: "20", height: "16", x: "2", y: "4", rx: "2" }]
+  ],
+  "share-2": [
+    ["circle", { cx: "18", cy: "5", r: "3" }],
+    ["circle", { cx: "6", cy: "12", r: "3" }],
+    ["circle", { cx: "18", cy: "19", r: "3" }],
+    ["line", { x1: "8.59", x2: "15.42", y1: "13.51", y2: "17.49" }],
+    ["line", { x1: "15.41", x2: "8.59", y1: "6.51", y2: "10.49" }]
+  ],
+  "circle-x": [
+    ["circle", { cx: "12", cy: "12", r: "10" }],
+    ["path", { d: "m15 9-6 6" }],
+    ["path", { d: "m9 9 6 6" }]
+  ],
+  "triangle-alert": [
+    ["path", { d: "m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" }],
+    ["path", { d: "M12 9v4" }],
+    ["path", { d: "M12 17h.01" }]
+  ],
+  "square-dashed-mouse-pointer": [
+    [
+      "path",
+      {
+        d: "M12.034 12.681a.498.498 0 0 1 .647-.647l9 3.5a.5.5 0 0 1-.033.943l-3.444 1.068a1 1 0 0 0-.66.66l-1.067 3.443a.5.5 0 0 1-.943.033z"
+      }
+    ],
+    ["path", { d: "M5 3a2 2 0 0 0-2 2" }],
+    ["path", { d: "M19 3a2 2 0 0 1 2 2" }],
+    ["path", { d: "M5 21a2 2 0 0 1-2-2" }],
+    ["path", { d: "M9 3h1" }],
+    ["path", { d: "M9 21h2" }],
+    ["path", { d: "M14 3h1" }],
+    ["path", { d: "M3 9v1" }],
+    ["path", { d: "M21 9v2" }],
+    ["path", { d: "M3 14v1" }]
+  ],
+  hand: [
+    ["path", { d: "M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2" }],
+    ["path", { d: "M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2" }],
+    ["path", { d: "M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8" }],
+    [
+      "path",
+      {
+        d: "M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"
+      }
+    ]
+  ],
+  "line-segment": [
+    ["circle", { cx: "19", cy: "5", r: "2" }],
+    ["circle", { cx: "5", cy: "19", r: "2" }],
+    ["path", { d: "M6.5 17.5 17.5 6.5" }]
+  ],
+  "unfold-horizontal": [
+    ["path", { d: "M16 12h6" }],
+    ["path", { d: "M8 12H2" }],
+    ["path", { d: "M12 2v2" }],
+    ["path", { d: "M12 8v2" }],
+    ["path", { d: "M12 14v2" }],
+    ["path", { d: "M12 20v2" }],
+    ["path", { d: "m19 15 3-3-3-3" }],
+    ["path", { d: "m5 9-3 3 3 3" }]
+  ],
+  workflow: [
+    ["rect", { width: "8", height: "8", x: "3", y: "3", rx: "2" }],
+    ["path", { d: "M7 11v4a2 2 0 0 0 2 2h4" }],
+    ["rect", { width: "8", height: "8", x: "13", y: "13", rx: "2" }]
+  ]
+};
+var DEFAULT_SIZE = 16;
+var DEFAULT_STROKE_WIDTH = 2.5;
+var SVG_NAMESPACE2 = "http://www.w3.org/2000/svg";
+var ICON_ELEMENTS = /* @__PURE__ */ new Set([
+  "path",
+  "circle",
+  "ellipse",
+  "line",
+  "polyline",
+  "polygon",
+  "rect"
+]);
+var GEOMETRY_ATTRIBUTES = /* @__PURE__ */ new Set([
+  "d",
+  "cx",
+  "cy",
+  "r",
+  "rx",
+  "ry",
+  "x",
+  "y",
+  "x1",
+  "y1",
+  "x2",
+  "y2",
+  "width",
+  "height",
+  "points"
+]);
+function positiveOr(value, fallback) {
+  return typeof value === "number" && Number.isFinite(value) && value > 0 ? value : fallback;
+}
+function iconNodeOf(icon) {
+  if (typeof icon !== "string") return icon;
+  return Object.prototype.hasOwnProperty.call(ICONS, icon) ? ICONS[icon] : [];
+}
+function sanitize(icon, options = {}) {
+  const size2 = String(positiveOr(options.size, DEFAULT_SIZE));
+  const root = [];
+  if (options.className) root.push(["class", options.className]);
+  root.push(
+    ["width", size2],
+    ["height", size2],
+    ["viewBox", "0 0 24 24"],
+    ["fill", "none"],
+    ["stroke", "currentColor"],
+    ["stroke-width", String(positiveOr(options.strokeWidth, DEFAULT_STROKE_WIDTH))],
+    ["stroke-linecap", "round"],
+    ["stroke-linejoin", "round"],
+    ["aria-hidden", "true"],
+    ["focusable", "false"]
+  );
+  const children = [];
+  for (const node3 of iconNodeOf(icon)) {
+    const [tag, attributes] = node3;
+    if (!ICON_ELEMENTS.has(tag)) continue;
+    const kept = Object.entries(attributes).filter(([name]) => GEOMETRY_ATTRIBUTES.has(name)).map(([name, value]) => [name, String(value)]);
+    children.push([tag, kept]);
+  }
+  return { root, children };
+}
+function iconElement(icon, options) {
+  const { root, children } = sanitize(icon, options);
+  const svg2 = document.createElementNS(SVG_NAMESPACE2, "svg");
+  for (const [name, value] of root) svg2.setAttribute(name, value);
+  for (const [tag, attributes] of children) {
+    const child = document.createElementNS(SVG_NAMESPACE2, tag);
+    for (const [name, value] of attributes) child.setAttribute(name, value);
+    svg2.append(child);
+  }
+  return svg2;
+}
+var BAND_PX = 16;
+var ROUNDING_PX = 1;
+var CONTAINER_WIDTH_PROPERTY = "--modeler-shell-container-width";
+var CONTAINER_HEIGHT_PROPERTY = "--modeler-shell-container-height";
+function measureWindow(ownerDocument) {
+  const viewportElement = ownerDocument.compatMode === "BackCompat" ? ownerDocument.body : ownerDocument.documentElement;
+  const view = ownerDocument.defaultView;
+  return {
+    width: viewportElement?.clientWidth || (view?.innerWidth ?? 0),
+    height: viewportElement?.clientHeight || (view?.innerHeight ?? 0)
+  };
+}
+function contentSize(container, style) {
+  const { clientWidth, clientHeight } = container;
+  if (clientWidth === 0 && clientHeight === 0) return null;
+  const padding = (side) => parseFloat(style[`padding${side}`]) || 0;
+  return {
+    width: Math.max(0, clientWidth - padding("Left") - padding("Right")),
+    height: Math.max(0, clientHeight - padding("Top") - padding("Bottom"))
+  };
+}
+function setInline(element, property, value) {
+  const current = element.style.getPropertyValue(property);
+  if (value === null) {
+    if (current !== "") element.style.removeProperty(property);
+    return;
+  }
+  if (current !== value) element.style.setProperty(property, value);
+}
+function clipsOverflow(overflow) {
+  return overflow !== "" && overflow !== "visible";
+}
+function clipByOverflow(shown, element, style) {
+  const clipX = clipsOverflow(style.overflowX);
+  const clipY = clipsOverflow(style.overflowY);
+  if (!clipX && !clipY) return shown;
+  const rect = element.getBoundingClientRect();
+  const left = rect.left + element.clientLeft;
+  const top = rect.top + element.clientTop;
+  return {
+    left: clipX ? Math.max(shown.left, left) : shown.left,
+    top: clipY ? Math.max(shown.top, top) : shown.top,
+    right: clipX ? Math.min(shown.right, left + element.clientWidth) : shown.right,
+    bottom: clipY ? Math.min(shown.bottom, top + element.clientHeight) : shown.bottom
+  };
+}
+var CONTAINING_BLOCK_PROPERTIES = [
+  "transform",
+  "translate",
+  "rotate",
+  "scale",
+  "perspective",
+  "filter",
+  "backdrop-filter"
+];
+function isSet(value) {
+  return value !== "" && value !== "none";
+}
+function containsPositioned(style, position) {
+  const positioned = position === "absolute" && isSet(style.position) && style.position !== "static";
+  return positioned || CONTAINING_BLOCK_PROPERTIES.some((property) => isSet(style.getPropertyValue(property))) || /\b(layout|paint|strict|content)\b/.test(style.contain) || /\b(transform|perspective|filter)\b/.test(style.willChange);
+}
+function shownPart(container, windowSize) {
+  const ownerDocument = container.ownerDocument;
+  const view = ownerDocument.defaultView;
+  const own2 = container.getBoundingClientRect();
+  let shown = {
+    left: Math.max(own2.left, 0),
+    top: Math.max(own2.top, 0),
+    right: Math.min(own2.right, windowSize.width),
+    bottom: Math.min(own2.bottom, windowSize.height)
+  };
+  const isRoot2 = (element2) => element2 === ownerDocument.body || element2 === ownerDocument.documentElement;
+  let element = container;
+  while (view) {
+    const { position } = view.getComputedStyle(element);
+    let around = element.parentElement;
+    if (position === "absolute" || position === "fixed") {
+      while (around && !isRoot2(around) && !containsPositioned(view.getComputedStyle(around), position)) {
+        around = around.parentElement;
+      }
+    }
+    if (!around || isRoot2(around)) break;
+    shown = clipByOverflow(shown, around, view.getComputedStyle(around));
+    element = around;
+  }
+  return shown.right > shown.left && shown.bottom > shown.top ? shown : null;
+}
+function zoomOf(dialog, renderedWidth) {
+  const laidOutWidth = dialog.offsetWidth;
+  const zoom2 = laidOutWidth > 0 ? Math.round(renderedWidth / laidOutWidth * 100) / 100 : 1;
+  return zoom2 > 0 ? zoom2 : 1;
+}
+function centreOverContainer(dialog, container) {
+  const ownerDocument = dialog.ownerDocument;
+  const view = ownerDocument.defaultView;
+  function size2() {
+    const room = view ? contentSize(container, view.getComputedStyle(container)) : null;
+    setInline(dialog, CONTAINER_WIDTH_PROPERTY, room ? `${room.width}px` : null);
+    setInline(dialog, CONTAINER_HEIGHT_PROPERTY, room ? `${room.height}px` : null);
+  }
+  function place() {
+    size2();
+    const windowSize = measureWindow(ownerDocument);
+    const shown = shownPart(container, windowSize);
+    const { width, height } = dialog.getBoundingClientRect();
+    const zoom2 = zoomOf(dialog, width);
+    const band = 2 * BAND_PX * zoom2;
+    const fits = shown !== null && shown.right - shown.left + ROUNDING_PX >= width + band && shown.bottom - shown.top + ROUNDING_PX >= height + band;
+    const x3 = fits ? Math.round((shown.left + shown.right - windowSize.width) / 2 / zoom2) : 0;
+    const y3 = fits ? Math.round((shown.top + shown.bottom - windowSize.height) / 2 / zoom2) : 0;
+    setInline(dialog, "translate", x3 === 0 && y3 === 0 ? null : `${x3}px ${y3}px`);
+  }
+  let following = true;
+  let frame;
+  function follow() {
+    frame = void 0;
+    if (!following || !dialog.isConnected) return;
+    place();
+    frame = requestAnimationFrame(follow);
+  }
+  place();
+  if (typeof requestAnimationFrame === "function") frame = requestAnimationFrame(follow);
+  return () => {
+    following = false;
+    if (frame !== void 0 && typeof cancelAnimationFrame === "function") {
+      cancelAnimationFrame(frame);
+    }
+    frame = void 0;
+  };
+}
+function createElement(ownerDocument, tag, attributes = {}, ...children) {
+  const element = ownerDocument.createElement(tag);
+  for (const [name, value] of Object.entries(attributes)) {
+    if (value !== void 0) element.setAttribute(name, value);
+  }
+  for (const child of children) {
+    if (child === void 0 || child === null || child === false) continue;
+    element.append(child);
+  }
+  return element;
+}
+function toggleAttribute(element, name, value) {
+  if (value === null || value === false) element.removeAttribute(name);
+  else element.setAttribute(name, value);
+}
+function boxRelativeTo(element, root) {
+  const box = element.getBoundingClientRect();
+  const origin = root.getBoundingClientRect();
+  return {
+    x: box.left - origin.left - root.clientLeft,
+    y: box.top - origin.top - root.clientTop,
+    width: box.width,
+    height: box.height
+  };
+}
+function accessibleName(control) {
+  return (control.getAttribute("aria-label") ?? control.textContent ?? "").trim();
+}
+function hasVisibleFocus(element) {
+  try {
+    return element.matches(":focus-visible");
+  } catch {
+    return true;
+  }
+}
+function isPointerClick(event2) {
+  return event2.detail > 0;
+}
+function isShown2(element) {
+  if (element.localName === "dialog" && !element.hasAttribute("open")) return false;
+  if (element.closest("[hidden]")) return false;
+  return typeof element.checkVisibility !== "function" || element.checkVisibility({ visibilityProperty: true });
+}
+function isModal(element) {
+  if (element.getAttribute("aria-modal") === "true") return true;
+  try {
+    return element.matches(":modal");
+  } catch {
+    return false;
+  }
+}
+function openDialogs(scope) {
+  return [...scope.querySelectorAll('[role="dialog"], [role="alertdialog"], dialog')].filter(
+    isShown2
+  );
+}
+function isModalOpen(scope) {
+  return openDialogs(scope).some(isModal);
+}
+function stopEscapeKeyup(ownerDocument) {
+  const onKeyup = (event2) => {
+    if (event2.key !== "Escape") return;
+    event2.stopPropagation();
+    release();
+  };
+  const onKeydown = (event2) => {
+    if (event2.key === "Escape" && !event2.repeat) release();
+  };
+  function release() {
+    ownerDocument.removeEventListener("keyup", onKeyup, true);
+    ownerDocument.removeEventListener("keydown", onKeydown, true);
+  }
+  ownerDocument.addEventListener("keyup", onKeyup, true);
+  ownerDocument.addEventListener("keydown", onKeydown, true);
+}
+function isNode2(target) {
+  return typeof target?.nodeType === "number";
+}
+function isLayerEscape(event2, dialogs) {
+  if (event2.key !== "Escape") return false;
+  const target = event2.target;
+  return dialogs.some((dialog) => isModal(dialog) || isNode2(target) && dialog.contains(target));
+}
+function createChromeEscapeListener(ownerDocument, isChrome) {
+  return (event2) => {
+    if (event2.key === "Escape" && isNode2(event2.target) && isChrome(event2.target)) {
+      stopEscapeKeyup(ownerDocument);
+    }
+  };
+}
+function createKeyListener(context) {
+  return (event2) => {
+    if (event2.key === "Escape") context.hideTooltip();
+    const dialogs = openDialogs(context.dialogScope);
+    if (isLayerEscape(event2, dialogs)) stopEscapeKeyup(context.ownerDocument);
+    const decision = decideKey(event2, {
+      host: context.host,
+      inTextField: isTextField(event2.target),
+      menuOpen: context.menuOpen(),
+      dialogOpen: dialogs.length > 0,
+      modalOpen: dialogs.some(isModal),
+      defaultPrevented: event2.defaultPrevented,
+      startScreen: context.startScreen?.() ?? false
+    });
+    if (decision.preventDefault) event2.preventDefault();
+    if (decision.stopPropagation) event2.stopPropagation();
+    if (decision.action === "closeMenu") context.closeMenu();
+    else if (decision.action) context.run(decision.action);
+  };
+}
+var DIALOG_COUNTER = /* @__PURE__ */ Symbol.for("@miragon/modeler-shell.dialogs");
+function uniqueDialogId(name) {
+  const scope = globalThis;
+  const index2 = (scope[DIALOG_COUNTER] ?? 0) + 1;
+  scope[DIALOG_COUNTER] = index2;
+  return `cd-shell-${name}-${index2}`;
+}
+var TABBABLE_SELECTOR = [
+  "a[href]",
+  "area[href]",
+  "button",
+  "input",
+  "select",
+  "textarea",
+  "iframe",
+  "summary",
+  "[tabindex]",
+  '[contenteditable]:not([contenteditable="false"])'
+].join(", ");
+function isShown22(element) {
+  if (element.closest("[hidden], [inert]")) return false;
+  return typeof element.checkVisibility !== "function" || element.checkVisibility({ visibilityProperty: true });
+}
+function isRadioGroupStop(element, candidates) {
+  if (!(element instanceof HTMLInputElement) || element.type !== "radio" || element.name === "") {
+    return true;
+  }
+  const group = candidates.filter(
+    (other) => other instanceof HTMLInputElement && other.type === "radio" && other.name === element.name && other.form === element.form
+  );
+  return (group.find((radio) => radio.checked) ?? group[0]) === element;
+}
+function tabStops(dialog) {
+  const candidates = [...dialog.querySelectorAll(TABBABLE_SELECTOR)].filter(
+    (element) => element.tabIndex >= 0 && !element.matches(":disabled") && isShown22(element)
+  );
+  return candidates.filter((element) => isRadioGroupStop(element, candidates));
+}
+function adjacentStop(dialog, stops, from, forward) {
+  const inside = from !== null && from !== dialog && dialog.contains(from);
+  if (inside && forward) {
+    const next = stops.find(
+      (stop) => from.compareDocumentPosition(stop) & Node.DOCUMENT_POSITION_FOLLOWING
+    );
+    if (next) return next;
+  }
+  if (inside && !forward) {
+    for (let index2 = stops.length - 1; index2 >= 0; index2--) {
+      const stop = stops[index2];
+      if (from.compareDocumentPosition(stop) & Node.DOCUMENT_POSITION_PRECEDING) return stop;
+    }
+  }
+  return forward ? stops[0] : stops.at(-1);
+}
+function focusInOtherDialog(dialog, active) {
+  const owner = active?.closest("dialog") ?? null;
+  return owner !== null && owner !== dialog && owner.open && !dialog.contains(owner);
+}
+function canTakeFocus(element) {
+  return element.isConnected && (!(element instanceof HTMLElement) || isShown22(element));
+}
+function focusedElement(ownerDocument) {
+  const active = ownerDocument.activeElement;
+  if (!active || active === ownerDocument.body) return null;
+  return active instanceof HTMLElement || active instanceof SVGElement ? active : null;
+}
+function outside(dialog, event2) {
+  const box = dialog.getBoundingClientRect();
+  return event2.clientX < box.left || event2.clientX > box.right || event2.clientY < box.top || event2.clientY > box.bottom;
+}
+function openOwnedShellDialog(options) {
+  const { container } = options;
+  const ownerDocument = container.ownerDocument;
+  const opener = focusedElement(ownerDocument);
+  const titleId = uniqueDialogId("dialog-title");
+  const dialog = createElement(ownerDocument, "dialog", {
+    class: options.className ? `cd-shell-dialog ${options.className}` : "cd-shell-dialog",
+    "aria-labelledby": titleId,
+    lang: options.lang
+  });
+  const close = createElement(
+    ownerDocument,
+    "button",
+    {
+      type: "button",
+      class: "cd-shell-dialog-close",
+      "aria-label": options.closeLabel ?? defaultMessages.close
+    },
+    iconElement("x")
+  );
+  const header = createElement(
+    ownerDocument,
+    "div",
+    { class: "cd-shell-dialog-header" },
+    createElement(
+      ownerDocument,
+      "h2",
+      { class: "cd-shell-dialog-title", id: titleId },
+      options.title
+    ),
+    close
+  );
+  const body = createElement(ownerDocument, "div", { class: "cd-shell-dialog-body" });
+  options.render(body);
+  dialog.append(header, body);
+  let finished = false;
+  let stopCentring;
+  const ResizeObserverClass = globalThis.ResizeObserver;
+  function updateScrollStop() {
+    const scrolls = body.scrollHeight > body.clientHeight + 1;
+    if (scrolls === body.hasAttribute("tabindex")) return;
+    if (scrolls) {
+      body.setAttribute("tabindex", "0");
+      return;
+    }
+    const bodyHadFocus = ownerDocument.activeElement === body;
+    body.removeAttribute("tabindex");
+    if (bodyHadFocus) adjacentStop(dialog, tabStops(dialog), body, true)?.focus();
+  }
+  const resizeObserver = ResizeObserverClass ? new ResizeObserverClass(() => updateScrollStop()) : void 0;
+  function onTab(event2) {
+    if (event2.key !== "Tab" || event2.altKey || event2.ctrlKey || event2.metaKey) return;
+    if (event2.defaultPrevented || !dialog.open) return;
+    const active = ownerDocument.activeElement;
+    if (focusInOtherDialog(dialog, active)) return;
+    const target = adjacentStop(dialog, tabStops(dialog), active, !event2.shiftKey);
+    if (!target) {
+      event2.preventDefault();
+      return;
+    }
+    target.focus();
+    if (ownerDocument.activeElement === target) event2.preventDefault();
+  }
+  function onEscape(event2) {
+    if (event2.key === "Escape" && dialog.open) stopEscapeKeyup(ownerDocument);
+  }
+  let pressedOnBackdrop = false;
+  const onPointerDown = (event2) => {
+    pressedOnBackdrop = event2.target === dialog && outside(dialog, event2);
+  };
+  const onClick = (event2) => {
+    const onBackdrop = pressedOnBackdrop && event2.target === dialog && outside(dialog, event2);
+    pressedOnBackdrop = false;
+    if (onBackdrop) dialog.close();
+  };
+  function finish(restoreFocus) {
+    if (finished) return;
+    finished = true;
+    ownerDocument.removeEventListener("keydown", onTab);
+    ownerDocument.removeEventListener("keydown", onEscape, true);
+    stopCentring?.();
+    resizeObserver?.disconnect();
+    if (dialog.open) dialog.close();
+    dialog.remove();
+    options.onClose?.();
+    if (!restoreFocus) return;
+    if (opener && canTakeFocus(opener)) opener.focus({ preventScroll: true });
+    if (!opener || ownerDocument.activeElement !== opener) options.focusFallback?.();
+  }
+  close.addEventListener("click", () => dialog.close());
+  dialog.addEventListener("pointerdown", onPointerDown);
+  dialog.addEventListener("click", onClick);
+  dialog.addEventListener("close", () => finish(true));
+  container.append(dialog);
+  try {
+    dialog.showModal();
+  } catch (error2) {
+    dialog.remove();
+    throw error2;
+  }
+  stopCentring = centreOverContainer(dialog, container);
+  ownerDocument.addEventListener("keydown", onTab);
+  ownerDocument.addEventListener("keydown", onEscape, true);
+  resizeObserver?.observe(body);
+  updateScrollStop();
+  return {
+    isOpen: () => !finished && dialog.open,
+    close: () => finish(true),
+    discard: () => finish(false)
+  };
+}
+function shortcutTable(ownerDocument, group, headingId) {
+  const table = createElement(ownerDocument, "table", {
+    class: "cd-shell-shortcuts-table",
+    "aria-labelledby": headingId
+  });
+  const rows = table.createTBody();
+  for (const row of group.rows) {
+    const line = rows.insertRow();
+    if (isChromeShortcutRow(row)) line.setAttribute("data-chrome-key", row.chromeKey);
+    const keys2 = createElement(ownerDocument, "td", { class: "cd-shell-shortcuts-keys" });
+    for (const key of row.keys) {
+      keys2.append(createElement(ownerDocument, "kbd", { class: "cd-shell-kbd" }, key));
+    }
+    line.append(
+      createElement(
+        ownerDocument,
+        "th",
+        { class: "cd-shell-shortcuts-action", scope: "row" },
+        row.action
+      ),
+      keys2
+    );
+  }
+  return createElement(
+    ownerDocument,
+    "section",
+    { class: "cd-shell-shortcuts-group" },
+    createElement(
+      ownerDocument,
+      "h3",
+      { class: "cd-shell-shortcuts-title", id: headingId },
+      group.title
+    ),
+    table
+  );
+}
+function openShortcutsDialog(groups, messages, options) {
+  return openOwnedShellDialog({
+    container: options.container,
+    title: messages.shortcutsTitle,
+    closeLabel: messages.close,
+    className: "cd-shell-shortcuts",
+    lang: options.lang,
+    focusFallback: options.focusFallback,
+    render(body) {
+      const ownerDocument = body.ownerDocument;
+      body.append(
+        ...groups.filter((group) => group.rows.length > 0).map((group) => shortcutTable(ownerDocument, group, uniqueDialogId("shortcuts-group")))
+      );
+    }
+  });
+}
+var NO_TRANSITION_CLASS = "cd-shell-no-transition";
+var CONTRAST_QUERY = "(prefers-contrast: more)";
+var SCHEME_MEDIA = {
+  light: "(prefers-color-scheme: light)",
+  dark: "(prefers-color-scheme: dark)"
+};
+function onMediaChange(query2, listener) {
+  if (typeof query2.addEventListener === "function") {
+    query2.addEventListener("change", listener);
+    return () => query2.removeEventListener("change", listener);
+  }
+  query2.addListener(listener);
+  return () => query2.removeListener(listener);
+}
+function connectWebAppearance(context) {
+  const { ownerDocument, themes, options } = context;
+  const darkCapable = themes.includes("dark");
+  if (darkCapable && !options) {
+    throw new Error(
+      '@miragon/modeler-shell: a web modeler whose themes include "dark" needs the appearance option ({ themeColors } from its vendored cd-tokens.generated.json)'
+    );
+  }
+  const html = ownerDocument.documentElement;
+  const view = ownerDocument.defaultView;
+  const cleanups = [];
+  const contrast = typeof view?.matchMedia === "function" ? view.matchMedia(CONTRAST_QUERY) : void 0;
+  if (contrast) {
+    const mirrorContrast = () => toggleAttribute(html, "data-cd-kontrast", contrast.matches && "hoch");
+    mirrorContrast();
+    cleanups.push(onMediaChange(contrast, mirrorContrast));
+  }
+  function destroy() {
+    for (const cleanup of cleanups.splice(0)) cleanup();
+  }
+  if (!darkCapable || !options) {
+    return { choice: () => "system", setChoice() {
+    }, destroy };
+  }
+  const { themeColors } = options;
+  function storage() {
+    if (options?.storage) return options.storage;
+    try {
+      return globalThis.localStorage;
+    } catch {
+      return void 0;
+    }
+  }
+  function readStored() {
+    try {
+      return parseAppearanceChoice(storage()?.getItem(APPEARANCE_STORAGE_KEY));
+    } catch {
+      return "system";
+    }
+  }
+  function store(choice) {
+    try {
+      const target = storage();
+      if (choice === "system") target?.removeItem(APPEARANCE_STORAGE_KEY);
+      else target?.setItem(APPEARANCE_STORAGE_KEY, choice);
+    } catch {
+    }
+  }
+  function nextFrame(callback) {
+    if (view && typeof view.requestAnimationFrame === "function") {
+      const frame = view.requestAnimationFrame(() => callback());
+      return () => view.cancelAnimationFrame(frame);
+    }
+    const timer = setTimeout(callback, 16);
+    return () => clearTimeout(timer);
+  }
+  let cancelTransitionFrame;
+  function allowTransitions() {
+    cancelTransitionFrame?.();
+    cancelTransitionFrame = void 0;
+    html.classList.remove(NO_TRANSITION_CLASS);
+  }
+  cleanups.push(() => {
+    if (cancelTransitionFrame) allowTransitions();
+  });
+  function suspendTransitions() {
+    cancelTransitionFrame?.();
+    html.classList.add(NO_TRANSITION_CLASS);
+    cancelTransitionFrame = nextFrame(() => {
+      cancelTransitionFrame = nextFrame(allowTransitions);
+    });
+  }
+  function metaFor(name, media) {
+    const normalize = (value) => (value ?? "").replace(/\s+/g, "").toLowerCase();
+    const existing = [
+      ...ownerDocument.querySelectorAll(`meta[name="${name}"]`)
+    ].find(
+      (meta3) => media === void 0 ? true : normalize(meta3.getAttribute("media")) === normalize(media)
+    );
+    if (existing) return existing;
+    const created = createElement(ownerDocument, "meta", { name, media });
+    (ownerDocument.head ?? html).append(created);
+    return created;
+  }
+  function apply(choice) {
+    const mode = documentMode(choice, themes, themeColors);
+    suspendTransitions();
+    html.setAttribute("data-cd-theme", mode.theme);
+    metaFor("color-scheme").setAttribute("content", mode.colorScheme);
+    metaFor("theme-color", SCHEME_MEDIA.light).setAttribute("content", mode.themeColor.light);
+    metaFor("theme-color", SCHEME_MEDIA.dark).setAttribute("content", mode.themeColor.dark);
+  }
+  let current = readStored();
+  const onStorage = (event2) => {
+    if (event2.key !== null && event2.key !== APPEARANCE_STORAGE_KEY) return;
+    const next = event2.key === null ? "system" : parseAppearanceChoice(event2.newValue);
+    if (next === current) return;
+    current = next;
+    apply(next);
+  };
+  if (view) {
+    view.addEventListener("storage", onStorage);
+    cleanups.push(() => view.removeEventListener("storage", onStorage));
+  }
+  return {
+    choice: () => current,
+    setChoice(choice) {
+      const next = parseAppearanceChoice(choice);
+      current = next;
+      store(next);
+      apply(next);
+    },
+    destroy
+  };
+}
+var PILL_ATTRIBUTES = ["aria-haspopup", "aria-expanded", "aria-controls"];
+function isPrintable(event2) {
+  return event2.key.length === 1 && /\S/.test(event2.key) && !event2.ctrlKey && !event2.metaKey && !event2.altKey;
+}
+function createProblemsPopover(context) {
+  const { ownerDocument, root, layer, pill, id, titleId, messages } = context;
+  const view = ownerDocument.defaultView;
+  const list = createElement(ownerDocument, "ul", {
+    class: "cd-shell-problems-list",
+    role: "list"
+  });
+  const element = createElement(
+    ownerDocument,
+    "div",
+    {
+      class: "cd-shell-problems-popover",
+      "data-chrome": "problems-popover",
+      role: "dialog",
+      id,
+      "aria-labelledby": titleId,
+      tabindex: "-1"
+    },
+    createElement(
+      ownerDocument,
+      "h2",
+      { class: "cd-shell-problems-popover-title", id: titleId },
+      messages.problemsTitle
+    ),
+    list
+  );
+  element.hidden = true;
+  layer.append(element);
+  pill.setAttribute("aria-haspopup", "dialog");
+  pill.setAttribute("aria-expanded", "false");
+  pill.setAttribute("aria-controls", id);
+  let items = [];
+  let rows = [];
+  let destroyed = false;
+  const isOpen = () => !element.hidden;
+  function keyOf(item) {
+    return `${item.elementId ?? ""}\0${item.severity}\0${item.message}`;
+  }
+  function rowElement(item) {
+    const severity = item.severity === "error" ? "error" : "warning";
+    const parts = [
+      // The shape and colour of the icon carry the severity on screen, its name for screen readers.
+      createElement(
+        ownerDocument,
+        "span",
+        {
+          class: "cd-shell-problem-icon",
+          role: "img",
+          "aria-label": messages.problemSeverity(severity)
+        },
+        iconElement(severity === "error" ? "circle-x" : "triangle-alert")
+      ),
+      createElement(ownerDocument, "span", { class: "cd-shell-problem-message" }, item.message),
+      item.location ? createElement(
+        ownerDocument,
+        "span",
+        { class: "cd-shell-problem-location" },
+        item.location
+      ) : void 0
+    ];
+    const attributes = { class: "cd-shell-problem", "data-severity": severity };
+    if (!item.elementId) {
+      const text = createElement(ownerDocument, "div", { ...attributes, tabindex: "-1" }, ...parts);
+      rows.push({ key: keyOf(item), element: text });
+      return text;
+    }
+    const button = createElement(
+      ownerDocument,
+      "button",
+      { type: "button", ...attributes },
+      ...parts
+    );
+    button.addEventListener("click", () => select(item));
+    rows.push({ key: keyOf(item), element: button });
+    return button;
+  }
+  function focusedRowIndex() {
+    return rows.findIndex((row) => row.element === ownerDocument.activeElement);
+  }
+  function render() {
+    const focusedIndex = focusedRowIndex();
+    const focusedKey = rows[focusedIndex]?.key;
+    rows = [];
+    list.replaceChildren(
+      ...items.map((item) => createElement(ownerDocument, "li", {}, rowElement(item)))
+    );
+    if (focusedKey === void 0 || !isOpen()) return;
+    const kept = rows.find((row) => row.key === focusedKey) ?? rows[Math.min(focusedIndex, rows.length - 1)];
+    if (kept) focusRowElement(kept.element);
+    else element.focus({ preventScroll: true });
+  }
+  function revealInList(row) {
+    const rowBox = row.getBoundingClientRect();
+    const listBox = list.getBoundingClientRect();
+    if (rowBox.top < listBox.top) list.scrollTop -= listBox.top - rowBox.top;
+    else if (rowBox.bottom > listBox.bottom) list.scrollTop += rowBox.bottom - listBox.bottom;
+  }
+  function focusRowElement(row) {
+    row.focus({ preventScroll: true });
+    revealInList(row);
+  }
+  function focusCanvas() {
+    const canvas = root.querySelector(".cd-shell-canvas svg[tabindex]");
+    canvas?.focus({ preventScroll: true });
+    if ((!canvas || ownerDocument.activeElement !== canvas) && !pill.hidden)
+      pill.focus({ preventScroll: true });
+  }
+  function select(item) {
+    close();
+    focusCanvas();
+    context.onSelectItem?.(item);
+  }
+  function focusRow(index2) {
+    if (rows.length === 0) return;
+    const row = rows[(index2 + rows.length) % rows.length];
+    if (row) focusRowElement(row.element);
+  }
+  const onOutsidePointerDown = (event2) => {
+    const target = event2.target;
+    if (target && (element.contains(target) || pill.contains(target))) return;
+    close();
+  };
+  const onWindowBlur = () => close();
+  function open2() {
+    if (destroyed || isOpen()) return;
+    element.hidden = false;
+    pill.setAttribute("aria-expanded", "true");
+    ownerDocument.addEventListener("pointerdown", onOutsidePointerDown, true);
+    view?.addEventListener("blur", onWindowBlur);
+    list.scrollTop = 0;
+    const first = rows[0];
+    if (first) focusRowElement(first.element);
+    else element.focus({ preventScroll: true });
+  }
+  function close(options = {}) {
+    if (!isOpen()) return;
+    element.hidden = true;
+    pill.setAttribute("aria-expanded", "false");
+    ownerDocument.removeEventListener("pointerdown", onOutsidePointerDown, true);
+    view?.removeEventListener("blur", onWindowBlur);
+    if (options.restoreFocus && !pill.hidden) pill.focus({ preventScroll: true });
+  }
+  function consume(event2) {
+    event2.preventDefault();
+    event2.stopPropagation();
+  }
+  element.addEventListener("keydown", (event2) => {
+    if (matchChromeKey(event2)) return;
+    const index2 = focusedRowIndex();
+    switch (event2.key) {
+      case "Escape":
+        consume(event2);
+        close({ restoreFocus: true });
+        stopEscapeKeyup(ownerDocument);
+        return;
+      case "Tab": {
+        const first = index2 <= 0;
+        const last = rows.length === 0 || index2 === rows.length - 1;
+        if (event2.shiftKey && first) {
+          consume(event2);
+          close({ restoreFocus: true });
+        } else if (!event2.shiftKey && last) {
+          event2.stopPropagation();
+          close({ restoreFocus: true });
+        }
+        return;
+      }
+      case "ArrowDown":
+        focusRow(index2 + 1);
+        break;
+      case "ArrowUp":
+        focusRow(index2 < 0 ? rows.length - 1 : index2 - 1);
+        break;
+      case "Home":
+        focusRow(0);
+        break;
+      case "End":
+        focusRow(rows.length - 1);
+        break;
+      case "Enter":
+      case " ":
+      case "Delete":
+      case "Backspace":
+        event2.stopPropagation();
+        return;
+      default:
+        if (isPrintable(event2)) event2.stopPropagation();
+        return;
+    }
+    consume(event2);
+  });
+  return {
+    element,
+    isOpen,
+    toggle() {
+      if (isOpen()) close({ restoreFocus: true });
+      else open2();
+    },
+    open: open2,
+    close,
+    setItems(next) {
+      items = next;
+      if (!destroyed) render();
+    },
+    destroy() {
+      if (destroyed) return;
+      close();
+      destroyed = true;
+      for (const name of PILL_ATTRIBUTES) pill.removeAttribute(name);
+      element.remove();
+    }
+  };
+}
+var TOAST_RESUME_MIN_MS = 1500;
+var TOAST_LEAVE_FALLBACK_MS = 400;
+var LEAVE_ANIMATION = "cd-shell-toast-out";
+var TOAST_ANNOUNCE_DELAY_MS = 100;
+var INERT_HANDLE = Object.freeze({ dismiss() {
+} });
+function createToaster(context) {
+  const { ownerDocument, messages } = context;
+  const element = createElement(ownerDocument, "div", {
+    class: "cd-shell-toasts",
+    "data-chrome": "toasts",
+    popover: "manual"
+  });
+  const liveRegion = (politeness) => createElement(ownerDocument, "div", {
+    class: "cd-shell-live-region",
+    "data-live": politeness,
+    role: politeness === "polite" ? "status" : "alert",
+    "aria-live": politeness,
+    "aria-atomic": "true"
+  });
+  const politeRegion = liveRegion("polite");
+  const assertiveRegion = liveRegion("assertive");
+  const announcer = createElement(
+    ownerDocument,
+    "div",
+    { class: "cd-shell-live" },
+    politeRegion,
+    assertiveRegion
+  );
+  const live = [];
+  const leaveTimers = /* @__PURE__ */ new Set();
+  const announceTimers = /* @__PURE__ */ new Map();
+  let lastId = 0;
+  let destroyed = false;
+  function regionFor(request) {
+    return request.status === "danger" ? assertiveRegion : politeRegion;
+  }
+  function announce(request) {
+    const region = regionFor(request);
+    clearTimeout(announceTimers.get(region));
+    region.textContent = "";
+    announceTimers.set(
+      region,
+      setTimeout(() => {
+        announceTimers.delete(region);
+        if (!destroyed) region.textContent = request.text;
+      }, TOAST_ANNOUNCE_DELAY_MS)
+    );
+  }
+  function silence(request) {
+    const region = regionFor(request);
+    if (region.textContent === request.text) region.textContent = "";
+  }
+  function changed() {
+    if (!destroyed) context.onChange?.();
+  }
+  function supportsPopover() {
+    return typeof element.showPopover === "function" && typeof element.hidePopover === "function";
+  }
+  function popoverOpen() {
+    try {
+      return element.matches(":popover-open");
+    } catch {
+      return false;
+    }
+  }
+  function modalOpen() {
+    try {
+      return ownerDocument.querySelector(":modal") !== null;
+    } catch {
+      return true;
+    }
+  }
+  function raise() {
+    if (!supportsPopover() || !element.isConnected) return;
+    if (popoverOpen() && !modalOpen()) return;
+    const focused = ownerDocument.activeElement;
+    const keepFocus = focused && element.contains(focused) ? focused : void 0;
+    try {
+      element.hidePopover();
+      element.showPopover();
+    } catch {
+      return;
+    }
+    if (keepFocus && ownerDocument.activeElement !== keepFocus)
+      keepFocus.focus({ preventScroll: true });
+  }
+  function lowerWhenEmpty() {
+    if (element.childElementCount > 0 || !supportsPopover()) return;
+    try {
+      element.hidePopover();
+    } catch {
+    }
+  }
+  function engaged(toast) {
+    return toast.hovered || toast.focused;
+  }
+  function stopTimer(toast) {
+    clearTimeout(toast.timer);
+    toast.timer = void 0;
+  }
+  function runTimer(toast) {
+    stopTimer(toast);
+    if (toast.remaining === void 0 || engaged(toast)) return;
+    toast.startedAt = Date.now();
+    toast.timer = setTimeout(() => close(toast), toast.remaining);
+  }
+  function pause(toast) {
+    if (toast.timer === void 0) return;
+    stopTimer(toast);
+    if (toast.remaining !== void 0) {
+      toast.remaining = Math.max(0, toast.remaining - (Date.now() - toast.startedAt));
+    }
+  }
+  function setEngagement(toast, hovered, focused) {
+    if (!live.includes(toast)) return;
+    const wasEngaged = engaged(toast);
+    toast.hovered = hovered;
+    toast.focused = focused;
+    if (engaged(toast) === wasEngaged) return;
+    if (wasEngaged) {
+      if (toast.remaining !== void 0)
+        toast.remaining = Math.max(toast.remaining, TOAST_RESUME_MIN_MS);
+      runTimer(toast);
+    } else {
+      pause(toast);
+    }
+  }
+  function reducedMotion() {
+    if (ownerDocument.documentElement.classList.contains(REDUCED_MOTION_CLASS)) return true;
+    const view = ownerDocument.defaultView;
+    return typeof view?.matchMedia === "function" && view.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+  function removeElement2(toastElement) {
+    toastElement.remove();
+    lowerWhenEmpty();
+    changed();
+  }
+  function leave(toastElement) {
+    toastElement.setAttribute("data-leaving", "");
+    toastElement.inert = true;
+    if (reducedMotion()) {
+      removeElement2(toastElement);
+      return;
+    }
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      clearTimeout(fallback);
+      leaveTimers.delete(fallback);
+      removeElement2(toastElement);
+    };
+    toastElement.addEventListener("animationend", (event2) => {
+      if (event2.target === toastElement && event2.animationName === LEAVE_ANIMATION) finish();
+    });
+    const fallback = setTimeout(finish, TOAST_LEAVE_FALLBACK_MS);
+    leaveTimers.add(fallback);
+  }
+  function close(toast, byPointer = false) {
+    const index2 = live.indexOf(toast);
+    if (index2 < 0) return;
+    live.splice(index2, 1);
+    stopTimer(toast);
+    silence(toast.request);
+    if (byPointer) {
+      context.focusFallback();
+    } else if (toast.element.contains(ownerDocument.activeElement)) {
+      const next = live[index2] ?? live[index2 - 1];
+      if (next) next.closeButton.focus({ preventScroll: true });
+      else context.focusFallback();
+    }
+    leave(toast.element);
+  }
+  function setAction(toast, action) {
+    const previous = toast.actionButton;
+    const hadFocus = previous !== void 0 && ownerDocument.activeElement === previous;
+    previous?.remove();
+    toast.actionButton = void 0;
+    if (action) {
+      const button = createElement(
+        ownerDocument,
+        "button",
+        { type: "button", class: "cd-shell-toast-action cd-shell-button", "data-variant": "ghost" },
+        action.label
+      );
+      button.addEventListener("click", (event2) => {
+        close(toast, isPointerClick(event2));
+        action.onSelect();
+      });
+      toast.closeButton.before(button);
+      toast.actionButton = button;
+    }
+    if (hadFocus) (toast.actionButton ?? toast.closeButton).focus({ preventScroll: true });
+  }
+  function slotOf(toast) {
+    return { id: toast.id, hasAction: toast.request.action !== void 0, engaged: engaged(toast) };
+  }
+  function render(request) {
+    const id = ++lastId;
+    const textId = `${context.idPrefix}-${id}`;
+    const closeButton = createElement(
+      ownerDocument,
+      "button",
+      {
+        type: "button",
+        class: "cd-shell-toast-close",
+        "aria-label": messages.close,
+        "aria-describedby": textId
+      },
+      iconElement("x")
+    );
+    const toastElement = createElement(
+      ownerDocument,
+      "div",
+      { class: "cd-shell-toast", "data-status": request.status },
+      createElement(ownerDocument, "span", { class: "cd-shell-toast-dot", "aria-hidden": "true" }),
+      createElement(
+        ownerDocument,
+        "span",
+        { class: "cd-shell-toast-text", id: textId },
+        request.text
+      ),
+      closeButton
+    );
+    const toast = {
+      id,
+      element: toastElement,
+      closeButton,
+      handle: Object.freeze({ dismiss: () => close(toast) }),
+      request,
+      actionButton: void 0,
+      hovered: false,
+      focused: false,
+      remaining: toastLifetime(request),
+      startedAt: Date.now(),
+      timer: void 0
+    };
+    setAction(toast, request.action);
+    closeButton.addEventListener("click", (event2) => close(toast, isPointerClick(event2)));
+    toastElement.addEventListener("mouseenter", () => setEngagement(toast, true, toast.focused));
+    toastElement.addEventListener("mouseleave", () => setEngagement(toast, false, toast.focused));
+    toastElement.addEventListener("focusin", () => setEngagement(toast, toast.hovered, true));
+    toastElement.addEventListener(
+      "focusout",
+      (event2) => setEngagement(
+        toast,
+        toast.hovered,
+        toastElement.contains(event2.relatedTarget)
+      )
+    );
+    return toast;
+  }
+  function show(request) {
+    if (destroyed) return INERT_HANDLE;
+    const same = live.find(
+      (toast2) => toast2.request.status === request.status && toast2.request.text === request.text
+    );
+    if (same) {
+      same.request = request;
+      setAction(same, request.action);
+      same.remaining = toastLifetime(request);
+      runTimer(same);
+      raise();
+      announce(request);
+      changed();
+      return same.handle;
+    }
+    while (live.length >= MAX_TOASTS) {
+      const evictedId = toastToEvict(live.map(slotOf));
+      const evicted = live.find((toast2) => toast2.id === evictedId) ?? live[0];
+      if (!evicted) break;
+      close(evicted);
+    }
+    const toast = render(request);
+    live.push(toast);
+    element.append(toast.element);
+    raise();
+    runTimer(toast);
+    announce(request);
+    changed();
+    return toast.handle;
+  }
+  return {
+    element,
+    announcer,
+    show,
+    setBottom(bottom) {
+      element.style.bottom = `${bottom}px`;
+    },
+    widestCard() {
+      let widest;
+      for (const card of element.children) {
+        const width = card.getBoundingClientRect().width;
+        if (width > 0) widest = Math.max(widest ?? 0, width);
+      }
+      return widest;
+    },
+    destroy() {
+      if (destroyed) return;
+      destroyed = true;
+      for (const toast of live.splice(0)) stopTimer(toast);
+      for (const timer of leaveTimers) clearTimeout(timer);
+      leaveTimers.clear();
+      for (const timer of announceTimers.values()) clearTimeout(timer);
+      announceTimers.clear();
+      element.remove();
+      announcer.remove();
+    }
+  };
+}
+function createEmptyHint(ownerDocument, messages, options) {
+  const { onInsertExample } = options;
+  const action = onInsertExample ? createElement(
+    ownerDocument,
+    "button",
+    { type: "button", class: "cd-shell-hint-action" },
+    messages.insertExample
+  ) : void 0;
+  action?.addEventListener("click", () => onInsertExample?.());
+  const element = createElement(
+    ownerDocument,
+    "div",
+    { class: "cd-shell-hint" },
+    createElement(ownerDocument, "p", { class: "cd-shell-hint-text" }, messages.emptyHint),
+    action
+  );
+  element.hidden = true;
+  return {
+    element,
+    isShown: () => !element.hidden,
+    setShown(shown) {
+      element.hidden = !shown;
+    },
+    place({ top, right, bottom, left }) {
+      element.style.inset = `${top}px ${right}px ${bottom}px ${left}px`;
+    },
+    destroy() {
+      element.remove();
+    }
+  };
+}
+function createInspector(ownerDocument, options, onChange) {
+  const element = createElement(ownerDocument, "aside", {
+    class: "cd-shell-inspector",
+    "data-chrome": "inspector",
+    "aria-label": options.label
+  });
+  element.hidden = true;
+  function setOpen(open2) {
+    if (open2 === !element.hidden) return;
+    element.hidden = !open2;
+    onChange(open2);
+  }
+  return {
+    element,
+    isOpen: () => !element.hidden,
+    open: () => setOpen(true),
+    close: () => setOpen(false),
+    destroy() {
+      element.remove();
+    }
+  };
+}
+var Ledger = class {
+  undo = [];
+  originalAttributes = /* @__PURE__ */ new Map();
+  closed = false;
+  get isClosed() {
+    return this.closed;
+  }
+  /** Runs `task` on `close()`, in reverse order of registration. */
+  defer(task) {
+    this.undo.push(task);
+  }
+  /** Adds `className` unless present; `close()` removes it only if this ledger added it. */
+  addClass(element, className) {
+    if (element.classList.contains(className)) return;
+    const hadClassAttribute = element.hasAttribute("class");
+    element.classList.add(className);
+    this.defer(() => {
+      element.classList.remove(className);
+      if (!hadClassAttribute && element.classList.length === 0) element.removeAttribute("class");
+    });
+  }
+  /** Sets (string) or removes (`null`) an attribute; `close()` restores the value before the first change. */
+  attribute(element, name, value) {
+    let originals = this.originalAttributes.get(element);
+    if (!originals) {
+      originals = /* @__PURE__ */ new Map();
+      this.originalAttributes.set(element, originals);
+    }
+    if (!originals.has(name)) {
+      originals.set(name, element.getAttribute(name));
+      this.defer(() => {
+        const original = originals.get(name) ?? null;
+        if (original === null) element.removeAttribute(name);
+        else element.setAttribute(name, original);
+      });
+    }
+    if (value === null) element.removeAttribute(name);
+    else element.setAttribute(name, value);
+  }
+  listen(target, type, listener, options) {
+    const handler = listener;
+    target.addEventListener(type, handler, options);
+    this.defer(() => target.removeEventListener(type, handler, options));
+  }
+  /** Runs every undo task once; later calls are no-ops. */
+  close() {
+    if (this.closed) return;
+    this.closed = true;
+    for (const task of this.undo.reverse()) {
+      try {
+        task();
+      } catch {
+      }
+    }
+    this.undo.length = 0;
+    this.originalAttributes.clear();
+  }
+};
+function createLegend(context) {
+  const { ownerDocument, messages, tooltip, titleId, options } = context;
+  const close = createElement(ownerDocument, "button", {
+    type: "button",
+    class: "cd-shell-legend-close",
+    "aria-label": messages.closeLegend
+  });
+  close.append(iconElement("x"));
+  const body = createElement(ownerDocument, "div", { class: "cd-shell-legend-body" });
+  const element = createElement(
+    ownerDocument,
+    "section",
+    {
+      class: "cd-shell-legend cd-shell-island",
+      "data-chrome": "legend",
+      "aria-labelledby": titleId
+    },
+    createElement(
+      ownerDocument,
+      "div",
+      { class: "cd-shell-legend-header" },
+      createElement(
+        ownerDocument,
+        "div",
+        { class: "cd-shell-legend-title", id: titleId },
+        messages.legend
+      ),
+      close
+    ),
+    body
+  );
+  element.hidden = true;
+  options.render(body);
+  let open2 = false;
+  let started = false;
+  const detachTooltip = tooltip.attach(close, { label: messages.closeLegend });
+  function apply(next, byPointer = false) {
+    started = true;
+    if (next === open2) return false;
+    open2 = next;
+    element.hidden = !open2;
+    if (!open2 && (byPointer || element.contains(ownerDocument.activeElement))) {
+      context.focusAfterClose();
+    }
+    context.onChange(open2);
+    return true;
+  }
+  function setOpen(next, byPointer = false) {
+    if (apply(next, byPointer)) options.onToggle?.(next);
+  }
+  close.addEventListener("click", (event2) => setOpen(false, isPointerClick(event2)));
+  return {
+    element,
+    body,
+    isOpen: () => open2,
+    setOpen,
+    toggle: () => setOpen(!open2),
+    start(initial) {
+      if (!started) apply(initial);
+    },
+    destroy() {
+      detachTooltip();
+      element.remove();
+    }
+  };
+}
+var GROUP_ORDER = ["file", "model", "export", "appearance", "help"];
+function isModelerGroup(name) {
+  return name === "model" || name === "export" || name === "help";
+}
+var CANVAS_GROUPS = /* @__PURE__ */ new Set(["file", "model"]);
+function isPrintable2(event2) {
+  return event2.key.length === 1 && /\S/.test(event2.key) && !event2.ctrlKey && !event2.metaKey && !event2.altKey;
+}
+function createMenu(context) {
+  const { root, layer, id, messages, tooltip } = context;
+  const ownerDocument = root.ownerDocument;
+  let groups = context.groups;
+  let items = [];
+  let destroyed = false;
+  const trigger = createElement(ownerDocument, "button", {
+    type: "button",
+    class: "cd-shell-menu-trigger cd-shell-island",
+    "data-chrome": "menu",
+    "aria-label": messages.menu,
+    "aria-haspopup": "menu",
+    "aria-expanded": "false",
+    "aria-controls": id
+  });
+  trigger.append(iconElement("menu"));
+  const dropdown = createElement(ownerDocument, "div", {
+    class: "cd-shell-menu",
+    id,
+    role: "menu",
+    "aria-label": messages.menu
+  });
+  dropdown.hidden = true;
+  layer.prepend(dropdown);
+  const isOpen = () => !dropdown.hidden;
+  function entriesOf(name) {
+    const own2 = isModelerGroup(name) ? groups[name] ?? [] : [];
+    const added = context.shellEntries(name);
+    return added.length > 0 ? [...own2, ...added] : own2;
+  }
+  function hasEntries() {
+    return GROUP_ORDER.some((name) => entriesOf(name).length > 0);
+  }
+  function updateTriggerVisibility() {
+    trigger.hidden = !hasEntries();
+    if (trigger.hidden) close();
+  }
+  function isDisabled(entry, group) {
+    if (group === "model" && context.isReadOnly() && entry.keepEnabledWhenReadOnly !== true)
+      return true;
+    return entry.disabled?.() ?? false;
+  }
+  function itemElement(role, label, options) {
+    const iconSlot = createElement(ownerDocument, "span", { class: "cd-shell-menu-item-icon" });
+    if (options.icon) iconSlot.append(iconElement(options.icon));
+    const element = createElement(
+      ownerDocument,
+      "button",
+      { type: "button", class: "cd-shell-menu-item", role, tabindex: "-1" },
+      iconSlot,
+      createElement(ownerDocument, "span", { class: "cd-shell-menu-item-label" }, label),
+      options.end && createElement(ownerDocument, "span", { class: "cd-shell-menu-item-end" }, options.end)
+    );
+    toggleAttribute(element, "aria-disabled", options.disabled && "true");
+    if (options.checked !== void 0)
+      element.setAttribute("aria-checked", String(options.checked));
+    return element;
+  }
+  function checkMark() {
+    return iconElement("check", { className: "cd-shell-menu-check" });
+  }
+  function renderEntry(entry, group, chipId) {
+    const disabled = isDisabled(entry, group);
+    if (entry.kind === "checkbox") {
+      const checked = entry.checked();
+      const element2 = itemElement("menuitemcheckbox", entry.label, {
+        icon: entry.icon,
+        end: checkMark(),
+        disabled,
+        checked
+      });
+      element2.dataset.menuId = entry.id;
+      element2.dataset.menuGroup = group;
+      return {
+        key: entry.id,
+        element: element2,
+        label: entry.label,
+        disabled,
+        activate() {
+          entry.onToggle(!entry.checked());
+          refresh();
+        }
+      };
+    }
+    const keyShortcuts = entry.ariaKeyShortcuts ?? (entry.shortcut ? ariaKeyShortcutsFromLabel(entry.shortcut) : void 0);
+    const chipDescribes = Boolean(entry.shortcut) && !keyShortcuts;
+    const shortcut = entry.shortcut ? createElement(
+      ownerDocument,
+      "span",
+      {
+        class: "cd-shell-menu-shortcut",
+        "aria-hidden": "true",
+        id: chipDescribes ? chipId : void 0
+      },
+      entry.shortcut
+    ) : void 0;
+    const element = itemElement("menuitem", entry.label, {
+      icon: entry.icon,
+      end: shortcut,
+      disabled
+    });
+    element.dataset.menuId = entry.id;
+    element.dataset.menuGroup = group;
+    toggleAttribute(element, "aria-keyshortcuts", keyShortcuts || null);
+    toggleAttribute(element, "aria-describedby", chipDescribes && chipId);
+    if (entry.kind === "dialog") element.setAttribute("aria-haspopup", "dialog");
+    if (entry.kind === "action" && entry.danger) element.dataset.danger = "";
+    const actsOnCanvas = entry.kind === "action" && CANVAS_GROUPS.has(group);
+    return {
+      key: entry.id,
+      element,
+      label: entry.label,
+      disabled,
+      activate(event2) {
+        close();
+        if (!(actsOnCanvas && isPointerClick(event2) && context.focusCanvas())) focusTrigger();
+        entry.onSelect();
+      }
+    };
+  }
+  function renderRadioGroup(entry, group) {
+    const disabled = isDisabled(entry, group);
+    const value = entry.value();
+    const container = createElement(
+      ownerDocument,
+      "div",
+      {
+        class: "cd-shell-menu-group",
+        role: "group",
+        "aria-label": entry.label,
+        "data-menu-id": entry.id,
+        "data-menu-group": group
+      },
+      // The group's aria-label carries the heading; a menu holds no loose text.
+      createElement(
+        ownerDocument,
+        "div",
+        { class: "cd-shell-menu-heading", "aria-hidden": "true" },
+        entry.label
+      )
+    );
+    const radioItems = entry.options.map((option) => {
+      const element = itemElement("menuitemradio", option.label, {
+        end: checkMark(),
+        disabled,
+        checked: option.value === value
+      });
+      element.dataset.menuValue = option.value;
+      container.append(element);
+      return {
+        key: `${entry.id}\0${option.value}`,
+        element,
+        label: option.label,
+        disabled,
+        activate() {
+          if (entry.value() !== option.value) entry.onSelect(option.value);
+          refresh();
+        }
+      };
+    });
+    return { element: container, items: radioItems };
+  }
+  function render() {
+    const focusedKey = items.find((item) => item.element === ownerDocument.activeElement)?.key;
+    const nodes = [];
+    const rendered = [];
+    for (const name of GROUP_ORDER) {
+      const entries = entriesOf(name);
+      if (entries.length === 0) continue;
+      if (nodes.length > 0) {
+        nodes.push(
+          createElement(ownerDocument, "div", {
+            class: "cd-shell-menu-separator",
+            role: "separator"
+          })
+        );
+      }
+      for (const entry of entries) {
+        if (entry.kind === "radio") {
+          const radio = renderRadioGroup(entry, name);
+          nodes.push(radio.element);
+          rendered.push(...radio.items);
+        } else {
+          const item = renderEntry(entry, name, `${id}-shortcut-${rendered.length}`);
+          nodes.push(item.element);
+          rendered.push(item);
+        }
+      }
+    }
+    for (const item of rendered) {
+      item.element.addEventListener("click", (event2) => {
+        if (!item.disabled) item.activate(event2);
+      });
+    }
+    dropdown.replaceChildren(...nodes);
+    items = rendered;
+    if (focusedKey !== void 0 && isOpen()) {
+      (items.find((item) => item.key === focusedKey) ?? items[0])?.element.focus();
+    }
+  }
+  function focusAt(index2) {
+    if (items.length === 0) return;
+    items[(index2 + items.length) % items.length]?.element.focus();
+  }
+  function currentIndex() {
+    return items.findIndex((item) => item.element === ownerDocument.activeElement);
+  }
+  function typeAhead(character) {
+    const start = currentIndex();
+    const lower = character.toLowerCase();
+    for (let step = 1; step <= items.length; step++) {
+      const index2 = (Math.max(start, -1) + step) % items.length;
+      if (items[index2]?.label.toLowerCase().startsWith(lower)) {
+        focusAt(index2);
+        return;
+      }
+    }
+  }
+  const onOutsidePointerDown = (event2) => {
+    const target = event2.target;
+    if (target && (dropdown.contains(target) || trigger.contains(target))) return;
+    close();
+  };
+  const onWindowBlur = () => close();
+  function open2(focus = "first") {
+    if (destroyed || !hasEntries()) return;
+    tooltip.hide();
+    const wasOpen = isOpen();
+    render();
+    if (!wasOpen) {
+      dropdown.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+      ownerDocument.addEventListener("pointerdown", onOutsidePointerDown, true);
+      ownerDocument.defaultView?.addEventListener("blur", onWindowBlur);
+    }
+    focusAt(focus === "last" ? items.length - 1 : 0);
+  }
+  function close(options = {}) {
+    if (!isOpen()) return;
+    dropdown.hidden = true;
+    trigger.setAttribute("aria-expanded", "false");
+    ownerDocument.removeEventListener("pointerdown", onOutsidePointerDown, true);
+    ownerDocument.defaultView?.removeEventListener("blur", onWindowBlur);
+    if (options.restoreFocus) focusTrigger();
+  }
+  function focusTrigger() {
+    if (!trigger.hidden) trigger.focus();
+  }
+  function refresh() {
+    if (isOpen()) render();
+  }
+  trigger.addEventListener("click", () => {
+    if (isOpen()) close();
+    else open2("first");
+  });
+  function consume(event2) {
+    event2.preventDefault();
+    event2.stopPropagation();
+  }
+  trigger.addEventListener("keydown", (event2) => {
+    if (event2.key === "Enter" || event2.key === " " || event2.key === "ArrowDown") {
+      consume(event2);
+      open2("first");
+    } else if (event2.key === "ArrowUp") {
+      consume(event2);
+      open2("last");
+    }
+  });
+  dropdown.addEventListener("keydown", (event2) => {
+    if (matchChromeKey(event2)) return;
+    switch (event2.key) {
+      case "ArrowDown":
+        focusAt(currentIndex() + 1);
+        break;
+      case "ArrowUp": {
+        const index2 = currentIndex();
+        focusAt(index2 < 0 ? items.length - 1 : index2 - 1);
+        break;
+      }
+      case "Home":
+        focusAt(0);
+        break;
+      case "End":
+        focusAt(items.length - 1);
+        break;
+      case "Tab":
+        close({ restoreFocus: true });
+        return;
+      case "Escape":
+        return;
+      case "Enter":
+      case " ":
+      case "Delete":
+      case "Backspace":
+        event2.stopPropagation();
+        return;
+      default:
+        if (!isPrintable2(event2)) return;
+        typeAhead(event2.key);
+    }
+    consume(event2);
+  });
+  updateTriggerVisibility();
+  return {
+    trigger,
+    dropdown,
+    isOpen,
+    open: open2,
+    close,
+    refresh,
+    setGroups(next) {
+      groups = next;
+      updateTriggerVisibility();
+      refresh();
+    },
+    destroy() {
+      if (destroyed) return;
+      close();
+      destroyed = true;
+      trigger.remove();
+      dropdown.remove();
+    }
+  };
+}
+function createProblemsPill(context) {
+  const { ownerDocument, messages, lang, tooltip } = context;
+  const icon = createElement(ownerDocument, "span", { class: "cd-shell-problems-icon" });
+  const text = createElement(ownerDocument, "span", { class: "cd-shell-problems-text" });
+  const element = createElement(
+    ownerDocument,
+    "button",
+    { type: "button", class: "cd-shell-problems cd-shell-island", "data-chrome": "problems" },
+    icon,
+    text
+  );
+  element.hidden = true;
+  element.addEventListener("click", () => context.onActivate());
+  const detachTooltip = context.showTooltip ? tooltip.attach(element, { label: messages.showProblems }) : void 0;
+  let severity;
+  return {
+    element,
+    isShown: () => !element.hidden,
+    set({ count, errors }) {
+      const shown = count > 0;
+      element.hidden = !shown;
+      if (!shown) {
+        tooltip.hide();
+        return;
+      }
+      const formattedCount = formatNumber(count, lang);
+      text.textContent = messages.problems(count, formattedCount);
+      element.setAttribute(
+        "aria-label",
+        messages.problemsLabel(count, errors, formattedCount, formatNumber(errors, lang))
+      );
+      const next = errors > 0 ? "danger" : "warning";
+      if (next !== severity) {
+        severity = next;
+        element.dataset.severity = next;
+        icon.replaceChildren(iconElement(next === "danger" ? "circle-x" : "triangle-alert"));
+      }
+    },
+    destroy() {
+      detachTooltip?.();
+      element.remove();
+    }
+  };
+}
+function createStatusBox(ownerDocument) {
+  const icon = createElement(ownerDocument, "span", { class: "cd-shell-status-icon" });
+  const text = createElement(ownerDocument, "p", { class: "cd-shell-status-text" });
+  const element = createElement(
+    ownerDocument,
+    "div",
+    { class: "cd-shell-status", "data-chrome": "status" },
+    icon,
+    text
+  );
+  element.hidden = true;
+  let pending;
+  function cancelPending() {
+    if (pending) clearTimeout(pending.timer);
+    pending = void 0;
+  }
+  function show(status) {
+    pending = void 0;
+    if (element.dataset.severity !== status.severity) {
+      element.dataset.severity = status.severity;
+      element.setAttribute("role", status.severity === "danger" ? "alert" : "status");
+      icon.replaceChildren(
+        iconElement(status.severity === "danger" ? "circle-x" : "triangle-alert")
+      );
+    }
+    if (text.textContent !== status.text) text.textContent = status.text;
+    element.hidden = false;
+  }
+  return {
+    element,
+    set(status, delayMs) {
+      if (status === null) {
+        cancelPending();
+        element.hidden = true;
+        return;
+      }
+      if (!element.hidden) {
+        show(status);
+        return;
+      }
+      if (pending) {
+        pending.status = status;
+        return;
+      }
+      if (delayMs > 0) {
+        const entry = { status, timer: setTimeout(() => show(entry.status), delayMs) };
+        pending = entry;
+      } else {
+        show(status);
+      }
+    },
+    destroy() {
+      cancelPending();
+      element.remove();
+    }
+  };
+}
+function createTooltip({ root, layer, id }) {
+  const ownerDocument = root.ownerDocument;
+  const label = createElement(ownerDocument, "span", { class: "cd-shell-tooltip-label" });
+  const shortcut = createElement(ownerDocument, "kbd", { class: "cd-shell-kbd" });
+  const element = createElement(ownerDocument, "div", {
+    class: "cd-shell-tooltip",
+    role: "tooltip",
+    id
+  });
+  element.hidden = true;
+  element.append(label, shortcut);
+  layer.append(element);
+  let shown;
+  let pending;
+  let warmUntil = 0;
+  let pressed;
+  const detachers = /* @__PURE__ */ new Set();
+  const resizeObserver = typeof ResizeObserver === "function" ? new ResizeObserver(() => {
+    if (shown) place(shown.control);
+  }) : void 0;
+  resizeObserver?.observe(element);
+  function cancelPending() {
+    if (pending) clearTimeout(pending.timer);
+    pending = void 0;
+  }
+  function resolve(source) {
+    return typeof source === "function" ? source() : source;
+  }
+  function place(control) {
+    const island = control.closest("[data-chrome]") ?? control;
+    const point = placeTooltip({
+      anchor: boxRelativeTo(control, root),
+      island: boxRelativeTo(island, root),
+      tooltip: { width: element.offsetWidth, height: element.offsetHeight },
+      container: { width: root.clientWidth, height: root.clientHeight }
+    });
+    element.style.left = `${point.x}px`;
+    element.style.top = `${point.y}px`;
+  }
+  function hide2() {
+    cancelPending();
+    if (!shown) return;
+    const { control, describedBy } = shown;
+    shown = void 0;
+    element.hidden = true;
+    if (describedBy === null) control.removeAttribute("aria-describedby");
+    else control.setAttribute("aria-describedby", describedBy);
+  }
+  function show(control, source) {
+    cancelPending();
+    const content = resolve(source);
+    if (!content || !control.isConnected) {
+      if (shown?.control === control) hide2();
+      return;
+    }
+    if (shown && shown.control !== control) hide2();
+    label.textContent = content.label;
+    shortcut.textContent = content.shortcut ?? "";
+    shortcut.hidden = !content.shortcut;
+    element.hidden = false;
+    if (!shown) {
+      const describedBy = control.getAttribute("aria-describedby");
+      shown = { control, describedBy };
+      const saysMore = !accessibleName(control).includes(content.label) || Boolean(content.shortcut) && !control.hasAttribute("aria-keyshortcuts");
+      if (saysMore) {
+        control.setAttribute("aria-describedby", [describedBy, id].filter(Boolean).join(" "));
+      }
+    }
+    place(control);
+  }
+  function onEnter(control, source, event2) {
+    if (event2.pointerType === "touch" || pressed === control) return;
+    if (shown || Date.now() < warmUntil) {
+      show(control, source);
+      return;
+    }
+    cancelPending();
+    pending = { control, timer: setTimeout(() => show(control, source), TOOLTIP_DELAY_MS) };
+  }
+  function onLeave(control) {
+    if (pressed === control) pressed = void 0;
+    if (pending?.control === control) cancelPending();
+    if (shown?.control === control) {
+      hide2();
+      warmUntil = Date.now() + TOOLTIP_DELAY_MS;
+    }
+  }
+  function onFocus(control, source) {
+    if (hasVisibleFocus(control)) show(control, source);
+  }
+  function onBlur(control) {
+    if (pending?.control === control) cancelPending();
+    if (shown?.control === control) hide2();
+  }
+  function onPress(control, event2) {
+    if (event2.type === "pointerdown") pressed = control;
+    if (pending?.control === control) cancelPending();
+    if (shown?.control === control) hide2();
+  }
+  function attach(control, source) {
+    const enter = (event2) => onEnter(control, source, event2);
+    const leave = () => onLeave(control);
+    const focus = () => onFocus(control, source);
+    const blur = () => onBlur(control);
+    const press = (event2) => onPress(control, event2);
+    control.addEventListener("pointerenter", enter);
+    control.addEventListener("pointerleave", leave);
+    control.addEventListener("focus", focus);
+    control.addEventListener("blur", blur);
+    control.addEventListener("pointerdown", press);
+    control.addEventListener("click", press);
+    const detach = () => {
+      if (!detachers.delete(detach)) return;
+      control.removeEventListener("pointerenter", enter);
+      control.removeEventListener("pointerleave", leave);
+      control.removeEventListener("focus", focus);
+      control.removeEventListener("blur", blur);
+      control.removeEventListener("pointerdown", press);
+      control.removeEventListener("click", press);
+      if (shown?.control === control || pending?.control === control) hide2();
+      if (pressed === control) pressed = void 0;
+    };
+    detachers.add(detach);
+    return detach;
+  }
+  function delegate2(container, selector, content) {
+    let hovered;
+    const controlOf = (target) => {
+      if (!target || typeof target.closest !== "function") return void 0;
+      const match = target.closest(selector);
+      return match && container.contains(match) ? match : void 0;
+    };
+    const sourceOf = (control) => () => content(control);
+    const over = (event2) => {
+      const control = controlOf(event2.target);
+      if (control === hovered) return;
+      if (hovered) onLeave(hovered);
+      hovered = control;
+      if (control) onEnter(control, sourceOf(control), event2);
+    };
+    const out = (event2) => {
+      if (!hovered) return;
+      if (controlOf(event2.relatedTarget) === hovered) return;
+      onLeave(hovered);
+      hovered = void 0;
+    };
+    const focusIn = (event2) => {
+      const control = controlOf(event2.target);
+      if (control) onFocus(control, sourceOf(control));
+    };
+    const focusOut = (event2) => {
+      const control = controlOf(event2.target);
+      if (control) onBlur(control);
+    };
+    const press = (event2) => {
+      const control = controlOf(event2.target);
+      if (control) onPress(control, event2);
+    };
+    container.addEventListener("pointerover", over);
+    container.addEventListener("pointerout", out);
+    container.addEventListener("focusin", focusIn);
+    container.addEventListener("focusout", focusOut);
+    container.addEventListener("pointerdown", press);
+    container.addEventListener("click", press);
+    const detach = () => {
+      if (!detachers.delete(detach)) return;
+      container.removeEventListener("pointerover", over);
+      container.removeEventListener("pointerout", out);
+      container.removeEventListener("focusin", focusIn);
+      container.removeEventListener("focusout", focusOut);
+      container.removeEventListener("pointerdown", press);
+      container.removeEventListener("click", press);
+      if (shown && container.contains(shown.control) || pending && container.contains(pending.control)) {
+        hide2();
+      }
+      hovered = void 0;
+    };
+    detachers.add(detach);
+    return detach;
+  }
+  return {
+    element,
+    attach,
+    delegate: delegate2,
+    hide: hide2,
+    destroy() {
+      hide2();
+      for (const detach of [...detachers]) detach();
+      resizeObserver?.disconnect();
+      element.remove();
+    }
+  };
+}
+var DRAG_EVENTS = ["dragenter", "dragover", "dragleave", "drop"];
+function carriesFiles(transfer) {
+  if (!transfer) return false;
+  if (Array.from(transfer.types ?? []).includes("Files")) return true;
+  return Array.from(transfer.items ?? []).some((item) => item.kind === "file");
+}
+function dragItems(transfer) {
+  const items = Array.from(transfer.items ?? [], (item) => ({ kind: item.kind, type: item.type }));
+  return items.length > 0 ? items : [{ kind: "file", type: "" }];
+}
+function acceptList(accept, lang) {
+  const entries = accept.map((entry) => entry.trim()).filter((entry) => entry !== "");
+  const extensions = entries.filter((entry) => entry.startsWith("."));
+  const listed = extensions.length > 0 ? extensions : entries;
+  let format;
+  try {
+    format = new Intl.ListFormat(lang, { type: "disjunction" });
+  } catch {
+    format = new Intl.ListFormat("en", { type: "disjunction" });
+  }
+  return format.format(listed);
+}
+function createDropZone(context) {
+  const { ownerDocument, layer, messages, lang, options, modalOpen, toast, setState } = context;
+  const chip = createElement(ownerDocument, "span", { class: "cd-shell-drop-zone-chip" });
+  const element = createElement(
+    ownerDocument,
+    "div",
+    { class: "cd-shell-drop-zone", "data-chrome": "drop-zone", "aria-hidden": "true" },
+    chip
+  );
+  element.hidden = true;
+  layer.append(element);
+  const view = ownerDocument.defaultView;
+  let depth = 0;
+  let current = null;
+  function verdictFor(items) {
+    return dragVerdict(items, {
+      accept: options.accept,
+      multiple: options.multiple ?? false,
+      dialogOpen: modalOpen()
+    });
+  }
+  function show(verdict) {
+    const next = verdict.state === "none" ? null : verdict.state;
+    if (verdict.state === "over") chip.textContent = messages.dropFile;
+    if (verdict.state === "forbidden") chip.textContent = messages.dropForbidden(verdict.reason);
+    if (next === current) return;
+    current = next;
+    element.hidden = next === null;
+    if (next === null) element.removeAttribute("data-state");
+    else element.setAttribute("data-state", next);
+    setState(next);
+  }
+  function track(transfer) {
+    const verdict = verdictFor(dragItems(transfer));
+    show(verdict);
+    transfer.dropEffect = verdict.state === "forbidden" ? "none" : "copy";
+  }
+  function rejectByDefault(files) {
+    const accepted = acceptList(options.accept, lang);
+    for (const file2 of files)
+      toast({ status: "danger", text: messages.cannotOpenFile(file2.name, accepted) });
+  }
+  function receive(files, verdict) {
+    if (verdict.state === "forbidden" && verdict.reason !== "type") return;
+    const accepted = files.filter((file2) => acceptsFile(file2, options.accept));
+    const rejected = files.filter((file2) => !accepted.includes(file2));
+    if (accepted.length > 0) options.onDrop(accepted);
+    if (rejected.length > 0) (options.onReject ?? rejectByDefault)(rejected);
+  }
+  const onDragEvent = (event2) => {
+    const transfer = event2.dataTransfer;
+    if (!carriesFiles(transfer)) return;
+    event2.preventDefault();
+    switch (event2.type) {
+      case "dragenter":
+        depth += 1;
+        track(transfer);
+        break;
+      case "dragover":
+        depth = Math.max(depth, 1);
+        track(transfer);
+        break;
+      case "dragleave":
+        depth = Math.max(0, depth - 1);
+        if (depth === 0) show({ state: "none" });
+        break;
+      case "drop": {
+        depth = 0;
+        show({ state: "none" });
+        const files = Array.from(transfer.files ?? []);
+        const items = files.length > 0 ? files.map((file2) => ({ kind: "file", type: file2.type })) : dragItems(transfer);
+        receive(files, verdictFor(items));
+        break;
+      }
+    }
+  };
+  for (const type of DRAG_EVENTS) view?.addEventListener(type, onDragEvent);
+  return {
+    element,
+    state: () => current,
+    destroy() {
+      for (const type of DRAG_EVENTS) view?.removeEventListener(type, onDragEvent);
+      depth = 0;
+      if (current !== null) {
+        current = null;
+        setState(null);
+      }
+      element.remove();
+    }
+  };
+}
+var KOMET_SIZE = "64";
+function createEmptyState(context) {
+  const { ownerDocument, messages, options, dropHint, open: open2, titleId, onLeave } = context;
+  const button = (variant, label, run) => {
+    const element2 = createElement(
+      ownerDocument,
+      "button",
+      { type: "button", class: "cd-shell-button", "data-variant": variant },
+      label
+    );
+    element2.addEventListener("click", () => {
+      onLeave();
+      run();
+    });
+    return element2;
+  };
+  const onShowExample = options.onShowExample;
+  const newDiagram = button("primary", messages.newDiagram, () => options.onNewDiagram());
+  const element = createElement(
+    ownerDocument,
+    "section",
+    { class: "cd-shell-empty-state", "data-chrome": "empty-state", "aria-labelledby": titleId },
+    // Dragging the mark would start an image drag that some browsers carry as a file.
+    createElement(ownerDocument, "img", {
+      class: "cd-shell-empty-state-mark",
+      src: options.komet,
+      width: KOMET_SIZE,
+      height: KOMET_SIZE,
+      alt: "",
+      draggable: "false"
+    }),
+    createElement(
+      ownerDocument,
+      "h1",
+      { class: "cd-shell-empty-state-title", id: titleId },
+      options.title
+    ),
+    createElement(ownerDocument, "p", { class: "cd-shell-empty-state-text" }, options.text),
+    createElement(
+      ownerDocument,
+      "div",
+      { class: "cd-shell-empty-state-actions" },
+      newDiagram,
+      onShowExample && button("ghost", messages.showExample, () => onShowExample())
+    ),
+    hintParagraph()
+  );
+  function hintParagraph() {
+    const hasDropHint = dropHint !== void 0 && dropHint !== "";
+    if (!hasDropHint && !open2) return void 0;
+    const paragraph = createElement(ownerDocument, "p", { class: "cd-shell-empty-state-hint" });
+    if (hasDropHint) paragraph.append(dropHint);
+    if (!open2) return paragraph;
+    const shortcut = open2.shortcut?.trim();
+    const link = createElement(
+      ownerDocument,
+      "button",
+      {
+        type: "button",
+        class: "cd-shell-empty-state-open",
+        "aria-keyshortcuts": shortcut ? ariaKeyShortcutsFromLabel(shortcut) : void 0,
+        "aria-haspopup": open2.dialog ? "dialog" : void 0
+      },
+      messages.openFileLink
+    );
+    link.addEventListener("click", () => open2.onSelect());
+    if (hasDropHint) {
+      paragraph.append(
+        " ",
+        createElement(ownerDocument, "span", { "aria-hidden": "true" }, "\xB7"),
+        " "
+      );
+    }
+    const openItem = createElement(
+      ownerDocument,
+      "span",
+      { class: "cd-shell-empty-state-open-item" },
+      link
+    );
+    if (shortcut) {
+      openItem.append(
+        " ",
+        createElement(
+          ownerDocument,
+          "kbd",
+          { class: "cd-shell-empty-state-key", "aria-hidden": "true" },
+          shortcut
+        )
+      );
+    }
+    paragraph.append(openItem);
+    return paragraph;
+  }
+  element.hidden = true;
+  return {
+    element,
+    isShown: () => !element.hidden,
+    setShown(shown) {
+      element.hidden = !shown;
+    },
+    focus() {
+      newDiagram.focus({ preventScroll: true });
+    },
+    destroy() {
+      element.remove();
+    }
+  };
+}
+var MIRAGON_HOME = "https://www.miragon.io/";
+var MIRAGON_IMPRESSUM = "https://www.miragon.io/impressum/";
+var MIRAGON_DATENSCHUTZ = "https://www.miragon.io/datenschutz/";
+function createLegalLine(context) {
+  const { ownerDocument, messages, options } = context;
+  const year = options.year ?? (/* @__PURE__ */ new Date()).getFullYear();
+  const newTabId = `${context.idPrefix}-new-tab`;
+  const link = (label, href, lang) => createElement(
+    ownerDocument,
+    "a",
+    { href, lang, target: "_blank", rel: "noopener noreferrer", "aria-describedby": newTabId },
+    label
+  );
+  const separator = () => createElement(ownerDocument, "span", { "aria-hidden": "true" }, "\xB7");
+  const item = (anchor2) => createElement(ownerDocument, "span", { class: "cd-shell-legal-item" }, separator(), anchor2);
+  const links = [
+    link(messages.copyright(year), MIRAGON_HOME),
+    link("Impressum", MIRAGON_IMPRESSUM, "de"),
+    link("Datenschutz", MIRAGON_DATENSCHUTZ, "de"),
+    ...(options.links ?? []).map((extra) => link(extra.label, extra.href, extra.lang))
+  ];
+  const element = createElement(ownerDocument, "nav", {
+    class: "cd-shell-legal",
+    "data-chrome": "legal",
+    "aria-label": messages.legal
+  });
+  element.append(
+    ...links.map((anchor2, index2) => index2 === 0 ? anchor2 : item(anchor2)),
+    createElement(ownerDocument, "span", { id: newTabId, hidden: "" }, messages.opensInNewTab)
+  );
+  return {
+    element,
+    destroy() {
+      element.remove();
+    }
+  };
+}
+function fileEntry(spec, action) {
+  const common = {
+    id: spec.id,
+    label: spec.label,
+    ...spec.icon ? { icon: spec.icon } : {},
+    ...action.disabled ? { disabled: action.disabled } : {},
+    ...action.shortcut ? { shortcut: action.shortcut } : {},
+    onSelect: () => action.onSelect()
+  };
+  return action.dialog ? { kind: "dialog", ...common } : { kind: "action", ...common };
+}
+function fileMenuEntries(options, messages) {
+  const specs = [
+    { option: "newDiagram", id: "new-diagram", label: messages.newDiagram, icon: "file-plus" },
+    { option: "open", id: "open", label: messages.openFile, icon: "folder-open" },
+    // §5.14 gives "Show example" no icon.
+    { option: "showExample", id: "show-example", label: messages.showExample, icon: void 0 },
+    { option: "import", id: "import", label: messages.importFile, icon: "import" }
+  ];
+  return specs.flatMap((spec) => {
+    const action = options[spec.option];
+    return action ? [fileEntry(spec, action)] : [];
+  });
+}
+function appearanceMenuEntries(appearance, messages) {
+  return [
+    {
+      kind: "radio",
+      id: "appearance",
+      label: messages.appearance,
+      options: [
+        { value: "system", label: messages.appearanceSystem },
+        { value: "light", label: messages.appearanceLight },
+        { value: "dark", label: messages.appearanceDark }
+      ],
+      value: () => appearance.choice(),
+      onSelect: (value) => appearance.setChoice(parseAppearanceChoice(value))
+    }
+  ];
+}
+var COLLAPSED_ATTRIBUTE = "data-collapsed";
+function createPrimaryAction(context) {
+  const { ownerDocument, messages, tooltip, options, focusCanvas } = context;
+  const label = options.label ?? messages.share;
+  const labelElement = createElement(
+    ownerDocument,
+    "span",
+    { class: "cd-shell-primary-label" },
+    label
+  );
+  const element = createElement(
+    ownerDocument,
+    "button",
+    {
+      type: "button",
+      class: "cd-shell-primary cd-shell-button",
+      "data-variant": "primary",
+      "data-chrome": "primary",
+      "aria-label": label
+    },
+    iconElement(options.icon ?? "share-2"),
+    labelElement
+  );
+  let collapsed = false;
+  let disabled = false;
+  let labelledWidth;
+  function readDisabled() {
+    disabled = options.disabled?.() ?? false;
+    toggleAttribute(element, "aria-disabled", disabled ? "true" : null);
+  }
+  function showCollapsed(state) {
+    labelElement.hidden = state;
+    toggleAttribute(element, COLLAPSED_ATTRIBUTE, state ? "" : null);
+  }
+  function measureLabelledWidth() {
+    if (!collapsed) return element.offsetWidth;
+    showCollapsed(false);
+    const width = element.offsetWidth;
+    showCollapsed(true);
+    return width;
+  }
+  function isEngaged() {
+    if (ownerDocument.activeElement === element) return true;
+    try {
+      return element.matches(":hover");
+    } catch {
+      return false;
+    }
+  }
+  const onClick = (event2) => {
+    if (isPointerClick(event2)) focusCanvas();
+    if (disabled) {
+      event2.preventDefault();
+      return;
+    }
+    options.onSelect();
+  };
+  element.addEventListener("click", onClick);
+  const detachTooltip = tooltip.attach(element, () => collapsed ? { label } : null);
+  readDisabled();
+  return {
+    element,
+    isCollapsed: () => collapsed,
+    refresh() {
+      readDisabled();
+      labelledWidth = void 0;
+    },
+    widths() {
+      if (!collapsed || labelledWidth === void 0) {
+        const measured = measureLabelledWidth();
+        if (measured > 0) labelledWidth = measured;
+      }
+      return { withLabel: labelledWidth ?? 0, iconOnly: SHELL.row };
+    },
+    setCollapsed(next) {
+      if (next === collapsed) return;
+      collapsed = next;
+      showCollapsed(next);
+      if (!next && isEngaged()) tooltip.hide();
+    },
+    destroy() {
+      detachTooltip();
+      element.removeEventListener("click", onClick);
+      element.remove();
+    }
+  };
+}
+function createZoomPanel(context) {
+  const { ownerDocument, messages, lang, platform, tooltip, focusCanvas } = context;
+  let target = null;
+  let unsubscribe;
+  let frame;
+  const detachers = [];
+  function button(zoom2, key, tooltipLabel, options) {
+    const element2 = createElement(ownerDocument, "button", {
+      type: "button",
+      class: options.className ?? "cd-shell-target",
+      "data-zoom": zoom2,
+      "aria-label": options.label,
+      "aria-keyshortcuts": ariaKeyShortcuts(key, platform)
+    });
+    if (options.icon) element2.append(iconElement(options.icon));
+    element2.addEventListener("click", (event2) => {
+      run(key);
+      if (isPointerClick(event2)) focusCanvas();
+    });
+    detachers.push(
+      tooltip.attach(element2, {
+        label: tooltipLabel,
+        shortcut: shortcutLabel(key, platform, messages.keyNames)
+      })
+    );
+    return element2;
+  }
+  const zoomOut = button("out", "zoomOut", messages.zoomOut, {
+    label: messages.zoomOut,
+    icon: "minus"
+  });
+  const readout = button("actual", "zoomToActual", messages.zoomToActual(formatPercent(1, lang)), {
+    className: "cd-shell-target cd-shell-zoom-readout"
+  });
+  const zoomIn = button("in", "zoomIn", messages.zoomIn, { label: messages.zoomIn, icon: "plus" });
+  const fit = button("fit", "fit", messages.fit, { label: messages.fit, icon: "maximize" });
+  const separator = createElement(ownerDocument, "span", {
+    class: "cd-shell-zoom-separator",
+    "aria-hidden": "true"
+  });
+  const element = createElement(
+    ownerDocument,
+    "div",
+    {
+      class: "cd-shell-zoom cd-shell-island",
+      "data-chrome": "zoom",
+      role: "group",
+      "aria-label": messages.zoom
+    },
+    zoomOut,
+    readout,
+    zoomIn,
+    separator,
+    fit
+  );
+  function render() {
+    frame = void 0;
+    const zoom2 = target?.zoom() ?? 1;
+    const state = zoomReadout(zoom2, lang, messages);
+    if (readout.textContent !== state.text) readout.textContent = state.text;
+    readout.setAttribute("aria-label", state.ariaLabel);
+    toggleAttribute(zoomOut, "aria-disabled", (!target || !state.canZoomOut) && "true");
+    toggleAttribute(zoomIn, "aria-disabled", (!target || !state.canZoomIn) && "true");
+    toggleAttribute(fit, "aria-disabled", (!target || !target.canFit()) && "true");
+  }
+  function schedule() {
+    if (frame === void 0) frame = requestAnimationFrame(render);
+  }
+  function cancelFrame() {
+    if (frame !== void 0) cancelAnimationFrame(frame);
+    frame = void 0;
+  }
+  function run(key) {
+    if (!target) return;
+    const zoom2 = target.zoom();
+    switch (key) {
+      case "zoomIn":
+        if (canZoomIn(zoom2)) target.stepZoom(1);
+        break;
+      case "zoomOut":
+        if (canZoomOut(zoom2)) target.stepZoom(-1);
+        break;
+      case "zoomToActual":
+        if (zoom2 !== 1) target.zoomToActual();
+        break;
+      case "fit":
+        if (target.canFit()) target.fit();
+        break;
+    }
+  }
+  render();
+  return {
+    element,
+    run,
+    setTarget(next) {
+      unsubscribe?.();
+      unsubscribe = void 0;
+      cancelFrame();
+      target = next;
+      if (next) unsubscribe = next.onChange(schedule);
+      render();
+    },
+    destroy() {
+      unsubscribe?.();
+      unsubscribe = void 0;
+      cancelFrame();
+      target = null;
+      for (const detach of detachers) detach();
+      element.remove();
+    }
+  };
+}
+var MOUNT_COUNTER = /* @__PURE__ */ Symbol.for("@miragon/modeler-shell.mounts");
+function nextMountIndex() {
+  const scope = globalThis;
+  const index2 = (scope[MOUNT_COUNTER] ?? 0) + 1;
+  scope[MOUNT_COUNTER] = index2;
+  return index2;
+}
+var DEFAULT_THEMES = ["light"];
+var LEGAL_HEIGHT_PROPERTY = "--modeler-shell-legal-height";
+var INERT_TOAST = Object.freeze({ dismiss() {
+} });
+var CLOSED_DIALOG = Object.freeze({ isOpen: () => false, close() {
+} });
+function visibleBoxIn(element, root) {
+  if (!element || element.hidden || !element.isConnected) return void 0;
+  if (typeof element.checkVisibility === "function" && !element.checkVisibility({ visibilityProperty: true }))
+    return void 0;
+  const box = boxRelativeTo(element, root);
+  return box.width > 0 && box.height > 0 ? box : void 0;
+}
+function languageOf(root, host, requested) {
+  if (requested) return requested;
+  const declared = host === "embedded" ? root.getAttribute("lang") : root.closest("[lang]")?.getAttribute("lang");
+  return declared || "en";
+}
+function hostKontrast(root) {
+  const carrier = root.parentElement?.closest("[data-cd-theme], [data-cd-kontrast]");
+  return carrier?.getAttribute("data-cd-kontrast") === "hoch" ? "hoch" : null;
+}
+function mountShell(root, options) {
+  const themes = options.themes ?? DEFAULT_THEMES;
+  if (themes.length === 0)
+    throw new Error("@miragon/modeler-shell: mountShell needs at least one theme");
+  const ledger = new Ledger();
+  try {
+    return renderShell(root, options, themes, ledger);
+  } catch (error2) {
+    ledger.close();
+    throw error2;
+  }
+}
+function renderShell(root, options, themes, ledger) {
+  const ownerDocument = root.ownerDocument;
+  const { host } = options;
+  const index2 = nextMountIndex();
+  const messages = resolveMessages(options.messages);
+  const platform = options.platform ?? detectPlatform(globalThis.navigator);
+  const lang = languageOf(root, host, options.lang);
+  const keyScope = options.keyScope ?? (host === "embedded" ? "root" : "document");
+  const web = host === "web";
+  ledger.addClass(root, "cd-shell");
+  ledger.attribute(root, "data-cd-shell-host", host);
+  ledger.attribute(root, "data-palette", "top");
+  if (host === "embedded") {
+    ledger.attribute(root, "lang", lang);
+    carryOwnMode(root, themes[0] ?? "light", ledger);
+  } else {
+    ledger.addClass(ownerDocument.documentElement, "cd-shell-document");
+  }
+  const setState = (name, value) => {
+    if (!ledger.isClosed) ledger.attribute(root, name, value);
+  };
+  const appearance = web ? connectWebAppearance({ ownerDocument, themes, options: options.appearance }) : void 0;
+  if (appearance) ledger.defer(() => appearance.destroy());
+  const darkCapable = themes.includes("dark");
+  const layer = createElement(ownerDocument, "div", { class: "cd-shell-layer" });
+  ledger.defer(() => layer.remove());
+  const tooltip = createTooltip({ root, layer, id: `cd-shell-tooltip-${index2}` });
+  ledger.defer(() => tooltip.destroy());
+  let readOnly = false;
+  let readOnlyShown = false;
+  let readOnlyTimer;
+  ledger.defer(() => clearTimeout(readOnlyTimer));
+  const legend = options.legend ? createLegend({
+    ownerDocument,
+    messages,
+    tooltip,
+    titleId: `cd-shell-legend-title-${index2}`,
+    options: options.legend,
+    onChange(open2) {
+      setState("data-legend", open2 ? "open" : null);
+      placeHint();
+      menu.refresh();
+    },
+    focusAfterClose: () => menu.trigger.focus()
+  }) : void 0;
+  if (legend) ledger.defer(() => legend.destroy());
+  const legendEntry = legend && options.legend?.menuEntry !== false ? {
+    kind: "checkbox",
+    id: "legend",
+    label: messages.legend,
+    checked: () => legend.isOpen(),
+    onToggle: (checked) => legend.setOpen(checked),
+    keepEnabledWhenReadOnly: true
+  } : void 0;
+  const shellModelEntries = legendEntry ? [legendEntry] : [];
+  const fileEntries = web && options.file ? fileMenuEntries(options.file, messages) : [];
+  const appearanceEntries = appearance && darkCapable ? appearanceMenuEntries(appearance, messages) : [];
+  const shellEntries = (group) => {
+    if (group === "file") return fileEntries;
+    if (group === "model") return shellModelEntries;
+    if (group === "appearance") return appearanceEntries;
+    return [];
+  };
+  const menu = createMenu({
+    root,
+    layer,
+    id: `cd-shell-menu-${index2}`,
+    messages,
+    tooltip,
+    groups: options.menu ?? {},
+    shellEntries,
+    isReadOnly: () => readOnly,
+    focusCanvas
+  });
+  ledger.defer(() => menu.destroy());
+  ledger.defer(
+    tooltip.attach(menu.trigger, () => menu.isOpen() ? null : { label: messages.menu })
+  );
+  const primary = web && options.primary ? createPrimaryAction({
+    ownerDocument,
+    messages,
+    tooltip,
+    options: options.primary,
+    focusCanvas
+  }) : void 0;
+  if (primary) ledger.defer(() => primary.destroy());
+  const canvas = options.canvas ?? createElement(ownerDocument, "div");
+  ledger.addClass(canvas, "cd-shell-canvas");
+  if (web && !canvas.hasAttribute("role")) ledger.attribute(canvas, "role", "main");
+  if (!options.canvas) ledger.defer(() => canvas.remove());
+  function focusCanvasOrTrigger() {
+    const took = (target) => {
+      target?.focus({ preventScroll: true });
+      return target !== null && target !== void 0 && ownerDocument.activeElement === target;
+    };
+    if (emptyState?.isShown()) {
+      emptyState.focus();
+      if (emptyState.element.contains(ownerDocument.activeElement)) return;
+    }
+    if (took(canvas.querySelector("svg[tabindex]"))) return;
+    if (!menu.trigger.hidden) took(menu.trigger);
+  }
+  function moveFocusOutOf(island) {
+    if (island.contains(ownerDocument.activeElement)) focusCanvasOrTrigger();
+  }
+  function islandFocusTracker(island) {
+    let clickedByPointer = false;
+    island?.addEventListener(
+      "click",
+      (event2) => {
+        if (event2.target?.closest?.("button")) {
+          clickedByPointer = isPointerClick(event2);
+        }
+      },
+      true
+    );
+    return () => {
+      const active = ownerDocument.activeElement;
+      const focusNowhere = active === null || active === ownerDocument.body;
+      const held = (island?.contains(active) ?? false) || clickedByPointer && focusNowhere;
+      clickedByPointer = false;
+      return held;
+    };
+  }
+  let zoomTarget = null;
+  function focusCanvas() {
+    if (ledger.isClosed || !zoomTarget?.focus) return false;
+    zoomTarget.focus();
+    return canvas.contains(ownerDocument.activeElement);
+  }
+  const status = createStatusBox(ownerDocument);
+  ledger.defer(() => status.destroy());
+  const hint = options.emptyHint ? createEmptyHint(ownerDocument, messages, options.emptyHint) : void 0;
+  if (hint) ledger.defer(() => hint.destroy());
+  const hintHadFocus = islandFocusTracker(hint?.element);
+  const emptyState = web && options.emptyState ? createEmptyState({
+    ownerDocument,
+    messages,
+    options: options.emptyState,
+    dropHint: options.dropZone ? options.emptyState.dropHint ?? messages.dropHint : void 0,
+    open: options.file?.open,
+    titleId: `cd-shell-empty-state-title-${index2}`,
+    onLeave: () => setEmptyStateShown(false)
+  }) : void 0;
+  if (emptyState) ledger.defer(() => emptyState.destroy());
+  const cardHadFocus = islandFocusTracker(emptyState?.element);
+  const inspector = options.inspector ? createInspector(ownerDocument, options.inspector, (open2) => {
+    setState("data-inspector", open2 ? "open" : null);
+    updateBottomRow();
+    placeHint();
+  }) : void 0;
+  if (inspector) ledger.defer(() => inspector.destroy());
+  const problemsOptions = options.problems;
+  let popover;
+  const pill = problemsOptions ? createProblemsPill({
+    ownerDocument,
+    messages,
+    lang,
+    tooltip,
+    showTooltip: host === "ide",
+    onActivate() {
+      if (popover) popover.toggle();
+      else problemsOptions.onActivate?.();
+    }
+  }) : void 0;
+  if (pill) ledger.defer(() => pill.destroy());
+  if (pill && (web || host === "embedded" && !problemsOptions?.onActivate)) {
+    const created = createProblemsPopover({
+      ownerDocument,
+      root,
+      layer,
+      pill: pill.element,
+      id: `cd-shell-problems-${index2}`,
+      titleId: `cd-shell-problems-title-${index2}`,
+      messages,
+      onSelectItem: problemsOptions?.onSelectItem
+    });
+    popover = created;
+    ledger.defer(() => created.destroy());
+  }
+  const legal = web ? createLegalLine({
+    ownerDocument,
+    messages,
+    options: options.legal ?? {},
+    idPrefix: `cd-shell-legal-${index2}`
+  }) : void 0;
+  if (legal) ledger.defer(() => legal.destroy());
+  const zoomPanel = createZoomPanel({
+    ownerDocument,
+    messages,
+    lang,
+    platform,
+    tooltip,
+    focusCanvas
+  });
+  ledger.defer(() => zoomPanel.destroy());
+  const toaster = web ? createToaster({
+    ownerDocument,
+    messages,
+    idPrefix: `cd-shell-toast-${index2}`,
+    focusFallback: focusCanvasOrTrigger,
+    onChange: () => updateBottomRow()
+  }) : void 0;
+  if (toaster) ledger.defer(() => toaster.destroy());
+  const defined = (element) => element !== void 0;
+  root.prepend(...[menu.trigger, primary?.element, canvas].filter(defined));
+  root.append(
+    ...[
+      status.element,
+      hint?.element,
+      emptyState?.element,
+      inspector?.element,
+      pill?.element,
+      legend?.element,
+      legal?.element,
+      zoomPanel.element
+    ].filter(defined),
+    layer,
+    ...[toaster?.announcer, toaster?.element].filter(defined)
+  );
+  function showToast(request) {
+    return ledger.isClosed || !toaster ? INERT_TOAST : toaster.show(request);
+  }
+  const dropZone = web && options.dropZone ? createDropZone({
+    ownerDocument,
+    layer,
+    messages,
+    lang,
+    options: options.dropZone,
+    modalOpen: () => isModalOpen(ownerDocument),
+    toast: showToast,
+    setState: (state) => setState("data-drop", state)
+  }) : void 0;
+  if (dropZone) ledger.defer(() => dropZone.destroy());
+  let palette;
+  let paletteRow = "top";
+  let zoomRaised = false;
+  let legalHeight = LEGAL_LINE_HEIGHT;
+  if (legal) ledger.defer(() => root.style.removeProperty(LEGAL_HEIGHT_PROPERTY));
+  function containerSize() {
+    return { width: root.clientWidth, height: root.clientHeight };
+  }
+  function menuRight() {
+    const box = boxRelativeTo(menu.trigger, root);
+    return box.width > 0 ? box.x + box.width : SHELL.edge + SHELL.row;
+  }
+  function paletteWidth() {
+    const element = palette?.registration.element;
+    return element ? element.offsetWidth - element.clientWidth + element.scrollWidth : 0;
+  }
+  function currentFitInsets() {
+    const container = containerSize();
+    const layout = {
+      container,
+      host,
+      paletteRow,
+      problemsVisible: pill?.isShown() ?? false
+    };
+    if (web) {
+      layout.zoomRaised = zoomRaised;
+      layout.legalHeight = legalHeight;
+    }
+    if (legend?.isOpen()) layout.legendWidth = legend.element.getBoundingClientRect().width;
+    if (inspector?.isOpen()) {
+      layout.inspector = container.width > SHELL.narrow ? {} : { sheetTop: boxRelativeTo(inspector.element, root).y };
+    }
+    return fitInsets(layout);
+  }
+  function placeHint() {
+    if (hint?.isShown()) hint.place(currentFitInsets());
+  }
+  function updateLayout() {
+    if (ledger.isClosed) return;
+    const size2 = containerSize();
+    if (size2.width === 0 || size2.height === 0) return;
+    const topRow = decideTopRow({
+      containerWidth: size2.width,
+      paletteWidth: paletteWidth(),
+      menuRight: menuRight(),
+      primary: primary?.widths()
+    });
+    paletteRow = topRow.paletteRow;
+    setState("data-palette", paletteRow);
+    if (primary) {
+      const collapsed = topRow.primaryLabel === "collapsed";
+      primary.setCollapsed(collapsed);
+      setState("data-primary", collapsed ? "collapsed" : null);
+    }
+    updateBottomRow();
+    placeHint();
+  }
+  function updateBottomRow() {
+    if (ledger.isClosed) return;
+    const size2 = containerSize();
+    if (size2.width === 0 || size2.height === 0) return;
+    if (legal) {
+      const legalBox = visibleBoxIn(legal.element, root);
+      const height = legalLineHeight(legalBox?.height);
+      if (height !== legalHeight || !root.style.getPropertyValue(LEGAL_HEIGHT_PROPERTY)) {
+        legalHeight = height;
+        root.style.setProperty(LEGAL_HEIGHT_PROPERTY, `${height}px`);
+      }
+      zoomRaised = zoomRowRaised({
+        containerWidth: size2.width,
+        legalRight: legalBox && legalBox.x + legalBox.width,
+        zoomWidth: visibleBoxIn(zoomPanel.element, root)?.width
+      });
+      setState("data-zoom-row", zoomRaised ? "raised" : null);
+    }
+    if (toaster) {
+      const obstacles = [zoomPanel.element, legal?.element, pill?.element].flatMap(
+        (element) => {
+          const box = visibleBoxIn(element, root);
+          return box ? [{ left: box.x, right: box.x + box.width, top: size2.height - box.y }] : [];
+        }
+      );
+      toaster.setBottom(
+        toastStackBottom({
+          containerWidth: size2.width,
+          obstacles,
+          cardWidth: toaster.widestCard()
+        })
+      );
+    }
+  }
+  function setEmptyStateShown(shown) {
+    if (ledger.isClosed || !emptyState || emptyState.isShown() === shown) return;
+    const active = ownerDocument.activeElement;
+    const hadFocus = cardHadFocus();
+    const workHadFocus = shown && active !== null && root.contains(active) && ![emptyState.element, legal?.element, toaster?.element].some(
+      (kept) => kept?.contains(active)
+    );
+    emptyState.setShown(shown);
+    setState("data-empty-state", shown ? "shown" : null);
+    ledger.attribute(canvas, "inert", shown ? "" : null);
+    if (shown) {
+      menu.close();
+      popover?.close();
+      tooltip.hide();
+      if (workHadFocus) emptyState.focus();
+    } else if (hadFocus) {
+      focusCanvasOrTrigger();
+    }
+    updateLayout();
+  }
+  const ResizeObserverClass = globalThis.ResizeObserver;
+  const resizeObserver = ResizeObserverClass ? new ResizeObserverClass(() => updateLayout()) : void 0;
+  resizeObserver?.observe(root);
+  if (primary) resizeObserver?.observe(primary.element);
+  if (legal) resizeObserver?.observe(legal.element);
+  ledger.defer(() => resizeObserver?.disconnect());
+  legend?.start(options.legend?.open ?? false);
+  updateLayout();
+  const keyTarget = keyScope === "root" ? root : ownerDocument;
+  const onKeydown = createKeyListener({
+    host,
+    ownerDocument,
+    dialogScope: keyTarget,
+    menuOpen: () => menu.isOpen(),
+    startScreen: () => emptyState?.isShown() ?? false,
+    closeMenu() {
+      const active = ownerDocument.activeElement;
+      menu.close({ restoreFocus: active === menu.trigger || menu.dropdown.contains(active) });
+      stopEscapeKeyup(ownerDocument);
+    },
+    hideTooltip: () => tooltip.hide(),
+    // Behind the start screen the keys reach the browser instead: there is no diagram to zoom.
+    run: (key) => {
+      if (!emptyState?.isShown()) zoomPanel.run(key);
+    }
+  });
+  keyTarget.addEventListener("keydown", onKeydown);
+  ledger.defer(() => keyTarget.removeEventListener("keydown", onKeydown));
+  const onChromeEscape = createChromeEscapeListener(
+    ownerDocument,
+    (node3) => node3 !== root && !canvas.contains(node3) && !(palette?.registration.element.contains(node3) ?? false)
+  );
+  root.addEventListener("keydown", onChromeEscape, true);
+  ledger.defer(() => root.removeEventListener("keydown", onChromeEscape, true));
+  function readOnlyState() {
+    return { locked: readOnly, shown: readOnlyShown };
+  }
+  function applyReadOnly() {
+    setState("data-readonly", readOnlyShown ? "" : null);
+    palette?.registration.setReadOnly(readOnlyState());
+    menu.refresh();
+  }
+  function showReadOnly() {
+    readOnlyTimer = void 0;
+    if (ledger.isClosed || !readOnly) return;
+    readOnlyShown = true;
+    applyReadOnly();
+  }
+  function handFocusBackFrom(element) {
+    const onActivation = (event2) => {
+      if (event2.type === "click" && !isPointerClick(event2)) return;
+      const entry = event2.target?.closest?.(".entry");
+      if (entry && element.contains(entry)) focusCanvas();
+    };
+    element.addEventListener("click", onActivation);
+    element.addEventListener("dragstart", onActivation);
+    return () => {
+      element.removeEventListener("click", onActivation);
+      element.removeEventListener("dragstart", onActivation);
+    };
+  }
+  function unregisterPalette() {
+    if (!palette) return;
+    palette.detachTooltip();
+    palette.detachFocus();
+    resizeObserver?.unobserve(palette.registration.element);
+    palette = void 0;
+  }
+  ledger.defer(unregisterPalette);
+  const menuHandle = {
+    trigger: menu.trigger,
+    dropdown: menu.dropdown,
+    isOpen: () => menu.isOpen(),
+    open: (focus) => menu.open(focus),
+    close: (closeOptions) => menu.close(closeOptions),
+    refresh: () => menu.refresh(),
+    setGroups: (groups) => {
+      if (!ledger.isClosed) menu.setGroups(groups);
+    }
+  };
+  const tooltipHandle = {
+    attach: (control, content) => ledger.isClosed ? () => {
+    } : tooltip.attach(control, content),
+    hide: () => tooltip.hide()
+  };
+  const legendHandle = legend && {
+    element: legend.element,
+    body: legend.body,
+    isOpen: () => legend.isOpen(),
+    setOpen: (open2) => {
+      if (!ledger.isClosed) legend.setOpen(open2);
+    },
+    toggle: () => {
+      if (!ledger.isClosed) legend.toggle();
+    }
+  };
+  const primaryHandle = primary && {
+    element: primary.element,
+    isCollapsed: () => primary.isCollapsed(),
+    refresh: () => {
+      if (!ledger.isClosed) primary.refresh();
+    }
+  };
+  const appearanceHandle = appearance && darkCapable ? {
+    choice: () => appearance.choice(),
+    setChoice: (choice) => {
+      if (ledger.isClosed) return;
+      appearance.setChoice(choice);
+      menu.refresh();
+    }
+  } : void 0;
+  const inspectorHandle = inspector && {
+    element: inspector.element,
+    isOpen: () => inspector.isOpen(),
+    open: () => {
+      if (!ledger.isClosed) inspector.open();
+    },
+    close: () => {
+      if (ledger.isClosed) return;
+      if (inspector.isOpen()) moveFocusOutOf(inspector.element);
+      inspector.close();
+    }
+  };
+  let shortcutsDialog;
+  ledger.defer(() => shortcutsDialog?.owned.discard());
+  function showShortcutsDialog2(groups) {
+    if (ledger.isClosed) return CLOSED_DIALOG;
+    if (shortcutsDialog?.owned.isOpen()) return shortcutsDialog.handle;
+    if (menu.isOpen()) {
+      const active = ownerDocument.activeElement;
+      menu.close({ restoreFocus: active === menu.trigger || menu.dropdown.contains(active) });
+    }
+    tooltip.hide();
+    const owned = openShortcutsDialog(
+      withChromeShortcuts(groups, { platform, lang, messages }),
+      messages,
+      { container: root, focusFallback: focusCanvasOrTrigger }
+    );
+    shortcutsDialog = {
+      owned,
+      handle: { isOpen: () => owned.isOpen(), close: () => owned.close() }
+    };
+    return shortcutsDialog.handle;
+  }
+  return {
+    root,
+    canvas,
+    host,
+    lang,
+    platform,
+    messages,
+    menu: menuHandle,
+    tooltip: tooltipHandle,
+    legend: legendHandle,
+    inspector: inspectorHandle,
+    primary: primaryHandle,
+    appearance: appearanceHandle,
+    setZoomTarget(target) {
+      if (ledger.isClosed) return;
+      zoomTarget = target;
+      zoomPanel.setTarget(target);
+    },
+    fitInsets: currentFitInsets,
+    registerPalette(registration) {
+      if (ledger.isClosed) return () => {
+      };
+      unregisterPalette();
+      palette = {
+        registration,
+        detachTooltip: tooltip.delegate(
+          registration.element,
+          ".entry",
+          (entry) => registration.entryTooltip(entry)
+        ),
+        detachFocus: handFocusBackFrom(registration.element)
+      };
+      resizeObserver?.observe(registration.element);
+      registration.setReadOnly(readOnlyState());
+      updateLayout();
+      const registered = palette;
+      return () => {
+        if (palette !== registered) return;
+        unregisterPalette();
+        updateLayout();
+      };
+    },
+    setProblems(summary) {
+      if (ledger.isClosed || !pill) return;
+      const listHadFocus = popover?.element.contains(ownerDocument.activeElement) ?? false;
+      pill.set(summary);
+      setState("data-problems", pill.isShown() ? "shown" : null);
+      popover?.setItems(summary.items ?? []);
+      if (!pill.isShown() && popover?.isOpen()) {
+        popover.close();
+        if (listHadFocus) focusCanvasOrTrigger();
+      }
+      updateBottomRow();
+      placeHint();
+    },
+    setStatus(next, statusOptions) {
+      if (!ledger.isClosed) status.set(next, statusOptions?.delayMs ?? 0);
+    },
+    setEmptyHint(visible) {
+      if (ledger.isClosed || !hint) return;
+      if (visible !== hint.isShown()) {
+        const hadFocus = hintHadFocus();
+        if (hadFocus && !visible) focusCanvasOrTrigger();
+      }
+      hint.setShown(visible);
+      placeHint();
+    },
+    setReadOnly(next, readOnlyOptions) {
+      if (ledger.isClosed) return;
+      if (!next) {
+        clearTimeout(readOnlyTimer);
+        readOnlyTimer = void 0;
+        readOnly = false;
+        readOnlyShown = false;
+      } else {
+        readOnly = true;
+        const delayMs = readOnlyOptions?.delayMs ?? 0;
+        if (!readOnlyShown && readOnlyTimer === void 0) {
+          if (delayMs > 0) readOnlyTimer = setTimeout(showReadOnly, delayMs);
+          else readOnlyShown = true;
+        }
+      }
+      applyReadOnly();
+    },
+    isReadOnly: () => readOnly,
+    setEmptyState: setEmptyStateShown,
+    isEmptyStateShown: () => emptyState?.isShown() ?? false,
+    toast: showToast,
+    showShortcutsDialog: showShortcutsDialog2,
+    destroy() {
+      ledger.close();
+    }
+  };
+}
+function carryOwnMode(root, theme, ledger) {
+  ledger.attribute(root, "data-cd-theme", theme);
+  const mirror = () => {
+    if (ledger.isClosed) return;
+    const kontrast = hostKontrast(root);
+    if (root.getAttribute("data-cd-kontrast") !== kontrast)
+      ledger.attribute(root, "data-cd-kontrast", kontrast);
+  };
+  mirror();
+  const MutationObserverClass = globalThis.MutationObserver;
+  if (!MutationObserverClass) return;
+  const observer = new MutationObserverClass(mirror);
+  observer.observe(root.ownerDocument.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-cd-theme", "data-cd-kontrast"],
+    subtree: true
+  });
+  ledger.defer(() => observer.disconnect());
+}
+
+// ../../../../packages/shell/dist/chunk-4LSZLK2T.js
+var NO_TRANSITION_CLASS2 = "cd-shell-no-transition";
+var latestSwitch = /* @__PURE__ */ new WeakMap();
+function applyAppearance(appearance, element) {
+  const target = element ?? document.documentElement;
+  const html = target.ownerDocument.documentElement;
+  const attributes = appearanceAttributes(appearance);
+  const kontrast = attributes["data-cd-kontrast"];
+  const switchId = (latestSwitch.get(html) ?? 0) + 1;
+  latestSwitch.set(html, switchId);
+  html.classList.add(NO_TRANSITION_CLASS2);
+  target.setAttribute("data-cd-theme", attributes["data-cd-theme"]);
+  if (kontrast) target.setAttribute("data-cd-kontrast", kontrast);
+  else target.removeAttribute("data-cd-kontrast");
+  requestAnimationFrame(
+    () => requestAnimationFrame(() => {
+      if (latestSwitch.get(html) !== switchId) return;
+      latestSwitch.delete(html);
+      html.classList.remove(NO_TRANSITION_CLASS2);
+    })
+  );
+}
+
+// ../../../../packages/shell/dist/orca-webview.js
+function orcaEditorApi() {
+  if (typeof orca === "undefined" || typeof orca.document?.session !== "function") {
+    throw new Error(
+      "@miragon/modeler-shell: this page does not run as an Orca custom editor with document.session"
+    );
+  }
+  return orca;
+}
+var MORE_CONTRAST = "(prefers-contrast: more)";
+function requestedAppearance(colorScheme, moreContrast) {
+  const theme = colorScheme === "dark" ? "dark" : "light";
+  return moreContrast ? { theme, kontrast: "hoch" } : { theme };
+}
+function htmlColorScheme() {
+  return document.documentElement.classList.contains("dark") ? "dark" : "light";
+}
+function connectOrcaAppearance(themes) {
+  if (themes.length === 0) {
+    throw new Error("@miragon/modeler-shell: connectOrcaAppearance needs at least one theme");
+  }
+  const contrast = window.matchMedia(MORE_CONTRAST);
+  let colorScheme = htmlColorScheme();
+  const show = () => applyAppearance(resolveAppearance(requestedAppearance(colorScheme, contrast.matches), themes));
+  show();
+  const subscription = orcaEditorApi().on("theme", (theme) => {
+    colorScheme = theme.colorScheme;
+    show();
+  });
+  contrast.addEventListener("change", show);
+  return () => {
+    subscription.dispose();
+    contrast.removeEventListener("change", show);
+  };
+}
+function mountOrcaShell(root, options) {
+  const disconnectAppearance = connectOrcaAppearance(options.themes);
+  let shell;
+  try {
+    shell = mountShell(root, { ...options, host: "ide", keyScope: "document" });
+  } catch (error2) {
+    disconnectAppearance();
+    throw error2;
+  }
+  return withBeforeDestroy(shell, disconnectAppearance);
+}
+async function connectOrcaDocumentSync(options) {
+  const merge2 = (lastSyncedText, externalText, draftText) => {
+    try {
+      return options.merge(lastSyncedText, externalText, draftText);
+    } catch (error2) {
+      options.onMergeConflict?.(error2);
+      throw error2;
+    }
+  };
+  const session = await orcaEditorApi().document.session({
+    merge: merge2,
+    ...options.debounceMs === void 0 ? {} : { debounceMs: options.debounceMs }
+  });
+  let reconciledText = "";
+  let initialized = false;
+  let imports = Promise.resolve();
+  async function show(text) {
+    const first = !initialized;
+    try {
+      if (await options.importText(text, { first, reconciledText })) reconciledText = text;
+    } finally {
+      initialized = true;
+    }
+  }
+  function enqueue(text) {
+    imports = imports.then(() => show(text)).catch((error2) => console.error("@miragon/modeler-shell: import failed", error2));
+    return imports;
+  }
+  const ready = enqueue(session.value);
+  const replacements = session.onReplace((text) => void enqueue(text));
+  return {
+    session,
+    get readOnly() {
+      return session.readOnly;
+    },
+    pushEdit: () => {
+      if (!initialized || session.readOnly || options.canWrite && !options.canWrite()) return;
+      const text = options.exportText(reconciledText);
+      if (text === reconciledText) return;
+      reconciledText = text;
+      session.change(text);
+    },
+    ready,
+    imported: () => imports,
+    replaceDocument: (text) => {
+      if (session.readOnly) return;
+      session.change(text);
+      void enqueue(text);
+    },
+    disconnect: () => {
+      replacements.dispose();
+      session.dispose();
+    }
+  };
+}
+async function saveExport(file2) {
+  const { files } = orcaEditorApi();
+  if (!files) throw new Error("@miragon/modeler-shell: exports need the Orca desktop app");
+  const data = file2.data instanceof Blob ? await file2.data.arrayBuffer() : file2.data;
+  return files.saveAs({ suggestedName: file2.suggestedName, mimeType: file2.mimeType, data });
+}
+var STATE_PREFIX = "miragon.modeler.";
+function storedValue(key) {
+  try {
+    const raw = localStorage.getItem(STATE_PREFIX + key);
+    return raw === null ? void 0 : JSON.parse(raw);
+  } catch {
+    return void 0;
+  }
+}
+function storeValue(key, value) {
+  try {
+    localStorage.setItem(STATE_PREFIX + key, JSON.stringify(value));
+  } catch {
+  }
+}
+var LEGEND_KEY = "legendOpen";
+function orcaEditorHost(options) {
+  const legendOpen = storedValue(LEGEND_KEY);
+  return {
+    kind: "orca",
+    canvasOwnsHistory: true,
+    state: {
+      view: void 0,
+      legendOpen: typeof legendOpen === "boolean" ? legendOpen : void 0,
+      writeLegendOpen: (open2) => storeValue(LEGEND_KEY, open2),
+      read: storedValue,
+      write: storeValue,
+      persistView: () => () => void 0
+    },
+    mountShell: (root, shellOptions) => mountOrcaShell(root, shellOptions),
+    async connectDocument(_shell, documentOptions) {
+      const sync = await connectOrcaDocumentSync({
+        importText: documentOptions.importText,
+        exportText: documentOptions.exportText,
+        canWrite: documentOptions.canWrite,
+        merge: options.merge,
+        debounceMs: options.debounceMs,
+        onMergeConflict: (error2) => console.warn(
+          "@miragon/modeler-shell: the file changed outside the editor where it was edited; Orca asks to reload or overwrite",
+          error2
+        )
+      });
+      const { withExampleInserted: withExampleInserted2 } = documentOptions;
+      return {
+        pushEdit: sync.pushEdit,
+        ready: sync.ready,
+        imported: sync.imported,
+        get readOnly() {
+          return sync.readOnly;
+        },
+        insertExample: () => {
+          if (!withExampleInserted2 || sync.readOnly) return;
+          sync.replaceDocument(withExampleInserted2(sync.session.value));
+        },
+        disconnect: sync.disconnect
+      };
+    },
+    async saveExport(file2) {
+      await saveExport({
+        suggestedName: file2.suggestedName,
+        mimeType: file2.mimeType,
+        data: file2.data
+      });
+    },
+    notify: (severity, message) => severity === "error" ? console.error(message) : console.warn(message)
   };
 }
 
@@ -47866,7 +48019,7 @@ function makeRoomForLegend(modeler) {
 // ../ide-editor/src/examples.ts
 var EMPTY_MAP = serializeDocument(emptyDocument("New team topology"));
 var EXAMPLE_MAP = serializeDocument(SAMPLE_DOCUMENT);
-function documentOf(text) {
+function documentOf2(text) {
   let value;
   try {
     value = text.trim() === "" ? {} : JSON.parse(text);
@@ -47877,7 +48030,7 @@ function documentOf(text) {
   return result.ok ? result.document : void 0;
 }
 function withExampleInserted(text) {
-  const current = documentOf(text);
+  const current = documentOf2(text);
   if (!current) return void 0;
   const hasTitle = /"title"\s*:/.test(text);
   const combined = {
@@ -48557,7 +48710,10 @@ function createDiagramEditor() {
 }
 
 // src/main.ts
-var editor = mountIdeEditor(orcaEditorHost(), createDiagramEditor());
+var editor = mountIdeEditor(
+  orcaEditorHost({ merge: mergeTeamTopologiesText }),
+  createDiagramEditor()
+);
 export {
   editor
 };

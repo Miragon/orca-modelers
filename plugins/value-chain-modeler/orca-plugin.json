@@ -3,8 +3,8 @@
   "manifestVersion": 2,
   "id": "value-chain-modeler",
   "name": "Value Chain Modeler",
-  "version": "0.3.0",
-  "description": "Open .vc and .vc.json files as value chain diagrams: model process steps, org units and their connections, and see an agent's changes to the file as they happen.",
+  "version": "0.4.0",
+  "description": "Open .vc and .vc.json files as value chain diagrams: model process steps, org units and their connections, and keep an agent's changes to the file merged with yours.",
   "author": {
     "name": "Miragon GmbH",
     "url": "https://www.miragon.io"
@@ -40,7 +40,7 @@
     }
   ],
   "engines": {
-    "orca": ">=1.4.248"
+    "orca": ">=1.4.252"
   },
   "execution": "sandboxed-ui",
   "pluginApi": 1,
@@ -55,6 +55,14 @@
         ],
         "entry": "editor/index.html",
         "frame": "isolated"
+      }
+    ],
+    "newFiles": [
+      {
+        "id": "value-chain",
+        "title": "New value chain from example",
+        "extension": ".vc.json",
+        "template": "templates/example.vc.json"
       }
     ]
   }

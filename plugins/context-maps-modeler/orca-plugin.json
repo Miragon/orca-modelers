@@ -3,8 +3,8 @@
   "manifestVersion": 2,
   "id": "context-maps-modeler",
   "name": "Context Maps Modeler",
-  "version": "0.3.0",
-  "description": "Open .cm and .cm.json files as context maps: model bounded contexts and their relationships, and see an agent's changes to the file as they happen.",
+  "version": "0.4.0",
+  "description": "Open .cm and .cm.json files as context maps: model bounded contexts and their relationships, and keep an agent's changes to the file merged with yours.",
   "author": {
     "name": "Miragon GmbH",
     "url": "https://www.miragon.io"
@@ -40,7 +40,7 @@
     }
   ],
   "engines": {
-    "orca": ">=1.4.248"
+    "orca": ">=1.4.252"
   },
   "execution": "sandboxed-ui",
   "pluginApi": 1,
@@ -55,6 +55,14 @@
         ],
         "entry": "editor/index.html",
         "frame": "isolated"
+      }
+    ],
+    "newFiles": [
+      {
+        "id": "context-map",
+        "title": "New context map from example",
+        "extension": ".cm",
+        "template": "templates/example.cm"
       }
     ]
   }

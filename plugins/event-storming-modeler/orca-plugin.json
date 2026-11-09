@@ -3,8 +3,8 @@
   "manifestVersion": 2,
   "id": "event-storming-modeler",
   "name": "Event Storming Modeler",
-  "version": "0.3.0",
-  "description": "Open .storm files as Event Storming boards: model with stickies, notes and arrows, and see an agent's changes to the file as they happen.",
+  "version": "0.4.0",
+  "description": "Open .storm files as Event Storming boards: model with stickies, notes and arrows, and keep an agent's changes to the file merged with yours.",
   "author": {
     "name": "Miragon GmbH",
     "url": "https://www.miragon.io"
@@ -40,7 +40,7 @@
     }
   ],
   "engines": {
-    "orca": ">=1.4.248"
+    "orca": ">=1.4.252"
   },
   "execution": "sandboxed-ui",
   "pluginApi": 1,
@@ -54,6 +54,14 @@
         ],
         "entry": "editor/index.html",
         "frame": "isolated"
+      }
+    ],
+    "newFiles": [
+      {
+        "id": "board",
+        "title": "New Event Storming board from example",
+        "extension": ".storm",
+        "template": "templates/example.storm"
       }
     ]
   }
