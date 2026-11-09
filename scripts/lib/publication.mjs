@@ -1,6 +1,7 @@
 import { existsSync } from "node:fs";
 import { CatalogAssets } from "./catalog-assets.mjs";
 import { Catalog } from "./catalog.mjs";
+import { PluginFolderCheck } from "./plugin-folder-check.mjs";
 import { PullRequest } from "./pull-request.mjs";
 
 const BYTES_GREETING = "📦 Special delivery: fresh bytes from the deep sea.";
@@ -34,9 +35,10 @@ export class Publication {
 
   #refuseUnpublishable() {
     const catalog = Catalog.read();
+    const pluginFolderCheck = new PluginFolderCheck(this.#orca);
     for (const plugin of this.#plugins) {
       this.#sources.refuseUnlessFrom(plugin.id, this.#source.repository);
-      this.#orca.validate(plugin.folder);
+      pluginFolderCheck.refuseInvalid(plugin.folder);
       catalog.refuseListed(plugin);
     }
   }

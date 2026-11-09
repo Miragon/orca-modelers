@@ -4,13 +4,15 @@ import { arch } from "node:os";
 import { join } from "node:path";
 import { runOrThrow } from "./command.mjs";
 
-const ORCA_VERSION = process.env.ORCA_VERSION ?? "1.4.249";
+const ORCA_VERSION = process.env.ORCA_VERSION ?? "1.4.254";
 
 export class Orca {
   #cli;
+  #version;
 
-  constructor(cli) {
+  constructor(cli, version) {
     this.#cli = cli;
+    this.#version = version;
   }
 
   static install(version = ORCA_VERSION) {
@@ -20,11 +22,15 @@ export class Orca {
     );
     const cli = join(cache, "squashfs-root", "resources", "bin", "orca-ide");
     if (!existsSync(cli)) Orca.#extractAppImage(version, cache);
-    return new Orca(cli);
+    return new Orca(cli, version);
   }
 
   get cli() {
     return this.#cli;
+  }
+
+  get version() {
+    return this.#version;
   }
 
   validate(path) {
