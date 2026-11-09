@@ -35,13 +35,13 @@ you have to picture in your head. All are early versions, before 1.0.
 
 ## Install
 
-You need [Orca](https://www.onorca.dev) 1.4.252 or later with plugins turned on: Settings → Plugins
-→ **Turn on plugins**.
+You need [Orca](https://www.onorca.dev) 1.4.252 or later. Turn on plugins once in Orca's settings,
+under **Plugins**.
 
 - **From Orca's plugin directory:** click **Open in Orca** in the table above, or search for
-  **Miragon** in Settings → Plugins.
-- **From this catalog**, for the newest releases: Settings → Plugins → ⋯ → **Catalog sources…**, add
-  `https://github.com/miragon/orca-modelers.git` with ref `main`.
+  **Miragon** in the plugin settings.
+- **From this catalog**, for the newest releases: add `https://github.com/miragon/orca-modelers.git`
+  with ref `main` as a catalog source, through the **⋯** menu of the plugin settings.
 
 Updates arrive through the source you installed from.
 
