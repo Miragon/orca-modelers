@@ -1,104 +1,82 @@
+# Miragon modelers for Orca
+
+[![Orca: plugin directory](https://img.shields.io/badge/Orca-plugin_directory-2563EB)](https://www.onorca.dev/plugins/miragon/orca-modelers)
 [![Validate](https://github.com/Miragon/orca-modelers/actions/workflows/validate.yml/badge.svg)](https://github.com/Miragon/orca-modelers/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/github/license/Miragon/orca-modelers)](LICENSE)
 
-# Miragon modelers for Orca
+<!-- Hero placeholder: a branded banner for the whole collection (name, claim, a modeler at work in Orca). Make it with the product-shots skill of miragon-brand. -->
 
-See the diagrams your agent writes, and edit them right next to it.
+**See the diagrams your agent writes, and edit them right next to it.**
 
-Open a Wardley map, an Event Storming board, a team topology, a context map, a value chain, a
-BPMN process or a DMN decision in [Orca](https://www.onorca.dev), and it opens as a diagram instead
-of text. The file stays plain text in your repository, so your agent reads and writes it like
-code, and every change it makes shows up on the canvas.
+Plugins for [Orca](https://www.onorca.dev) that open Wardley maps, Event Storming boards, team
+topologies, context maps, value chains, BPMN processes and DMN decisions as diagrams instead of text
+you have to picture in your head. All are early versions, before 1.0.
 
-- **Live while your agent writes.** Each change your agent makes to the file shows up on the
-  canvas right away. If it writes while you have unsaved edits, Orca asks whether to reload or
-  keep yours.
+## What you get
+
 - **Files you can review.** Every diagram is a small text file: diff it, review it in a pull
   request, keep it next to the code it describes.
-- **Fits Orca.** Undo, save and export work as you expect; Orca's save dialog asks where an
-  export goes.
-- **Sandboxed.** The plugins have no network and no file access. They see only the file you open.
+- **Sandboxed.** The modelers can't reach the network or read files beyond the one you open.
+- **Live while your agent writes.** Its changes appear on the canvas at once.
 
 ![An agent adds a payment provider to an Event Storming board in Orca, the user moves the order status read model and saves, then the agent adds a hotspot about double payments](docs/assets/demo.gif)
 
-## Modelers
+## The modelers
 
-The plugins come from three Miragon repositories, grouped below by where they are built.
-
-### Modeler suite
-
-[Miragon/modeler-suite](https://github.com/Miragon/modeler-suite) builds Miragon's modelers for
-strategy and architecture in one repository. Each one comes with a Claude Code plugin that teaches
-your agent its file format and the method behind it.
-
-| Modeler                                                                                                         | Opens              | Plugin id                         | Directory                                                                                    |
-| --------------------------------------------------------------------------------------------------------------- | ------------------ | --------------------------------- | -------------------------------------------------------------------------------------------- |
-| [Event Storming](https://github.com/Miragon/modeler-suite/tree/main/modelers/event-storming/apps/orca#readme)   | `.storm`           | `miragon.event-storming-modeler`  | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/event-storming-modeler)  |
-| [Wardley Maps](https://github.com/Miragon/modeler-suite/tree/main/modelers/wardley-maps/apps/orca#readme)       | `.wmap`, `.owm`    | `miragon.wardley-maps-modeler`    | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/wardley-maps-modeler)    |
-| [Team Topologies](https://github.com/Miragon/modeler-suite/tree/main/modelers/team-topologies/apps/orca#readme) | `.tt`, `.ttm.json` | `miragon.team-topologies-modeler` | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/team-topologies-modeler) |
-| [Context Maps](https://github.com/Miragon/modeler-suite/tree/main/modelers/context-maps/apps/orca#readme)       | `.cm`, `.cm.json`  | `miragon.context-maps-modeler`    | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/context-maps-modeler)    |
-| [Value Chain](https://github.com/Miragon/modeler-suite/tree/main/modelers/value-chain/apps/orca#readme)         | `.vc`, `.vc.json`  | `miragon.value-chain-modeler`     | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/value-chain-modeler)     |
-| [C4](https://github.com/Miragon/modeler-suite/tree/main/modelers/c4)                                            | `.c4`, `.dsl`      | –                                 | Coming soon                                                                                  |
-
-### BPMN modeler
-
-[Miragon/bpmn-modeler](https://github.com/Miragon/bpmn-modeler) models BPMN processes and DMN
-decisions for Camunda 7, Camunda 8, Operaton and CIB seven. In Orca it is experimental: it views,
-simulates and lightly models them, and its
-[guide](https://miragon.github.io/bpmn-modeler/orca/getting-started#limits) lists what it leaves
-out.
-
-| Modeler                                               | Opens           | Plugin id              | Directory                                                                         |
-| ----------------------------------------------------- | --------------- | ---------------------- | --------------------------------------------------------------------------------- |
-| [BPMN & DMN](https://github.com/Miragon/bpmn-modeler) | `.bpmn`, `.dmn` | `miragon.bpmn-modeler` | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/bpmn-modeler) |
-
-### Pulse
-
-[Miragon/pulse](https://github.com/Miragon/pulse) lets you operate and analyse Camunda 7, CIB seven
-and Operaton engines from your AI chat, your terminal and VS Code. Its Orca plugin is coming soon.
+| Modeler                                                                                                                                                                | Opens              | Get it                                                                                       |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | -------------------------------------------------------------------------------------------- |
+| [Event Storming](https://github.com/Miragon/modeler-suite/tree/main/modelers/event-storming/apps/orca#readme)                                                          | `.storm`           | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/event-storming-modeler)  |
+| [Wardley Maps](https://github.com/Miragon/modeler-suite/tree/main/modelers/wardley-maps/apps/orca#readme)                                                              | `.wmap`, `.owm`    | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/wardley-maps-modeler)    |
+| [Team Topologies](https://github.com/Miragon/modeler-suite/tree/main/modelers/team-topologies/apps/orca#readme)                                                        | `.tt`, `.ttm.json` | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/team-topologies-modeler) |
+| [Context Maps](https://github.com/Miragon/modeler-suite/tree/main/modelers/context-maps/apps/orca#readme)                                                              | `.cm`, `.cm.json`  | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/context-maps-modeler)    |
+| [Value Chain](https://github.com/Miragon/modeler-suite/tree/main/modelers/value-chain/apps/orca#readme)                                                                | `.vc`, `.vc.json`  | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/value-chain-modeler)     |
+| [BPMN & DMN](https://miragon.github.io/bpmn-modeler/orca/getting-started), experimental ([limits](https://miragon.github.io/bpmn-modeler/orca/getting-started#limits)) | `.bpmn`, `.dmn`    | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/bpmn-modeler)            |
+| [C4](https://miragon.github.io/modeler-suite/modelers/c4)                                                                                                              | `.c4`, `.dsl`      | Not in Orca yet                                                                              |
 
 ## Install
 
-You need the Orca desktop app, version 1.4.248 or later, with plugins turned on (Settings →
-Plugins → **Turn on plugins**).
+You need [Orca](https://www.onorca.dev) 1.4.252 or later. Turn on plugins once in Orca's settings,
+under **Plugins**.
 
-### From Orca's plugin directory
+- **From Orca's plugin directory:** click **Open in Orca** in the table above, or search for
+  **Miragon** in the plugin settings.
+- **From this catalog**, for the newest releases: add `https://github.com/miragon/orca-modelers.git`
+  with ref `main` as a catalog source, through the **⋯** menu of the plugin settings.
 
-Open a modeler's page in Orca's directory with **Open in Orca** in the tables above, or search for
-**Miragon** in Settings → Plugins, and install it.
+Updates arrive through the source you installed from.
 
-### From this repository
+## Get started
 
-Use this if a modeler or release is not in Orca's plugin directory yet.
+1. Open a file with one of the extensions above, or ask your agent to create one.
+2. Ask your agent to change it, for example "add a payment step to checkout.storm".
+3. Watch the change appear on the canvas, then edit it yourself and save; if the agent writes into
+   your unsaved edits, Orca may ask which version to keep.
 
-1. In Settings → Plugins, open ⋯ → **Catalog sources…** and add
-   `https://github.com/miragon/orca-modelers.git` with the ref `main`.
-2. Install a modeler from the **Miragon Modelers** catalog and approve it.
+## With your AI assistant
 
-Or paste an install link into your browser's address bar, for example
-`orca://plugins/miragon.event-storming-modeler?catalog=https://github.com/miragon/orca-modelers.git`.
-Orca asks whether to add the catalog the first time.
-
-New releases reach you through the source you installed from.
-
-## Let your agent write the diagrams
-
-The [Miragon modeler suite](https://github.com/Miragon/modeler-suite) has Claude Code plugins that
-teach an agent the file formats and the methods behind them, so it can draft a map or review a
-board for you:
+If your agent is Claude Code, plugins for Wardley Maps, Event Storming and Team Topologies teach it
+the file format and the method, so it can draft a map or review a board:
 
 ```text
 /plugin marketplace add Miragon/modeler-suite
+/plugin install wardley-maps-modeler@modeler-suite
 /plugin install event-storming-modeler@modeler-suite
+/plugin install team-topologies-modeler@modeler-suite
 ```
 
-## Feedback
+## Help and feedback
 
-Found a bug or missing something? Open an issue in
-[Miragon/modeler-suite](https://github.com/Miragon/modeler-suite/issues), where the modelers are
-built, or in [Miragon/bpmn-modeler](https://github.com/Miragon/bpmn-modeler/issues) for BPMN and
-DMN. Report security issues privately, as described in [SECURITY.md](SECURITY.md). How the
-plugins get here is in [CONTRIBUTING.md](CONTRIBUTING.md).
+- **Documentation:** [miragon.github.io/modeler-suite](https://miragon.github.io/modeler-suite/),
+  and each modeler's guide in [the table](#the-modelers).
+- **Bugs and ideas:** open an issue in
+  [Miragon/modeler-suite](https://github.com/Miragon/modeler-suite/issues), or in
+  [Miragon/bpmn-modeler](https://github.com/Miragon/bpmn-modeler/issues) for BPMN and DMN.
+- **Security:** report vulnerabilities privately, as described in [SECURITY.md](SECURITY.md).
+
+## Contributing
+
+Changes to a modeler go to its source repository; how releases reach this catalog is in
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
