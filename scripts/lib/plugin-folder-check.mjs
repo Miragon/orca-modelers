@@ -1,4 +1,5 @@
 import { join } from "node:path";
+import { CommunityDirectoryRules } from "./community-directory-rules.mjs";
 import { JsonFile } from "./json-file.mjs";
 
 export class PluginFolderCheck {
@@ -10,13 +11,12 @@ export class PluginFolderCheck {
 
   refuseInvalid(folder) {
     this.#orca.validate(folder);
-    this.#refuseNewerOrcaThanValidator(folder);
+    const manifest = new JsonFile(join(folder, "orca-plugin.json")).read();
+    this.#refuseNewerOrcaThanValidator(manifest);
+    CommunityDirectoryRules.refuseBroken(folder, manifest);
   }
 
-  #refuseNewerOrcaThanValidator(folder) {
-    const { id, engines } = new JsonFile(
-      join(folder, "orca-plugin.json"),
-    ).read();
+  #refuseNewerOrcaThanValidator({ id, engines }) {
     const minimum = engines.orca.slice(">=".length);
     if (isNewer(minimum, this.#orca.version)) {
       throw new Error(
