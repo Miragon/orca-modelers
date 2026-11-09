@@ -31,6 +31,10 @@ Each release pins its commit and the hash of its files, and Orca refuses bytes t
 `validate` checks every plugin and the catalog on every push and pull request. It fails when a
 listed version would change its commit or its bytes.
 
+The action and `validate` check with the Orca pinned as `ORCA_VERSION` in
+[`scripts/lib/orca.mjs`](scripts/lib/orca.mjs), and refuse a plugin whose `engines.orca` asks for a
+newer one: Orca's rules for that version would go unchecked. Raise the pin first.
+
 Orca also checks every listed release's icon, cover and screenshots against the files at their
 paths, so a release's images are stored once, named by their hash, in `assets/<plugin id>/`, as in
 Orca's community catalog. The catalog pull request puts a new release's images there; the bytes
