@@ -19,11 +19,9 @@ you have to picture in your head. All are early versions, before 1.0.
 - **Sandboxed.** The modelers can't reach the network or read files beyond the one you open.
 - **Live while your agent writes.** Its changes appear on the canvas at once.
 
-![An agent adds a payment provider to an Event Storming board in Orca, the user moves the order status read model and saves, then the agent adds a hotspot about double payments](docs/assets/demo.gif)
+![The modelers in Orca, one after another: a BPMN process with its properties panel, a DMN decision table with a simulation, an Event Storming board, a Wardley map, a team topology, a context map and a value chain](docs/assets/modelers.gif)
 
 ## The modelers
-
-![The modelers in Orca, one after another: a BPMN process with its properties panel, a DMN decision table with a simulation, an Event Storming board, a Wardley map, a team topology, a context map and a value chain](docs/assets/modelers.gif)
 
 | Modeler                                                                                                                                                                | Opens              | Get it                                                                                       |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | -------------------------------------------------------------------------------------------- |
