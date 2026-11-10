@@ -23,6 +23,8 @@ you have to picture in your head. All are early versions, before 1.0.
 
 ## The modelers
 
+![The modelers in Orca, one after another: a BPMN process with its properties panel, a DMN decision table with a simulation, an Event Storming board, a Wardley map, a team topology, a context map and a value chain](docs/assets/modelers.gif)
+
 | Modeler                                                                                                                                                                | Opens              | Get it                                                                                       |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | -------------------------------------------------------------------------------------------- |
 | [Event Storming](https://github.com/Miragon/modeler-suite/tree/main/modelers/event-storming/apps/orca#readme)                                                          | `.storm`           | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/event-storming-modeler)  |
