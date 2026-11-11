@@ -47,7 +47,9 @@ pull request first moves those of the listed releases there, before it replaces 
 from.
 
 `plugins/`, `assets/` and the catalog change only through the release-please app's pull requests.
-Only the app creates tags.
+Only the app creates tags. The ruleset on `main` lists the app as a bypass actor for pull requests
+only: once `validate` passes, it merges its own pull requests without a code owner's review
+(`gh pr merge --admin`), and it never pushes to `main`.
 
 ## Adding a source repository
 

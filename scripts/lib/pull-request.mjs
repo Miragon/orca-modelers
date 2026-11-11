@@ -46,7 +46,13 @@ export class PullRequest {
 
   async squashMerge(head) {
     for (let attempt = 1; ; attempt++) {
-      const merge = this.#gh("merge", "--squash", "--match-head-commit", head);
+      const merge = this.#gh(
+        "merge",
+        "--squash",
+        "--admin",
+        "--match-head-commit",
+        head,
+      );
       if (merge.ok) return;
       if (attempt >= MERGE_ATTEMPTS) {
         throw new Error(`merge failed:\n${merge.output}`);
