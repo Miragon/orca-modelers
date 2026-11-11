@@ -1,6 +1,6 @@
 {
   "repository": "Miragon/modeler-suite",
-  "commit": "b3564f67cc9fabdcb5afbb3bafbbf706b951765a",
-  "tag": "context-maps-orca-v0.4.0",
-  "workflowRun": "https://github.com/Miragon/modeler-suite/actions/runs/42586762623"
+  "commit": "3f9650d40e71e8617c2bbf3853808fbf82acf715",
+  "tag": "context-maps-orca-v0.4.1",
+  "workflowRun": "https://github.com/Miragon/modeler-suite/actions/runs/43018785765"
 }
