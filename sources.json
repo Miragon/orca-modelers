@@ -6,6 +6,7 @@
     "context-maps-modeler": { "repository": "Miragon/modeler-suite" },
     "value-chain-modeler": { "repository": "Miragon/modeler-suite" },
     "c4-modeler": { "repository": "Miragon/modeler-suite" },
+    "business-model-canvas-modeler": { "repository": "Miragon/modeler-suite" },
     "bpmn-modeler": { "repository": "Miragon/bpmn-modeler" }
   }
 }
