@@ -9,8 +9,8 @@
 **See the diagrams your agent writes, and edit them right next to it.**
 
 Plugins for [Orca](https://www.onorca.dev) that open Wardley maps, Event Storming boards, team
-topologies, context maps, value chains, BPMN processes and DMN decisions as diagrams instead of text
-you have to picture in your head. All are early versions, before 1.0.
+topologies, context maps, value chains, business model canvases, BPMN processes and DMN decisions as
+diagrams instead of text you have to picture in your head. All are early versions, before 1.0.
 
 ## What you get
 
@@ -23,15 +23,16 @@ you have to picture in your head. All are early versions, before 1.0.
 
 ## The modelers
 
-| Modeler                                                                                                                                                                | Opens              | Get it                                                                                       |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | -------------------------------------------------------------------------------------------- |
-| [Event Storming](https://github.com/Miragon/modeler-suite/tree/main/modelers/event-storming/apps/orca#readme)                                                          | `.storm`           | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/event-storming-modeler)  |
-| [Wardley Maps](https://github.com/Miragon/modeler-suite/tree/main/modelers/wardley-maps/apps/orca#readme)                                                              | `.wmap`, `.owm`    | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/wardley-maps-modeler)    |
-| [Team Topologies](https://github.com/Miragon/modeler-suite/tree/main/modelers/team-topologies/apps/orca#readme)                                                        | `.tt`, `.ttm.json` | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/team-topologies-modeler) |
-| [Context Maps](https://github.com/Miragon/modeler-suite/tree/main/modelers/context-maps/apps/orca#readme)                                                              | `.cm`, `.cm.json`  | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/context-maps-modeler)    |
-| [Value Chain](https://github.com/Miragon/modeler-suite/tree/main/modelers/value-chain/apps/orca#readme)                                                                | `.vc`, `.vc.json`  | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/value-chain-modeler)     |
-| [BPMN & DMN](https://miragon.github.io/bpmn-modeler/orca/getting-started), experimental ([limits](https://miragon.github.io/bpmn-modeler/orca/getting-started#limits)) | `.bpmn`, `.dmn`    | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/bpmn-modeler)            |
-| [C4](https://miragon.github.io/modeler-suite/modelers/c4)                                                                                                              | `.c4`, `.dsl`      | Not in Orca yet                                                                              |
+| Modeler                                                                                                                                                                | Opens              | Get it                                                                                             |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | -------------------------------------------------------------------------------------------------- |
+| [Event Storming](https://github.com/Miragon/modeler-suite/tree/main/modelers/event-storming/apps/orca#readme)                                                          | `.storm`           | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/event-storming-modeler)        |
+| [Wardley Maps](https://github.com/Miragon/modeler-suite/tree/main/modelers/wardley-maps/apps/orca#readme)                                                              | `.wmap`, `.owm`    | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/wardley-maps-modeler)          |
+| [Team Topologies](https://github.com/Miragon/modeler-suite/tree/main/modelers/team-topologies/apps/orca#readme)                                                        | `.tt`, `.ttm.json` | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/team-topologies-modeler)       |
+| [Context Maps](https://github.com/Miragon/modeler-suite/tree/main/modelers/context-maps/apps/orca#readme)                                                              | `.cm`, `.cm.json`  | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/context-maps-modeler)          |
+| [Value Chain](https://github.com/Miragon/modeler-suite/tree/main/modelers/value-chain/apps/orca#readme)                                                                | `.vc`, `.vc.json`  | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/value-chain-modeler)           |
+| [Business Model Canvas](https://github.com/Miragon/modeler-suite/tree/main/modelers/business-model-canvas/apps/orca#readme)                                            | `.bmc`             | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/business-model-canvas-modeler) |
+| [BPMN & DMN](https://miragon.github.io/bpmn-modeler/orca/getting-started), experimental ([limits](https://miragon.github.io/bpmn-modeler/orca/getting-started#limits)) | `.bpmn`, `.dmn`    | [Open in Orca](https://www.onorca.dev/plugins/miragon/orca-modelers/bpmn-modeler)                  |
+| [C4](https://miragon.github.io/modeler-suite/modelers/c4)                                                                                                              | `.c4`, `.dsl`      | Not in Orca yet                                                                                    |
 
 ## Install
 
@@ -54,14 +55,16 @@ Updates arrive through the source you installed from.
 
 ## With your AI assistant
 
-If your agent is Claude Code, plugins for Wardley Maps, Event Storming and Team Topologies teach it
-the file format and the method, so it can draft a map or review a board:
+If your agent is Claude Code, plugins for Wardley Maps, Event Storming, Team Topologies and the
+Business Model Canvas teach it the file format and the method, so it can draft a map or review a
+board:
 
 ```text
 /plugin marketplace add Miragon/modeler-suite
 /plugin install wardley-maps-modeler@modeler-suite
 /plugin install event-storming-modeler@modeler-suite
 /plugin install team-topologies-modeler@modeler-suite
+/plugin install business-model-canvas-modeler@modeler-suite
 ```
 
 ## Help and feedback
