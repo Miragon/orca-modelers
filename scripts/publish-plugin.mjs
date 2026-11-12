@@ -37,5 +37,5 @@ await new Publication({
     token: process.env.GH_TOKEN,
     repository: repository.githubRepository,
   }),
-  orca: Orca.install(),
+  orca: Orca.fromEnvironment(),
 }).run();

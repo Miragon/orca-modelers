@@ -21,8 +21,17 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 24
+      - id: pin
+        run: echo "orca=$(tr -d '[:space:]' < .orca-version)" >> "$GITHUB_OUTPUT"
+      - id: orca
+        uses: Miragon/orca-plugin-kit/setup-orca@6b56b4938c9352a8be5c666019b2f43e557235aa # v1.0.0
+        with:
+          version: ${{ steps.pin.outputs.orca }}
       - name: Validate every plugin folder
         shell: bash
+        env:
+          ORCA_APP: ${{ steps.orca.outputs.app }}
+          ORCA_VERSION: ${{ steps.orca.outputs.version }}
         run: |
           for plugin in plugins/*/; do
             [[ -f "$plugin/orca-plugin.json" ]] || continue
@@ -30,5 +39,7 @@ jobs:
           done
       - name: Check the catalog
         env:
+          ORCA_APP: ${{ steps.orca.outputs.app }}
+          ORCA_VERSION: ${{ steps.orca.outputs.version }}
           BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
         run: node scripts/check-catalog.mjs --base "$BASE"

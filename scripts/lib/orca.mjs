@@ -1,10 +1,5 @@
 import { spawnSync } from "node:child_process";
-import { existsSync, mkdirSync, rmSync } from "node:fs";
-import { arch } from "node:os";
 import { join } from "node:path";
-import { runOrThrow } from "./command.mjs";
-
-const ORCA_VERSION = process.env.ORCA_VERSION ?? "1.4.254";
 
 export class Orca {
   #cli;
@@ -15,16 +10,16 @@ export class Orca {
     this.#version = version;
   }
 
-  static install(
-    version = ORCA_VERSION,
-    cache = join(
-      process.env.RUNNER_TEMP ?? process.env.TMPDIR ?? "/tmp",
-      `orca-${version}`,
-    ),
-  ) {
-    const cli = join(cache, "squashfs-root", "resources", "bin", "orca-ide");
-    if (!existsSync(cli)) Orca.#extractAppImage(version, cache);
-    return new Orca(cli, version);
+  static fromEnvironment({ ORCA_APP, ORCA_VERSION } = process.env) {
+    if (!ORCA_APP || !ORCA_VERSION) {
+      throw new Error(
+        "Set ORCA_APP and ORCA_VERSION to an installed Orca, as setup-orca of Miragon/orca-plugin-kit does with the release in .orca-version",
+      );
+    }
+    return new Orca(
+      join(ORCA_APP, "resources", "bin", "orca-ide"),
+      ORCA_VERSION,
+    );
   }
 
   get cli() {
@@ -74,17 +69,5 @@ export class Orca {
   #json(args) {
     const parsed = this.call(args);
     return parsed.result ?? parsed;
-  }
-
-  static #extractAppImage(version, cache) {
-    mkdirSync(cache, { recursive: true });
-    const asset =
-      arch() === "arm64" ? "orca-linux-arm64.AppImage" : "orca-linux.AppImage";
-    const url = `https://github.com/stablyai/orca/releases/download/v${version}/${asset}`;
-    const inCache = { cwd: cache, stdio: ["ignore", "ignore", "inherit"] };
-    runOrThrow("curl", ["-fsSL", "-o", "orca.AppImage", url], inCache);
-    runOrThrow("chmod", ["+x", "orca.AppImage"], inCache);
-    runOrThrow("./orca.AppImage", ["--appimage-extract"], inCache);
-    rmSync(join(cache, "orca.AppImage"));
   }
 }

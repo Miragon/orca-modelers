@@ -2,7 +2,7 @@ import { CatalogAssets } from "./catalog-assets.mjs";
 import { JsonFile } from "./json-file.mjs";
 
 const CATALOG_PATH = "orca-catalog.json";
-const CATALOG_URL = "https://github.com/miragon/orca-modelers.git";
+const CATALOG_URL = "https://github.com/miragon/orca-plugins.git";
 const KEPT_RELEASES = 32;
 const CHANGELOG_LENGTH = 2000;
 

@@ -20,7 +20,7 @@ export class PluginFolderCheck {
     const minimum = engines.orca.slice(">=".length);
     if (isNewer(minimum, this.#orca.version)) {
       throw new Error(
-        `${id} requires Orca ${engines.orca}, but is validated with ${this.#orca.version}: raise ORCA_VERSION in scripts/lib/orca.mjs`,
+        `${id} requires Orca ${engines.orca}, but is validated with ${this.#orca.version}: raise .orca-version`,
       );
     }
   }
