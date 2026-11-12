@@ -1,9 +1,10 @@
 # Contributing
 
 This repository holds no source code: only the built plugins, the catalog Orca reads and the
-mechanics that publish into it. Each plugin is built in its source repository, today
-[Miragon/modeler-suite](https://github.com/Miragon/modeler-suite). Report bugs and propose changes
-to a modeler there.
+mechanics that publish into it. Each plugin is built in its source repository, listed in
+[`sources.json`](sources.json), such as
+[Miragon/modeler-suite](https://github.com/Miragon/modeler-suite). Report bugs and propose
+changes to a plugin there.
 
 Changes to the mechanics (`.github/`, `scripts/`, `sources.json`) go through a pull request with a
 code owner's review. `plugins/`, `assets/` and `orca-catalog.json` change only through a release.
@@ -12,10 +13,12 @@ code owner's review. `plugins/`, `assets/` and `orca-catalog.json` change only t
 
 1. A release in the source repository builds its plugins and smoke-tests exactly those folders in a
    real Orca.
-2. The source repository's release job calls [`publish-plugin`](.github/actions/publish-plugin/action.yml)
-   once, with all plugins of the release and the release-please app's token. The action checks
-   each plugin against [`sources.json`](sources.json), which names the one repository that may
-   publish it, and validates it. Then the app opens two pull requests, one after the other, and
+2. The source repository's release job calls
+   [`publish-plugin`](https://github.com/Miragon/orca-plugin-kit/blob/main/publish-plugin/action.yml)
+   of [Miragon/orca-plugin-kit](https://github.com/Miragon/orca-plugin-kit) once, with all plugins
+   of the release and the release-please app's token. The action checks each plugin against
+   [`sources.json`](sources.json), which names the one repository that may publish it, and
+   validates it. Then the app opens two pull requests, one after the other, and
    squash-merges each once [`validate`](.github/workflows/validate.yml) passes:
    - the built folders in `plugins/<id>/`, each with a `SOURCE.json` naming the source commit, tag
      and workflow run;
@@ -31,9 +34,9 @@ Each release pins its commit and the hash of its files, and Orca refuses bytes t
 `validate` checks every plugin and the catalog on every push and pull request. It fails when a
 listed version would change its commit or its bytes.
 
-The action and `validate` check with the Orca pinned as `ORCA_VERSION` in
-[`scripts/lib/orca.mjs`](scripts/lib/orca.mjs), and refuse a plugin whose `engines.orca` asks for a
-newer one: Orca's rules for that version would go unchecked. Raise the pin first.
+The action and `validate` check with the Orca release pinned in [`.orca-version`](.orca-version),
+and refuse a plugin whose `engines.orca` asks for a newer one: Orca's rules for that version would
+go unchecked. Raise the pin first.
 
 They also refuse what [Orca's community directory](https://onorca.dev/plugins/add/) rejects and
 `orca plugin validate` lets through: an id starting with `orca-`, no `license` in
@@ -72,8 +75,8 @@ publish-orca:
         client-id: ${{ vars.RELEASE_PLEASE_APP_CLIENT_ID }}
         private-key: ${{ secrets.RELEASE_PLEASE_APP_PRIVATE_KEY }}
         owner: miragon
-        repositories: orca-modelers
-    - uses: miragon/orca-modelers/.github/actions/publish-plugin@<sha>
+        repositories: orca-plugins
+    - uses: Miragon/orca-plugin-kit/publish-plugin@<sha> # v1.0.0
       with:
         token: ${{ steps.app.outputs.token }}
         plugins-dir: orca-plugins
@@ -87,42 +90,21 @@ in the meantime fails; run the job again.
 
 ## Orca for a smoke test
 
-A source repository runs its plugins in a real Orca on Linux, under `xvfb-run`. Every way to get
-that Orca installs it with [`scripts/install-orca.mjs`](scripts/install-orca.mjs), the same code
-the action and `validate` use.
+A source repository runs its plugins in a real Orca with
+[`setup-orca`](https://github.com/Miragon/orca-plugin-kit#test-a-plugin-in-orca) in CI and the image
+`ghcr.io/miragon/orca:<version>` on a developer's machine or for an agent, both from
+[Miragon/orca-plugin-kit](https://github.com/Miragon/orca-plugin-kit).
 
-In CI, [`setup-orca`](.github/actions/setup-orca/action.yml) installs a release from the cache and
-returns its folder for `ORCA_APP`: a `version`, the newest release (`channel: latest`) or the
-oldest that a plugin's `engines.orca` accepts (`channel: minimum` with `plugin-manifest`).
+## Versions
 
-```yaml
-- id: orca
-  uses: miragon/orca-modelers/.github/actions/setup-orca@<sha>
-  with:
-    channel: minimum
-    plugin-manifest: apps/orca/orca-plugin.json
-- run: xvfb-run -a npm run test:orca
-  env:
-    ORCA_APP: ${{ steps.orca.outputs.app }}
-```
+| What         | Its version says                                       | Where it lives                        | How consumers get updates                            |
+| ------------ | ------------------------------------------------------ | ------------------------------------- | ---------------------------------------------------- |
+| A plugin     | The plugin's own semver; `engines.orca` the Orca floor | release-please in its source repo     | Orca, through this catalog or Orca's directory       |
+| This catalog | Only that the catalog changed (`v0.1.x`)               | Tags here, created by `tag.yml`       | Orca's directory crawler reads them; pin nothing     |
+| The actions  | Their inputs and outputs (semver)                      | Releases of Miragon/orca-plugin-kit   | A pinned commit with `# vX.Y.Z`, moved by Dependabot |
+| The image    | The Orca release in it                                 | `ghcr.io/miragon/orca:<orca version>` | Choose the Orca release; pin the digest to freeze    |
 
-On a developer's machine or for an agent, the image `ghcr.io/miragon/orca:<version>` holds Node
-22 on Debian bookworm, Orca under `/opt/orca` with `ORCA_APP` set, xvfb and the libraries Orca
-needs, for linux/amd64 and linux/arm64. Run it with Podman or Docker so no Orca window takes the
-focus:
-
-```sh
-podman run --rm -it -v "$PWD:/repo" -w /repo ghcr.io/miragon/orca:1.4.254 \
-  sh -c 'xvfb-run -a /opt/orca/squashfs-root/AppRun --no-sandbox --password-store=basic'
-```
-
-To drive or record that Orca from outside, start it with `--remote-debugging-port=9222`. Orca
-listens on the container's loopback only, so publish the port through a TCP proxy in the
-container.
-
-A source repository's own runner copies the repository into the container and installs it there,
-as npm, Yarn and pnpm each do it their own way. To get the image of another Orca release, run the
-[`Orca runtime`](.github/workflows/orca-runtime.yml) workflow with that version.
+The tags here count catalog changes and are not a version of anything to depend on.
 
 ## Images for a plugin's page
 

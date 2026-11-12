@@ -5,5 +5,5 @@ import { PluginFolderCheck } from "./lib/plugin-folder-check.mjs";
 const [folder] = process.argv.slice(2);
 if (!folder) throw new Error("usage: check-plugin.mjs <plugin folder>");
 
-new PluginFolderCheck(Orca.install()).refuseInvalid(folder);
+new PluginFolderCheck(Orca.fromEnvironment()).refuseInvalid(folder);
 console.log(`${folder}: valid`);

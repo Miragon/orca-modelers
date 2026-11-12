@@ -1,7 +1,7 @@
 # Security
 
 Report a vulnerability in a plugin or in this repository's publishing privately through GitHub's
-[security advisories](https://github.com/miragon/orca-modelers/security/advisories/new), not in a
+[security advisories](https://github.com/Miragon/orca-plugins/security/advisories/new), not in a
 public issue.
 
 ## How releases are protected

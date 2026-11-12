@@ -10,7 +10,7 @@ on:
 permissions:
   contents: read
 
-concurrency: orca-modelers-tag
+concurrency: orca-plugins-tag
 
 jobs:
   tag:

@@ -1,8 +1,8 @@
-# Miragon modelers for Orca
+# Miragon plugins for Orca
 
 [![Orca: plugin directory](https://img.shields.io/badge/Orca-plugin_directory-2563EB)](https://www.onorca.dev/plugins/miragon/orca-modelers)
-[![Validate](https://github.com/Miragon/orca-modelers/actions/workflows/validate.yml/badge.svg)](https://github.com/Miragon/orca-modelers/actions/workflows/validate.yml)
-[![License: MIT](https://img.shields.io/github/license/Miragon/orca-modelers)](LICENSE)
+[![Validate](https://github.com/Miragon/orca-plugins/actions/workflows/validate.yml/badge.svg)](https://github.com/Miragon/orca-plugins/actions/workflows/validate.yml)
+[![License: MIT](https://img.shields.io/github/license/Miragon/orca-plugins)](LICENSE)
 
 <!-- Hero placeholder: a branded banner for the whole collection (name, claim, a modeler at work in Orca). Make it with the product-shots skill of miragon-brand. -->
 
@@ -41,10 +41,11 @@ under **Plugins**.
 
 - **From Orca's plugin directory:** click **Open in Orca** in the table above, or search for
   **Miragon** in the plugin settings.
-- **From this catalog**, for the newest releases: add `https://github.com/miragon/orca-modelers.git`
+- **From this catalog**, for the newest releases: add `https://github.com/miragon/orca-plugins.git`
   with ref `main` as a catalog source, through the **⋯** menu of the plugin settings.
 
-Updates arrive through the source you installed from.
+Updates arrive through the source you installed from. A catalog source added under its old address,
+`https://github.com/miragon/orca-modelers.git`, keeps working.
 
 ## Get started
 

@@ -13,7 +13,7 @@ const problems = new CatalogCheck({
   catalog,
   sources: Sources.read(),
   repository: new GitRepository(),
-  orca: Orca.install(),
+  orca: Orca.fromEnvironment(),
   base: values.base,
 }).run();
 
