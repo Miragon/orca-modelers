@@ -1,10 +1,10 @@
-import { a as __toESM, t as __commonJSMin } from "../shared/rolldown-runtime-7_rZTKki.js";
-import { a as openOrcaSession, d as extras, f as TranslateModule, i as followOrcaTheme, l as createFlushableDebounceInput, m as _defineProperty$3, n as syncDocument, o as orcaLanguage, p as i18n, r as currentOrcaTheme, s as applyPageThemeScope, t as mountEditorLayout } from "../shared/editorLayout-DyS83izk.js";
-import { $ as Diagram, $t as closest, C as outline_default$1, Ct as add$1, D as KeyboardBindings$1, E as keyboard_default$4, G as hasPrimaryModifier, Gt as BaseRenderer, Ht as create$1, It as append, Jt as all, Kt as e, M as isRedo, N as isUndo, O as CommandInterceptor, P as movecanvas_default, Pt as createLine, Q as Text, R as zoomscroll_default, Rt as attr, T as keyboard_move_default, Tt as remove$2, U as selection_default$1, Ut as innerSVG, V as overlays_default, Xt as attr$1, Z as translate_default, Zt as classes, a as T, an as Reader, b as X, cn as EventBus, ct as asTRBL, d as x, dn as DisposableStore, dt as getMid, en as delegate, fn as MutableDisposable, ft as getOrientation, g as R, gn as NoModelerError, hn as observeCanvasSize, in as remove$1, it as ElementFactory$3, k as context_pad_default$1, l as h, ln as ThemeController, nn as matches$1, on as Writer, ot as Refs, qt as Ids, rn as query, s as d, sn as Moddle, t as u, tn as event, u as q, un as installCanvasFocusIndicator, w as change_support_default, x as k } from "../shared/jsxRuntime.module-C_nqa6u-.js";
-import { A as pick, C as isObject$1, D as map, E as keys, F as sortBy, I as throttle, P as some, S as isNumber$4, _ as init_dist, b as isFunction$2, c as every, d as findIndex, g as has$1, h as groupBy, i as assign, j as reduce, l as filter$1, o as debounce, p as forEach, r as domify, u as find, v as isArray$4, w as isString$3, x as isNil$1, y as isDefined } from "../shared/EscapeUtil-3RypN4fl.js";
-import { A as editor_actions_default$5, C as RuleProvider, D as keyboard_move_selection_default, E as CommandStack, F as popup_menu_default$1, J as create_default, M as distribute_elements_default$1, N as connection_preview_default, O as grid_snapping_default, P as replace_default$1, T as command_default, X as connect_default, Z as bendpoints_default, c as hand_tool_default, ct as auto_scroll_default, dt as findFreePosition, f as palette_default$1, ft as generateGetNextPosition, g as Modeling$5, h as BaseLayouter, ht as search_pad_default, i as resize_default, j as EditorActions$3, l as lasso_tool_default, m as CroppingConnectionDocking, mt as align_elements_default, n as snapping_default$1, p as move_default, pt as getConnectedDistance, st as rules_default$3, t as clipboard_default, ut as auto_place_default$1, w as lib_default$1 } from "../shared/clipboard-DuTT61cu.js";
-import { C as TextfieldEntry, D as index$1$1, E as index, O as isEdited, S as TextAreaEntry, U as FeelEditor$3, Y as EditorView, b as SelectEntry, f as Group, k as isEdited$1, y as PropertiesPanel } from "../shared/index.esm-QK7iS3an.js";
-//#region ../../libs/modeler-types/src/emptyDmn.ts
+import { a as __toESM, t as __commonJSMin } from "../shared/rolldown-runtime-DQp2zzRu.js";
+import { a as openOrcaSession, d as extras, f as TranslateModule, i as followOrcaTheme, l as createFlushableDebounceInput, m as _defineProperty$3, n as syncDocument, o as orcaLanguage, p as i18n, r as currentOrcaTheme, s as applyPageThemeScope, t as mountEditorLayout } from "../shared/editorLayout-DZwh-cxt.js";
+import { A as pick, C as isObject$1, D as map, E as keys, F as sortBy, I as throttle, P as some, S as isNumber$4, _ as init_dist, b as isFunction$2, c as every, d as findIndex, g as has$1, h as groupBy, i as assign, j as reduce, l as filter$1, o as debounce, p as forEach, r as domify, u as find, v as isArray$4, w as isString$3, x as isNil$1, y as isDefined } from "../shared/EscapeUtil-B1jzPlMc.js";
+import { $ as Diagram, $t as closest, A as isCmd$5, Bt as clear, C as outline_default$1, Ct as add$1, D as KeyboardBindings$1, E as keyboard_default$4, G as hasPrimaryModifier, Gt as BaseRenderer, Ht as create$1, It as append, Jt as all, Kt as e, M as isRedo, N as isUndo, O as context_pad_default$1, P as movecanvas_default, Pt as createLine, Q as Text, R as zoomscroll_default, Rt as attr, T as keyboard_move_default, Tt as remove$2, U as selection_default$1, Ut as innerSVG, V as overlays_default, Vt as clone, Xt as attr$1, Z as translate_default, Zt as classes, _n as observeCanvasSize, a as T, an as Reader, b as X, cn as EventBus, ct as asTRBL, d as x, dn as fitCanvasToContent, dt as getMid, en as delegate, ft as getOrientation, g as R, in as remove$1, it as ElementFactory$3, k as CommandInterceptor, l as h, ln as ThemeController, mn as MutableDisposable, nn as matches$1, nt as translate, on as Writer, ot as Refs, pn as DisposableStore, q as isPrimaryButton, qt as Ids, rn as query, s as d, sn as Moddle, t as u, tn as event, u as q, un as installFitViewportButton, vn as NoModelerError, w as change_support_default, x as k } from "../shared/jsxRuntime.module-awBdvHUy.js";
+import { A as editor_actions_default$5, D as keyboard_move_selection_default, E as CommandStack, F as popup_menu_default$1, J as create_default, M as distribute_elements_default$1, N as connection_preview_default, O as grid_snapping_default, P as replace_default$1, T as command_default, X as connect_default, Z as bendpoints_default, _ as Modeling$5, _t as align_elements_default, c as hand_tool_default, ct as dragging_default, dt as rules_default$3, f as palette_default$1, ft as AutoResize, g as BaseLayouter, gt as getConnectedDistance, h as CroppingConnectionDocking, ht as generateGetNextPosition, i as resize_default, j as EditorActions$3, l as lasso_tool_default, lt as AutoResizeProvider, m as move_default, mt as findFreePosition, n as snapping_default$1, p as OrderingProvider, pt as auto_place_default$1, st as auto_scroll_default, t as clipboard_default, ut as RuleProvider, vt as search_pad_default, w as lib_default$1 } from "../shared/clipboard-Bznk3d97.js";
+import { C as TextfieldEntry, D as index$1$1, E as index, O as isEdited, S as TextAreaEntry, U as FeelEditor$3, X as EditorView, b as SelectEntry, f as Group, k as isEdited$1, y as PropertiesPanel } from "../shared/index.esm-DgBSptNj.js";
+// ../../libs/modeler-types/src/emptyDmn.ts
 var EMPTY_DMN_DIAGRAM = `<?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="Definitions_1y42u6n" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" exporter="Camunda Modeler" exporterVersion="5.8.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.18.0">
   <decision id="Decision_16wqg49" name="Decision 1">
@@ -26,8 +26,7 @@ var EMPTY_DMN_DIAGRAM = `<?xml version="1.0" encoding="UTF-8"?>
   </dmndi:DMNDI>
 </definitions>
 `;
-//#endregion
-//#region ../../node_modules/dmn-moddle/dist/index.js
+// ../../node_modules/dmn-moddle/dist/index.js
 init_dist();
 function DmnModdle(packages, options) {
 	Moddle.call(this, packages, options);
@@ -1356,8 +1355,7 @@ var packages = {
 function simple(additionalPackages, options) {
 	return new DmnModdle(assign({}, packages, additionalPackages), options);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/util/CompatibilityUtils.js
+// ../../node_modules/dmn-js-shared/lib/util/CompatibilityUtils.js
 init_dist();
 function wrapForCompatibility(api) {
 	return function() {
@@ -1379,8 +1377,7 @@ function wrapForCompatibility(api) {
 function replaceBoundPrefix(string) {
 	return string.replace("bound ", "");
 }
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/base/Manager.js
+// ../../node_modules/dmn-js-shared/lib/base/Manager.js
 init_dist();
 var DEFAULT_CONTAINER_OPTIONS = {
 	width: "100%",
@@ -1752,8 +1749,7 @@ function viewNameChanged(a, b) {
 function safeExecute(viewer, method) {
 	if (isFunction$2(viewer[method])) viewer[method]();
 }
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/util/ModelUtil.js
+// ../../node_modules/dmn-js-shared/lib/util/ModelUtil.js
 init_dist();
 function is$2(element, type) {
 	var bo = getBusinessObject$1(element);
@@ -1776,6 +1772,11 @@ function isAny$1(element, types) {
 		return is$2(element, t);
 	});
 }
+function getDefinitions$1(element) {
+	let bo = getBusinessObject$1(element);
+	while (bo && !is$2(bo, "dmn:Definitions")) bo = bo.$parent;
+	return bo;
+}
 function getBoxedExpression(decisionOrBkm) {
 	var bo = getBusinessObject$1(decisionOrBkm);
 	if (is$2(bo, "dmn:Decision")) return bo.get("decisionLogic");
@@ -1796,8 +1797,7 @@ function isFeel(element) {
 	}
 	return true;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/base/EditingManager.js
+// ../../node_modules/dmn-js-shared/lib/base/EditingManager.js
 var EditingManager = class extends Manager {
 	_init(options) {
 		super._init(options);
@@ -1834,8 +1834,17 @@ var EditingManager = class extends Manager {
 		return moddle;
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/import/DrdTreeWalker.js
+// ../../node_modules/dmn-js-drd/lib/features/modeling/util/HrefUtil.js
+function getIdFromHref(href) {
+	return href.split("#").pop();
+}
+function refersTo(reference, id) {
+	return !!reference.href && getIdFromHref(reference.href) === id;
+}
+function replaceIdInHref(href, id) {
+	return href.slice(0, href.lastIndexOf("#") + 1) + id;
+}
+// ../../node_modules/dmn-js-drd/lib/import/DrdTreeWalker.js
 init_dist();
 var diRefs = new Refs({
 	name: "dmnElementRef",
@@ -1845,17 +1854,20 @@ var diRefs = new Refs({
 	configurable: true
 });
 function DRDTreeWalker(handler, options) {
-	var deferred = [];
-	function visit(element) {
+	var deferred = [], refToParent = new Map();
+	function mapRefToParent(ref, parent) {
+		refToParent.set(getIdFromHref(ref.href), parent);
+	}
+	function visit(element, parentSemantic) {
 		if (element.gfx) throw new Error("already rendered " + element.id);
-		return handler.element(element);
+		return handler.element(element, parentSemantic);
 	}
 	function visitRoot(element) {
 		return handler.root(element);
 	}
-	function visitIfDi(element) {
+	function visitIfDi(element, parentSemantic) {
 		try {
-			return element.di && visit(element);
+			return element.di && visit(element, parentSemantic);
 		} catch (e) {
 			logError(e.message, {
 				element,
@@ -1879,7 +1891,11 @@ function DRDTreeWalker(handler, options) {
 	}
 	function handleDrgElements(elements) {
 		forEach(elements, function(element) {
-			visitIfDi(element);
+			if (is$2(element, "dmn:DecisionService")) handleDecisionService(element);
+			else if (is$2(element, "dmn:Decision")) handleDecision(element);
+			else visitIfDi(element);
+		});
+		forEach(elements, function(element) {
 			handleRequirements(element);
 		});
 	}
@@ -1905,6 +1921,20 @@ function DRDTreeWalker(handler, options) {
 					visitIfDi(requirement);
 				});
 			});
+		});
+	}
+	function handleDecisionService(element) {
+		visitIfDi(element);
+		forEach(element.get("encapsulatedDecision"), function(decisionRef) {
+			mapRefToParent(decisionRef, element);
+		});
+		forEach(element.get("outputDecision"), function(decisionRef) {
+			mapRefToParent(decisionRef, element);
+		});
+	}
+	function handleDecision(element) {
+		defer(function() {
+			visitIfDi(element, refToParent.get(element.id));
 		});
 	}
 	function handleDiagram(diagram) {
@@ -1936,8 +1966,7 @@ function DRDTreeWalker(handler, options) {
 	}
 	return { handleDefinitions };
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/import/Importer.js
+// ../../node_modules/dmn-js-drd/lib/import/Importer.js
 function importDRD(drd, definitions, done) {
 	var importer = drd.get("drdImporter"), eventBus = drd.get("eventBus");
 	var error, warnings = [];
@@ -1946,8 +1975,8 @@ function importDRD(drd, definitions, done) {
 			root: function(element) {
 				return importer.root(element);
 			},
-			element: function(element, di) {
-				return importer.add(element, di);
+			element: function(element, parentSemantic) {
+				return importer.add(element, parentSemantic);
 			},
 			error: function(message, context) {
 				warnings.push({
@@ -1969,8 +1998,7 @@ function importDRD(drd, definitions, done) {
 	});
 	done(error, warnings);
 }
-//#endregion
-//#region ../../node_modules/inferno/dist/index.esm.js
+// ../../node_modules/inferno/dist/index.esm.js
 var NO_OP = "$NO_OP";
 var ERROR_MSG = "a runtime error occured! Use Inferno in development environment to find the error.";
 var isArray$3 = Array.isArray;
@@ -3409,8 +3437,7 @@ var Component = function() {
 	return Component;
 }();
 Component.defaultProps = void 0;
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/util/PoweredByUtil.js
+// ../../node_modules/dmn-js-shared/lib/util/PoweredByUtil.js
 var BPMNIO_IMG = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 14.02 5.57\" width=\"53\" height=\"21\" style=\"vertical-align:middle\"><path fill=\"#000000\" d=\"M1.88.92v.14c0 .41-.13.68-.4.8.33.14.46.44.46.86v.33c0 .61-.33.95-.95.95H0V0h.95c.65 0 .93.3.93.92zM.63.57v1.06h.24c.24 0 .38-.1.38-.43V.98c0-.28-.1-.4-.32-.4zm0 1.63v1.22h.36c.2 0 .32-.1.32-.39v-.35c0-.37-.12-.48-.4-.48H.63zM4.18.99v.52c0 .64-.31.98-.94.98h-.3V4h-.62V0h.92c.63 0 .94.35.94.99zM2.94.57v1.35h.3c.2 0 .3-.09.3-.37v-.6c0-.29-.1-.38-.3-.38h-.3zm2.89 2.27L6.25 0h.88v4h-.6V1.12L6.1 3.99h-.6l-.46-2.82v2.82h-.55V0h.87zM8.14 1.1V4h-.56V0h.79L9 2.4V0h.56v4h-.64zm2.49 2.29v.6h-.6v-.6zM12.12 1c0-.63.33-1 .95-1 .61 0 .95.37.95 1v2.04c0 .64-.34 1-.95 1-.62 0-.95-.37-.95-1zm.62 2.08c0 .28.13.39.33.39s.32-.1.32-.4V.98c0-.29-.12-.4-.32-.4s-.33.11-.33.4z\"/><path fill=\"#000000\" d=\"M0 4.53h14.02v1.04H0zM11.08 0h.63v.62h-.63zm.63 4V1h-.63v2.98z\"/></svg>";
 function addProjectLogo(container) {
 	var linkMarkup = "<a href=\"http://bpmn.io\" target=\"_blank\" class=\"bjs-powered-by\" title=\"Powered by bpmn.io\" style=\"position: absolute; bottom: 15px; right: 15px; z-index: 100;\">" + BPMNIO_IMG + "</a>";
@@ -3474,11 +3501,11 @@ function open() {
 	}
 	document.body.appendChild(lightbox);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/draw/DrdRenderer.js
+// ../../node_modules/dmn-js-drd/lib/draw/DrdRenderer.js
 init_dist();
 var RENDERER_IDS = new Ids();
 var black = "hsl(225, 10%, 15%)";
+var DEFAULT_FILL_OPACITY = .95;
 function DrdRenderer(config, eventBus, pathMap, styles, textRenderer, canvas) {
 	BaseRenderer.call(this, eventBus);
 	var rendererId = RENDERER_IDS.next();
@@ -3711,6 +3738,58 @@ function DrdRenderer(config, eventBus, pathMap, styles, textRenderer, canvas) {
 			renderEmbeddedLabel(p, element, "center-middle");
 			return rect;
 		},
+		"dmn:DecisionService": function(p, element) {
+			var rect = drawRect(p, element.width, element.height, 12, {
+				stroke: getStrokeColor(element, defaultStrokeColor),
+				strokeWidth: 4,
+				fill: getFillColor(element, defaultFillColor),
+				fillOpacity: DEFAULT_FILL_OPACITY
+			});
+			var dividerY = element.height * getDecisionServiceDividerRatio(element.businessObject);
+			var line = create$1("line");
+			attr(line, {
+				x1: 0,
+				y1: dividerY,
+				x2: element.width,
+				y2: dividerY,
+				stroke: getStrokeColor(element, defaultStrokeColor),
+				strokeWidth: 2
+			});
+			attr$1(line, "class", "dmn-decision-service-divider");
+			append(p, line);
+			var outputText = create$1("text");
+			attr(outputText, {
+				x: element.width / 2,
+				y: dividerY - 10,
+				fill: getLabelColor(element, defaultLabelColor, defaultStrokeColor),
+				"font-family": "Arial, sans-serif",
+				"font-weight": "bold",
+				"font-size": "12px",
+				"text-anchor": "middle",
+				"dominant-baseline": "middle"
+			});
+			outputText.textContent = "OUTPUT";
+			attr$1(outputText, "class", "djs-label dmn-decision-service-label");
+			attr$1(outputText, "display", "none");
+			append(p, outputText);
+			var encapsulatedText = create$1("text");
+			attr(encapsulatedText, {
+				x: element.width / 2,
+				y: dividerY + 10,
+				fill: getLabelColor(element, defaultLabelColor, defaultStrokeColor),
+				"font-family": "Arial, sans-serif",
+				"font-weight": "bold",
+				"font-size": "12px",
+				"text-anchor": "middle",
+				"dominant-baseline": "middle"
+			});
+			encapsulatedText.textContent = "ENCAPSULATED";
+			attr$1(encapsulatedText, "class", "djs-label dmn-decision-service-label");
+			attr$1(encapsulatedText, "display", "none");
+			append(p, encapsulatedText);
+			renderEmbeddedLabel(p, element, "center-top", { padding: 10 });
+			return rect;
+		},
 		"dmn:TextAnnotation": function(p, element) {
 			var textElement = drawRect(p, element.width, element.height, 0, 0, {
 				"fill": "none",
@@ -3831,8 +3910,15 @@ function getFillColor(element, defaultColor) {
 function getLabelColor(element, defaultColor, defaultStrokeColor) {
 	return defaultColor || getStrokeColor(element, defaultStrokeColor);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/draw/TextRenderer.js
+function getDecisionServiceDividerRatio(businessObject) {
+	var di = businessObject && businessObject.di;
+	var dividerLine = di && di.decisionServiceDividerLine;
+	var bounds = di && di.bounds;
+	if (!dividerLine || !dividerLine.waypoint || dividerLine.waypoint.length !== 2 || !bounds || !bounds.height) return .5;
+	var ratio = (dividerLine.waypoint[0].y - bounds.y) / bounds.height;
+	return Math.max(0, Math.min(1, ratio));
+}
+// ../../node_modules/dmn-js-drd/lib/draw/TextRenderer.js
 init_dist();
 var DEFAULT_FONT_SIZE = 12;
 var LINE_HEIGHT_RATIO = 1.2;
@@ -3889,8 +3975,7 @@ function TextRenderer(config) {
 	};
 }
 TextRenderer.$inject = ["config.textRenderer"];
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/draw/PathMap.js
+// ../../node_modules/dmn-js-drd/lib/draw/PathMap.js
 function PathMap() {
 	this.pathMap = {
 		"KNOWLEDGE_SOURCE": {
@@ -3986,16 +4071,14 @@ function format(str, obj) {
 		return replacer(all, key, obj);
 	});
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/draw/index.js
+// ../../node_modules/dmn-js-drd/lib/draw/index.js
 var draw_default = {
 	__init__: ["drdRenderer"],
 	drdRenderer: ["type", DrdRenderer],
 	textRenderer: ["type", TextRenderer],
 	pathMap: ["type", PathMap]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/import/DrdImporter.js
+// ../../node_modules/dmn-js-drd/lib/import/DrdImporter.js
 init_dist();
 function DrdImporter(eventBus, canvas, elementFactory, elementRegistry) {
 	this._eventBus = eventBus;
@@ -4014,8 +4097,8 @@ DrdImporter.prototype.root = function(semantic) {
 	this._canvas.setRootElement(element);
 	return element;
 };
-DrdImporter.prototype.add = function(semantic) {
-	var elementFactory = this._elementFactory, canvas = this._canvas, eventBus = this._eventBus, di = semantic.di;
+DrdImporter.prototype.add = function(semantic, parentSemantic) {
+	var elementFactory = this._elementFactory, canvas = this._canvas, eventBus = this._eventBus, di = semantic.di, parent = parentSemantic && this._getShape(parentSemantic.id);
 	var element, waypoints, source, target, elementDefinition, bounds;
 	if (di.$instanceOf("dmndi:DMNShape")) {
 		bounds = di.bounds;
@@ -4026,7 +4109,7 @@ DrdImporter.prototype.add = function(semantic) {
 			height: Math.round(bounds.height)
 		});
 		element = elementFactory.createShape(elementDefinition);
-		canvas.addShape(element);
+		canvas.addShape(element, parent);
 		eventBus.fire("drdElement.added", {
 			element,
 			di
@@ -4085,14 +4168,9 @@ function collectWaypoints(edge) {
 		return assign({ original: position }, position);
 	});
 }
-function getIdFromHref(href) {
-	return href.split("#").pop();
-}
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/core/index.js
+// ../../node_modules/dmn-js-drd/lib/core/index.js
 var core_default$5 = { __depends__: [draw_default, { drdImporter: ["type", DrdImporter] }] };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/definition-properties/DefinitionPropertiesView.js
+// ../../node_modules/dmn-js-drd/lib/features/definition-properties/DefinitionPropertiesView.js
 function DefinitionPropertiesView(eventBus, canvas, translate) {
 	this._eventBus = eventBus;
 	this._canvas = canvas;
@@ -4126,8 +4204,7 @@ DefinitionPropertiesView.prototype.update = function() {
 	this.nameElement.textContent = businessObject.name;
 	this.idElement.textContent = businessObject.id;
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/definition-properties/PaletteAdapter.js
+// ../../node_modules/dmn-js-drd/lib/features/definition-properties/PaletteAdapter.js
 function PaletteAdapter(eventBus, canvas) {
 	function toggleMarker(cls, on) {
 		var container = canvas.getContainer();
@@ -4141,16 +4218,14 @@ function PaletteAdapter(eventBus, canvas) {
 	});
 }
 PaletteAdapter.$inject = ["eventBus", "canvas"];
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/definition-properties/viewer.js
+// ../../node_modules/dmn-js-drd/lib/features/definition-properties/viewer.js
 var viewer_default = {
 	__depends__: [translate_default],
 	__init__: ["definitionPropertiesView", "definitionPropertiesPaletteAdapter"],
 	definitionPropertiesView: ["type", DefinitionPropertiesView],
 	definitionPropertiesPaletteAdapter: ["type", PaletteAdapter]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/drill-down/DrillDown.js
+// ../../node_modules/dmn-js-drd/lib/features/drill-down/DrillDown.js
 var PROVIDERS = [{
 	className: "dmn-icon-decision-table",
 	matches: function(el) {
@@ -4234,15 +4309,13 @@ DrillDown.$inject = [
 	"config.drillDown",
 	"translate"
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/drill-down/index.js
+// ../../node_modules/dmn-js-drd/lib/features/drill-down/index.js
 var drill_down_default = {
 	__depends__: [overlays_default, translate_default],
 	__init__: ["drillDown"],
 	drillDown: ["type", DrillDown]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/Viewer.js
+// ../../node_modules/dmn-js-drd/lib/Viewer.js
 var EXPORT_PADDING = 5;
 var OUTLINE_HIDDEN_CLS = "djs-outline-hidden";
 function Viewer$4(options) {
@@ -4286,7 +4359,7 @@ Viewer$4.prototype._init = function(container, options) {
 	var { additionalModules, canvas, ...additionalOptions } = options;
 	var baseModules = options.modules || this.getModules();
 	var modules = [
-		...[{ drd: ["value", this] }],
+		...[{ viewer: ["value", this] }],
 		...baseModules,
 		...additionalModules || []
 	];
@@ -4329,6 +4402,9 @@ Viewer$4.prototype.open = function(definitions) {
 		} else resolve({ warnings: [] });
 	});
 };
+Viewer$4.prototype.getDefinitions = function() {
+	return this._definitions;
+};
 Viewer$4.prototype.attachTo = function(parentNode) {
 	if (!parentNode) throw new Error("parentNode required");
 	this.detach();
@@ -4351,10 +4427,9 @@ Viewer$4.prototype._modules = [
 	viewer_default,
 	drill_down_default
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/label-editing/LabelUtil.js
+// ../../node_modules/dmn-js-drd/lib/features/label-editing/LabelUtil.js
 function getLabelAttr$1(semantic) {
-	if (is$2(semantic, "dmn:Decision") || is$2(semantic, "dmn:BusinessKnowledgeModel") || is$2(semantic, "dmn:InputData") || is$2(semantic, "dmn:KnowledgeSource")) return "name";
+	if (is$2(semantic, "dmn:Decision") || is$2(semantic, "dmn:BusinessKnowledgeModel") || is$2(semantic, "dmn:InputData") || is$2(semantic, "dmn:KnowledgeSource") || is$2(semantic, "dmn:DecisionService")) return "name";
 	if (is$2(semantic, "dmn:TextAnnotation")) return "text";
 }
 function getLabel$1(element) {
@@ -4367,8 +4442,7 @@ function setLabel(element, text, isExternal) {
 	if (isExternal) element.hidden = !text;
 	return element;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/search/DmnSearchProvider.js
+// ../../node_modules/dmn-js-drd/lib/features/search/DmnSearchProvider.js
 init_dist();
 function DmnSearchProvider(elementRegistry, searchPad, canvas) {
 	this._elementRegistry = elementRegistry;
@@ -4422,15 +4496,13 @@ function matchAndSplit(text, pattern) {
 	} else tokens.push({ normal: originalText });
 	return tokens;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/search/index.js
+// ../../node_modules/dmn-js-drd/lib/features/search/index.js
 var search_default = {
 	__depends__: [search_pad_default],
 	__init__: ["dmnSearch"],
 	dmnSearch: ["type", DmnSearchProvider]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/NavigatedViewer.js
+// ../../node_modules/dmn-js-drd/lib/NavigatedViewer.js
 function NavigatedViewer(options) {
 	Viewer$4.call(this, options);
 }
@@ -4441,8 +4513,7 @@ NavigatedViewer.prototype._navigationModules = [
 	search_default
 ];
 NavigatedViewer.prototype._modules = [].concat(NavigatedViewer.prototype._modules, NavigatedViewer.prototype._navigationModules);
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/modeling/ElementFactory.js
+// ../../node_modules/dmn-js-drd/lib/features/modeling/ElementFactory.js
 init_dist();
 var BUSINESS_KNOWLEDGE_MODEL_SIZE = {
 	width: 135,
@@ -4451,6 +4522,10 @@ var BUSINESS_KNOWLEDGE_MODEL_SIZE = {
 var DECISION_SIZE = {
 	width: 180,
 	height: 80
+};
+var DECISION_SERVICE_SIZE = {
+	width: 320,
+	height: 320
 };
 var INPUT_DATA_SIZE = {
 	width: 125,
@@ -4481,7 +4556,29 @@ ElementFactory$2.prototype.createDrdElement = function(elementType, attrs) {
 	}
 	if (!businessObject.di) {
 		if (elementType === "connection") businessObject.di = drdFactory.createDiEdge(businessObject, []);
-		else if (elementType === "shape") businessObject.di = drdFactory.createDiShape(businessObject, {});
+		else if (elementType === "shape") {
+			businessObject.di = drdFactory.createDiShape(businessObject, {});
+			if (is$2(businessObject, "dmn:DecisionService")) {
+				size = this._getDefaultSize(businessObject);
+				var dividerY = (attrs.y || 0) + size.height / 2;
+				var dividerWaypoints = [{
+					x: attrs.x || 0,
+					y: dividerY
+				}, {
+					x: (attrs.x || 0) + size.width,
+					y: dividerY
+				}];
+				var dividerLine = drdFactory.createDiDividerLine(dividerWaypoints);
+				dividerLine.$parent = businessObject.di;
+				businessObject.di.decisionServiceDividerLine = dividerLine;
+				if (!businessObject.name) businessObject.name = "New Decision Service";
+				if (!businessObject.variable) {
+					var variable = drdFactory.create("dmn:InformationItem", { name: businessObject.name });
+					businessObject.variable = variable;
+					variable.$parent = businessObject;
+				}
+			}
+		}
 	}
 	size = this._getDefaultSize(businessObject);
 	attrs = assign({
@@ -4493,6 +4590,7 @@ ElementFactory$2.prototype.createDrdElement = function(elementType, attrs) {
 ElementFactory$2.prototype._getDefaultSize = function(semantic) {
 	if (is$2(semantic, "dmn:BusinessKnowledgeModel")) return BUSINESS_KNOWLEDGE_MODEL_SIZE;
 	if (is$2(semantic, "dmn:Decision")) return DECISION_SIZE;
+	if (is$2(semantic, "dmn:DecisionService")) return DECISION_SERVICE_SIZE;
 	if (is$2(semantic, "dmn:InputData")) return INPUT_DATA_SIZE;
 	if (is$2(semantic, "dmn:KnowledgeSource")) return KNOWLEDGE_SOURCE_SIZE;
 	return {
@@ -4500,8 +4598,7 @@ ElementFactory$2.prototype._getDefaultSize = function(semantic) {
 		height: 80
 	};
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/auto-place/DmnAutoPlaceUtil.js
+// ../../node_modules/dmn-js-drd/lib/features/auto-place/DmnAutoPlaceUtil.js
 var DIRECTION_LEFT = "left";
 var DIRECTION_RIGHT = "right";
 var DRG_ELEMENT_MARGIN = 60;
@@ -4571,8 +4668,7 @@ function generateGetNextDRGElementPosition(source) {
 		};
 	};
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/auto-place/DmnAutoPlace.js
+// ../../node_modules/dmn-js-drd/lib/features/auto-place/DmnAutoPlace.js
 function AutoPlace(eventBus) {
 	eventBus.on("autoPlace", function(context) {
 		var shape = context.shape, source = context.source;
@@ -4580,15 +4676,156 @@ function AutoPlace(eventBus) {
 	});
 }
 AutoPlace.$inject = ["eventBus"];
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/auto-place/index.js
+// ../../node_modules/dmn-js-drd/lib/features/auto-place/index.js
 var auto_place_default = {
 	__depends__: [auto_place_default$1],
 	__init__: ["dmnAutoPlace"],
 	dmnAutoPlace: ["type", AutoPlace]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/replace/DrdReplace.js
+// ../../node_modules/diagram-js/lib/features/auto-resize/index.js
+var auto_resize_default$1 = {
+	__init__: ["autoResize"],
+	autoResize: ["type", AutoResize]
+};
+// ../../node_modules/dmn-js-drd/lib/features/rules/DrdRules.js
+init_dist();
+function DrdRules(injector) {
+	injector.invoke(RuleProvider, this);
+}
+e(DrdRules, RuleProvider);
+DrdRules.$inject = ["injector"];
+DrdRules.prototype.init = function() {
+	this.addRule("connection.create", function(context) {
+		var source = context.source, target = context.target;
+		return canConnect(source, target);
+	});
+	this.addRule("connection.reconnect", function(context) {
+		var connection = context.connection, source = context.source, target = context.target;
+		return canConnect(source, target, connection);
+	});
+	this.addRule("connection.updateWaypoints", function(context) {
+		const connection = context.connection;
+		return {
+			type: connection.type,
+			businessObject: connection.businessObject
+		};
+	});
+	this.addRule("elements.move", function(context) {
+		var target = context.target, shapes = context.shapes, position = context.position;
+		return canMove(shapes, target, position);
+	});
+	this.addRule("shape.create", function(context) {
+		var shape = context.shape, target = context.target;
+		return canCreate(shape, target);
+	});
+	this.addRule("shape.resize", function(context) {
+		var shape = context.shape;
+		return isAny$1(shape, ["dmn:TextAnnotation", "dmn:DecisionService"]);
+	});
+};
+DrdRules.prototype.canConnect = canConnect;
+DrdRules.prototype.canCreate = canCreate;
+DrdRules.prototype.canMove = canMove;
+function canConnect(source, target) {
+	if (!source || isLabel(source) || !target || isLabel(target)) return null;
+	if (source === target) return false;
+	if (is$2(source, "dmn:BusinessKnowledgeModel") && isAny$1(target, ["dmn:BusinessKnowledgeModel", "dmn:Decision"])) return { type: "dmn:KnowledgeRequirement" };
+	if (is$2(source, "dmn:Decision")) {
+		if (is$2(target, "dmn:Decision")) return { type: "dmn:InformationRequirement" };
+		if (is$2(target, "dmn:KnowledgeSource")) return { type: "dmn:AuthorityRequirement" };
+	}
+	if (is$2(source, "dmn:Definitions") || is$2(target, "dmn:Definitions")) return false;
+	if (is$2(source, "dmn:InputData")) {
+		if (is$2(target, "dmn:Decision")) return { type: "dmn:InformationRequirement" };
+		if (is$2(target, "dmn:KnowledgeSource")) return { type: "dmn:AuthorityRequirement" };
+	}
+	if (is$2(source, "dmn:KnowledgeSource") && isAny$1(target, [
+		"dmn:BusinessKnowledgeModel",
+		"dmn:Decision",
+		"dmn:KnowledgeSource"
+	])) return { type: "dmn:AuthorityRequirement" };
+	if (is$2(source, "dmn:DecisionService") && isAny$1(target, ["dmn:BusinessKnowledgeModel", "dmn:Decision"])) return { type: "dmn:KnowledgeRequirement" };
+	if (is$2(source, "dmn:TextAnnotation") && !is$2(target, "dmn:TextAnnotation") || !is$2(source, "dmn:TextAnnotation") && is$2(target, "dmn:TextAnnotation")) return { type: "dmn:Association" };
+	return false;
+}
+function canCreate(shape, target) {
+	if (isAny$1(shape, [
+		"dmn:BusinessKnowledgeModel",
+		"dmn:Decision",
+		"dmn:DecisionService",
+		"dmn:InputData",
+		"dmn:KnowledgeSource",
+		"dmn:TextAnnotation"
+	]) && is$2(target, "dmn:Definitions")) return true;
+	if (is$2(shape, "dmn:Decision") && is$2(target, "dmn:DecisionService")) return true;
+	return false;
+}
+function canMove(elements, target) {
+	if (!isArray$4(elements)) elements = [elements];
+	if (!target) return true;
+	if (every(elements, function(element) {
+		return isAny$1(element, [
+			"dmn:BusinessKnowledgeModel",
+			"dmn:Decision",
+			"dmn:DecisionService",
+			"dmn:InputData",
+			"dmn:KnowledgeSource",
+			"dmn:TextAnnotation",
+			"dmn:InformationRequirement",
+			"dmn:AuthorityRequirement",
+			"dmn:KnowledgeRequirement",
+			"dmn:Association"
+		]);
+	}) && is$2(target, "dmn:Definitions")) return true;
+	if (is$2(target, "dmn:DecisionService")) return every(elements, function(element) {
+		return is$2(element, "dmn:Decision");
+	});
+	return false;
+}
+function isLabel(element) {
+	return !!element.labelTarget;
+}
+// ../../node_modules/dmn-js-drd/lib/features/rules/index.js
+var rules_default$2 = {
+	__depends__: [rules_default$3],
+	__init__: ["drdRules"],
+	drdRules: ["type", DrdRules]
+};
+// ../../node_modules/dmn-js-drd/lib/features/auto-resize/DrdAutoResizeProvider.js
+function DrdAutoResizeProvider(eventBus) {
+	AutoResizeProvider.call(this, eventBus);
+}
+DrdAutoResizeProvider.$inject = ["eventBus"];
+e(DrdAutoResizeProvider, AutoResizeProvider);
+DrdAutoResizeProvider.prototype.canResize = function(elements, target) {
+	if (!is$2(target, "dmn:DecisionService")) return false;
+	return elements.every(function(element) {
+		return is$2(element, "dmn:Decision") && !element.labelTarget;
+	});
+};
+// ../../node_modules/dmn-js-drd/lib/features/auto-resize/DrdAutoResize.js
+function DrdAutoResize(injector) {
+	injector.invoke(AutoResize, this);
+}
+DrdAutoResize.$inject = ["injector"];
+e(DrdAutoResize, AutoResize);
+DrdAutoResize.prototype.getPadding = function(shape) {
+	if (is$2(shape, "dmn:DecisionService")) return {
+		top: 20,
+		right: 20,
+		bottom: 20,
+		left: 20
+	};
+	return AutoResize.prototype.getPadding.call(this, shape);
+};
+// ../../node_modules/dmn-js-drd/lib/features/auto-resize/index.js
+var auto_resize_default = {
+	__depends__: [auto_resize_default$1, rules_default$2],
+	__init__: ["drdAutoResizeProvider"],
+	autoResize: ["type", DrdAutoResize],
+	drdAutoResizeProvider: ["type", DrdAutoResizeProvider]
+};
+// ../../node_modules/dmn-js-drd/lib/features/replace/DrdReplace.js
 function DrdReplace(drdFactory, replace, selection, modeling) {
 	function replaceElement(element, target, hints) {
 		hints = hints || {};
@@ -4643,14 +4880,12 @@ function setBoxedExpression(bo, expression, drdFactory) {
 		expression.$parent = encapsulatedLogic;
 	}
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/replace/index.js
+// ../../node_modules/dmn-js-drd/lib/features/replace/index.js
 var replace_default = {
 	__depends__: [replace_default$1, selection_default$1],
 	drdReplace: ["type", DrdReplace]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/replace/ReplaceOptions.js
+// ../../node_modules/dmn-js-drd/lib/features/replace/ReplaceOptions.js
 var ReplaceOptions_default = {
 	DECISION: [
 		{
@@ -4704,8 +4939,7 @@ var ReplaceOptions_default = {
 		}
 	}]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/popup-menu/ReplaceMenuProvider.js
+// ../../node_modules/dmn-js-drd/lib/features/popup-menu/ReplaceMenuProvider.js
 init_dist();
 function ReplaceMenuProvider(popupMenu, modeling, moddle, drdReplace, rules, translate) {
 	this._popupMenu = popupMenu;
@@ -4779,8 +5013,7 @@ ReplaceMenuProvider.prototype._createMenuEntry = function(definition, element, a
 ReplaceMenuProvider.prototype.getHeaderEntries = function(element) {
 	return [];
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/popup-menu/index.js
+// ../../node_modules/dmn-js-drd/lib/features/popup-menu/index.js
 var popup_menu_default = {
 	__depends__: [
 		translate_default,
@@ -4790,8 +5023,7 @@ var popup_menu_default = {
 	__init__: ["replaceMenuProvider"],
 	replaceMenuProvider: ["type", ReplaceMenuProvider]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/context-pad/ContextPadProvider.js
+// ../../node_modules/dmn-js-drd/lib/features/context-pad/ContextPadProvider.js
 init_dist();
 function ContextPadProvider(eventBus, contextPad, modeling, elementFactory, connect, create, rules, popupMenu, canvas, translate, config, injector) {
 	config = config || {};
@@ -4846,12 +5078,16 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
 			y: padRect.bottom + Y_OFFSET
 		};
 	}
+	function getAppendHints(element) {
+		if (is$2(element, "dmn:DecisionService")) return {};
+		return { connectionTarget: element };
+	}
 	function appendAction(type, className, title, options) {
 		function appendStart(event, element) {
 			var shape = elementFactory.createShape(assign({ type }, options));
 			create.start(event, shape, {
 				source: element,
-				hints: { connectionTarget: element }
+				hints: getAppendHints(element)
 			});
 		}
 		return {
@@ -4862,18 +5098,22 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
 				dragstart: appendStart,
 				click: autoPlace ? function(event, element) {
 					var shape = elementFactory.createShape(assign({ type }, options));
-					autoPlace.append(element, shape, { connectionTarget: element });
+					autoPlace.append(element, shape, getAppendHints(element));
 				} : appendStart
 			}
 		};
 	}
-	if (is$2(businessObject, "dmn:Decision")) assign(actions, { "append.decision": appendAction("dmn:Decision", "dmn-icon-decision", translate("Append decision")) });
+	if (isAny$1(businessObject, ["dmn:Decision", "dmn:DecisionService"])) assign(actions, { "append.decision": appendAction("dmn:Decision", "dmn-icon-decision", translate("Append decision")) });
 	if (isAny$1(businessObject, [
 		"dmn:BusinessKnowledgeModel",
 		"dmn:Decision",
 		"dmn:KnowledgeSource"
 	])) assign(actions, { "append.knowledge-source": appendAction("dmn:KnowledgeSource", "dmn-icon-knowledge-source", translate("Append knowledge source")) });
-	if (isAny$1(businessObject, ["dmn:BusinessKnowledgeModel", "dmn:Decision"])) assign(actions, { "append.business-knowledge-model": appendAction("dmn:BusinessKnowledgeModel", "dmn-icon-business-knowledge", translate("Append business knowledge model")) });
+	if (isAny$1(businessObject, [
+		"dmn:BusinessKnowledgeModel",
+		"dmn:Decision",
+		"dmn:DecisionService"
+	])) assign(actions, { "append.business-knowledge-model": appendAction("dmn:BusinessKnowledgeModel", "dmn-icon-business-knowledge", translate("Append business knowledge model")) });
 	if (isAny$1(businessObject, ["dmn:Decision", "dmn:KnowledgeSource"])) assign(actions, { "append.input-data": appendAction("dmn:InputData", "dmn-icon-input-data", translate("Append input data")) });
 	if (is$2(businessObject, "dmn:DRGElement")) assign(actions, {
 		"append.text-annotation": appendAction("dmn:TextAnnotation", "dmn-icon-text-annotation", translate("Add text annotation")),
@@ -4934,8 +5174,7 @@ ContextPadProvider.prototype._isDeleteAllowed = function(elements) {
 	if (isArray$4(allowedOrAllowedElements)) return every(elements, (el) => allowedOrAllowedElements.includes(el));
 	return allowedOrAllowedElements;
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/context-pad/index.js
+// ../../node_modules/dmn-js-drd/lib/features/context-pad/index.js
 var context_pad_default = {
 	__depends__: [
 		translate_default,
@@ -4948,8 +5187,7 @@ var context_pad_default = {
 	__init__: ["contextPadProvider"],
 	contextPadProvider: ["type", ContextPadProvider]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/util/IdsUtil.js
+// ../../node_modules/dmn-js-shared/lib/util/IdsUtil.js
 var SPACE_REGEX$1 = /\s/;
 var QNAME_REGEX$1 = /^([a-z][\w-.]*:)?[a-z_][\w-.]*$/i;
 var ID_REGEX$1 = /^[a-z_][\w-.]*$/i;
@@ -4975,8 +5213,7 @@ function containsSpace$1(value) {
 function stripPlaceholders(id) {
 	return id.replace(PLACEHOLDER_REGEX, "$1");
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/definition-properties/DefinitionPropertiesEdit.js
+// ../../node_modules/dmn-js-drd/lib/features/definition-properties/DefinitionPropertiesEdit.js
 init_dist();
 var DEBOUNCE_DELAY = 300;
 function DefinitionIdEdit(eventBus, modeling, canvas, definitionPropertiesView, translate) {
@@ -5046,16 +5283,14 @@ DefinitionIdEdit.prototype._clearErrorMessage = function() {
 		idElement.parentNode.removeChild(errorLabel);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/definition-properties/modeler.js
+// ../../node_modules/dmn-js-drd/lib/features/definition-properties/modeler.js
 var modeler_default = {
 	__depends__: [viewer_default],
 	__init__: ["definitionPropertiesEdit", "definitionPropertiesPaletteAdapter"],
 	definitionPropertiesEdit: ["type", DefinitionIdEdit],
 	definitionPropertiesPaletteAdapter: ["type", PaletteAdapter]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/distribute-elements/DrdDistributeElements.js
+// ../../node_modules/dmn-js-drd/lib/features/distribute-elements/DrdDistributeElements.js
 init_dist();
 function DrdDistributeElements(distributeElements) {
 	distributeElements.registerFilter(function(elements) {
@@ -5072,15 +5307,13 @@ function DrdDistributeElements(distributeElements) {
 	});
 }
 DrdDistributeElements.$inject = ["distributeElements"];
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/distribute-elements/index.js
+// ../../node_modules/dmn-js-drd/lib/features/distribute-elements/index.js
 var distribute_elements_default = {
 	__depends__: [distribute_elements_default$1],
 	__init__: ["drdDistributeElements"],
 	drdDistributeElements: ["type", DrdDistributeElements]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/editor-actions/DrdEditorActions.js
+// ../../node_modules/dmn-js-drd/lib/features/editor-actions/DrdEditorActions.js
 function DrdEditorActions(injector) {
 	injector.invoke(EditorActions$3, this);
 }
@@ -5119,19 +5352,145 @@ DrdEditorActions.prototype._registerDefaultActions = function(injector) {
 		searchPad.toggle();
 	});
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/editor-actions/index.js
+// ../../node_modules/dmn-js-drd/lib/features/editor-actions/index.js
 var editor_actions_default$4 = {
 	__depends__: [editor_actions_default$5],
 	editorActions: ["type", DrdEditorActions]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/util/DiUtil.js
+// ../../node_modules/dmn-js-shared/lib/util/DiUtil.js
 function containsDi(definitions) {
 	return definitions.dmnDI && definitions.dmnDI.diagrams && definitions.dmnDI.diagrams[0];
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/generate-di/DiGenerator.js
+// ../../node_modules/dmn-js-drd/lib/features/decision-service-divider/DecisionServiceDivider.js
+var MIN_SECTION_HEIGHT = DECISION_SIZE.height + 40;
+var HANDLE_HIT_HEIGHT = 14;
+var HANDLE_INSET = 8;
+var MARKER_DRAGGING = "djs-divider-dragging";
+function DecisionServiceDivider(canvas, dragging, drdFactory, eventBus, gridSnapping, modeling, selection) {
+	var self = this;
+	this._canvas = canvas;
+	this._dragging = dragging;
+	this._handle = null;
+	eventBus.on("selection.changed", function(event) {
+		var newSelection = event.newSelection;
+		self._removeHandle();
+		if (newSelection.length === 1) self._addHandle(newSelection[0]);
+	});
+	eventBus.on("shape.changed", function(event) {
+		var shape = event.element;
+		if (selection.isSelected(shape)) {
+			self._removeHandle();
+			self._addHandle(shape);
+		}
+	});
+	eventBus.on("decisionService.divider.start", function(event) {
+		var shape = event.context.shape, divider = canvas.getGraphics(shape).querySelector(".dmn-decision-service-divider");
+		canvas.addMarker(shape, MARKER_DRAGGING);
+		if (divider && self._handle) {
+			var preview = clone(divider);
+			attr(preview, {
+				y1: 0,
+				y2: 0
+			});
+			append(self._handle, preview);
+		}
+	});
+	eventBus.on("decisionService.divider.move", function(event) {
+		var context = event.context, shape = context.shape;
+		var range = getDividerRange(shape, context.dividerYAtStart), y = event.y;
+		if (gridSnapping.isActive() && !(event.originalEvent && isCmd$5(event.originalEvent))) y = gridSnapping.snapValue(y, {
+			min: range.min,
+			max: range.max
+		});
+		context.dividerY = Math.max(range.min, Math.min(range.max, y));
+		if (self._handle) translate(self._handle, shape.x, context.dividerY);
+	});
+	eventBus.on("decisionService.divider.end", function(event) {
+		var context = event.context, shape = context.shape, dividerY = context.dividerY;
+		if (dividerY === context.dividerYAtStart) return;
+		modeling.updateModdleProperties(shape, shape.businessObject.di.decisionServiceDividerLine, { waypoint: drdFactory.createDiWaypoints([{
+			x: shape.x,
+			y: dividerY
+		}, {
+			x: shape.x + shape.width,
+			y: dividerY
+		}]) });
+	});
+	eventBus.on("decisionService.divider.cleanup", function(event) {
+		var shape = event.context.shape;
+		canvas.removeMarker(shape, MARKER_DRAGGING);
+		self._removeHandle();
+		if (selection.isSelected(shape)) self._addHandle(shape);
+	});
+}
+DecisionServiceDivider.$inject = [
+	"canvas",
+	"dragging",
+	"drdFactory",
+	"eventBus",
+	"gridSnapping",
+	"modeling",
+	"selection"
+];
+DecisionServiceDivider.prototype.activate = function(event, shape) {
+	var dividerYAtStart = getDividerY(shape);
+	this._dragging.init(event, {
+		x: shape.x,
+		y: dividerYAtStart
+	}, "decisionService.divider", {
+		autoActivate: true,
+		cursor: "resize-ns",
+		keepSelection: true,
+		data: { context: {
+			shape,
+			dividerY: dividerYAtStart,
+			dividerYAtStart
+		} }
+	});
+};
+DecisionServiceDivider.prototype._addHandle = function(shape) {
+	var self = this;
+	if (!is$2(shape, "dmn:DecisionService") || !shape.businessObject.di.decisionServiceDividerLine || shape.height < 2 * MIN_SECTION_HEIGHT) return;
+	var handle = create$1("g", { class: "djs-divider-handle" });
+	append(handle, create$1("rect", {
+		class: "djs-divider-handle-hit",
+		x: HANDLE_INSET,
+		y: -HANDLE_HIT_HEIGHT / 2,
+		width: Math.max(0, shape.width - 2 * HANDLE_INSET),
+		height: HANDLE_HIT_HEIGHT
+	}));
+	translate(handle, shape.x, getDividerY(shape));
+	append(this._getLayer(), handle);
+	this._handle = handle;
+	function startDrag(event) {
+		if (isPrimaryButton(event)) self.activate(event, shape);
+	}
+	handle.addEventListener("mousedown", startDrag);
+	handle.addEventListener("touchstart", startDrag, { passive: true });
+};
+DecisionServiceDivider.prototype._removeHandle = function() {
+	clear(this._getLayer());
+	this._handle = null;
+};
+DecisionServiceDivider.prototype._getLayer = function() {
+	return this._canvas.getLayer("dividers");
+};
+function getDividerY(shape) {
+	return shape.y + shape.height * getDecisionServiceDividerRatio(shape.businessObject);
+}
+function getDividerRange(shape, dividerY) {
+	var min = shape.y + MIN_SECTION_HEIGHT, max = shape.y + shape.height - MIN_SECTION_HEIGHT;
+	(shape.children || []).forEach(function(child) {
+		if (!is$2(child, "dmn:Decision") || child.labelTarget) return;
+		if (child.y + child.height / 2 < dividerY) min = Math.max(min, child.y + child.height);
+		else max = Math.min(max, child.y);
+	});
+	return {
+		min: Math.min(min, dividerY),
+		max: Math.max(max, dividerY)
+	};
+}
+// ../../node_modules/dmn-js-drd/lib/features/generate-di/DiGenerator.js
 init_dist();
 function DiGenerator(drdFactory, elementFactory, eventBus, drdUpdater) {
 	function createDi(definitions) {
@@ -5142,17 +5501,85 @@ function DiGenerator(drdFactory, elementFactory, eventBus, drdUpdater) {
 		}
 		var diagram = drdFactory.create("dmndi:DMNDiagram");
 		dmnDI.set("diagrams", [diagram]);
-		var index = 0;
-		forEach(definitions.get("drgElement"), function(drgElement) {
-			if (!is$2(drgElement, "dmn:Decision")) return;
-			var dimensions = elementFactory._getDefaultSize(drgElement);
-			var di = drdFactory.createDiShape(drgElement, {
-				x: 150 + index * 30,
-				y: 150 + index * 30,
-				width: dimensions.width,
-				height: dimensions.height
+		var drgElements = definitions.get("drgElement");
+		var referenced = new Set();
+		var placed = new Set();
+		forEach(drgElements, function(drgElement) {
+			if (is$2(drgElement, "dmn:DecisionService")) forEach(["outputDecision", "encapsulatedDecision"], function(property) {
+				forEach(drgElement.get(property), function(reference) {
+					referenced.add(getIdFromHref(reference.href));
+				});
 			});
+		});
+		function createShapeDi(drgElement, bounds) {
+			var di = drdFactory.createDiShape(drgElement, bounds);
 			drdUpdater.updateDiParent(di, diagram);
+			return di;
+		}
+		function getMembers(decisionService, property) {
+			var decisions = [];
+			forEach(decisionService.get(property), function(reference) {
+				var id = getIdFromHref(reference.href);
+				var decision = find(drgElements, function(drgElement) {
+					return drgElement.id === id && is$2(drgElement, "dmn:Decision");
+				});
+				if (decision && !placed.has(id)) {
+					placed.add(id);
+					decisions.push(decision);
+				}
+			});
+			return decisions;
+		}
+		function getSectionHeight(decisionCount) {
+			return Math.max(MIN_SECTION_HEIGHT, 20 + decisionCount * (DECISION_SIZE.height + 20));
+		}
+		function createDecisionsDi(decisions, x, top, width) {
+			forEach(decisions, function(decision, i) {
+				createShapeDi(decision, {
+					x: x + (width - DECISION_SIZE.width) / 2,
+					y: top + 20 + i * (DECISION_SIZE.height + 20),
+					width: DECISION_SIZE.width,
+					height: DECISION_SIZE.height
+				});
+			});
+		}
+		function createDecisionServiceDi(decisionService, x, y) {
+			var output = getMembers(decisionService, "outputDecision"), encapsulated = getMembers(decisionService, "encapsulatedDecision");
+			var outputHeight = getSectionHeight(output.length), width = Math.max(elementFactory._getDefaultSize(decisionService).width, DECISION_SIZE.width + 40);
+			var dividerY = y + outputHeight;
+			var di = createShapeDi(decisionService, {
+				x,
+				y,
+				width,
+				height: outputHeight + getSectionHeight(encapsulated.length)
+			});
+			var dividerLine = drdFactory.createDiDividerLine([{
+				x,
+				y: dividerY
+			}, {
+				x: x + width,
+				y: dividerY
+			}]);
+			dividerLine.$parent = di;
+			di.decisionServiceDividerLine = dividerLine;
+			createDecisionsDi(output, x, y, width);
+			createDecisionsDi(encapsulated, x, dividerY, width);
+		}
+		var index = 0;
+		forEach(drgElements, function(drgElement) {
+			if (!is$2(drgElement, "dmn:Decision") && !is$2(drgElement, "dmn:DecisionService")) return;
+			if (referenced.has(drgElement.id)) return;
+			var x = 150 + index * 30, y = 150 + index * 30;
+			if (is$2(drgElement, "dmn:DecisionService")) createDecisionServiceDi(drgElement, x, y);
+			else {
+				var dimensions = elementFactory._getDefaultSize(drgElement);
+				createShapeDi(drgElement, {
+					x,
+					y,
+					width: dimensions.width,
+					height: dimensions.height
+				});
+			}
 			index++;
 		});
 	}
@@ -5166,14 +5593,12 @@ DiGenerator.$inject = [
 	"eventBus",
 	"drdUpdater"
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/generate-di/index.js
+// ../../node_modules/dmn-js-drd/lib/features/generate-di/index.js
 var generate_di_default = {
 	__init__: ["diGenerator"],
 	diGenerator: ["type", DiGenerator]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/keyboard/DrdKeyboardBindings.js
+// ../../node_modules/dmn-js-drd/lib/features/keyboard/DrdKeyboardBindings.js
 function DrdKeyboardBindings(injector) {
 	injector.invoke(KeyboardBindings$1, this);
 }
@@ -5223,15 +5648,13 @@ DrdKeyboardBindings.prototype.registerBindings = function(keyboard, editorAction
 		}
 	});
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/keyboard/index.js
+// ../../node_modules/dmn-js-drd/lib/features/keyboard/index.js
 var keyboard_default$3 = {
 	__depends__: [keyboard_default$4],
 	__init__: ["keyboardBindings"],
 	keyboardBindings: ["type", DrdKeyboardBindings]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/label-editing/LabelEditingProvider.js
+// ../../node_modules/dmn-js-drd/lib/features/label-editing/LabelEditingProvider.js
 init_dist();
 var MARKER_LABEL_HIDDEN = "djs-label-hidden";
 function LabelEditingProvider(canvas, directEditing, eventBus, modeling, textRenderer) {
@@ -5288,7 +5711,7 @@ LabelEditingProvider.prototype.activate = function(element) {
 	var options = {};
 	var style = context.style || {};
 	if (is$2(element, "dmn:DRGElement")) {
-		assign(options, { centerVertically: true });
+		if (!is$2(element, "dmn:DecisionService")) assign(options, { centerVertically: true });
 		assign(style, {
 			backgroundColor: null,
 			border: null
@@ -5370,8 +5793,7 @@ LabelEditingProvider.prototype.update = function(element, newLabel, activeContex
 function isEmptyText(label) {
 	return !label || !label.trim();
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/label-editing/index.js
+// ../../node_modules/dmn-js-drd/lib/features/label-editing/index.js
 var label_editing_default = {
 	__depends__: [
 		command_default,
@@ -5381,16 +5803,14 @@ var label_editing_default = {
 	__init__: ["labelEditingProvider"],
 	labelEditingProvider: ["type", LabelEditingProvider]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/modeling/util/RequirementUtil.js
+// ../../node_modules/dmn-js-drd/lib/features/modeling/util/RequirementUtil.js
 function getRequirementType(source) {
-	if (is$2(source, "dmn:BusinessKnowledgeModel")) return "Knowledge";
+	if (is$2(source, "dmn:BusinessKnowledgeModel") || is$2(source, "dmn:DecisionService")) return "Knowledge";
 	else if (is$2(source, "dmn:Decision")) return "Decision";
 	else if (is$2(source, "dmn:InputData")) return "Input";
 	else if (is$2(source, "dmn:KnowledgeSource")) return "Authority";
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/modeling/behavior/CreateConnectionBehavior.js
+// ../../node_modules/dmn-js-drd/lib/features/modeling/behavior/CreateConnectionBehavior.js
 function CreateConnectionBehavior(drdFactory, injector) {
 	injector.invoke(CommandInterceptor, this);
 	this.preExecute("connection.create", function(context) {
@@ -5408,8 +5828,259 @@ function CreateConnectionBehavior(drdFactory, injector) {
 }
 CreateConnectionBehavior.$inject = ["drdFactory", "injector"];
 e(CreateConnectionBehavior, CommandInterceptor);
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/modeling/behavior/CreateShapeBehavior.js
+// ../../node_modules/dmn-js-drd/lib/features/modeling/behavior/DecisionServiceBehavior.js
+function DecisionServiceBehavior(drdFactory, injector, canvas) {
+	injector.invoke(CommandInterceptor, this);
+	this._drdFactory = drdFactory;
+	this._injector = injector;
+	this._canvas = canvas;
+	this._elementRegistry = null;
+	var self = this;
+	this.executed("element.updateProperties", function(event) {
+		var context = event.context;
+		self._updateReferencesAfterIdChange(context.element, context.oldProperties, context.properties);
+	});
+	this.reverted("element.updateProperties", function(event) {
+		var context = event.context;
+		self._updateReferencesAfterIdChange(context.element, context.properties, context.oldProperties);
+	});
+}
+DecisionServiceBehavior.$inject = [
+	"drdFactory",
+	"injector",
+	"canvas"
+];
+e(DecisionServiceBehavior, CommandInterceptor);
+DecisionServiceBehavior.prototype._getElementRegistry = function() {
+	if (!this._elementRegistry) this._elementRegistry = this._injector.get("elementRegistry");
+	return this._elementRegistry;
+};
+DecisionServiceBehavior.prototype._updateReferencesAfterIdChange = function(element, oldProperties, properties) {
+	if (!("id" in oldProperties) || !("id" in properties) || oldProperties.id === properties.id) return;
+	var businessObject = getBusinessObject$1(element);
+	if (!is$2(businessObject, "dmn:Decision") && !is$2(businessObject, "dmn:InputData")) return;
+	(this._canvas.getRootElement().businessObject.get("drgElement") || []).forEach(function(drgElement) {
+		if (!is$2(drgElement, "dmn:DecisionService")) return;
+		[
+			"outputDecision",
+			"encapsulatedDecision",
+			"inputDecision",
+			"inputData"
+		].forEach(function(name) {
+			(drgElement.get(name) || []).forEach(function(ref) {
+				if (refersTo(ref, oldProperties.id)) ref.href = replaceIdInHref(ref.href, properties.id);
+			});
+		});
+	});
+};
+DecisionServiceBehavior.prototype._getDrgElementsById = function() {
+	var definitions = this._canvas.getRootElement().businessObject;
+	var drgElements = new Map();
+	(definitions.get("drgElement") || []).forEach(function(drgElement) {
+		drgElements.set(drgElement.id, drgElement);
+	});
+	return drgElements;
+};
+DecisionServiceBehavior.prototype._getDividerPosition = function(decisionServiceElement) {
+	var ratio = getDecisionServiceDividerRatio(decisionServiceElement.businessObject);
+	return decisionServiceElement.y + decisionServiceElement.height * ratio;
+};
+DecisionServiceBehavior.prototype.isOutputDecision = function(decisionElement, decisionServiceBo) {
+	var decisionServiceElement = this._getElementRegistry().get(decisionServiceBo.id);
+	if (!decisionServiceElement) return false;
+	var dividerY = this._getDividerPosition(decisionServiceElement);
+	return decisionElement.y + decisionElement.height / 2 < dividerY;
+};
+DecisionServiceBehavior.prototype.addDecisionToService = function(decisionBo, decisionServiceBo, definitions) {
+	var children;
+	if (definitions) {
+		children = definitions.get("drgElement");
+		if (!children) {
+			definitions.drgElement = [];
+			children = definitions.drgElement;
+		}
+		if (children.indexOf(decisionBo) === -1) add$1(children, decisionBo);
+		decisionBo.$parent = definitions;
+	}
+	var decisionElement = this._getElementRegistry().get(decisionBo.id);
+	if (this.isOutputDecision(decisionElement, decisionServiceBo)) {
+		children = decisionServiceBo.get("outputDecision");
+		if (!children) {
+			decisionServiceBo.outputDecision = [];
+			children = decisionServiceBo.outputDecision;
+		}
+	} else {
+		children = decisionServiceBo.get("encapsulatedDecision");
+		if (!children) {
+			decisionServiceBo.encapsulatedDecision = [];
+			children = decisionServiceBo.encapsulatedDecision;
+		}
+	}
+	var reference = this._drdFactory.create("dmn:DMNElementReference", { href: "#" + decisionBo.id });
+	reference.$parent = decisionServiceBo;
+	if (!children.find(function(r) {
+		return refersTo(r, decisionBo.id);
+	})) add$1(children, reference);
+	this.updateInputsFromOutputDecisions(decisionServiceBo);
+};
+DecisionServiceBehavior.prototype.removeDecisionFromServices = function(decisionBo, definitions) {
+	var self = this;
+	var drgElements = definitions.get("drgElement");
+	if (drgElements) drgElements.forEach(function(element) {
+		if (is$2(element, "dmn:DecisionService")) self.removeDecisionFromService(decisionBo, element);
+	});
+	var children = definitions.get("drgElement");
+	if (children && children.indexOf(decisionBo) === -1) add$1(children, decisionBo);
+	decisionBo.$parent = definitions;
+};
+DecisionServiceBehavior.prototype.removeDecisionFromService = function(decisionBo, decisionServiceBo) {
+	var children = decisionServiceBo.get("encapsulatedDecision");
+	var ref;
+	if (children) {
+		ref = children.find(function(d) {
+			return refersTo(d, decisionBo.id);
+		});
+		if (ref) remove$2(children, ref);
+	}
+	children = decisionServiceBo.get("outputDecision");
+	if (children) {
+		ref = children.find(function(d) {
+			return refersTo(d, decisionBo.id);
+		});
+		if (ref) remove$2(children, ref);
+	}
+	this.updateInputsFromOutputDecisions(decisionServiceBo);
+};
+DecisionServiceBehavior.prototype.updateDecisionSection = function(decisionElement, decisionServiceBo) {
+	var decisionBo = decisionElement.businessObject;
+	var targetCollection = this.isOutputDecision(decisionElement, decisionServiceBo) ? "outputDecision" : "encapsulatedDecision";
+	if ((decisionServiceBo.get(targetCollection) || []).some(function(ref) {
+		return refersTo(ref, decisionBo.id);
+	})) return;
+	var definitions = this._canvas.getRootElement().businessObject;
+	this.removeElementFromAllServices(decisionBo.id, definitions);
+	var reference = this._drdFactory.create("dmn:DMNElementReference", { href: "#" + decisionBo.id });
+	reference.$parent = decisionServiceBo;
+	if (!decisionServiceBo[targetCollection]) decisionServiceBo[targetCollection] = [];
+	add$1(decisionServiceBo[targetCollection], reference);
+	this.updateInputsFromOutputDecisions(decisionServiceBo);
+};
+DecisionServiceBehavior.prototype.updateInputsFromOutputDecisions = function(decisionServiceBo) {
+	var drgElements = this._getDrgElementsById();
+	var outputDecisions = decisionServiceBo.get("outputDecision") || [];
+	var encapsulatedDecisions = decisionServiceBo.get("encapsulatedDecision") || [];
+	var decisionsInService = new Set();
+	outputDecisions.forEach(function(ref) {
+		decisionsInService.add(getIdFromHref(ref.href));
+	});
+	encapsulatedDecisions.forEach(function(ref) {
+		decisionsInService.add(getIdFromHref(ref.href));
+	});
+	var inputDecisionIds = new Set();
+	var inputDataIds = new Set();
+	var traverseDecision = function(decisionId, visited) {
+		if (visited.has(decisionId)) return;
+		visited.add(decisionId);
+		var decision = drgElements.get(decisionId);
+		if (!decision) return;
+		(decision.get("informationRequirement") || []).forEach(function(infoReq) {
+			if (infoReq.requiredDecision) {
+				var requiredDecisionId = getIdFromHref(infoReq.requiredDecision.href);
+				if (!decisionsInService.has(requiredDecisionId)) inputDecisionIds.add(requiredDecisionId);
+				else traverseDecision(requiredDecisionId, visited);
+			}
+			if (infoReq.requiredInput) {
+				var requiredInputId = getIdFromHref(infoReq.requiredInput.href);
+				inputDataIds.add(requiredInputId);
+			}
+		});
+	};
+	var visited = new Set();
+	outputDecisions.forEach(function(outputDecisionRef) {
+		traverseDecision(getIdFromHref(outputDecisionRef.href), visited);
+	});
+	this._updateReferenceCollection(decisionServiceBo, "inputDecision", inputDecisionIds, drgElements);
+	this._updateReferenceCollection(decisionServiceBo, "inputData", inputDataIds, drgElements);
+};
+DecisionServiceBehavior.prototype._updateReferenceCollection = function(decisionServiceBo, collectionName, newIds, drgElements) {
+	var self = this;
+	var currentCollection = decisionServiceBo.get(collectionName) || [];
+	var currentIds = new Set();
+	currentCollection.forEach(function(ref) {
+		currentIds.add(getIdFromHref(ref.href));
+	});
+	newIds.forEach(function(elementId) {
+		if (!currentIds.has(elementId)) {
+			if (drgElements.has(elementId)) {
+				if (!decisionServiceBo[collectionName]) decisionServiceBo[collectionName] = [];
+				var reference = self._drdFactory.create("dmn:DMNElementReference", { href: "#" + elementId });
+				reference.$parent = decisionServiceBo;
+				add$1(decisionServiceBo[collectionName], reference);
+			}
+		}
+	});
+	var referencesToRemove = [];
+	currentCollection.forEach(function(ref) {
+		var elementId = getIdFromHref(ref.href);
+		if (!newIds.has(elementId)) referencesToRemove.push(ref);
+	});
+	referencesToRemove.forEach(function(ref) {
+		remove$2(decisionServiceBo[collectionName], ref);
+	});
+};
+DecisionServiceBehavior.prototype.updateServicesContainingDecision = function(decisionElement, definitions) {
+	if (!decisionElement || !is$2(decisionElement.businessObject, "dmn:Decision")) return;
+	if (!definitions || !is$2(definitions, "dmn:Definitions")) return;
+	var drgElements = definitions.get("drgElement") || [];
+	var decisionId = decisionElement.businessObject.id;
+	var self = this;
+	drgElements.forEach(function(element) {
+		if (is$2(element, "dmn:DecisionService")) {
+			var outputDecisions = element.get("outputDecision") || [];
+			var encapsulatedDecisions = element.get("encapsulatedDecision") || [];
+			if (outputDecisions.some(function(ref) {
+				return refersTo(ref, decisionId);
+			}) || encapsulatedDecisions.some(function(ref) {
+				return refersTo(ref, decisionId);
+			})) self.updateInputsFromOutputDecisions(element);
+		}
+	});
+};
+DecisionServiceBehavior.prototype.removeElementFromAllServices = function(deletedId, definitions) {
+	if (!deletedId || !definitions || !is$2(definitions, "dmn:Definitions")) return;
+	var drgElements = definitions.get("drgElement") || [];
+	var self = this;
+	drgElements.forEach(function(element) {
+		if (is$2(element, "dmn:DecisionService")) {
+			var needsUpdate = false;
+			var removeFromCollection = function(collectionName) {
+				var toRemove = (element.get(collectionName) || []).filter(function(ref) {
+					return refersTo(ref, deletedId);
+				});
+				if (toRemove.length > 0) {
+					toRemove.forEach(function(ref) {
+						remove$2(element[collectionName], ref);
+					});
+					needsUpdate = true;
+				}
+			};
+			removeFromCollection("outputDecision");
+			removeFromCollection("encapsulatedDecision");
+			removeFromCollection("inputDecision");
+			removeFromCollection("inputData");
+			if (needsUpdate) self.updateInputsFromOutputDecisions(element);
+		}
+	});
+};
+DecisionServiceBehavior.prototype.updateAllServices = function(definitions) {
+	if (!definitions || !is$2(definitions, "dmn:Definitions")) return;
+	var drgElements = definitions.get("drgElement") || [];
+	var self = this;
+	drgElements.forEach(function(element) {
+		if (is$2(element, "dmn:DecisionService")) self.updateInputsFromOutputDecisions(element);
+	});
+};
+// ../../node_modules/dmn-js-drd/lib/features/modeling/behavior/CreateShapeBehavior.js
 function CreateShapeBehavior(drdFactory, injector) {
 	injector.invoke(CommandInterceptor, this);
 	this.preExecute("shape.create", function(context) {
@@ -5427,8 +6098,7 @@ function CreateShapeBehavior(drdFactory, injector) {
 }
 CreateShapeBehavior.$inject = ["drdFactory", "injector"];
 e(CreateShapeBehavior, CommandInterceptor);
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/modeling/behavior/LayoutConnectionBehavior.js
+// ../../node_modules/dmn-js-drd/lib/features/modeling/behavior/LayoutConnectionBehavior.js
 init_dist();
 var LOW_PRIORITY$12 = 500;
 function LayoutConnectionBehavior(injector, layouter, modeling, rules) {
@@ -5599,8 +6269,7 @@ function sortInformationRequirements(informationRequirements, orientation) {
 		return getMid(a.source)[axis] - getMid(b.source)[axis];
 	});
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/modeling/behavior/ReplaceConnectionBehavior.js
+// ../../node_modules/dmn-js-drd/lib/features/modeling/behavior/ReplaceConnectionBehavior.js
 function ReplaceConnectionBehavior(injector, modeling, rules) {
 	injector.invoke(CommandInterceptor, this);
 	this.preExecute("connection.reconnect", function(context) {
@@ -5624,8 +6293,7 @@ ReplaceConnectionBehavior.$inject = [
 	"modeling",
 	"rules"
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/modeling/behavior/ReplaceElementBehavior.js
+// ../../node_modules/dmn-js-drd/lib/features/modeling/behavior/ReplaceElementBehavior.js
 function ReplaceElementBehaviour(eventBus, modeling, selection) {
 	CommandInterceptor.call(this, eventBus);
 	this._modeling = modeling;
@@ -5642,8 +6310,7 @@ ReplaceElementBehaviour.$inject = [
 	"modeling",
 	"selection"
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/features/modeling/behavior/IdChangeBehavior.js
+// ../../node_modules/dmn-js-shared/lib/features/modeling/behavior/IdChangeBehavior.js
 init_dist();
 var ID$2 = "id";
 var IdChangeBehavior = class extends CommandInterceptor {
@@ -5655,7 +6322,7 @@ var IdChangeBehavior = class extends CommandInterceptor {
 		const { element, oldProperties, properties } = context;
 		const bo = getBusinessObject$1(element);
 		if (this.shouldSkipUpdate(bo, oldProperties, properties)) return;
-		const definitions = getDefinitions$2(bo);
+		const definitions = getDefinitions(bo);
 		definitions.get("drgElement").forEach((drgElement) => {
 			updateElementReferences(drgElement, oldProperties.id, properties.id);
 		});
@@ -5671,7 +6338,7 @@ IdChangeBehavior.$inject = ["eventBus"];
 function isIdChange$2(oldProperties, properties) {
 	return ID$2 in oldProperties && ID$2 in properties;
 }
-function getDefinitions$2(element) {
+function getDefinitions(element) {
 	let definitions = element;
 	while (!is$2(definitions, "dmn:Definitions")) definitions = definitions.$parent;
 	return definitions;
@@ -5717,8 +6384,7 @@ function updateAssociationReferences(element, oldId, id) {
 		if (element[key]) handler();
 	});
 }
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/features/modeling/behavior/NameChangeBehavior.js
+// ../../node_modules/dmn-js-shared/lib/features/modeling/behavior/NameChangeBehavior.js
 var NameChangeBehavior$1 = class extends CommandInterceptor {
 	constructor(eventBus, modeling) {
 		super(eventBus);
@@ -5732,7 +6398,7 @@ var NameChangeBehavior$1 = class extends CommandInterceptor {
 			const { element, properties } = context;
 			const bo = getBusinessObject$1(element);
 			if (!bo.variable) return;
-			if (!(is$2(element, "dmn:Decision") || is$2(element, "dmn:BusinessKnowledgeModel"))) return;
+			if (!(is$2(element, "dmn:Decision") || is$2(element, "dmn:BusinessKnowledgeModel") || is$2(element, "dmn:DecisionService"))) return;
 			if (!this.isNameChanged(properties)) return;
 			if (this.isVariable(element)) return;
 			else if (!this.shouldSyncVariable(element)) this.syncElementVariableChange(bo);
@@ -5762,11 +6428,11 @@ _defineProperty$3(NameChangeBehavior$1, "$inject", ["eventBus", "modeling"]);
 function getParent$1(element) {
 	return element.$parent;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/modeling/behavior/index.js
+// ../../node_modules/dmn-js-drd/lib/features/modeling/behavior/index.js
 var behavior_default$1 = {
 	__init__: [
 		"createConnectionBehavior",
+		"decisionServiceBehavior",
 		"createShapeBehavior",
 		"idChangeBehavior",
 		"nameChangeBehavior",
@@ -5775,6 +6441,7 @@ var behavior_default$1 = {
 		"replaceElementBehavior"
 	],
 	createConnectionBehavior: ["type", CreateConnectionBehavior],
+	decisionServiceBehavior: ["type", DecisionServiceBehavior],
 	createShapeBehavior: ["type", CreateShapeBehavior],
 	idChangeBehavior: ["type", IdChangeBehavior],
 	nameChangeBehavior: ["type", NameChangeBehavior$1],
@@ -5782,106 +6449,7 @@ var behavior_default$1 = {
 	replaceConnectionBehavior: ["type", ReplaceConnectionBehavior],
 	replaceElementBehavior: ["type", ReplaceElementBehaviour]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/rules/DrdRules.js
-init_dist();
-function DrdRules(injector) {
-	injector.invoke(RuleProvider, this);
-}
-e(DrdRules, RuleProvider);
-DrdRules.$inject = ["injector"];
-DrdRules.prototype.init = function() {
-	this.addRule("connection.create", function(context) {
-		var source = context.source, target = context.target;
-		return canConnect(source, target);
-	});
-	this.addRule("connection.reconnect", function(context) {
-		var connection = context.connection, source = context.source, target = context.target;
-		return canConnect(source, target, connection);
-	});
-	this.addRule("connection.updateWaypoints", function(context) {
-		const connection = context.connection;
-		return {
-			type: connection.type,
-			businessObject: connection.businessObject
-		};
-	});
-	this.addRule("elements.move", function(context) {
-		var target = context.target, shapes = context.shapes, position = context.position;
-		return canMove(shapes, target, position);
-	});
-	this.addRule("shape.create", function(context) {
-		var shape = context.shape, target = context.target;
-		return canCreate(shape, target);
-	});
-	this.addRule("shape.resize", function(context) {
-		var shape = context.shape;
-		return is$2(shape, "dmn:TextAnnotation");
-	});
-};
-DrdRules.prototype.canConnect = canConnect;
-DrdRules.prototype.canCreate = canCreate;
-DrdRules.prototype.canMove = canMove;
-function canConnect(source, target) {
-	if (!source || isLabel(source) || !target || isLabel(target)) return null;
-	if (source === target) return false;
-	if (is$2(source, "dmn:BusinessKnowledgeModel") && isAny$1(target, ["dmn:BusinessKnowledgeModel", "dmn:Decision"])) return { type: "dmn:KnowledgeRequirement" };
-	if (is$2(source, "dmn:Decision")) {
-		if (is$2(target, "dmn:Decision")) return { type: "dmn:InformationRequirement" };
-		if (is$2(target, "dmn:KnowledgeSource")) return { type: "dmn:AuthorityRequirement" };
-	}
-	if (is$2(source, "dmn:Definitions") || is$2(target, "dmn:Definitions")) return false;
-	if (is$2(source, "dmn:InputData")) {
-		if (is$2(target, "dmn:Decision")) return { type: "dmn:InformationRequirement" };
-		if (is$2(target, "dmn:KnowledgeSource")) return { type: "dmn:AuthorityRequirement" };
-	}
-	if (is$2(source, "dmn:KnowledgeSource") && isAny$1(target, [
-		"dmn:BusinessKnowledgeModel",
-		"dmn:Decision",
-		"dmn:KnowledgeSource"
-	])) return { type: "dmn:AuthorityRequirement" };
-	if (is$2(source, "dmn:TextAnnotation") && !is$2(target, "dmn:TextAnnotation") || !is$2(source, "dmn:TextAnnotation") && is$2(target, "dmn:TextAnnotation")) return { type: "dmn:Association" };
-	return false;
-}
-function canCreate(shape, target) {
-	return isAny$1(shape, [
-		"dmn:BusinessKnowledgeModel",
-		"dmn:Decision",
-		"dmn:InputData",
-		"dmn:KnowledgeSource",
-		"dmn:TextAnnotation"
-	]) && is$2(target, "dmn:Definitions");
-}
-function canMove(elements, target) {
-	if (!isArray$4(elements)) elements = [elements];
-	if (!target) return true;
-	if (every(elements, function(element) {
-		return isAny$1(element, [
-			"dmn:BusinessKnowledgeModel",
-			"dmn:Decision",
-			"dmn:InputData",
-			"dmn:KnowledgeSource",
-			"dmn:TextAnnotation",
-			"dmn:InformationRequirement",
-			"dmn:AuthorityRequirement",
-			"dmn:KnowledgeRequirement",
-			"dmn:Association"
-		]);
-	}) && is$2(target, "dmn:Definitions")) return true;
-	return false;
-}
-function isLabel(element) {
-	return !!element.labelTarget;
-}
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/rules/index.js
-var rules_default$2 = {
-	__depends__: [rules_default$3],
-	__init__: ["drdRules"],
-	drdRules: ["type", DrdRules]
-};
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/modeling/DrdFactory.js
+// ../../node_modules/dmn-js-drd/lib/features/modeling/DrdFactory.js
 init_dist();
 function DrdFactory(moddle) {
 	this._model = moddle;
@@ -5932,14 +6500,18 @@ DrdFactory.prototype.createDiWaypoint = function(waypoint) {
 DrdFactory.prototype.createExtensionElements = function() {
 	return this.create("dmn:ExtensionElements", { values: [] });
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/modeling/DrdUpdater.js
+DrdFactory.prototype.createDiDividerLine = function(waypoints) {
+	return this.create("dmndi:DMNDecisionServiceDividerLine", { waypoint: this.createDiWaypoints(waypoints) });
+};
+// ../../node_modules/dmn-js-drd/lib/features/modeling/DrdUpdater.js
 init_dist();
-function DrdUpdater(connectionDocking, definitionPropertiesView, drdFactory, drdRules, injector) {
+function DrdUpdater(connectionDocking, decisionServiceBehavior, definitionPropertiesView, drdFactory, drdRules, injector) {
 	injector.invoke(CommandInterceptor, this);
 	this._definitionPropertiesView = definitionPropertiesView;
 	this._drdFactory = drdFactory;
 	this._drdRules = drdRules;
+	this._injector = injector;
+	this._decisionServiceBehavior = decisionServiceBehavior;
 	var self = this;
 	function cropConnection(context) {
 		var connection = context.connection;
@@ -5982,16 +6554,42 @@ function DrdUpdater(connectionDocking, definitionPropertiesView, drdFactory, drd
 		if (!(is$2(shape, "dmn:DRGElement") || is$2(shape, "dmn:TextAnnotation"))) return;
 		self.updateBounds(shape);
 	}
-	this.executed([
-		"shape.create",
-		"shape.move",
-		"shape.resize"
-	], updateBounds, true);
-	this.reverted([
-		"shape.create",
-		"shape.move",
-		"shape.resize"
-	], updateBounds, true);
+	this.executed(["shape.create", "shape.move"], updateBounds, true);
+	this.reverted(["shape.create", "shape.move"], updateBounds, true);
+	this.executed("shape.resize", function(context) {
+		var shape = context.shape;
+		if (!(is$2(shape, "dmn:DRGElement") || is$2(shape, "dmn:TextAnnotation"))) return;
+		if (context.dividerY === void 0) context.dividerY = self.getDividerY(shape);
+		self.updateBounds(shape, constrainDividerY(shape, context.dividerY));
+	}, true);
+	this.reverted("shape.resize", function(context) {
+		var shape = context.shape;
+		if (!(is$2(shape, "dmn:DRGElement") || is$2(shape, "dmn:TextAnnotation"))) return;
+		self.updateBounds(shape, context.dividerY);
+	}, true);
+	var serviceMoves = new WeakMap();
+	this.executed("shape.move", function(context, command, event) {
+		if (is$2(context.shape, "dmn:DecisionService")) serviceMoves.set(context.shape, {
+			id: event.id,
+			delta: context.delta
+		});
+	}, true);
+	function isCarriedByService(context, event) {
+		var move = serviceMoves.get(context.shape.parent);
+		return !!move && move.id === event.id && move.delta.x === context.delta.x && move.delta.y === context.delta.y;
+	}
+	function updateDecisionSection(context, command, event) {
+		var shape = context.shape;
+		if (!shape || !is$2(shape, "dmn:Decision")) return;
+		if (context.carriedByService === void 0) context.carriedByService = isCarriedByService(context, event);
+		if (context.carriedByService) return;
+		var parent = shape.parent;
+		var businessObject = shape.businessObject;
+		if (parent && is$2(parent, "dmn:DecisionService")) self._decisionServiceBehavior.updateDecisionSection(shape, parent.businessObject);
+		else if (parent && is$2(parent, "dmn:Definitions")) self._decisionServiceBehavior.removeDecisionFromServices(businessObject, parent.businessObject);
+	}
+	this.executed(["shape.move"], updateDecisionSection, true);
+	this.reverted(["shape.move"], updateDecisionSection, true);
 	function updateConnectionWaypoints(context) {
 		self.updateConnectionWaypoints(context);
 	}
@@ -6008,12 +6606,25 @@ function DrdUpdater(connectionDocking, definitionPropertiesView, drdFactory, drd
 		"connection.updateWaypoints"
 	], updateConnectionWaypoints, true);
 	this.executed("connection.create", function(context) {
-		var connection = context.connection, connectionBo = connection.businessObject, targetBo = context.target.businessObject;
+		var connection = context.connection, connectionBo = connection.businessObject, target = context.target, targetBo = target.businessObject;
 		if (is$2(connection, "dmn:Association")) updateParent(context);
-		else self.updateSemanticParent(connectionBo, targetBo);
+		else {
+			self.updateSemanticParent(connectionBo, targetBo);
+			if (is$2(connection, "dmn:InformationRequirement")) self.updateDecisionServicesForTarget(target);
+		}
 	}, true);
 	this.reverted("connection.create", function(context) {
 		reverseUpdateParent(context);
+		var connection = context.connection, target = context.target;
+		if (is$2(connection, "dmn:InformationRequirement")) self.updateDecisionServicesForTarget(target);
+	}, true);
+	this.executed("connection.delete", function(context) {
+		var connection = context.connection, target = context.target;
+		if (is$2(connection, "dmn:InformationRequirement")) self.updateDecisionServicesForTarget(target);
+	}, true);
+	this.reverted("connection.delete", function(context) {
+		var connection = context.connection, target = context.target;
+		if (is$2(connection, "dmn:InformationRequirement")) self.updateDecisionServicesForTarget(target);
 	}, true);
 	function updateReconnected(context) {
 		var connection = context.connection, connectionBo = connection.businessObject, sourceChanged = context.oldSource !== context.newSource, targetChanged = context.oldTarget !== context.newTarget;
@@ -6024,9 +6635,25 @@ function DrdUpdater(connectionDocking, definitionPropertiesView, drdFactory, drd
 		}
 		self.updateSemanticParent(connectionBo, connection.target.businessObject);
 		if (sourceChanged) self.updateRequirementSource(connectionBo, connection.source.businessObject);
+		if (is$2(connection, "dmn:InformationRequirement")) {
+			if (targetChanged) self.updateDecisionServicesForTarget(context.oldTarget);
+			self.updateDecisionServicesForTarget(connection.target);
+		}
 	}
 	this.executed("connection.reconnect", updateReconnected, true);
 	this.reverted("connection.reconnect", updateReconnected, true);
+	this.executed("shape.delete", function(context) {
+		var shape = context.shape;
+		if (isAny$1(shape, ["dmn:Decision", "dmn:InputData"])) self.removeElementFromAllDecisionServices(shape);
+	}, true);
+	this.reverted("shape.create", function(context) {
+		var shape = context.shape;
+		if (isAny$1(shape, ["dmn:Decision", "dmn:InputData"])) self.removeElementFromAllDecisionServices(shape);
+	}, true);
+	this.reverted("shape.delete", function(context) {
+		var shape = context.shape;
+		if (isAny$1(shape, ["dmn:Decision", "dmn:InputData"])) self.updateAllDecisionServices();
+	}, true);
 	this.executed("element.updateProperties", function(context) {
 		definitionPropertiesView.update();
 	}, true);
@@ -6037,19 +6664,37 @@ function DrdUpdater(connectionDocking, definitionPropertiesView, drdFactory, drd
 e(DrdUpdater, CommandInterceptor);
 DrdUpdater.$inject = [
 	"connectionDocking",
+	"decisionServiceBehavior",
 	"definitionPropertiesView",
 	"drdFactory",
 	"drdRules",
 	"injector"
 ];
-DrdUpdater.prototype.updateBounds = function(shape) {
-	var bounds = shape.businessObject.di.bounds;
+DrdUpdater.prototype.getDividerY = function(shape) {
+	var dividerLine = is$2(shape, "dmn:DecisionService") && shape.businessObject.di.decisionServiceDividerLine;
+	return hasWaypoints(dividerLine) ? dividerLine.waypoint[0].y : void 0;
+};
+DrdUpdater.prototype.updateBounds = function(shape, dividerY) {
+	var businessObject = shape.businessObject, bounds = businessObject.di.bounds;
+	var dividerLine = is$2(shape, "dmn:DecisionService") && businessObject.di.decisionServiceDividerLine;
+	var hasDivider = hasWaypoints(dividerLine);
+	if (hasDivider && dividerY === void 0) dividerY = bounds.height ? dividerLine.waypoint[0].y + (shape.y - bounds.y) : shape.y + shape.height / 2;
 	assign(bounds, {
 		x: shape.x,
 		y: shape.y,
 		width: shape.width,
 		height: shape.height
 	});
+	if (hasDivider) {
+		assign(dividerLine.waypoint[0], {
+			x: shape.x,
+			y: dividerY
+		});
+		assign(dividerLine.waypoint[1], {
+			x: shape.x + shape.width,
+			y: dividerY
+		});
+	}
 };
 DrdUpdater.prototype.updateConnectionWaypoints = function(context) {
 	var drdFactory = this._drdFactory;
@@ -6069,6 +6714,16 @@ DrdUpdater.prototype.updateParent = function(element, oldParent) {
 DrdUpdater.prototype.updateSemanticParent = function(businessObject, parent) {
 	var children, containment;
 	if (businessObject.$parent === parent) return;
+	if (is$2(businessObject, "dmn:Decision") && parent && is$2(parent, "dmn:DecisionService")) {
+		var definitions = parent.$parent;
+		if (definitions) this._decisionServiceBehavior.removeDecisionFromServices(businessObject, definitions);
+		this._decisionServiceBehavior.addDecisionToService(businessObject, parent, definitions);
+		return;
+	}
+	if (is$2(businessObject, "dmn:Decision") && parent && is$2(parent, "dmn:Definitions")) {
+		this._decisionServiceBehavior.removeDecisionFromServices(businessObject, parent);
+		return;
+	}
 	if (is$2(businessObject, "dmn:DRGElement")) containment = "drgElement";
 	else if (is$2(businessObject, "dmn:Artifact")) containment = "artifact";
 	else if (is$2(businessObject, "dmn:InformationRequirement")) containment = "informationRequirement";
@@ -6124,6 +6779,20 @@ DrdUpdater.prototype.updateDiParent = function(di, parentDi) {
 		}
 	} else throw new Error("unsupported");
 };
+DrdUpdater.prototype.updateDecisionServicesForTarget = function(decisionElement) {
+	var definitions = this._injector.get("canvas").getRootElement().businessObject;
+	this._decisionServiceBehavior.updateServicesContainingDecision(decisionElement, definitions);
+};
+DrdUpdater.prototype.removeElementFromAllDecisionServices = function(deletedElement) {
+	if (!deletedElement || !deletedElement.businessObject) return;
+	var definitions = this._injector.get("canvas").getRootElement().businessObject;
+	var deletedId = deletedElement.businessObject.id;
+	this._decisionServiceBehavior.removeElementFromAllServices(deletedId, definitions);
+};
+DrdUpdater.prototype.updateAllDecisionServices = function() {
+	var definitions = this._injector.get("canvas").getRootElement().businessObject;
+	this._decisionServiceBehavior.updateAllServices(definitions);
+};
 var REQUIREMENT_PROPERTIES = [
 	"requiredDecision",
 	"requiredInput",
@@ -6135,8 +6804,16 @@ function getRequirementProperty(businessObject) {
 		return businessObject.get(property);
 	});
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/modeling/cmd/IdClaimHandler.js
+function hasWaypoints(dividerLine) {
+	return !!(dividerLine && dividerLine.waypoint && dividerLine.waypoint.length === 2);
+}
+function constrainDividerY(shape, dividerY) {
+	if (dividerY === void 0) return dividerY;
+	var min = shape.y + MIN_SECTION_HEIGHT, max = shape.y + shape.height - MIN_SECTION_HEIGHT;
+	if (min > max) return shape.y + shape.height / 2;
+	return Math.max(min, Math.min(max, dividerY));
+}
+// ../../node_modules/dmn-js-drd/lib/features/modeling/cmd/IdClaimHandler.js
 function IdClaimHandler$1(moddle) {
 	this._moddle = moddle;
 }
@@ -6151,8 +6828,7 @@ IdClaimHandler$1.prototype.revert = function(context) {
 	if (context.claiming) ids.unclaim(id);
 	else ids.claim(id, element);
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/label-editing/cmd/UpdateLabelHandler.js
+// ../../node_modules/dmn-js-drd/lib/features/label-editing/cmd/UpdateLabelHandler.js
 function UpdateLabelHandler() {
 	function setText(element, text) {
 		var label = element.label || element;
@@ -6170,8 +6846,7 @@ function UpdateLabelHandler() {
 	this.execute = execute;
 	this.revert = revert;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/modeling/cmd/UpdatePropertiesHandler.js
+// ../../node_modules/dmn-js-drd/lib/features/modeling/cmd/UpdatePropertiesHandler.js
 init_dist();
 var NAME = "name";
 var ID$1 = "id";
@@ -6222,8 +6897,7 @@ function setProperties(businessObject, properties) {
 		businessObject.set(key, value);
 	});
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/modeling/cmd/UpdateModdlePropertiesHandler.js
+// ../../node_modules/dmn-js-drd/lib/features/modeling/cmd/UpdateModdlePropertiesHandler.js
 init_dist();
 function UpdateModdlePropertiesHandler(elementRegistry) {
 	this._elementRegistry = elementRegistry;
@@ -6255,8 +6929,7 @@ function setModdleProperties(moddleElement, properties) {
 		moddleElement.set(key, value);
 	});
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/modeling/Modeling.js
+// ../../node_modules/dmn-js-drd/lib/features/modeling/Modeling.js
 function Modeling$4(canvas, drdRules, injector) {
 	this._canvas = canvas;
 	this._drdRules = drdRules;
@@ -6315,8 +6988,7 @@ Modeling$4.prototype.updateLabel = function(element, newLabel, newBounds, hints)
 		hints: hints || {}
 	});
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/modeling/DrdLayouter.js
+// ../../node_modules/dmn-js-drd/lib/features/modeling/DrdLayouter.js
 init_dist();
 var ADDITIONAL_WAYPOINT_DISTANCE = 20;
 function DrdLayouter(connectionDocking) {
@@ -6350,8 +7022,7 @@ DrdLayouter.prototype.layoutConnection = function(connection, hints) {
 function getConnectionDocking(point, shape) {
 	return point ? point.original || point : getMid(shape);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/modeling/index.js
+// ../../node_modules/dmn-js-drd/lib/features/modeling/index.js
 var modeling_default$3 = {
 	__init__: ["modeling", "drdUpdater"],
 	__depends__: [
@@ -6369,8 +7040,76 @@ var modeling_default$3 = {
 	layouter: ["type", DrdLayouter],
 	connectionDocking: ["type", CroppingConnectionDocking]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/outline/OutlineUtil.js
+// ../../node_modules/dmn-js-drd/lib/features/ordering/DmnOrderingProvider.js
+init_dist();
+function DmnOrderingProvider(eventBus, canvas) {
+	OrderingProvider.call(this, eventBus);
+	const orders = [
+		{
+			type: "dmn:Association",
+			order: { level: 9 }
+		},
+		{
+			type: "dmn:AuthorityRequirement",
+			order: { level: 9 }
+		},
+		{
+			type: "dmn:InformationRequirement",
+			order: { level: 9 }
+		},
+		{
+			type: "dmn:KnowledgeRequirement",
+			order: { level: 9 }
+		},
+		{
+			type: "dmn:Artifact",
+			order: { level: 8 }
+		},
+		{
+			type: "dmn:DRGElement",
+			order: { level: 2 }
+		}
+	];
+	function computeOrder(element) {
+		const entry = find(orders, function(o) {
+			return isAny$1(element, [o.type]);
+		});
+		return entry && entry.order || { level: 1 };
+	}
+	function getOrder(element) {
+		let order = element.order;
+		if (!order) element.order = order = computeOrder(element);
+		if (!order) throw new Error(`no order for <${element.id}>`);
+		return order;
+	}
+	this.getOrdering = function(element, newParent) {
+		if (element.labelTarget || is$2(element, "dmn:TextAnnotation")) return {
+			parent: canvas.findRoot(newParent) || canvas.getRootElement(),
+			index: -1
+		};
+		const elementOrder = getOrder(element);
+		let currentIndex = newParent.children.indexOf(element);
+		let insertIndex = findIndex(newParent.children, function(child) {
+			if (!element.labelTarget && child.labelTarget) return false;
+			return elementOrder.level < getOrder(child).level;
+		});
+		if (insertIndex !== -1) {
+			if (currentIndex !== -1 && currentIndex < insertIndex) insertIndex -= 1;
+		}
+		return {
+			index: insertIndex,
+			parent: newParent
+		};
+	};
+}
+DmnOrderingProvider.$inject = ["eventBus", "canvas"];
+e(DmnOrderingProvider, OrderingProvider);
+// ../../node_modules/dmn-js-drd/lib/features/ordering/index.js
+var ordering_default = {
+	__init__: ["dmnOrderingProvider"],
+	dmnOrderingProvider: ["type", DmnOrderingProvider]
+};
+// ../../node_modules/dmn-js-drd/lib/features/outline/OutlineUtil.js
 var BUSINESS_KNOWLEDGE_MODEL_OUTLINE_PATH = `
 M2.45221 16.0068L18.7175 1.74436L18.0615 0.996331L18.7175 1.74436C19.2646 1.26455 19.9676 
 1 20.6953 1H140.926C142.583 1 143.926 2.34295 143.926 3.99967L143.93 37.5457C143.93 
@@ -6405,8 +7144,7 @@ function createPath(path, attrs, OUTLINE_STYLE) {
 		...OUTLINE_STYLE
 	});
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/outline/OutlineProvider.js
+// ../../node_modules/dmn-js-drd/lib/features/outline/OutlineProvider.js
 init_dist();
 function OutlineProvider(outline, styles) {
 	this._styles = styles;
@@ -6449,15 +7187,13 @@ function isStandardSize(element, type) {
 	else if (type === "dmn:KnowledgeSource") standardSize = KNOWLEDGE_SOURCE_STANDARD_SIZE;
 	return element.width === standardSize.width && element.height === standardSize.height;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/outline/index.js
+// ../../node_modules/dmn-js-drd/lib/features/outline/index.js
 var outline_default = {
 	__depends__: [outline_default$1],
 	__init__: ["outlineProvider"],
 	outlineProvider: ["type", OutlineProvider]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/palette/PaletteProvider.js
+// ../../node_modules/dmn-js-drd/lib/features/palette/PaletteProvider.js
 init_dist();
 function PaletteProvider(palette, create, elementFactory, handTool, lassoTool, translate) {
 	this._palette = palette;
@@ -6517,12 +7253,12 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
 		"create.decision": createAction("dmn:Decision", "drd", "dmn-icon-decision", translate("Create decision")),
 		"create.input-data": createAction("dmn:InputData", "drd", "dmn-icon-input-data", translate("Create input data")),
 		"create.knowledge-source": createAction("dmn:KnowledgeSource", "drd", "dmn-icon-knowledge-source", translate("Create knowledge source")),
-		"create.business-knowledge-model": createAction("dmn:BusinessKnowledgeModel", "drd", "dmn-icon-business-knowledge", translate("Create knowledge model"))
+		"create.business-knowledge-model": createAction("dmn:BusinessKnowledgeModel", "drd", "dmn-icon-business-knowledge", translate("Create knowledge model")),
+		"create.decision-service": createAction("dmn:DecisionService", "drd", "dmn-icon-decision-service", translate("Create decision service"))
 	});
 	return actions;
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/palette/index.js
+// ../../node_modules/dmn-js-drd/lib/features/palette/index.js
 var palette_default = {
 	__depends__: [
 		translate_default,
@@ -6534,8 +7270,7 @@ var palette_default = {
 	__init__: ["paletteProvider"],
 	paletteProvider: ["type", PaletteProvider]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/snapping/DrdBendpointSnapping.js
+// ../../node_modules/dmn-js-drd/lib/features/snapping/DrdBendpointSnapping.js
 var RECONNECT_START = "reconnectStart";
 var RECONNECT_END = "reconnectEnd";
 var HIGH_PRIORITY$4 = 2e3;
@@ -6598,8 +7333,7 @@ function snapToTarget(event, orientation) {
 	event.dx -= dx;
 	event.dy -= dy;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/snapping/DrdConnectSnapping.js
+// ../../node_modules/dmn-js-drd/lib/features/snapping/DrdConnectSnapping.js
 var LOW_PRIORITY$11 = 250;
 function DrdConnectSnapping(eventBus) {
 	eventBus.on([
@@ -6636,44 +7370,190 @@ function DrdConnectSnapping(eventBus) {
 	});
 }
 DrdConnectSnapping.$inject = ["eventBus"];
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/snapping/index.js
+// ../../node_modules/dmn-js-drd/lib/features/snapping/index.js
 var snapping_default = {
 	__depends__: [snapping_default$1],
 	__init__: ["bendpointSnapping", "connectSnapping"],
 	bendpointSnapping: ["type", DrdBendpointSnapping],
 	connectSnapping: ["type", DrdConnectSnapping]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/features/data-types/DataTypes.js
+// ../../node_modules/dmn-js-shared/lib/features/data-types/DataTypes.js
+var DataTypes$1 = class {
+	constructor(eventBus) {
+		this._eventBus = eventBus;
+	}
+	registerProvider(priority, provider) {
+		if (!provider) {
+			provider = priority;
+			priority = null;
+		}
+		const callback = function(event) {
+			event.providers.push(provider);
+		};
+		if (priority === null) this._eventBus.on("dataTypes.getProviders", callback);
+		else this._eventBus.on("dataTypes.getProviders", priority, callback);
+	}
+	getAll() {
+		const event = this._eventBus.createEvent({
+			type: "dataTypes.getProviders",
+			providers: []
+		});
+		this._eventBus.fire(event);
+		let dataTypes = [];
+		for (const provider of event.providers) dataTypes = normalize$2(provider.getDataTypes(dataTypes));
+		return dataTypes;
+	}
+};
+DataTypes$1.$inject = ["eventBus"];
+function normalize$2(dataTypes) {
+	const byName = new Map();
+	dataTypes.forEach(({ name, label, group }) => {
+		const dataType = {
+			name,
+			label: label ?? name
+		};
+		if (group) {
+			const { id, name = id } = typeof group === "string" ? { id: group } : group;
+			dataType.group = {
+				id,
+				name
+			};
+		}
+		byName.set(name, dataType);
+	});
+	return [...byName.values()];
+}
+// ../../node_modules/dmn-js-shared/lib/features/data-types/DefaultDataTypesProvider.js
 var DEFAULT_DATA_TYPES$2 = [
 	"string",
 	"boolean",
 	"number",
 	"date",
 	"time",
-	"dateTime",
-	"dayTimeDuration",
-	"yearMonthDuration",
+	"date and time",
+	"days and time duration",
+	"years and months duration",
 	"Any"
 ];
-var DataTypes$1 = class {
-	constructor(configuredDataTypes) {
-		this._dataTypes = configuredDataTypes || DEFAULT_DATA_TYPES$2;
+var DefaultDataTypesProvider$1 = class {
+	constructor(configuredDataTypes, dataTypes, translate) {
+		this._translate = translate;
+		this._dataTypes = configuredDataTypes || DEFAULT_DATA_TYPES$2.map((name) => ({
+			name,
+			group: {
+				id: "built-in",
+				name: "Built-ins"
+			}
+		}));
+		dataTypes.registerProvider(this);
 	}
-	getAll() {
-		return this._dataTypes;
+	getDataTypes(dataTypes) {
+		return [...dataTypes, ...this._dataTypes.map((dataType) => this._translateDataType(dataType))];
+	}
+	_translateDataType(dataType) {
+		const translate = this._translate;
+		const { name, label = name, group } = typeof dataType === "string" ? { name: dataType } : dataType;
+		const translated = {
+			name,
+			label: translate(label)
+		};
+		if (group) {
+			const { id, name } = typeof group === "string" ? { id: group } : group;
+			translated.group = {
+				id,
+				name: name ? translate(name) : id
+			};
+		}
+		return translated;
 	}
 };
-DataTypes$1.$inject = ["config.dataTypes"];
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/features/data-types/index.js
+DefaultDataTypesProvider$1.$inject = [
+	"config.dataTypes",
+	"dataTypes",
+	"translate"
+];
+// ../../node_modules/dmn-js-shared/lib/features/data-types/ModelDataTypesProvider.js
+var ModelDataTypesProvider$1 = class {
+	constructor(dataTypes, injector, translate) {
+		this._injector = injector;
+		this._translate = translate;
+		dataTypes.registerProvider(500, this);
+	}
+	getDataTypes(dataTypes) {
+		const viewer = this._injector.get("viewer", false);
+		const definitions = viewer && viewer.getDefinitions();
+		if (!definitions) return dataTypes;
+		const group = {
+			id: "custom",
+			name: this._translate("Custom")
+		};
+		const known = new Set(dataTypes.map(({ name }) => name));
+		const customTypes = [];
+		for (const { name } of definitions.get("itemDefinition")) if (name && !known.has(name)) {
+			known.add(name);
+			customTypes.push({
+				name,
+				group
+			});
+		}
+		return [...dataTypes, ...customTypes];
+	}
+};
+ModelDataTypesProvider$1.$inject = [
+	"dataTypes",
+	"injector",
+	"translate"
+];
+// ../../node_modules/dmn-js-shared/lib/features/data-types/index.js
 var data_types_default = {
-	__init__: ["dataTypes"],
-	dataTypes: ["type", DataTypes$1]
+	__depends__: [translate_default],
+	__init__: [
+		"dataTypes",
+		"defaultDataTypesProvider",
+		"modelDataTypesProvider"
+	],
+	dataTypes: ["type", DataTypes$1],
+	defaultDataTypesProvider: ["type", DefaultDataTypesProvider$1],
+	modelDataTypesProvider: ["type", ModelDataTypesProvider$1]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/type-ref-dropdown/TypeRefDropdown.js
+// ../../node_modules/dmn-js-shared/lib/util/TypeRefUtil.js
+function groupDataTypes(dataTypes) {
+	const ungrouped = { types: [] };
+	const groups = [];
+	dataTypes.forEach((dataType) => {
+		if (!dataType.group) return ungrouped.types.push(dataType);
+		const { id, name } = dataType.group;
+		let group = groups.find((g) => g.id === id);
+		if (!group) {
+			group = {
+				id,
+				name,
+				types: []
+			};
+			groups.push(group);
+		}
+		group.types.push(dataType);
+	});
+	const allGroups = ungrouped.types.length ? [ungrouped, ...groups] : groups;
+	if (allGroups.length < 2) return allGroups.map((group) => ({
+		...group,
+		name: void 0
+	}));
+	return allGroups;
+}
+function getTypeRefOptions$1(dataTypes) {
+	return groupDataTypes(dataTypes).flatMap(({ id, name, types }) => {
+		return types.map((type) => ({
+			label: type.label,
+			value: type.name,
+			group: id === void 0 ? void 0 : {
+				id,
+				name
+			}
+		}));
+	});
+}
+// ../../node_modules/dmn-js-drd/lib/features/type-ref-dropdown/TypeRefDropdown.js
 var TypeRefDropdown = class {
 	constructor(eventBus, overlays, dataTypes, drdFactory, modeling, translate) {
 		this._eventBus = eventBus;
@@ -6727,18 +7607,31 @@ var TypeRefDropdown = class {
 		select.ariaLabel = this._translate("Type");
 		const currentTypeRef = this._getTypeRef(element);
 		const dataTypes = this._dataTypes.getAll();
-		(dataTypes.includes(currentTypeRef) ? dataTypes : [currentTypeRef, ...dataTypes]).map((type) => {
-			const option = document.createElement("option");
-			option.value = type;
-			option.textContent = this._translate(type);
-			return option;
-		}).forEach((option) => select.appendChild(option));
+		if (!dataTypes.some((type) => type.name === currentTypeRef)) select.appendChild(this._createOption({
+			name: currentTypeRef,
+			label: currentTypeRef
+		}));
+		groupDataTypes(dataTypes).forEach(({ name, types }) => {
+			let parent = select;
+			if (name) {
+				parent = document.createElement("optgroup");
+				parent.label = name;
+				select.appendChild(parent);
+			}
+			types.forEach((type) => parent.appendChild(this._createOption(type)));
+		});
 		select.value = currentTypeRef;
 		container.appendChild(select);
 		select.addEventListener("change", (event) => {
 			this._setTypeRef(element, event.target.value);
 		});
 		return container;
+	}
+	_createOption(type) {
+		const option = document.createElement("option");
+		option.value = type.name;
+		option.textContent = type.label;
+		return option;
 	}
 	_getTypeRef(element) {
 		return getBusinessObject$1(element).get("variable")?.get("typeRef") || "Any";
@@ -6765,8 +7658,7 @@ TypeRefDropdown.$inject = [
 	"modeling",
 	"translate"
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/features/type-ref-dropdown/index.js
+// ../../node_modules/dmn-js-drd/lib/features/type-ref-dropdown/index.js
 var type_ref_dropdown_default = {
 	__depends__: [
 		data_types_default,
@@ -6776,8 +7668,13 @@ var type_ref_dropdown_default = {
 	__init__: ["typeRefDropdown"],
 	typeRefDropdown: ["type", TypeRefDropdown]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-drd/lib/Modeler.js
+// ../../node_modules/dmn-js-drd/lib/features/decision-service-divider/index.js
+var decision_service_divider_default = {
+	__depends__: [dragging_default, grid_snapping_default],
+	__init__: ["decisionServiceDivider"],
+	decisionServiceDivider: ["type", DecisionServiceDivider]
+};
+// ../../node_modules/dmn-js-drd/lib/Modeler.js
 function Modeler$1(options) {
 	NavigatedViewer.call(this, options);
 }
@@ -6785,10 +7682,12 @@ e(Modeler$1, NavigatedViewer);
 Modeler$1.prototype._modelingModules = [
 	align_elements_default,
 	auto_place_default,
+	auto_resize_default,
 	auto_scroll_default,
 	bendpoints_default,
 	context_pad_default,
 	connection_preview_default,
+	decision_service_divider_default,
 	modeler_default,
 	distribute_elements_default,
 	editor_actions_default$4,
@@ -6801,14 +7700,14 @@ Modeler$1.prototype._modelingModules = [
 	modeling_default$3,
 	move_default,
 	outline_default,
+	ordering_default,
 	palette_default,
 	resize_default,
 	snapping_default,
 	type_ref_dropdown_default
 ];
 Modeler$1.prototype._modules = [].concat(Modeler$1.prototype._modules, Modeler$1.prototype._modelingModules);
-//#endregion
-//#region ../../node_modules/@bpmn-io/dmn-variable-resolver/lib/core.js
+// ../../node_modules/@bpmn-io/dmn-variable-resolver/lib/core.js
 function resolveVariables(moddleElement) {
 	const context = {
 		variables: [],
@@ -6942,8 +7841,7 @@ function getReferencedElement(reference, rootElement) {
 function is$1(moddleElement, type) {
 	return moddleElement.$instanceOf(type);
 }
-//#endregion
-//#region ../../node_modules/@bpmn-io/dmn-variable-resolver/lib/DmnVariableProvider.js
+// ../../node_modules/@bpmn-io/dmn-variable-resolver/lib/DmnVariableProvider.js
 var DmnVariableProvider = class {
 	constructor(variableResolver) {
 		variableResolver.registerProvider(this);
@@ -6953,8 +7851,7 @@ var DmnVariableProvider = class {
 	}
 };
 DmnVariableProvider.$inject = ["variableResolver"];
-//#endregion
-//#region ../../node_modules/@bpmn-io/dmn-variable-resolver/lib/VariableResolver.js
+// ../../node_modules/@bpmn-io/dmn-variable-resolver/lib/VariableResolver.js
 var VariableResolver = class {
 	constructor() {
 		this._providers = [];
@@ -6966,15 +7863,13 @@ var VariableResolver = class {
 		return this._providers.reduce((variables, provider) => provider.getVariables(variables, element), []);
 	}
 };
-//#endregion
-//#region ../../node_modules/@bpmn-io/dmn-variable-resolver/lib/index.js
+// ../../node_modules/@bpmn-io/dmn-variable-resolver/lib/index.js
 var DmnVariableResolverModule = {
 	__init__: ["dmnVariableProvider"],
 	dmnVariableProvider: ["type", DmnVariableProvider],
 	variableResolver: ["type", VariableResolver]
 };
-//#endregion
-//#region ../../node_modules/table-js/node_modules/didi/dist/index.js
+// ../../node_modules/table-js/node_modules/didi/dist/index.js
 var CLASS_PATTERN$1 = /^class[ {]/;
 function isClass$1(fn) {
 	return CLASS_PATTERN$1.test(fn.toString());
@@ -7202,8 +8097,7 @@ function arrayUnwrap$1(type, value) {
 	if (type !== "value" && isArray$2(value)) value = annotate$1(value.slice());
 	return value;
 }
-//#endregion
-//#region ../../node_modules/table-js/lib/model/index.js
+// ../../node_modules/table-js/lib/model/index.js
 init_dist();
 var Base = class {
 	constructor(attrs) {
@@ -7265,8 +8159,7 @@ function create(type, attrs) {
 function defineProperty(el, prop, options) {
 	Object.defineProperty(el, prop, options);
 }
-//#endregion
-//#region ../../node_modules/table-js/lib/core/ElementFactory.js
+// ../../node_modules/table-js/lib/core/ElementFactory.js
 var ElementFactory$1 = class {
 	constructor() {
 		this._uid = 12;
@@ -7288,8 +8181,7 @@ var ElementFactory$1 = class {
 		return this.create("cell", attrs);
 	}
 };
-//#endregion
-//#region ../../node_modules/table-js/lib/core/ElementRegistry.js
+// ../../node_modules/table-js/lib/core/ElementRegistry.js
 var ElementRegistry$2 = class {
 	constructor(eventBus) {
 		this._eventBus = eventBus;
@@ -7341,8 +8233,7 @@ function values(obj) {
 		return obj[k];
 	});
 }
-//#endregion
-//#region ../../node_modules/table-js/lib/render/ChangeSupport.js
+// ../../node_modules/table-js/lib/render/ChangeSupport.js
 var ChangeSupport$1 = class {
 	constructor(eventBus) {
 		this._listeners = {};
@@ -7390,8 +8281,7 @@ var ChangeSupport$1 = class {
 	}
 };
 ChangeSupport$1.$inject = ["eventBus"];
-//#endregion
-//#region ../../node_modules/table-js/lib/render/Components.js
+// ../../node_modules/table-js/lib/render/Components.js
 init_dist();
 var DEFAULT_PRIORITY$2 = 1e3;
 var Components$1 = class {
@@ -7452,8 +8342,7 @@ var Components$1 = class {
 		return listeners;
 	}
 };
-//#endregion
-//#region ../../node_modules/table-js/lib/render/components/TableComponent.js
+// ../../node_modules/table-js/lib/render/components/TableComponent.js
 var TableComponent = class extends Component {
 	constructor(props) {
 		super(props);
@@ -7514,8 +8403,7 @@ var TableComponent = class extends Component {
 		], 0);
 	}
 };
-//#endregion
-//#region ../../node_modules/table-js/lib/render/Renderer.js
+// ../../node_modules/table-js/lib/render/Renderer.js
 var Renderer$1 = class {
 	constructor(changeSupport, components, config, eventBus, injector) {
 		const { container } = config;
@@ -7538,8 +8426,7 @@ Renderer$1.$inject = [
 	"eventBus",
 	"injector"
 ];
-//#endregion
-//#region ../../node_modules/table-js/lib/render/index.js
+// ../../node_modules/table-js/lib/render/index.js
 var render_default$1 = {
 	__init__: [
 		"changeSupport",
@@ -7550,8 +8437,7 @@ var render_default$1 = {
 	components: ["type", Components$1],
 	renderer: ["type", Renderer$1]
 };
-//#endregion
-//#region ../../node_modules/table-js/lib/core/Sheet.js
+// ../../node_modules/table-js/lib/core/Sheet.js
 var Sheet = class {
 	constructor(elementRegistry, eventBus) {
 		this._elementRegistry = elementRegistry;
@@ -7653,8 +8539,7 @@ function addAtIndex(index, array, value) {
 function removeAtIndex(index, array) {
 	return array.splice(index, 1);
 }
-//#endregion
-//#region ../../node_modules/table-js/lib/core/Throttle.js
+// ../../node_modules/table-js/lib/core/Throttle.js
 init_dist();
 function ThrottleFactory(config = true) {
 	const timeout = typeof config === "number" ? config : config ? 300 : 0;
@@ -7662,8 +8547,7 @@ function ThrottleFactory(config = true) {
 	else return (fn) => fn;
 }
 ThrottleFactory.$inject = ["config.throttle"];
-//#endregion
-//#region ../../node_modules/table-js/lib/core/index.js
+// ../../node_modules/table-js/lib/core/index.js
 var core_default$4 = {
 	__depends__: [render_default$1],
 	__init__: ["elementFactory", "sheet"],
@@ -7673,8 +8557,7 @@ var core_default$4 = {
 	sheet: ["type", Sheet],
 	throttle: ["factory", ThrottleFactory]
 };
-//#endregion
-//#region ../../node_modules/table-js/lib/Table.js
+// ../../node_modules/table-js/lib/Table.js
 var Table = class {
 	constructor(options = {}) {
 		let { injector } = options;
@@ -7710,18 +8593,15 @@ function createInjector$1(config, modules) {
 	injector.init();
 	return injector;
 }
-//#endregion
-//#region ../../node_modules/table-js/lib/index.js
+// ../../node_modules/table-js/lib/index.js
 var lib_default = Table;
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/import/Util.js
+// ../../node_modules/dmn-js-decision-table/lib/import/Util.js
 function elementToString(element) {
 	if (!element) return "<null>";
 	const id = element.id ? ` id="${element.id}"` : "";
 	return `<${element.$type}${id} />`;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/import/TableTreeWalker.js
+// ../../node_modules/dmn-js-decision-table/lib/import/TableTreeWalker.js
 init_dist();
 function TableTreeWalker(handler, options) {
 	function visit(element, ctx, definitions) {
@@ -7761,8 +8641,7 @@ function TableTreeWalker(handler, options) {
 	}
 	return { handleDecision };
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/import/Importer.js
+// ../../node_modules/dmn-js-decision-table/lib/import/Importer.js
 function importDecision(decisionTable, decision, done) {
 	const importer = decisionTable.get("tableImporter"), eventBus = decisionTable.get("eventBus"), sheet = decisionTable.get("sheet");
 	let hasModeling = decisionTable.get("modeling", false);
@@ -7799,8 +8678,7 @@ function importDecision(decisionTable, decision, done) {
 	eventBus.fire("elements.changed", { elements: [sheet.getRoot()] });
 	done(error, warnings);
 }
-//#endregion
-//#region ../../node_modules/table-js/lib/components/utils/classNames.js
+// ../../node_modules/table-js/lib/components/utils/classNames.js
 function newSet() {
 	return {
 		elements: [],
@@ -7832,8 +8710,7 @@ function classNames(...args) {
 	});
 	return join(set, " ");
 }
-//#endregion
-//#region ../../node_modules/table-js/lib/components/utils/inject.js
+// ../../node_modules/table-js/lib/components/utils/inject.js
 function inject(component) {
 	const Type = component.constructor;
 	return injectType(Type, component);
@@ -7850,8 +8727,7 @@ function injectType(Type, component) {
 	}];
 	injector.invoke(setupFn);
 }
-//#endregion
-//#region ../../node_modules/table-js/lib/components/utils/compose.js
+// ../../node_modules/table-js/lib/components/utils/compose.js
 function compose(self, ...fns) {
 	return function(...args) {
 		let result;
@@ -7862,8 +8738,7 @@ function compose(self, ...fns) {
 		return result;
 	}.bind(self);
 }
-//#endregion
-//#region ../../node_modules/table-js/lib/components/utils/mixin.js
+// ../../node_modules/table-js/lib/components/utils/mixin.js
 function mixin(component, mixinDef) {
 	Object.keys(mixinDef).forEach(function(key) {
 		if (key === "$inject" || key === "__init") return;
@@ -7878,8 +8753,7 @@ function mixin(component, mixinDef) {
 	if ("$inject" in mixinDef) injectType(mixinDef, component);
 	if ("__init" in mixinDef) mixinDef.__init.call(component, component.props, component.context);
 }
-//#endregion
-//#region ../../node_modules/table-js/lib/components/mixins/SelectionAware.js
+// ../../node_modules/table-js/lib/components/mixins/SelectionAware.js
 var SelectionAware = {
 	getSelectionClasses() {
 		const { selected, selectedSecondary, focussed } = this.state;
@@ -7911,8 +8785,7 @@ var SelectionAware = {
 	}
 };
 SelectionAware.$inject = ["eventBus"];
-//#endregion
-//#region ../../node_modules/table-js/lib/components/BaseCell.js
+// ../../node_modules/table-js/lib/components/BaseCell.js
 var BaseCell = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -7930,8 +8803,7 @@ var BaseCell = class extends Component {
 		};
 	}
 };
-//#endregion
-//#region ../../node_modules/table-js/lib/components/Cell.js
+// ../../node_modules/table-js/lib/components/Cell.js
 var HeaderCell = class extends BaseCell {
 	constructor(props, context) {
 		super(props, context);
@@ -7942,8 +8814,7 @@ var HeaderCell = class extends BaseCell {
 		return normalizeProps(createVNode(1, "td", null, children, 0, { ...this.getRenderProps("cell") }));
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/components/mixins/ComponentWithSlots.js
+// ../../node_modules/dmn-js-shared/lib/components/mixins/ComponentWithSlots.js
 var ComponentWithSlots = {
 	slotFill(slotProps, DefaultFill) {
 		const { type, context, ...props } = slotProps;
@@ -7963,8 +8834,7 @@ var ComponentWithSlots = {
 	}
 };
 ComponentWithSlots.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/annotations/components/AnnotationHeader.js
+// ../../node_modules/dmn-js-decision-table/lib/features/annotations/components/AnnotationHeader.js
 var MIN_WIDTH = 400;
 var AnnotationHeader = class extends Component {
 	constructor(props, context) {
@@ -8001,8 +8871,7 @@ AnnotationHeader.$inject = [
 	"sheet",
 	"translate"
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/annotations/components/AnnotationCell.js
+// ../../node_modules/dmn-js-decision-table/lib/features/annotations/components/AnnotationCell.js
 function AnnotationCell(props) {
 	const { row } = props;
 	const { id, description } = row.businessObject;
@@ -8012,8 +8881,7 @@ function AnnotationCell(props) {
 		children: description || "-"
 	});
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/annotations/AnnotationsProvider.js
+// ../../node_modules/dmn-js-decision-table/lib/features/annotations/AnnotationsProvider.js
 function AnnotationsProvider(components) {
 	components.onGetComponent("cell", ({ cellType }) => {
 		if (cellType === "after-label-cells") return AnnotationHeader;
@@ -8021,14 +8889,12 @@ function AnnotationsProvider(components) {
 	});
 }
 AnnotationsProvider.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/annotations/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/annotations/index.js
 var annotations_default = {
 	__init__: ["annotationsProvider"],
 	annotationsProvider: ["type", AnnotationsProvider]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/import/TableImporter.js
+// ../../node_modules/dmn-js-decision-table/lib/import/TableImporter.js
 init_dist();
 function elementData(semantic, attrs) {
 	return assign({
@@ -8072,14 +8938,12 @@ TableImporter.$inject = [
 	"eventBus",
 	"sheet"
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/core/index.js
+// ../../node_modules/dmn-js-decision-table/lib/core/index.js
 var core_default$3 = { __depends__: [{
 	__depends__: [translate_default],
 	tableImporter: ["type", TableImporter]
 }, render_default$1] };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/components/DecisionTableHead.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/components/DecisionTableHead.js
 var DecisionTableHead = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -8162,20 +9026,17 @@ function DefaultOutputHeaderCell(props, context) {
 		createVNode(1, "div", "output-variable", outputValues && outputValues.text || typeRef, 0, { "title": outputValues && outputValues.text ? translate("Output values") : translate("Output type") })
 	], 0, null, output.id);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/DecisionTableHeadProvider.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/DecisionTableHeadProvider.js
 function DecisionTableHeadProvider(components) {
 	components.onGetComponent("table.head", () => DecisionTableHead);
 }
 DecisionTableHeadProvider.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/index.js
 var decision_table_head_default = {
 	__init__: ["decisionTableHeadProvider"],
 	decisionTableHeadProvider: ["type", DecisionTableHeadProvider]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-table-properties/components/DecisionTablePropertiesComponent.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-table-properties/components/DecisionTablePropertiesComponent.js
 var DecisionTablePropertiesComponent$1 = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -8198,8 +9059,7 @@ DecisionTablePropertiesComponent$1.$inject = ["sheet", "components"];
 function NullComponent$1() {
 	return null;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-table-properties/DecisionTableProperties.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-table-properties/DecisionTableProperties.js
 var LOW_PRIORITY$10 = 500;
 var DecisionTableProperties$1 = class {
 	constructor(components) {
@@ -8209,14 +9069,12 @@ var DecisionTableProperties$1 = class {
 	}
 };
 DecisionTableProperties$1.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-table-properties/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-table-properties/index.js
 var decision_table_properties_default = {
 	__init__: ["decisionTableProperties"],
 	decisionTableProperties: ["type", DecisionTableProperties$1]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-rule-indices/components/DecisionRuleIndexCellComponent.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-rule-indices/components/DecisionRuleIndexCellComponent.js
 var DecisionRulesIndexCellComponent = class extends Component {
 	render() {
 		const { row, rowIndex } = this.props;
@@ -8235,8 +9093,7 @@ var DecisionRulesIndexCellComponent = class extends Component {
 		});
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-rule-indices/DecisionRuleIndices.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-rule-indices/DecisionRuleIndices.js
 var DecisionRuleIndices = class {
 	constructor(components) {
 		components.onGetComponent("cell", ({ cellType }) => {
@@ -8245,14 +9102,12 @@ var DecisionRuleIndices = class {
 	}
 };
 DecisionRuleIndices.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-rule-indices/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-rule-indices/index.js
 var decision_rule_indices_default = {
 	__init__: ["decisionRuleIndices"],
 	decisionRuleIndices: ["type", DecisionRuleIndices]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/features/expression-languages/ExpressionLanguages.js
+// ../../node_modules/dmn-js-shared/lib/features/expression-languages/ExpressionLanguages.js
 init_dist();
 var EXPRESSION_LANGUAGE_OPTIONS = [{
 	label: "FEEL",
@@ -8295,14 +9150,12 @@ var ExpressionLanguages = class {
 	}
 };
 ExpressionLanguages.$inject = ["injector"];
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/features/expression-languages/index.js
+// ../../node_modules/dmn-js-shared/lib/features/expression-languages/index.js
 var expression_languages_default = {
 	__init__: ["expressionLanguages"],
 	expressionLanguages: ["type", ExpressionLanguages]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/features/feel-language-context/FeelLanguageContext.js
+// ../../node_modules/dmn-js-shared/lib/features/feel-language-context/FeelLanguageContext.js
 var FeelLanguageContext = class {
 	constructor(feelLanguageContext) {
 		this._feelLanguageContext = feelLanguageContext;
@@ -8312,14 +9165,12 @@ var FeelLanguageContext = class {
 	}
 };
 FeelLanguageContext.$inject = ["config.feelLanguageContext"];
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/features/feel-language-context/index.js
+// ../../node_modules/dmn-js-shared/lib/features/feel-language-context/index.js
 var feel_language_context_default = {
 	__init__: ["feelLanguageContext"],
 	feelLanguageContext: ["type", FeelLanguageContext]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-rules/components/DecisionRulesBodyComponent.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-rules/components/DecisionRulesBodyComponent.js
 var DecisionRulesBodyComponent = class extends Component {
 	render({ rows, cols }) {
 		const { components } = this.context;
@@ -8333,8 +9184,7 @@ var DecisionRulesBodyComponent = class extends Component {
 		}), 0);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-rules/components/DecisionRulesRowComponent.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-rules/components/DecisionRulesRowComponent.js
 var DecisionRulesRowComponent = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -8377,8 +9227,7 @@ var DecisionRulesRowComponent = class extends Component {
 		], 0);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-rules/components/DecisionRulesCellComponent.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-rules/components/DecisionRulesCellComponent.js
 var DecisionRulesCellComponent = class extends Component {
 	render() {
 		const { cell, row, col } = this.props;
@@ -8398,8 +9247,7 @@ var DecisionRulesCellComponent = class extends Component {
 		});
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-rules/DecisionRules.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-rules/DecisionRules.js
 var Rules = class {
 	constructor(components) {
 		components.onGetComponent("table.body", () => DecisionRulesBodyComponent);
@@ -8412,15 +9260,13 @@ var Rules = class {
 	}
 };
 Rules.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-rules/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-rules/index.js
 var decision_rules_default = {
 	__depends__: [expression_languages_default, feel_language_context_default],
 	__init__: ["decisionRules"],
 	decisionRules: ["type", Rules]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/hit-policy/HitPolicies.js
+// ../../node_modules/dmn-js-decision-table/lib/features/hit-policy/HitPolicies.js
 var HIT_POLICIES = [
 	{
 		label: "Unique",
@@ -8511,8 +9357,7 @@ var HIT_POLICIES = [
 		explanation: "Collects the values of all matching rules in decreasing output priority order"
 	}
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/hit-policy/components/HitPolicy.js
+// ../../node_modules/dmn-js-decision-table/lib/features/hit-policy/components/HitPolicy.js
 init_dist();
 var HitPolicy = class extends Component {
 	constructor(props, context) {
@@ -8538,22 +9383,19 @@ HitPolicy.$inject = ["sheet"];
 function isEqualHitPolicy$1(a, b) {
 	return a.hitPolicy === b.hitPolicy && a.aggregation === b.aggregation;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/hit-policy/HitPolicyProvider.js
+// ../../node_modules/dmn-js-decision-table/lib/features/hit-policy/HitPolicyProvider.js
 function HitPolicyProvider(components) {
 	components.onGetComponent("hit-policy", () => {
 		return HitPolicy;
 	});
 }
 HitPolicyProvider.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/hit-policy/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/hit-policy/index.js
 var hit_policy_default = {
 	__init__: ["hitPolicyProvider"],
 	hitPolicyProvider: ["type", HitPolicyProvider]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/view-drd/components/ViewDrdComponent.js
+// ../../node_modules/dmn-js-decision-table/lib/features/view-drd/components/ViewDrdComponent.js
 var ViewDrdComponent$2 = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -8571,18 +9413,17 @@ var ViewDrdComponent$2 = class extends Component {
 		}), 2, null, null, (node) => this.node = node);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/view-drd/ViewDrd.js
+// ../../node_modules/dmn-js-decision-table/lib/features/view-drd/ViewDrd.js
 var ViewDrd$2 = class {
-	constructor(components, eventBus, injector, sheet) {
+	constructor(components, eventBus, injector, viewer) {
 		this._injector = injector;
-		this._sheet = sheet;
+		this._viewer = viewer;
 		components.onGetComponent("table.before", () => {
 			if (this.canViewDrd()) return ViewDrdComponent$2;
 		});
 		eventBus.on("showDrd", () => {
 			const parent = injector.get("_parent", false);
-			const definitions = getDefinitions$1(sheet.getRoot());
+			const definitions = viewer.getDefinitions();
 			if (!definitions) return;
 			const view = parent.getView(definitions);
 			parent.open(view);
@@ -8591,29 +9432,21 @@ var ViewDrd$2 = class {
 	canViewDrd() {
 		const parent = this._injector.get("_parent", false);
 		if (!parent) return false;
-		const definitions = getDefinitions$1(this._sheet.getRoot());
-		return !!parent.getView(definitions);
+		return !!parent.getView(this._viewer.getDefinitions());
 	}
 };
 ViewDrd$2.$inject = [
 	"components",
 	"eventBus",
 	"injector",
-	"sheet"
+	"viewer"
 ];
-function getDefinitions$1(root) {
-	const { businessObject } = root;
-	if (!businessObject) return;
-	return businessObject.$parent.$parent;
-}
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/view-drd/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/view-drd/index.js
 var view_drd_default$2 = {
 	__init__: ["viewDrd"],
 	viewDrd: ["type", ViewDrd$2]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/powered-by/PoweredBy.js
+// ../../node_modules/dmn-js-decision-table/lib/features/powered-by/PoweredBy.js
 var PoweredBy$2 = class {
 	constructor(components) {
 		components.onGetComponent("table.before", () => {
@@ -8622,14 +9455,12 @@ var PoweredBy$2 = class {
 	}
 };
 PoweredBy$2.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/powered-by/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/powered-by/index.js
 var powered_by_default$2 = {
 	__init__: ["poweredBy"],
 	poweredBy: ["type", PoweredBy$2]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/Viewer.js
+// ../../node_modules/dmn-js-decision-table/lib/Viewer.js
 init_dist();
 var Viewer$3 = class Viewer$3 extends lib_default {
 	constructor(options = {}) {
@@ -8659,11 +9490,14 @@ var Viewer$3 = class Viewer$3 extends lib_default {
 			} else resolve({ warnings: [] });
 		});
 	}
+	getDefinitions() {
+		return getDefinitions$1(this._decision);
+	}
 	_init(options) {
 		let { modules, additionalModules, ...config } = options;
 		let baseModules = modules || this.getModules();
 		let extraModules = additionalModules || [];
-		let staticModules = [{ decisionTable: ["value", this] }];
+		let staticModules = [{ viewer: ["value", this] }];
 		return {
 			modules: [
 				powered_by_default$2,
@@ -8720,8 +9554,7 @@ var Viewer$3 = class Viewer$3 extends lib_default {
 		return domify("<div class=\"dmn-decision-table-container bio-theme-parent\"></div>");
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/add-rule/components/AddRuleFootComponent.js
+// ../../node_modules/dmn-js-decision-table/lib/features/add-rule/components/AddRuleFootComponent.js
 var AddRuleFootComponent = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -8760,8 +9593,7 @@ var AddRuleFootComponent = class extends Component {
 	}
 };
 AddRuleFootComponent.$inject = ["sheet", "translate"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/add-rule/AddRule.js
+// ../../node_modules/dmn-js-decision-table/lib/features/add-rule/AddRule.js
 var AddRule = class {
 	constructor(components, editorActions, eventBus, selection) {
 		components.onGetComponent("table.foot", () => AddRuleFootComponent);
@@ -8779,8 +9611,7 @@ AddRule.$inject = [
 	"eventBus",
 	"selection"
 ];
-//#endregion
-//#region ../../node_modules/table-js/lib/features/selection/Selection.js
+// ../../node_modules/table-js/lib/features/selection/Selection.js
 init_dist();
 var Selection = class {
 	constructor(elementRegistry, eventBus, renderer) {
@@ -8822,8 +9653,7 @@ Selection.$inject = [
 	"eventBus",
 	"renderer"
 ];
-//#endregion
-//#region ../../node_modules/table-js/lib/features/selection/SelectionBehavior.js
+// ../../node_modules/table-js/lib/features/selection/SelectionBehavior.js
 var SelectionBehavior = class {
 	constructor(elementRegistry, eventBus, renderer, selection) {
 		this._elementRegistry = elementRegistry;
@@ -8852,15 +9682,13 @@ SelectionBehavior.$inject = [
 	"renderer",
 	"selection"
 ];
-//#endregion
-//#region ../../node_modules/table-js/lib/features/selection/index.js
+// ../../node_modules/table-js/lib/features/selection/index.js
 var selection_default = {
 	__init__: ["selection", "selectionBehavior"],
 	selection: ["type", Selection],
 	selectionBehavior: ["type", SelectionBehavior]
 };
-//#endregion
-//#region ../../node_modules/table-js/lib/features/interaction-events/InteractionEvents.js
+// ../../node_modules/table-js/lib/features/interaction-events/InteractionEvents.js
 function _defineProperty$2(e, r, t) {
 	return (r = _toPropertyKey$2(r)) in e ? Object.defineProperty(e, r, {
 		value: t,
@@ -8949,21 +9777,19 @@ InteractionEvents.$inject = ["config.renderer", "eventBus"];
 function findClosestCell(element) {
 	return closest(element, "[data-element-id]", true);
 }
-//#endregion
-//#region ../../node_modules/table-js/lib/features/interaction-events/index.js
+// ../../node_modules/table-js/lib/features/interaction-events/index.js
 var interaction_events_default = {
 	__init__: ["interactionEvents"],
 	interactionEvents: ["type", InteractionEvents]
 };
 /*! https://mths.be/cssescape v1.5.1 by @mathias | MIT license */
-//#endregion
-//#region ../../node_modules/selection-ranges/dist/index.js
-var import_css_escape = __toESM(__commonJSMin(((exports, module) => {
+// ../../node_modules/selection-ranges/dist/index.js
+var import_css_escape = __toESM(__commonJSMin(((exports, module, this$1) => {
 	(function(root, factory) {
 		if (typeof exports == "object") module.exports = factory(root);
 		else if (typeof define == "function" && define.amd) define([], factory.bind(root, root));
 		else factory(root);
-	})(typeof global != "undefined" ? global : exports, function(root) {
+	})(typeof global != "undefined" ? global : this$1, function(root) {
 		if (root.CSS && root.CSS.escape) return root.CSS.escape;
 		var cssEscape = function(value) {
 			if (arguments.length == 0) throw new TypeError("`CSS.escape` requires an argument.");
@@ -9304,8 +10130,7 @@ function isDiv(node) {
 function isParagraph(node) {
 	return node.nodeType === 1 && node.nodeName === "P";
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/cell-selection/CellSelectionUtil.js
+// ../../node_modules/dmn-js-decision-table/lib/features/cell-selection/CellSelectionUtil.js
 var SELECTABLE_SELECTOR = "[contenteditable]";
 var ELEMENT_SELECTOR = "[data-element-id]";
 function getElementId(node) {
@@ -9346,8 +10171,7 @@ function ensureFocus$1(el) {
 	const range = getRange(focusEl);
 	if (!range || range.end === 0) window.getSelection().setPosition(focusEl.firstChild, focusEl.firstChild.length);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/cell-selection/CellSelection.js
+// ../../node_modules/dmn-js-decision-table/lib/features/cell-selection/CellSelection.js
 var LOW_PRIORITY$9 = 500;
 var VALID_DIRECTIONS = {
 	above: true,
@@ -9459,15 +10283,13 @@ function getNextCoords(coords, direction) {
 	}
 	throw new Error("invalid direction <" + direction + ">");
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/cell-selection/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/cell-selection/index.js
 var cell_selection_default = {
 	__depends__: [interaction_events_default, selection_default],
 	__init__: ["cellSelection"],
 	cellSelection: ["type", CellSelection]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/rules/DecisionTableModelingRules.js
+// ../../node_modules/dmn-js-decision-table/lib/features/rules/DecisionTableModelingRules.js
 init_dist();
 var HIGH_PRIORITY$3 = 2e3;
 var DecisionTableModelingRules = class extends RuleProvider {
@@ -9516,15 +10338,13 @@ var DecisionTableModelingRules = class extends RuleProvider {
 	}
 };
 DecisionTableModelingRules.$inject = ["eventBus", "sheet"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/rules/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/rules/index.js
 var rules_default = {
 	__depends__: [{ __depends__: [rules_default$3] }],
 	__init__: ["decisionTableModelingRules"],
 	decisionTableModelingRules: ["type", DecisionTableModelingRules]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/copy-cut-paste/cmd/CutHandler.js
+// ../../node_modules/dmn-js-decision-table/lib/features/copy-cut-paste/cmd/CutHandler.js
 var CutHandler = class {
 	constructor(clipboard, modeling, sheet) {
 		this._clipboard = clipboard;
@@ -9555,8 +10375,7 @@ CutHandler.$inject = [
 	"modeling",
 	"sheet"
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/copy-cut-paste/DescriptorUtil.js
+// ../../node_modules/dmn-js-decision-table/lib/features/copy-cut-paste/DescriptorUtil.js
 init_dist();
 var createHooks = [copyTableProperties, copyBusinessObjectProperties];
 var reviveHooks = [reviveBusinessObject, reviveTableElement];
@@ -9858,8 +10677,7 @@ function createBo(entry, reviveCache) {
 		reviveCache
 	};
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/copy-cut-paste/cmd/PasteHandler.js
+// ../../node_modules/dmn-js-decision-table/lib/features/copy-cut-paste/cmd/PasteHandler.js
 var PasteHandler = class {
 	constructor(clipboard, dmnFactory, elementFactory, elementRegistry, eventBus, moddle, modeling, sheet) {
 		this._clipboard = clipboard;
@@ -9911,8 +10729,7 @@ PasteHandler.$inject = [
 	"modeling",
 	"sheet"
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/copy-cut-paste/CopyCutPaste.js
+// ../../node_modules/dmn-js-decision-table/lib/features/copy-cut-paste/CopyCutPaste.js
 init_dist();
 var CutPaste = class {
 	constructor(clipboard, commandStack, eventBus, modeling, sheet, rules) {
@@ -9974,15 +10791,13 @@ CutPaste.$inject = [
 	"sheet",
 	"rules"
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/copy-cut-paste/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/copy-cut-paste/index.js
 var copy_cut_paste_default = {
 	__depends__: [clipboard_default, rules_default],
 	__init__: ["copyCutPaste"],
 	copyCutPaste: ["type", CutPaste]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/editor-actions/DecisionTableEditorActions.js
+// ../../node_modules/dmn-js-decision-table/lib/features/editor-actions/DecisionTableEditorActions.js
 var DecisionTableEditorActions = class {
 	constructor(copyCutPaste, editorActions, modeling, selection, cellSelection, sheet) {
 		const actions = {
@@ -10118,8 +10933,7 @@ DecisionTableEditorActions.$inject = [
 	"cellSelection",
 	"sheet"
 ];
-//#endregion
-//#region ../../node_modules/table-js/lib/features/editor-actions/EditorActions.js
+// ../../node_modules/table-js/lib/features/editor-actions/EditorActions.js
 init_dist();
 var NOT_REGISTERED_ERROR$2 = "is not a registered action";
 var IS_REGISTERED_ERROR$2 = "is already registered";
@@ -10189,15 +11003,13 @@ EditorActions$2.$inject = [
 function error$2(action, message) {
 	return new Error(action + " " + message);
 }
-//#endregion
-//#region ../../node_modules/table-js/lib/features/editor-actions/index.js
+// ../../node_modules/table-js/lib/features/editor-actions/index.js
 var editor_actions_default$3 = {
 	__depends__: [selection_default],
 	__init__: ["editorActions"],
 	editorActions: ["type", EditorActions$2]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/editor-actions/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/editor-actions/index.js
 var editor_actions_default$2 = {
 	__depends__: [
 		cell_selection_default,
@@ -10208,8 +11020,7 @@ var editor_actions_default$2 = {
 	__init__: ["decisionTableEditorActions"],
 	decisionTableEditorActions: ["type", DecisionTableEditorActions]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/add-rule/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/add-rule/index.js
 var add_rule_default = {
 	__depends__: [editor_actions_default$2],
 	__init__: ["addRule"],
@@ -10222,8 +11033,7 @@ var add_rule_default = {
 * Copyright(c) 2015 Tiancheng "Timothy" Gu
 * MIT Licensed
 */
-//#endregion
-//#region ../../node_modules/selection-update/index.js
+// ../../node_modules/selection-update/index.js
 var import_escape_html = __toESM(__commonJSMin(((exports, module) => {
 	var matchHtmlRegExp = /["'&<>]/;
 	module.exports = escapeHtml;
@@ -10327,8 +11137,7 @@ function createRange$1(start, end) {
 		end: end === void 0 ? start : end
 	};
 }
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/components/ContentEditable.js
+// ../../node_modules/dmn-js-shared/lib/components/ContentEditable.js
 var ContentEditable = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -10436,8 +11245,7 @@ function insertLineBreak() {
 function isCmd$4(event) {
 	return event.metaKey || event.ctrlKey;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/components/EditableComponent.js
+// ../../node_modules/dmn-js-shared/lib/components/EditableComponent.js
 var EditableComponent = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -10505,8 +11313,7 @@ var EditableComponent = class extends Component {
 		});
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/annotations/editor/components/AnnotationCell.js
+// ../../node_modules/dmn-js-decision-table/lib/features/annotations/editor/components/AnnotationCell.js
 var EditableAnnotationCell = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -10557,8 +11364,7 @@ var AnnotationEditor = class extends EditableComponent {
 		return createVNode(1, "div", this.getClassName(), this.getEditor(), 0);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/annotations/editor/AnnotationsEditingProvider.js
+// ../../node_modules/dmn-js-decision-table/lib/features/annotations/editor/AnnotationsEditingProvider.js
 function AnnotationsEditingProvider(components) {
 	components.onGetComponent("cell", ({ cellType }) => {
 		if (cellType === "after-label-cells") return AnnotationHeader;
@@ -10566,8 +11372,7 @@ function AnnotationsEditingProvider(components) {
 	});
 }
 AnnotationsEditingProvider.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/features/debounce-input/debounceInput.js
+// ../../node_modules/dmn-js-shared/lib/features/debounce-input/debounceInput.js
 init_dist();
 var DEFAULT_DEBOUNCE_TIME = 300;
 function debounceInput(shouldDebounce) {
@@ -10579,18 +11384,15 @@ function debounceInput(shouldDebounce) {
 	};
 }
 debounceInput.$inject = ["config.debounceInput"];
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/features/debounce-input/index.js
+// ../../node_modules/dmn-js-shared/lib/features/debounce-input/index.js
 var debounce_input_default = { debounceInput: ["factory", debounceInput] };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/annotations/editor/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/annotations/editor/index.js
 var editor_default$11 = {
 	__depends__: [debounce_input_default],
 	__init__: ["annotationsProvider"],
 	annotationsProvider: ["type", AnnotationsEditingProvider]
 };
-//#endregion
-//#region ../../node_modules/table-js/lib/features/context-menu/components/ContextMenuComponent.js
+// ../../node_modules/table-js/lib/features/context-menu/components/ContextMenuComponent.js
 init_dist();
 function _defineProperty$1(e, r, t) {
 	return (r = _toPropertyKey$1(r)) in e ? Object.defineProperty(e, r, {
@@ -10818,8 +11620,7 @@ function getTableContainerScroll$1(node) {
 		scrollLeft
 	};
 }
-//#endregion
-//#region ../../node_modules/table-js/lib/features/context-menu/ContextMenu.js
+// ../../node_modules/table-js/lib/features/context-menu/ContextMenu.js
 var ContextMenu$1 = class {
 	constructor(components, eventBus, renderer) {
 		this._eventBus = eventBus;
@@ -10840,14 +11641,12 @@ ContextMenu$1.$inject = [
 	"eventBus",
 	"renderer"
 ];
-//#endregion
-//#region ../../node_modules/table-js/lib/features/context-menu/index.js
+// ../../node_modules/table-js/lib/features/context-menu/index.js
 var context_menu_default$1 = {
 	__init__: ["contextMenu"],
 	contextMenu: ["type", ContextMenu$1]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/keyboard/KeyboardUtil.js
+// ../../node_modules/dmn-js-decision-table/lib/features/keyboard/KeyboardUtil.js
 function isCmd$3(modifiers) {
 	if (modifiers.altKey) return false;
 	return modifiers.ctrlKey || modifiers.metaKey;
@@ -10855,8 +11654,7 @@ function isCmd$3(modifiers) {
 function isShift$1(modifiers) {
 	return modifiers.shiftKey;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/copy-cut-paste/key-bindings/CopyCutPasteKeyBindings.js
+// ../../node_modules/dmn-js-decision-table/lib/features/copy-cut-paste/key-bindings/CopyCutPasteKeyBindings.js
 var CopyPasteKeyBindings = class {
 	constructor(injector, eventBus, clipboard, cellSelection, elementRegistry, editorActions, renderer) {
 		_defineProperty$3(this, "_clearClipboard", () => {
@@ -10943,15 +11741,13 @@ CopyPasteKeyBindings.$inject = [
 	"editorActions",
 	"renderer"
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/copy-cut-paste/key-bindings/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/copy-cut-paste/key-bindings/index.js
 var key_bindings_default = {
 	__depends__: [clipboard_default, cell_selection_default],
 	__init__: ["copyCutPasteKeyBindings"],
 	copyCutPasteKeyBindings: ["type", CopyPasteKeyBindings]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/create-inputs/components/CreateInputHeaderCell.js
+// ../../node_modules/dmn-js-decision-table/lib/features/create-inputs/components/CreateInputHeaderCell.js
 var CreateInputsHeaderCell = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -10972,8 +11768,7 @@ var CreateInputsHeaderCell = class extends Component {
 	}
 };
 CreateInputsHeaderCell.$inject = ["editorActions", "translate"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/create-inputs/components/CreateInputCell.js
+// ../../node_modules/dmn-js-decision-table/lib/features/create-inputs/components/CreateInputCell.js
 var CreateInputsCell = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -10990,8 +11785,7 @@ var CreateInputsCell = class extends Component {
 	}
 };
 CreateInputsCell.$inject = ["editorActions", "translate"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/create-inputs/CreateInputsProvider.js
+// ../../node_modules/dmn-js-decision-table/lib/features/create-inputs/CreateInputsProvider.js
 var LOW_PRIORITY$8 = 500;
 var CreateInputsProvider = class {
 	constructor(components, sheet) {
@@ -11004,15 +11798,13 @@ var CreateInputsProvider = class {
 	}
 };
 CreateInputsProvider.$inject = ["components", "sheet"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/create-inputs/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/create-inputs/index.js
 var create_inputs_default = {
 	__depends__: [editor_actions_default$2],
 	__init__: ["createInputsProvider"],
 	createInputsProvider: ["type", CreateInputsProvider]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/context-menu/ContextMenu.js
+// ../../node_modules/dmn-js-decision-table/lib/features/context-menu/ContextMenu.js
 var ContextMenu = class {
 	constructor(components, contextMenu, clipboard, editorActions, eventBus, elementRegistry, modeling, selection, sheet, rules, translate) {
 		this._contextMenu = contextMenu;
@@ -11284,8 +12076,7 @@ ContextMenu.$inject = [
 function isCell(element) {
 	return element instanceof Cell;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/context-menu/ContextMenuCloseBehavior.js
+// ../../node_modules/dmn-js-decision-table/lib/features/context-menu/ContextMenuCloseBehavior.js
 var COMMANDS = [
 	"row.add",
 	"row.remove",
@@ -11303,8 +12094,7 @@ var ContextMenuCloseBehavior = class {
 	}
 };
 ContextMenuCloseBehavior.$inject = ["contextMenu", "eventBus"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/context-menu/ContextMenuKeyboard.js
+// ../../node_modules/dmn-js-decision-table/lib/features/context-menu/ContextMenuKeyboard.js
 var ContextMenuKeyboard = class {
 	constructor(eventBus) {
 		_defineProperty$3(this, "addEventListeners", () => {
@@ -11381,8 +12171,7 @@ function resetHoverStyle(element) {
 	element.style.removeProperty("background-color");
 	element.style.removeProperty("pointer-events");
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/context-menu/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/context-menu/index.js
 var context_menu_default = {
 	__depends__: [
 		editor_actions_default$2,
@@ -11398,8 +12187,7 @@ var context_menu_default = {
 	contextMenuCloseBehavior: ["type", ContextMenuCloseBehavior],
 	contextMenuKeyboard: ["type", ContextMenuKeyboard]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/components/OutputCell.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/components/OutputCell.js
 var OutputCell = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -11461,8 +12249,7 @@ var OutputCell = class extends Component {
 		});
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/components/Input.js
+// ../../node_modules/dmn-js-shared/lib/components/Input.js
 var Input = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -11512,8 +12299,7 @@ var Input = class extends Component {
 		});
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/components/OutputEditor.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/components/OutputEditor.js
 var OutputEditor = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -11551,8 +12337,7 @@ var OutputEditor = class extends Component {
 function noopTranslate(str) {
 	return str;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/components/OutputCellContextMenu.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/components/OutputCellContextMenu.js
 var OutputCellContextMenu = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -11587,8 +12372,7 @@ var OutputCellContextMenu = class extends Component {
 	}
 };
 OutputCellContextMenu.$inject = ["debounceInput", "modeling"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/components/OutputEditButton.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/components/OutputEditButton.js
 var OutputEditButton = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -11610,8 +12394,7 @@ var OutputEditButton = class extends Component {
 		});
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/OutputEditingProvider.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/OutputEditingProvider.js
 var OutputEditingProvider = class {
 	constructor(components, contextMenu, eventBus, renderer) {
 		components.onGetComponent("cell", ({ cellType }) => {
@@ -11653,8 +12436,7 @@ function getOffset(element) {
 		y: 0
 	};
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/components/InputCell.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/components/InputCell.js
 var InputCell = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -11722,8 +12504,7 @@ var InputCell = class extends Component {
 		});
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/components/LiteralExpression.js
+// ../../node_modules/dmn-js-shared/lib/components/LiteralExpression.js
 var LiteralExpression$1 = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -11811,8 +12592,7 @@ function isAutocompleteOpen(node) {
 function deepEqual(a, b) {
 	return JSON.stringify(a) === JSON.stringify(b);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/components/InputEditor.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/components/InputEditor.js
 var InputEditor = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -11863,8 +12643,7 @@ var InputEditor = class extends Component {
 		})], 4)], 4, { "onKeyDown": this.handleKeyDown });
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/components/InputCellContextMenu.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/components/InputCellContextMenu.js
 var InputCellContextMenu = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -11913,8 +12692,7 @@ InputCellContextMenu.$inject = [
 function hasKeys(obj) {
 	return Object.keys(obj).length;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/components/InputEditButton.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/components/InputEditButton.js
 var InputEditButton = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -11936,8 +12714,7 @@ var InputEditButton = class extends Component {
 		});
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/InputEditingProvider.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/InputEditingProvider.js
 var InputCellProvider = class {
 	constructor(components, contextMenu, eventBus, renderer) {
 		components.onGetComponent("cell", ({ cellType }) => {
@@ -11970,8 +12747,7 @@ InputCellProvider.$inject = [
 	"eventBus",
 	"renderer"
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/components/InputSelect.js
+// ../../node_modules/dmn-js-shared/lib/components/InputSelect.js
 init_dist();
 var InputSelect = class extends Component {
 	constructor(props, context) {
@@ -12119,12 +12895,23 @@ var InputSelect = class extends Component {
 		this.setState({ optionsVisible });
 	}
 	renderOptions(options, activeOption) {
-		return createVNode(1, "div", "options", options.map((option) => {
-			return createVNode(1, "div", ["option", activeOption === option ? "active" : ""].join(" "), option.label, 0, {
-				"data-value": option.value,
-				"onClick": (e) => this.onOptionClick(option.value, e)
+		const { label } = this.props;
+		const renderOption = (option) => createVNode(1, "div", ["option", activeOption === option ? "active" : ""].join(" "), option.label, 0, {
+			"role": "option",
+			"aria-selected": activeOption === option,
+			"data-value": option.value,
+			"onClick": (e) => this.onOptionClick(option.value, e)
+		});
+		return createVNode(1, "div", "options", groupOptions(options).flatMap(({ group, options }) => {
+			if (!group || !group.name) return options.map(renderOption);
+			return createVNode(1, "div", null, [createVNode(1, "div", "group-label", group.name, 0, { "aria-hidden": "true" }), options.map(renderOption)], 0, {
+				"role": "group",
+				"aria-label": group.name
 			});
-		}), 0);
+		}), 0, {
+			"role": "listbox",
+			"aria-label": label
+		});
 	}
 	render() {
 		const { className, label: inputLabel, id, options, noInput, title } = this.props;
@@ -12157,8 +12944,22 @@ InputSelect.$inject = ["keyboard", "renderer"];
 function stopPropagation(event) {
 	event.stopPropagation();
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/type-ref/components/TypeRefCellContextMenu.js
+function groupOptions(options) {
+	const runs = [];
+	options.forEach((option) => {
+		const run = runs[runs.length - 1];
+		if (run && getGroupId(run.group) === getGroupId(option.group)) return run.options.push(option);
+		runs.push({
+			group: option.group,
+			options: [option]
+		});
+	});
+	return runs;
+}
+function getGroupId(group) {
+	return group && group.id;
+}
+// ../../node_modules/dmn-js-decision-table/lib/features/type-ref/components/TypeRefCellContextMenu.js
 var TypeRefCellContextMenu = class extends Component {
 	constructor(props, context) {
 		super(props);
@@ -12180,12 +12981,7 @@ var TypeRefCellContextMenu = class extends Component {
 	render() {
 		const element = this.getElement();
 		const typeRef = (is$2(element, "dmn:InputClause") ? element.inputExpression : element).typeRef;
-		const typeRefOptions = this._dataTypes.getAll().map((t) => {
-			return {
-				label: this._translate(t),
-				value: t
-			};
-		});
+		const typeRefOptions = getTypeRefOptions$1(this._dataTypes.getAll());
 		const label = this._translate("Type");
 		return createVNode(1, "div", "type-ref-edit context-menu-container", createVNode(1, "div", "dms-form-control", [createVNode(1, "label", "dms-label", [label, createTextVNode(":")], 0), createComponentVNode(2, InputSelect, {
 			"className": "type-ref-edit-select",
@@ -12196,8 +12992,7 @@ var TypeRefCellContextMenu = class extends Component {
 		})], 4), 2);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/type-ref/TypeRefEditingProvider.js
+// ../../node_modules/dmn-js-decision-table/lib/features/type-ref/TypeRefEditingProvider.js
 var LOW_PRIORITY$7 = 750;
 var TypeRef$1 = class {
 	constructor(components) {
@@ -12208,15 +13003,13 @@ var TypeRef$1 = class {
 	}
 };
 TypeRef$1.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/type-ref/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/type-ref/index.js
 var type_ref_default = {
 	__depends__: [context_menu_default$1, data_types_default],
 	__init__: ["typeRefEditingProvider"],
 	typeRefEditingProvider: ["type", TypeRef$1]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/allowed-values/behavior/AllowedValuesUpdateBehavior.js
+// ../../node_modules/dmn-js-decision-table/lib/features/allowed-values/behavior/AllowedValuesUpdateBehavior.js
 var AllowedValuesUpdateBehavior = class extends CommandInterceptor {
 	constructor(eventBus, modeling) {
 		super(eventBus);
@@ -12231,8 +13024,7 @@ var AllowedValuesUpdateBehavior = class extends CommandInterceptor {
 	}
 };
 AllowedValuesUpdateBehavior.$inject = ["eventBus", "modeling"];
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/components/List.js
+// ../../node_modules/dmn-js-shared/lib/components/List.js
 init_dist();
 var RADIO = "radio";
 var REMOVE_BTN_CLS = "remove dmn-icon-clear";
@@ -12304,8 +13096,7 @@ function toPairs(object) {
 	for (let key in object) entrys.push([key, object[key]]);
 	return entrys;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/components/ValidatedInput.js
+// ../../node_modules/dmn-js-shared/lib/components/ValidatedInput.js
 var ValidatedInput = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -12380,8 +13171,7 @@ var ValidatedInput = class extends Component {
 		}), validationWarning && createVNode(1, "p", "dms-hint dms-validation-warning", validationWarning, 0)], 0);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/allowed-values/Utils.js
+// ../../node_modules/dmn-js-decision-table/lib/features/allowed-values/Utils.js
 function parseString$7(string) {
 	if (!string || isEmptyString$4(string.trim())) return { values: [] };
 	let values = string.split(",");
@@ -12402,8 +13192,7 @@ function isEmptyString$4(string) {
 function getValuesArray(values) {
 	return values.map((value) => value.value);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/allowed-values/components/AllowedValuesEditing.js
+// ../../node_modules/dmn-js-decision-table/lib/features/allowed-values/components/AllowedValuesEditing.js
 var AllowedValuesEditing = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -12520,8 +13309,7 @@ function isEnter$1(keyCode) {
 function isNull$2(value) {
 	return value === null;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/allowed-values/AllowedValuesEditingProvider.js
+// ../../node_modules/dmn-js-decision-table/lib/features/allowed-values/AllowedValuesEditingProvider.js
 var LOW_PRIORITY$6 = 500;
 var InputOutputValues = class {
 	constructor(components) {
@@ -12532,15 +13320,13 @@ var InputOutputValues = class {
 	}
 };
 InputOutputValues.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/allowed-values/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/allowed-values/index.js
 var allowed_values_default = {
 	__init__: ["allowedValuesUpdateBehavior", "allowedValuesEditingProvider"],
 	allowedValuesUpdateBehavior: ["type", AllowedValuesUpdateBehavior],
 	allowedValuesEditingProvider: ["type", InputOutputValues]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/add-input-output/components/AddInput.js
+// ../../node_modules/dmn-js-decision-table/lib/features/add-input-output/components/AddInput.js
 var AddInput = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -12574,8 +13360,7 @@ var AddInput = class extends Component {
 		return createVNode(1, "div", "add-input actionable", createVNode(1, "button", "dmn-icon-plus action-icon", null, 1, { "title": this._translate("Add input") }), 2, { "onClick": this.handleClick });
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/add-input-output/components/AddOutput.js
+// ../../node_modules/dmn-js-decision-table/lib/features/add-input-output/components/AddOutput.js
 var AddOutput = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -12609,8 +13394,7 @@ var AddOutput = class extends Component {
 		return createVNode(1, "div", "add-output actionable", createVNode(1, "button", "dmn-icon-plus action-icon", null, 1, { "title": this._translate("Add output") }), 2, { "onClick": this.handleClick });
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/add-input-output/AddInputOutputProvider.js
+// ../../node_modules/dmn-js-decision-table/lib/features/add-input-output/AddInputOutputProvider.js
 function AddInputOutputProvider(components, editorActions, eventBus) {
 	components.onGetComponent("cell-inner", (context = {}) => {
 		const { cellType, index, inputsLength, outputsLength } = context;
@@ -12629,15 +13413,13 @@ AddInputOutputProvider.$inject = [
 	"editorActions",
 	"eventBus"
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/add-input-output/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/add-input-output/index.js
 var add_input_output_default = {
 	__depends__: [editor_actions_default$2],
 	__init__: ["addInputOutputProvider"],
 	addInputOutputProvider: ["type", AddInputOutputProvider]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/keyboard/Keyboard.js
+// ../../node_modules/dmn-js-decision-table/lib/features/keyboard/Keyboard.js
 var compatMessage$1 = "Keyboard binding is now implicit; explicit binding to an element got removed. For more information, see https://github.com/bpmn-io/diagram-js/pull/662";
 var Keyboard$1 = class {
 	constructor(config, eventBus, editorActions, cellSelection, renderer) {
@@ -12752,15 +13534,13 @@ Keyboard$1.$inject = [
 function isDecisionNameCell(cell) {
 	return cell === "__decisionProperties_name";
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/keyboard/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/keyboard/index.js
 var keyboard_default$2 = {
 	__depends__: [editor_actions_default$2],
 	__init__: ["keyboard"],
 	keyboard: ["type", Keyboard$1]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-table-head/editor/index.js
 var editor_default$10 = {
 	__depends__: [
 		add_input_output_default,
@@ -12776,8 +13556,7 @@ var editor_default$10 = {
 	inputEditingProvider: ["type", InputCellProvider],
 	outputEditingProvider: ["type", OutputEditingProvider]
 };
-//#endregion
-//#region ../../node_modules/table-js/lib/features/drag-and-drop/DragAndDrop.js
+// ../../node_modules/table-js/lib/features/drag-and-drop/DragAndDrop.js
 function _defineProperty(e, r, t) {
 	return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
 		value: t,
@@ -12892,14 +13671,12 @@ function stopEvent(event, preventDefault) {
 	event.stopPropagation();
 	if (preventDefault !== true) event.preventDefault();
 }
-//#endregion
-//#region ../../node_modules/table-js/lib/features/drag-and-drop/index.js
+// ../../node_modules/table-js/lib/features/drag-and-drop/index.js
 var drag_and_drop_default$1 = {
 	__init__: ["dragAndDrop"],
 	dragAndDrop: ["type", DragAndDrop$1]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/drag-and-drop/DragAndDrop.js
+// ../../node_modules/dmn-js-decision-table/lib/features/drag-and-drop/DragAndDrop.js
 init_dist();
 var TOP = "top";
 var RIGHT = "right";
@@ -13131,15 +13908,13 @@ function getColRight(col, cols) {
 function isNode(node) {
 	return node && (node.nodeType === 1 || node.nodeType == 11);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/drag-and-drop/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/drag-and-drop/index.js
 var drag_and_drop_default = {
 	__depends__: [drag_and_drop_default$1, rules_default],
 	__init__: ["dmnDragAndDrop"],
 	dmnDragAndDrop: ["type", DragAndDrop]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/description/components/DescriptionEditor.js
+// ../../node_modules/dmn-js-decision-table/lib/features/description/components/DescriptionEditor.js
 init_dist();
 var DescriptionEditor = class extends Component {
 	constructor(props, context) {
@@ -13191,8 +13966,7 @@ var Editor$4 = class extends EditableComponent {
 function getEditor(container) {
 	return query(".content-editable", container);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/description/Description.js
+// ../../node_modules/dmn-js-decision-table/lib/features/description/Description.js
 init_dist();
 var LOW_PRIORITY$5 = 500;
 var LOWER_PRIORITY = 750;
@@ -13281,15 +14055,13 @@ function getPosition(container, bounds) {
 function getDescription(element) {
 	return element && element.businessObject && element.businessObject.description;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/description/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/description/index.js
 var description_default = {
 	__depends__: [context_menu_default$1, interaction_events_default],
 	__init__: ["description"],
 	description: ["type", Description$1]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/expression-language/ExpressionLanguage.js
+// ../../node_modules/dmn-js-decision-table/lib/features/expression-language/ExpressionLanguage.js
 var ExpressionLanguage$1 = class {
 	constructor(components, elementRegistry, modeling, expressionLanguages, translate, contextMenu) {
 		this._modeling = modeling;
@@ -13372,15 +14144,13 @@ ExpressionLanguage$1.$inject = [
 	"translate",
 	"contextMenu"
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/expression-language/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/expression-language/index.js
 var expression_language_default = {
 	__depends__: [expression_languages_default],
 	__init__: ["expressionLanguage"],
 	expressionLanguage: ["type", ExpressionLanguage$1]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-table-properties/components/DecisionTablePropertiesEditorComponent.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-table-properties/components/DecisionTablePropertiesEditorComponent.js
 var DecisionTablePropertiesComponent = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -13452,8 +14222,7 @@ function NullComponent() {
 function resetScroll$1(event) {
 	event.target.scroll(0, 0);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-table-properties/DecisionTablePropertiesEditor.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-table-properties/DecisionTablePropertiesEditor.js
 var LOW_PRIORITY$4 = 500;
 var DecisionTableProperties = class {
 	constructor(components) {
@@ -13463,15 +14232,13 @@ var DecisionTableProperties = class {
 	}
 };
 DecisionTableProperties.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-table-properties/editor.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-table-properties/editor.js
 var editor_default$9 = {
 	__depends__: [debounce_input_default],
 	__init__: ["decisionTableProperties"],
 	decisionTableProperties: ["type", DecisionTableProperties]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/hit-policy/editor/components/EditableHitPolicy.js
+// ../../node_modules/dmn-js-decision-table/lib/features/hit-policy/editor/components/EditableHitPolicy.js
 init_dist();
 var EditableHitPolicy = class extends Component {
 	constructor(props, context) {
@@ -13524,23 +14291,20 @@ EditableHitPolicy.$inject = [
 function isEqualHitPolicy(a, b) {
 	return a.hitPolicy === b.hitPolicy && a.aggregation === b.aggregation;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/hit-policy/editor/HitPolicyEditingProvider.js
+// ../../node_modules/dmn-js-decision-table/lib/features/hit-policy/editor/HitPolicyEditingProvider.js
 function HitPolicyEditingProvider(components) {
 	components.onGetComponent("hit-policy", () => {
 		return EditableHitPolicy;
 	});
 }
 HitPolicyEditingProvider.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/hit-policy/editor/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/hit-policy/editor/index.js
 var editor_default$8 = {
 	__depends__: [context_menu_default$1],
 	__init__: ["hitPolicyProvider"],
 	hitPolicyProvider: ["type", HitPolicyEditingProvider]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/modeling/DmnUpdater.js
+// ../../node_modules/dmn-js-decision-table/lib/features/modeling/DmnUpdater.js
 var DmnUpdater = class extends CommandInterceptor {
 	constructor(eventBus, sheet) {
 		super(eventBus);
@@ -13667,8 +14431,7 @@ function ifDmn(fn) {
 		if (is$2(context.row || context.col, "dmn:DMNElement")) fn(event);
 	};
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/modeling/DmnFactory.js
+// ../../node_modules/dmn-js-decision-table/lib/features/modeling/DmnFactory.js
 var DmnFactory$1 = class {
 	constructor(moddle) {
 		this._model = moddle;
@@ -13696,8 +14459,7 @@ var DmnFactory$1 = class {
 	}
 };
 DmnFactory$1.$inject = ["moddle"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/modeling/ElementFactory.js
+// ../../node_modules/dmn-js-decision-table/lib/features/modeling/ElementFactory.js
 var ElementFactory = class extends ElementFactory$1 {
 	constructor(dmnFactory) {
 		super();
@@ -13726,8 +14488,7 @@ var ElementFactory = class extends ElementFactory$1 {
 	}
 };
 ElementFactory.$inject = ["dmnFactory"];
-//#endregion
-//#region ../../node_modules/table-js/lib/features/modeling/cmd/AddRowHandler.js
+// ../../node_modules/table-js/lib/features/modeling/cmd/AddRowHandler.js
 var AddRowHandler = class {
 	constructor(sheet, elementFactory) {
 		this._sheet = sheet;
@@ -13756,8 +14517,7 @@ var AddRowHandler = class {
 	}
 };
 AddRowHandler.$inject = ["sheet", "elementFactory"];
-//#endregion
-//#region ../../node_modules/table-js/lib/features/modeling/cmd/RemoveRowHandler.js
+// ../../node_modules/table-js/lib/features/modeling/cmd/RemoveRowHandler.js
 var RemoveRowHandler = class {
 	constructor(sheet) {
 		this._sheet = sheet;
@@ -13779,8 +14539,7 @@ var RemoveRowHandler = class {
 	}
 };
 RemoveRowHandler.$inject = ["sheet"];
-//#endregion
-//#region ../../node_modules/table-js/lib/features/modeling/cmd/MoveRowHandler.js
+// ../../node_modules/table-js/lib/features/modeling/cmd/MoveRowHandler.js
 var MoveRowHandler = class {
 	constructor(modeling) {
 		this._modeling = modeling;
@@ -13795,8 +14554,7 @@ var MoveRowHandler = class {
 	}
 };
 MoveRowHandler.$inject = ["modeling"];
-//#endregion
-//#region ../../node_modules/table-js/lib/features/modeling/cmd/AddColHandler.js
+// ../../node_modules/table-js/lib/features/modeling/cmd/AddColHandler.js
 var AddColHandler = class {
 	constructor(sheet, elementFactory) {
 		this._sheet = sheet;
@@ -13825,8 +14583,7 @@ var AddColHandler = class {
 	}
 };
 AddColHandler.$inject = ["sheet", "elementFactory"];
-//#endregion
-//#region ../../node_modules/table-js/lib/features/modeling/cmd/RemoveColHandler.js
+// ../../node_modules/table-js/lib/features/modeling/cmd/RemoveColHandler.js
 var RemoveColHandler = class {
 	constructor(sheet, elementFactory) {
 		this._sheet = sheet;
@@ -13847,8 +14604,7 @@ var RemoveColHandler = class {
 	}
 };
 RemoveColHandler.$inject = ["sheet", "elementFactory"];
-//#endregion
-//#region ../../node_modules/table-js/lib/features/modeling/cmd/MoveColHandler.js
+// ../../node_modules/table-js/lib/features/modeling/cmd/MoveColHandler.js
 var MoveColHandler = class {
 	constructor(modeling) {
 		this._modeling = modeling;
@@ -13863,8 +14619,7 @@ var MoveColHandler = class {
 	}
 };
 MoveColHandler.$inject = ["modeling"];
-//#endregion
-//#region ../../node_modules/table-js/lib/features/modeling/cmd/EditCellHandler.js
+// ../../node_modules/table-js/lib/features/modeling/cmd/EditCellHandler.js
 var EditCellHandler = class {
 	execute(context) {
 		let { cell } = context;
@@ -13875,8 +14630,7 @@ var EditCellHandler = class {
 		return cell;
 	}
 };
-//#endregion
-//#region ../../node_modules/table-js/lib/features/modeling/Modeling.js
+// ../../node_modules/table-js/lib/features/modeling/Modeling.js
 init_dist();
 var Modeling$3 = class Modeling$3 {
 	constructor(eventBus, elementFactory, commandStack) {
@@ -13961,8 +14715,7 @@ function registerHandlers$2(handlers, commandStack) {
 		commandStack.registerHandler(id, handler);
 	});
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/modeling/cmd/UpdateAllowedValuesHandler.js
+// ../../node_modules/dmn-js-decision-table/lib/features/modeling/cmd/UpdateAllowedValuesHandler.js
 var UpdateAllowedValuesHandler = class {
 	constructor(dmnFactory, moddle, modeling) {
 		this._dmnFactory = dmnFactory;
@@ -14008,8 +14761,7 @@ UpdateAllowedValuesHandler.$inject = [
 function isNull$1(value) {
 	return value === null;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/features/modeling/cmd/UpdatePropertiesHandler.js
+// ../../node_modules/dmn-js-shared/lib/features/modeling/cmd/UpdatePropertiesHandler.js
 init_dist();
 var ID = "id";
 var EditPropertiesHandler = class {
@@ -14078,8 +14830,7 @@ function isContainer(o) {
 function isModdleElement(o) {
 	return !!o?.$type;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/modeling/cmd/IdClaimHandler.js
+// ../../node_modules/dmn-js-decision-table/lib/features/modeling/cmd/IdClaimHandler.js
 var IdClaimHandler = class {
 	constructor(moddle) {
 		this._moddle = moddle;
@@ -14096,8 +14847,7 @@ var IdClaimHandler = class {
 	}
 };
 IdClaimHandler.$inject = ["moddle"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/modeling/Modeling.js
+// ../../node_modules/dmn-js-decision-table/lib/features/modeling/Modeling.js
 init_dist();
 var Modeling$2 = class Modeling$2 extends Modeling$3 {
 	constructor(eventBus, elementFactory, commandStack, sheet) {
@@ -14226,8 +14976,7 @@ Modeling$2.$inject = [
 	"commandStack",
 	"sheet"
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/modeling/behavior/IdClaimBehavior.js
+// ../../node_modules/dmn-js-decision-table/lib/features/modeling/behavior/IdClaimBehavior.js
 init_dist();
 var IdClaimBehavior = class extends CommandInterceptor {
 	constructor(eventBus, moddle, modeling) {
@@ -14255,8 +15004,7 @@ IdClaimBehavior.$inject = [
 	"moddle",
 	"modeling"
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/modeling/behavior/IdUnclaimBehavior.js
+// ../../node_modules/dmn-js-decision-table/lib/features/modeling/behavior/IdUnclaimBehavior.js
 init_dist();
 var IdUnclaimBehavior = class extends CommandInterceptor {
 	constructor(eventBus, modeling) {
@@ -14279,8 +15027,7 @@ var IdUnclaimBehavior = class extends CommandInterceptor {
 	}
 };
 IdUnclaimBehavior.$inject = ["eventBus", "modeling"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/modeling/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/modeling/index.js
 var modeling_default$2 = {
 	__init__: [
 		"dmnUpdater",
@@ -14300,8 +15047,7 @@ var modeling_default$2 = {
 	nameChangeBehavior: ["type", NameChangeBehavior$1],
 	modeling: ["type", Modeling$2]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-rules/components/DecisionRulesCellEditorComponent.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-rules/components/DecisionRulesCellEditorComponent.js
 init_dist();
 var DecisionRulesCellEditorComponent = class extends Component {
 	constructor(props, context) {
@@ -14447,8 +15193,7 @@ var TableCellEditor = class extends Component {
 		], 0);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-rules/DecisionRulesEditor.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-rules/DecisionRulesEditor.js
 var HIGH_PRIORITY$2 = 1500;
 var RulesEditor = class {
 	constructor(components) {
@@ -14458,15 +15203,13 @@ var RulesEditor = class {
 	}
 };
 RulesEditor.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/decision-rules/editor.js
+// ../../node_modules/dmn-js-decision-table/lib/features/decision-rules/editor.js
 var editor_default$7 = {
 	__depends__: [debounce_input_default, decision_rules_default],
 	__init__: ["decisionRulesEditor"],
 	decisionRulesEditor: ["type", RulesEditor]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-mode/components/SimpleModeButtonComponent.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-mode/components/SimpleModeButtonComponent.js
 init_dist();
 var OFFSET = 4;
 var SimpleModeButtonComponent = class extends Component {
@@ -14612,8 +15355,7 @@ function getTableContainerScroll(node) {
 		scrollLeft
 	};
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-mode/SimpleMode.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-mode/SimpleMode.js
 var SimpleMode = class {
 	constructor(components, contextMenu, elementRegistry, eventBus, renderer) {
 		this._providers = [];
@@ -14669,8 +15411,7 @@ function isCmd$1(event) {
 	if (event.altKey) return false;
 	return event.ctrlKey || event.metaKey;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-mode/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-mode/index.js
 var simple_mode_default = {
 	__depends__: [
 		context_menu_default$1,
@@ -14680,8 +15421,7 @@ var simple_mode_default = {
 	__init__: ["simpleMode"],
 	simpleMode: ["type", SimpleMode]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-boolean-edit/Utils.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-boolean-edit/Utils.js
 function parseString$6(string) {
 	if (!string || isEmptyString$3(string)) return "none";
 	else if (string.trim() === "true") return "true";
@@ -14690,8 +15430,7 @@ function parseString$6(string) {
 function isEmptyString$3(string) {
 	return string === "";
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-boolean-edit/components/BooleanEdit.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-boolean-edit/components/BooleanEdit.js
 var TRUE = "true";
 var FALSE$1 = "false";
 var NONE = "none";
@@ -14744,8 +15483,7 @@ var BooleanEdit = class extends Component {
 		], 4);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-boolean-edit/SimpleBooleanEdit.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-boolean-edit/SimpleBooleanEdit.js
 var SimpleBooleanEdit = class {
 	constructor(components, simpleMode) {
 		simpleMode.registerProvider((element) => {
@@ -14764,15 +15502,13 @@ function getTypeRef$8(element) {
 	if (isInput(element.col)) return element.col && element.col.businessObject.inputExpression.typeRef;
 	else return element.col && element.col.businessObject.typeRef;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-boolean-edit/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-boolean-edit/index.js
 var simple_boolean_edit_default = {
 	__depends__: [keyboard_default$2, simple_mode_default],
 	__init__: ["simpleBooleanEdit"],
 	simpleBooleanEdit: ["type", SimpleBooleanEdit]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-date-edit/Utils.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-date-edit/Utils.js
 var ISO_DATE_REGEX$1 = /^\d{4}(?:-\d\d){2}$/;
 var BETWEEN_DATE_REGEX$1 = /^\[date\("([^"]*)"\)..date\("([^"]*)"\)\]$/;
 var BEFORE_AFTER_DATE_REGEX$1 = /^(<|>)\s*date\("([^"]*)"\)$/;
@@ -14816,8 +15552,7 @@ function parseString$5(string) {
 		date: matches[1]
 	};
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-date-edit/components/InputDateEdit.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-date-edit/components/InputDateEdit.js
 var EXACT$4 = "exact";
 var BEFORE$4 = "before";
 var AFTER$4 = "after";
@@ -14920,7 +15655,7 @@ var InputDateEdit$1 = class extends Component {
 				"label": type === BETWEEN$4 ? this._translate("Start date") : this._translate("Date"),
 				"className": "start-date-input dms-block",
 				"onInput": this.onStartDateInput,
-				"placeholder": this._translate("e.g. { sample }", { sample: getSampleDate$1() }),
+				"placeholder": this._translate("e.g. {sample}", { sample: getSampleDate$1() }),
 				"validate": (string) => validateISOString$2(string) && this._translate(validateISOString$2(string)),
 				"value": dates[0]
 			}), createVNode(1, "p", "dms-hint", [createVNode(1, "button", "use-today", this._translate("Use today"), 0, {
@@ -14932,7 +15667,7 @@ var InputDateEdit$1 = class extends Component {
 				"label": this._translate("End date"),
 				"className": "end-date-input dms-block",
 				"onInput": this.onEndDateInput,
-				"placeholder": this._translate("e.g. { sample }", { sample: getSampleDate$1() }),
+				"placeholder": this._translate("e.g. {sample}", { sample: getSampleDate$1() }),
 				"validate": (string) => validateISOString$2(string) && this._translate(validateISOString$2(string)),
 				"value": dates[1]
 			}), createVNode(1, "p", "dms-hint", [createVNode(1, "button", "use-today", this._translate("Use today"), 0, {
@@ -14942,8 +15677,7 @@ var InputDateEdit$1 = class extends Component {
 		], 0);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-date-edit/components/OutputDateEdit.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-date-edit/components/OutputDateEdit.js
 var OutputDateEdit$1 = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -14980,7 +15714,7 @@ var OutputDateEdit$1 = class extends Component {
 			createVNode(1, "div", null, [createComponentVNode(2, ValidatedInput, {
 				"label": this._translate("Date value"),
 				"onInput": this.onInput,
-				"placeholder": this._translate("e.g. { example } ", { example: getSampleDate$1() }),
+				"placeholder": this._translate("e.g. {sample}", { sample: getSampleDate$1() }),
 				"validate": (string) => validateISOString$2(string) && this._translate(validateISOString$2(string)),
 				"value": date,
 				"className": "dms-block"
@@ -14991,8 +15725,7 @@ var OutputDateEdit$1 = class extends Component {
 		], 4);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-date-edit/SimpleDateEdit.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-date-edit/SimpleDateEdit.js
 var SimpleDateEdit$2 = class {
 	constructor(components, simpleMode) {
 		simpleMode.registerProvider((element) => {
@@ -15018,15 +15751,13 @@ function getTypeRef$7(element) {
 function isDate$1(typeRef) {
 	return typeRef === "date";
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-date-edit/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-date-edit/index.js
 var simple_date_edit_default = {
 	__depends__: [keyboard_default$2, simple_mode_default],
 	__init__: ["simpleDateEdit"],
 	simpleDateEdit: ["type", SimpleDateEdit$2]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-date-time-edit/Utils.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-date-time-edit/Utils.js
 var ISO_DATE_REGEX = /^\d{4}(?:-\d\d){2}T(?:\d\d:){2}\d\d(?:Z|(?:[@+-][^")]+))?$/;
 var BETWEEN_DATE_REGEX = /^\[date and time\("([^"]*)"\)..date and time\("([^"]*)"\)\]$/;
 var BEFORE_AFTER_DATE_REGEX = /^(<|>)\s*date and time\("([^"]*)"\)$/;
@@ -15070,8 +15801,7 @@ function parseString$4(string) {
 		date: matches[1]
 	};
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-date-time-edit/components/InputDateTimeEdit.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-date-time-edit/components/InputDateTimeEdit.js
 var EXACT$2 = "exact";
 var BEFORE$2 = "before";
 var AFTER$2 = "after";
@@ -15174,7 +15904,7 @@ var InputDateEdit = class extends Component {
 				"label": type === BETWEEN$2 ? this._translate("Start date and time") : this._translate("Date and time"),
 				"className": "start-date-input dms-block",
 				"onInput": this.onStartDateInput,
-				"placeholder": this._translate("e.g. { sample }", { sample: getSampleDate() }),
+				"placeholder": this._translate("e.g. {sample}", { sample: getSampleDate() }),
 				"validate": (string) => validateISOString$1(string) && this._translate(validateISOString$1(string)),
 				"value": dates[0]
 			}), createVNode(1, "p", "dms-hint", createVNode(1, "button", "use-today", this._translate("Use today"), 0, {
@@ -15186,7 +15916,7 @@ var InputDateEdit = class extends Component {
 				"label": this._translate("End date and time"),
 				"className": "end-date-input dms-block",
 				"onInput": this.onEndDateInput,
-				"placeholder": this._translate("e.g. { sample }", { sample: getSampleDate() }),
+				"placeholder": this._translate("e.g. {sample}", { sample: getSampleDate() }),
 				"validate": (string) => validateISOString$1(string) && this._translate(validateISOString$1(string)),
 				"value": dates[1]
 			}), createVNode(1, "p", "dms-hint", createVNode(1, "button", "use-today", this._translate("Use today"), 0, {
@@ -15196,8 +15926,7 @@ var InputDateEdit = class extends Component {
 		], 0);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-date-time-edit/components/OutputDateTimeEdit.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-date-time-edit/components/OutputDateTimeEdit.js
 var OutputDateEdit = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -15234,7 +15963,7 @@ var OutputDateEdit = class extends Component {
 			createVNode(1, "div", null, [createComponentVNode(2, ValidatedInput, {
 				"label": this._translate("Date and time value"),
 				"onInput": this.onInput,
-				"placeholder": this._translate("e.g. { sample }", { sample: getSampleDate() }),
+				"placeholder": this._translate("e.g. {sample}", { sample: getSampleDate() }),
 				"validate": (string) => validateISOString$1(string) && this._translate(validateISOString$1(string)),
 				"value": date,
 				"className": "dms-block"
@@ -15245,8 +15974,7 @@ var OutputDateEdit = class extends Component {
 		], 4);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-date-time-edit/SimpleDateTimeEdit.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-date-time-edit/SimpleDateTimeEdit.js
 var SimpleDateEdit$1 = class {
 	constructor(components, simpleMode) {
 		simpleMode.registerProvider((element) => {
@@ -15270,17 +15998,15 @@ function getTypeRef$6(element) {
 	else return element.col && element.col.businessObject.typeRef;
 }
 function isDateTime$1(typeRef) {
-	return typeRef === "dateTime";
+	return typeRef === "date and time" || typeRef === "dateTime";
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-date-time-edit/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-date-time-edit/index.js
 var simple_date_time_edit_default = {
 	__depends__: [keyboard_default$2, simple_mode_default],
 	__init__: ["simpleDateTimeEdit"],
 	simpleDateTimeEdit: ["type", SimpleDateEdit$1]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-duration-edit/Utils.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-duration-edit/Utils.js
 init_dist();
 var operators$1 = {
 	equals: "=",
@@ -15314,9 +16040,20 @@ function getComparisonString$1(comparisonOperator, comparisonValue) {
 function getRangeString$1(rangeStartValue, rangeEndValue, rangeStartType, rangeEndType) {
 	return `${rangeStartType === "exclude" ? "]" : "["}duration("${rangeStartValue}")..duration("${rangeEndValue}")${rangeEndType === "exclude" ? "[" : "]"}`;
 }
+var YEARS_MONTHS_DURATION_TYPES = ["years and months duration", "yearMonthDuration"];
+var DAYS_TIME_DURATION_TYPES = ["days and time duration", "dayTimeDuration"];
+function isYearsMonthsDuration(typeRef) {
+	return YEARS_MONTHS_DURATION_TYPES.includes(typeRef);
+}
+function isDaysTimeDuration(typeRef) {
+	return DAYS_TIME_DURATION_TYPES.includes(typeRef);
+}
+function isDuration$1(typeRef) {
+	return isYearsMonthsDuration(typeRef) || isDaysTimeDuration(typeRef);
+}
 function validateDuration(type, value) {
-	if (type === "yearMonthDuration") return validateYearMonthDuration(value);
-	else if (type === "dayTimeDuration") return validateDayTimeDuration(value);
+	if (isYearsMonthsDuration(type)) return validateYearMonthDuration(value);
+	else if (isDaysTimeDuration(type)) return validateDayTimeDuration(value);
 }
 function validateYearMonthDuration(value) {
 	return /^P(\d+Y\d+M|\d+Y|\d+M)$/.test(value);
@@ -15355,12 +16092,7 @@ function match(regex, input) {
 	const { groups } = regex.exec(input) || { groups: {} };
 	return groups;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-duration-edit/components/DurationInput.js
-var ERROR_MESSAGE = {
-	yearMonthDuration: "Must match PnYnM",
-	dayTimeDuration: "Must match PnDTnH"
-};
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-duration-edit/components/DurationInput.js
 var DurationInput = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -15375,11 +16107,11 @@ var DurationInput = class extends Component {
 		this.props.onInput(value);
 	}
 	validate(value) {
-		if (!validateDuration(this._type, value)) return this._translate(ERROR_MESSAGE[this._type]);
+		if (!validateDuration(this._type, value)) return this._translate(isYearsMonthsDuration(this._type) ? "Must match PnYnM" : "Must match PnDTnH");
 	}
 	_getPlaceholder() {
-		if (this._type === "yearMonthDuration") return this._translate("e.g. { sample }", { sample: "P1Y2M" });
-		else if (this._type === "dayTimeDuration") this._translate("e.g. { sample }", { sample: "P1DT2H" });
+		if (isYearsMonthsDuration(this._type)) return this._translate("e.g. {sample}", { sample: "P1Y2M" });
+		else if (isDaysTimeDuration(this._type)) return this._translate("e.g. {sample}", { sample: "P1DT2H" });
 	}
 	render() {
 		return createComponentVNode(2, ValidatedInput, {
@@ -15393,8 +16125,7 @@ var DurationInput = class extends Component {
 		});
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-duration-edit/components/InputDurationEdit.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-duration-edit/components/InputDurationEdit.js
 var COMPARISON$1 = "comparison";
 var RANGE$1 = "range";
 var InputDurationEdit = class extends Component {
@@ -15604,8 +16335,7 @@ var InputDurationEdit = class extends Component {
 function getTypeRef$5(element) {
 	return element.col.businessObject.inputExpression.typeRef;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-duration-edit/components/OutputDurationEdit.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-duration-edit/components/OutputDurationEdit.js
 var OutputDurationEdit = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -15643,8 +16373,7 @@ var OutputDurationEdit = class extends Component {
 function getTypeRef$4(element) {
 	return element.col.businessObject.typeRef;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-duration-edit/SimpleDurationEdit.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-duration-edit/SimpleDurationEdit.js
 var SimpleDurationEdit = class {
 	constructor(components, simpleMode) {
 		simpleMode.registerProvider((element) => {
@@ -15667,22 +16396,16 @@ function getTypeRef$3(element) {
 	if (isInput(element.col)) return element.col && element.col.businessObject.inputExpression.typeRef;
 	else return element.col && element.col.businessObject.typeRef;
 }
-var durations = ["yearMonthDuration", "dayTimeDuration"];
-function isDuration$1(typeRef) {
-	return durations.includes(typeRef);
-}
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-duration-edit/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-duration-edit/index.js
 var simple_duration_edit_default = {
 	__depends__: [keyboard_default$2, simple_mode_default],
 	__init__: ["simpleDurationEdit"],
 	simpleDurationEdit: ["type", SimpleDurationEdit]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-number-edit/Utils.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-number-edit/Utils.js
 init_dist();
 var COMPARISON_REGULAR_EXPRESSION = /^(-?(?:[0-9]|\.[0-9])+)$|^((?:<|>|=){0,2})\s*(-?(?:[0-9]|\.[0-9])+)$/;
-var RANGE_REGULAR_EXPRESSION = /^(\[|\]){1}(-?(?:[0-9]|\.[0-9])+){1,}\.\.(-?(?:[0-9]|\.[0-9])+){1,}(\[|\]){1}$/;
+var RANGE_REGULAR_EXPRESSION = /^(\[|\])(-?(?:[0-9]|\.[0-9])+)\.\.(-?(?:[0-9]|\.[0-9])+)(\[|\])$/;
 var operators = {
 	equals: "=",
 	less: "<",
@@ -15732,8 +16455,7 @@ function getComparisonString(comparisonOperator, comparisonValue) {
 function getRangeString(rangeStartValue, rangeEndValue, rangeStartType, rangeEndType) {
 	return `${rangeStartType === "exclude" ? "]" : "["}${rangeStartValue}..${rangeEndValue}${rangeEndType === "exclude" ? "[" : "]"}`;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-number-edit/components/InputNumberEdit.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-number-edit/components/InputNumberEdit.js
 var COMPARISON = "comparison";
 var RANGE = "range";
 var InputNumberEdit = class extends Component {
@@ -15939,8 +16661,7 @@ var InputNumberEdit = class extends Component {
 		], 0);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-number-edit/components/OutputNumberEdit.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-number-edit/components/OutputNumberEdit.js
 var OutputNumberEdit = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -15976,8 +16697,7 @@ var OutputNumberEdit = class extends Component {
 		], 4);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-number-edit/SimpleNumberEdit.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-number-edit/SimpleNumberEdit.js
 var SimpleNumberEdit = class {
 	constructor(components, simpleMode) {
 		simpleMode.registerProvider((element) => {
@@ -16009,15 +16729,13 @@ var numberTypes = [
 function isNumber$1(typeRef) {
 	return numberTypes.includes(typeRef);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-number-edit/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-number-edit/index.js
 var simple_number_edit_default = {
 	__depends__: [keyboard_default$2, simple_mode_default],
 	__init__: ["simpleNumberEdit"],
 	simpleNumberEdit: ["type", SimpleNumberEdit]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-string-edit/Utils.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-string-edit/Utils.js
 function parseString$2(string) {
 	if (!string || isEmptyString(string.trim())) return {
 		type: "disjunction",
@@ -16061,8 +16779,7 @@ function getInputOrOutputValues(inputOrOutput) {
 function isEmptyString(string) {
 	return string === "";
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-string-edit/components/SimpleStringEditContextMenuComponent.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-string-edit/components/SimpleStringEditContextMenuComponent.js
 var DISJUNCTION = "disjunction";
 var NEGATION = "negation";
 var INPUT_VALUES_LABEL = "Predefined values";
@@ -16255,8 +16972,7 @@ function getValues(items) {
 function includes$1(array, value) {
 	return array.indexOf(value) !== -1;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-string-edit/SimpleStringEdit.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-string-edit/SimpleStringEdit.js
 var SimpleStringEdit = class {
 	constructor(components, simpleMode) {
 		simpleMode.registerProvider((element) => {
@@ -16275,15 +16991,13 @@ function getTypeRef$1(element) {
 	if (isInput(element.col)) return element.col && element.col.businessObject.inputExpression.typeRef;
 	else return element.col && element.col.businessObject.typeRef;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-string-edit/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-string-edit/index.js
 var simple_string_edit_default = {
 	__depends__: [keyboard_default$2, simple_mode_default],
 	__init__: ["simpleStringEdit"],
 	simpleStringEdit: ["type", SimpleStringEdit]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-time-edit/Utils.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-time-edit/Utils.js
 var ISO_TIME_REGEX = /^(?:\d\d:){2}\d\d(?:Z|(?:[@+-][^")]+))?$/;
 var BETWEEN_TIME_REGEX = /^\[time\("([^"]*)"\)..time\("([^"]*)"\)\]$/;
 var BEFORE_AFTER_TIME_REGEX = /^(<|>)\s*time\("([^"]*)"\)$/;
@@ -16325,8 +17039,7 @@ function parseString$1(string) {
 		time: matches[1]
 	};
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-time-edit/components/InputTimeEdit.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-time-edit/components/InputTimeEdit.js
 var EXACT = "exact";
 var BEFORE = "before";
 var AFTER = "after";
@@ -16429,7 +17142,7 @@ var InputTimeEdit = class extends Component {
 				"label": this._translate("Start time"),
 				"className": "start-time-input dms-block",
 				"onInput": this.onStartTimeInput,
-				"placeholder": this._translate("e.g. { example } ", { example: getSampleDate$1() }),
+				"placeholder": this._translate("e.g. {sample}", { sample: getSampleDate$1() }),
 				"validate": (string) => validateISOString(string) && this._translate(validateISOString(string)),
 				"value": times[0]
 			}), createVNode(1, "p", "dms-hint", [createVNode(1, "button", "use-now", this._translate("Use now"), 0, {
@@ -16441,7 +17154,7 @@ var InputTimeEdit = class extends Component {
 				"label": this._translate("End time"),
 				"className": "end-time-input dms-block",
 				"onInput": this.onEndTimeInput,
-				"placeholder": this._translate("e.g. { example } ", { example: getSampleDate$1() }),
+				"placeholder": this._translate("e.g. {sample}", { sample: getSampleDate$1() }),
 				"validate": (string) => validateISOString(string) && this._translate(validateISOString(string)),
 				"value": times[1]
 			}), createVNode(1, "p", "dms-hint", [createVNode(1, "button", "use-now", this._translate("Use now"), 0, {
@@ -16451,8 +17164,7 @@ var InputTimeEdit = class extends Component {
 		], 0);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-time-edit/components/OutputTimeEdit.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-time-edit/components/OutputTimeEdit.js
 var OutputTimeEdit = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -16489,7 +17201,7 @@ var OutputTimeEdit = class extends Component {
 			createVNode(1, "div", null, [createComponentVNode(2, ValidatedInput, {
 				"label": this._translate("Time value"),
 				"onInput": this.onInput,
-				"placeholder": this._translate("e.g. { example } ", { example: getSampleDate$1() }),
+				"placeholder": this._translate("e.g. {sample}", { sample: getSampleDate$1() }),
 				"validate": (string) => validateISOString(string) && this._translate(validateISOString(string)),
 				"value": date,
 				"className": "dms-block"
@@ -16500,8 +17212,7 @@ var OutputTimeEdit = class extends Component {
 		], 4);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-time-edit/SimpleTimeEdit.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-time-edit/SimpleTimeEdit.js
 var SimpleDateEdit = class {
 	constructor(components, simpleMode) {
 		simpleMode.registerProvider((element) => {
@@ -16527,15 +17238,13 @@ function getTypeRef(element) {
 function isTime$1(typeRef) {
 	return typeRef === "time";
 }
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/simple-time-edit/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/simple-time-edit/index.js
 var simple_time_edit_default = {
 	__depends__: [keyboard_default$2, simple_mode_default],
 	__init__: ["simpleTimeEdit"],
 	simpleTimeEdit: ["type", SimpleDateEdit]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/column-resize/components/ResizeColumn.js
+// ../../node_modules/dmn-js-decision-table/lib/features/column-resize/components/ResizeColumn.js
 var ResizeColumn = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -16625,8 +17334,7 @@ function startResize({ node, event, minWidth, onEnd = noop$1 }) {
 	}
 }
 function noop$1() {}
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/column-resize/ColumnResizeProvider.js
+// ../../node_modules/dmn-js-decision-table/lib/features/column-resize/ColumnResizeProvider.js
 function ColumnResizeProvider(components) {
 	components.onGetComponent("cell-inner", (context = {}) => {
 		const { cellType } = context;
@@ -16634,14 +17342,12 @@ function ColumnResizeProvider(components) {
 	});
 }
 ColumnResizeProvider.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/features/column-resize/index.js
+// ../../node_modules/dmn-js-decision-table/lib/features/column-resize/index.js
 var column_resize_default = {
 	__init__: ["columnResizeProvider"],
 	columnResizeProvider: ["type", ColumnResizeProvider]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-decision-table/lib/Editor.js
+// ../../node_modules/dmn-js-decision-table/lib/Editor.js
 var Editor$3 = class Editor$3 extends Viewer$3 {
 	getModules() {
 		return [...Viewer$3._getModules(), ...Editor$3._getModules()];
@@ -16685,8 +17391,7 @@ var Editor$3 = class Editor$3 extends Viewer$3 {
 		];
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-shared/node_modules/didi/dist/index.js
+// ../../node_modules/didi/dist/index.js
 var CLASS_PATTERN = /^class[ {]/;
 function isClass(fn) {
 	return CLASS_PATTERN.test(fn.toString());
@@ -16714,14 +17419,16 @@ function parseAnnotations(fn) {
 	const args = match[1] || match[2];
 	return args && args.split(",").map((arg) => {
 		const argMatch = arg.match(FN_ARG);
-		return (argMatch && argMatch[1] || arg).trim();
+		const [argName, defaultValue] = arg.replace(FN_ARG, "").split("=");
+		const name = (argMatch && argMatch[1] || argName).trim();
+		return defaultValue !== void 0 && !name.endsWith("?") ? name + "?" : name;
 	}) || [];
 }
 function Injector(modules, _parent) {
 	const parent = _parent || { get: function(name, strict) {
+		if (strict === false) return;
 		currentlyResolving.push(name);
-		if (strict === false) return null;
-		else throw error(`No provider for "${name}"!`);
+		throw error(`No provider for "${name}"!`);
 	} };
 	const currentlyResolving = [];
 	const providers = this._providers = Object.create(parent._providers || null);
@@ -16733,10 +17440,20 @@ function Injector(modules, _parent) {
 		return new Error(stack ? `${msg} (Resolving: ${stack})` : msg);
 	};
 	function get(name, strict) {
+		const optionalIdx = name.lastIndexOf("?");
+		if (optionalIdx !== -1) {
+			const pivot = get(name.slice(0, optionalIdx), false);
+			const path = name.slice(optionalIdx + 2);
+			if (path && pivot == null) return;
+			return path ? path.split(".").reduce((pivot, key) => pivot[key], pivot) : pivot;
+		}
 		if (!providers[name] && name.includes(".")) {
 			const parts = name.split(".");
-			let pivot = get(parts.shift());
-			while (parts.length) pivot = pivot[parts.shift()];
+			let pivot = get(parts.shift(), strict);
+			while (parts.length) {
+				const key = parts.shift();
+				pivot = strict === false ? pivot?.[key] : pivot[key];
+			}
 			return pivot;
 		}
 		if (hasOwnProp(instances, name)) return instances[name];
@@ -16759,8 +17476,8 @@ function Injector(modules, _parent) {
 			else throw error(`Cannot invoke "${fn}". Expected a function!`);
 		}
 		const dependencies = (fn.$inject || parseAnnotations(fn)).map((dep) => {
-			if (hasOwnProp(locals, dep)) return locals[dep];
-			else return get(dep);
+			const local = dep.replace(/\?$/, "");
+			return hasOwnProp(locals, local) ? locals[local] : get(dep);
 		});
 		return {
 			fn,
@@ -16914,8 +17631,7 @@ function arrayUnwrap(type, value) {
 	if (type !== "value" && isArray$1(value)) value = annotate(value.slice());
 	return value;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/base/viewer/core/ChangeSupport.js
+// ../../node_modules/dmn-js-shared/lib/base/viewer/core/ChangeSupport.js
 var ChangeSupport = class {
 	constructor(eventBus) {
 		this._listeners = {};
@@ -16956,8 +17672,7 @@ var ChangeSupport = class {
 	}
 };
 ChangeSupport.$inject = ["eventBus"];
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/base/viewer/core/Components.js
+// ../../node_modules/dmn-js-shared/lib/base/viewer/core/Components.js
 init_dist();
 var DEFAULT_PRIORITY$1 = 1e3;
 var Components = class {
@@ -17018,8 +17733,7 @@ var Components = class {
 		return listeners;
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/base/viewer/core/components/ViewerComponent.js
+// ../../node_modules/dmn-js-shared/lib/base/viewer/core/components/ViewerComponent.js
 var ViewerComponent = class extends Component {
 	constructor(props) {
 		super(props);
@@ -17041,8 +17755,7 @@ var ViewerComponent = class extends Component {
 		return createVNode(1, "div", "viewer-container", components && components.map((Component, index) => createComponentVNode(2, Component, null, index)), 0);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/base/viewer/core/Renderer.js
+// ../../node_modules/dmn-js-shared/lib/base/viewer/core/Renderer.js
 var Renderer = class {
 	constructor(changeSupport, components, config, eventBus, injector) {
 		const { container } = config;
@@ -17065,8 +17778,7 @@ Renderer.$inject = [
 	"eventBus",
 	"injector"
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/base/viewer/core/index.js
+// ../../node_modules/dmn-js-shared/lib/base/viewer/core/index.js
 var core_default$2 = {
 	__init__: [
 		"changeSupport",
@@ -17078,8 +17790,7 @@ var core_default$2 = {
 	eventBus: ["type", EventBus],
 	renderer: ["type", Renderer]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-shared/lib/base/viewer/Viewer.js
+// ../../node_modules/dmn-js-shared/lib/base/viewer/Viewer.js
 var Viewer$2 = class {
 	constructor(options = {}) {
 		let { injector } = options;
@@ -17110,8 +17821,7 @@ function createInjector(config, modules) {
 	injector.init();
 	return injector;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/core/ElementRegistry.js
+// ../../node_modules/dmn-js-literal-expression/lib/core/ElementRegistry.js
 var ElementRegistry$1 = class {
 	constructor(viewer, eventBus) {
 		this._eventBus = eventBus;
@@ -17130,14 +17840,12 @@ var ElementRegistry$1 = class {
 	}
 };
 ElementRegistry$1.$inject = ["viewer", "eventBus"];
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/core/index.js
+// ../../node_modules/dmn-js-literal-expression/lib/core/index.js
 var core_default$1 = {
 	__init__: ["elementRegistry"],
 	elementRegistry: ["type", ElementRegistry$1]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/decision-properties/components/DecisionPropertiesComponent.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/decision-properties/components/DecisionPropertiesComponent.js
 var DecisionPropertiesComponent = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -17148,8 +17856,7 @@ var DecisionPropertiesComponent = class extends Component {
 		return createVNode(1, "div", "decision-properties", createVNode(1, "h3", "decision-name", name, 0), 2);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/decision-properties/DecisionProperties.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/decision-properties/DecisionProperties.js
 var HIGH_PRIORITY$1 = 1500;
 var DecisionProperties$1 = class {
 	constructor(components) {
@@ -17157,14 +17864,12 @@ var DecisionProperties$1 = class {
 	}
 };
 DecisionProperties$1.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/decision-properties/index.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/decision-properties/index.js
 var decision_properties_default = {
 	__init__: ["decisionProperties"],
 	decisionProperties: ["type", DecisionProperties$1]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/literal-expression-properties/components/LiteralExpressionPropertiesComponent.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/literal-expression-properties/components/LiteralExpressionPropertiesComponent.js
 var LiteralExpressionPropertiesComponent$1 = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -17182,8 +17887,7 @@ var LiteralExpressionPropertiesComponent$1 = class extends Component {
 		], 4), 2);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/literal-expression-properties/LiteralExpressionProperties.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/literal-expression-properties/LiteralExpressionProperties.js
 var LOW_PRIORITY$3 = 500;
 var DecisionProperties = class {
 	constructor(components) {
@@ -17193,15 +17897,13 @@ var DecisionProperties = class {
 	}
 };
 DecisionProperties.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/literal-expression-properties/index.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/literal-expression-properties/index.js
 var literal_expression_properties_default = {
 	__depends__: [],
 	__init__: ["literalExpressionProperties"],
 	literalExpressionProperties: ["type", DecisionProperties]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/powered-by/PoweredBy.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/powered-by/PoweredBy.js
 var HIGHER_PRIORITY$1 = 2e3;
 var PoweredBy$1 = class {
 	constructor(components) {
@@ -17211,14 +17913,12 @@ var PoweredBy$1 = class {
 	}
 };
 PoweredBy$1.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/powered-by/index.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/powered-by/index.js
 var powered_by_default$1 = {
 	__init__: ["poweredBy"],
 	poweredBy: ["type", PoweredBy$1]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/textarea/components/TextareaComponent.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/textarea/components/TextareaComponent.js
 var TextareaComponent = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -17229,22 +17929,19 @@ var TextareaComponent = class extends Component {
 		return createVNode(1, "div", "textarea", createVNode(1, "div", "content", text, 0), 2);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/textarea/Textarea.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/textarea/Textarea.js
 var Textarea$1 = class {
 	constructor(components) {
 		components.onGetComponent("viewer", () => TextareaComponent);
 	}
 };
 Textarea$1.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/textarea/index.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/textarea/index.js
 var textarea_default = {
 	__init__: ["textarea"],
 	textarea: ["type", Textarea$1]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/view-drd/components/ViewDrdComponent.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/view-drd/components/ViewDrdComponent.js
 var ViewDrdComponent$1 = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -17263,8 +17960,7 @@ var ViewDrdComponent$1 = class extends Component {
 	}
 };
 ViewDrdComponent$1.$inject = ["translate"];
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/view-drd/ViewDrd.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/view-drd/ViewDrd.js
 var VERY_HIGH_PRIORITY$1 = 2e3;
 var ViewDrd$1 = class {
 	constructor(components, viewer, eventBus, injector) {
@@ -17275,7 +17971,7 @@ var ViewDrd$1 = class {
 		});
 		eventBus.on("showDrd", () => {
 			const parent = injector.get("_parent", false);
-			const definitions = this.getDefinitions();
+			const definitions = viewer.getDefinitions();
 			const view = parent.getView(definitions);
 			parent.open(view);
 		});
@@ -17283,11 +17979,7 @@ var ViewDrd$1 = class {
 	canViewDrd() {
 		const parent = this._injector.get("_parent", false);
 		if (!parent) return;
-		const definitions = this.getDefinitions();
-		return !!parent.getView(definitions);
-	}
-	getDefinitions() {
-		return getDefinitions(this._viewer.getDecision());
+		return !!parent.getView(this._viewer.getDefinitions());
 	}
 };
 ViewDrd$1.$inject = [
@@ -17296,17 +17988,12 @@ ViewDrd$1.$inject = [
 	"eventBus",
 	"injector"
 ];
-function getDefinitions(decision) {
-	return decision.$parent;
-}
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/view-drd/index.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/view-drd/index.js
 var view_drd_default$1 = {
 	__init__: ["viewDrd"],
 	viewDrd: ["type", ViewDrd$1]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/Viewer.js
+// ../../node_modules/dmn-js-literal-expression/lib/Viewer.js
 init_dist();
 var Viewer$1 = class Viewer$1 extends Viewer$2 {
 	constructor(options = {}) {
@@ -17361,6 +18048,9 @@ var Viewer$1 = class Viewer$1 extends Viewer$2 {
 	getDecision() {
 		return this._decision;
 	}
+	getDefinitions() {
+		return getDefinitions$1(this._decision);
+	}
 	attachTo(parentNode) {
 		if (!parentNode) throw new Error("parentNode required");
 		this.detach();
@@ -17395,8 +18085,7 @@ var Viewer$1 = class Viewer$1 extends Viewer$2 {
 		return domify("<div class=\"dmn-literal-expression-container bio-theme-parent\"></div>");
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/decision-properties/components/DecisionPropertiesEditorComponent.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/decision-properties/components/DecisionPropertiesEditorComponent.js
 var DecisionPropertiesEditorComponent = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -17441,8 +18130,7 @@ var DecisionName = class extends EditableComponent {
 function resetScroll(event) {
 	event.target.scroll(0, 0);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/decision-properties/DecisionPropertiesEditor.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/decision-properties/DecisionPropertiesEditor.js
 var HIGH_PRIORITY = 1500;
 var DecisionPropertiesEditor = class {
 	constructor(components) {
@@ -17452,15 +18140,13 @@ var DecisionPropertiesEditor = class {
 	}
 };
 DecisionPropertiesEditor.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/decision-properties/editor.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/decision-properties/editor.js
 var editor_default$6 = {
 	__depends__: [debounce_input_default, translate_default],
 	__init__: ["decisionProperties"],
 	decisionProperties: ["type", DecisionPropertiesEditor]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/editor-actions/EditorActions.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/editor-actions/EditorActions.js
 init_dist();
 var NOT_REGISTERED_ERROR$1 = "is not a registered action";
 var IS_REGISTERED_ERROR$1 = "is already registered";
@@ -17501,14 +18187,12 @@ EditorActions$1.$inject = ["commandStack", "eventBus"];
 function error$1(action, message) {
 	return new Error(action + " " + message);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/editor-actions/index.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/editor-actions/index.js
 var editor_actions_default$1 = {
 	__init__: ["editorActions"],
 	editorActions: ["type", EditorActions$1]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/keyboard/KeyboardUtil.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/keyboard/KeyboardUtil.js
 function isCmd(modifiers) {
 	if (modifiers.altKey) return false;
 	return modifiers.ctrlKey || modifiers.metaKey;
@@ -17516,8 +18200,7 @@ function isCmd(modifiers) {
 function isShift(modifiers) {
 	return modifiers.shiftKey;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/keyboard/Keyboard.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/keyboard/Keyboard.js
 var compatMessage = "Keyboard binding is now implicit; explicit binding to an element got removed. For more information, see https://github.com/bpmn-io/diagram-js/pull/662";
 var Keyboard = class {
 	constructor(config, eventBus, editorActions, renderer) {
@@ -17606,15 +18289,13 @@ Keyboard.$inject = [
 	"editorActions",
 	"renderer"
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/keyboard/index.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/keyboard/index.js
 var keyboard_default$1 = {
 	__depends__: [editor_actions_default$1],
 	__init__: ["keyboard"],
 	keyboard: ["type", Keyboard]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/literal-expression-properties/components/LiteralExpressionPropertiesEditorComponent.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/literal-expression-properties/components/LiteralExpressionPropertiesEditorComponent.js
 var LiteralExpressionPropertiesComponent = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -17656,12 +18337,7 @@ var LiteralExpressionPropertiesComponent = class extends Component {
 	}
 	render() {
 		const { name, typeRef } = this.state;
-		const typeRefOptions = this._dataTypes.getAll().map((t) => {
-			return {
-				label: this._translate(t),
-				value: t
-			};
-		});
+		const typeRefOptions = getTypeRefOptions$1(this._dataTypes.getAll());
 		return createVNode(1, "div", "literal-expression-properties", createVNode(1, "table", "variables-table", [
 			createVNode(1, "tr", null, [createVNode(1, "td", null, this._translate("Variable name:"), 0), createVNode(1, "td", null, createComponentVNode(2, Input, {
 				"label": this._translate("Variable name"),
@@ -17718,8 +18394,7 @@ var ExpressionLanguage = class extends Component {
 		}), 2), 2)], 4);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/literal-expression-properties/LiteralExpressionPropertiesEditor.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/literal-expression-properties/LiteralExpressionPropertiesEditor.js
 var LOW_PRIORITY$2 = 500;
 var LiteralExpressionPropertiesEditor = class {
 	constructor(components) {
@@ -17729,8 +18404,7 @@ var LiteralExpressionPropertiesEditor = class {
 	}
 };
 LiteralExpressionPropertiesEditor.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/literal-expression-properties/editor.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/literal-expression-properties/editor.js
 var editor_default$5 = {
 	__depends__: [
 		debounce_input_default,
@@ -17742,8 +18416,7 @@ var editor_default$5 = {
 	__init__: ["literalExpressionProperties"],
 	literalExpressionProperties: ["type", LiteralExpressionPropertiesEditor]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/modeling/Modeling.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/modeling/Modeling.js
 init_dist();
 var Modeling$1 = class Modeling$1 {
 	constructor(commandStack, viewer, eventBus, moddle) {
@@ -17846,8 +18519,7 @@ function registerHandlers$1(handlers, commandStack) {
 		commandStack.registerHandler(id, handler);
 	});
 }
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/modeling/index.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/modeling/index.js
 var modeling_default$1 = {
 	__init__: [
 		"idChangeBehavior",
@@ -17859,8 +18531,7 @@ var modeling_default$1 = {
 	nameChangeBehavior: ["type", NameChangeBehavior$1],
 	modeling: ["type", Modeling$1]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/textarea/components/TextareaEditorComponent.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/textarea/components/TextareaEditorComponent.js
 var TextareaEditorComponent = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -17925,23 +18596,20 @@ var Editor$2 = class extends EditableComponent {
 		return createVNode(1, "div", this.getClassName(), this.getEditor(), 0);
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/textarea/TextareaEditor.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/textarea/TextareaEditor.js
 var Textarea = class {
 	constructor(components) {
 		components.onGetComponent("viewer", () => TextareaEditorComponent);
 	}
 };
 Textarea.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/features/textarea/editor.js
+// ../../node_modules/dmn-js-literal-expression/lib/features/textarea/editor.js
 var editor_default$4 = {
 	__depends__: [debounce_input_default, translate_default],
 	__init__: ["textarea"],
 	textarea: ["type", Textarea]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-literal-expression/lib/Editor.js
+// ../../node_modules/dmn-js-literal-expression/lib/Editor.js
 var Editor$1 = class Editor$1 extends Viewer$1 {
 	getModules() {
 		return [...Viewer$1._getModules(), ...Editor$1._getModules()];
@@ -17960,8 +18628,7 @@ var Editor$1 = class Editor$1 extends Viewer$1 {
 		];
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/render/ViewRenderer.js
+// ../../node_modules/dmn-js-boxed-expression/lib/render/ViewRenderer.js
 var ViewRenderer = class {
 	constructor(components) {
 		components.onGetComponent("viewer", () => {
@@ -17994,8 +18661,7 @@ function Footer(_, { injector }) {
 		return createComponentVNode(2, Component, null, index);
 	}), 0);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/render/TableJsSupport.js
+// ../../node_modules/dmn-js-boxed-expression/lib/render/TableJsSupport.js
 var TableJsSupport = class {
 	constructor(components) {
 		components.onGetComponent("viewer", () => {
@@ -18007,15 +18673,13 @@ var TableJsSupport = class {
 	}
 };
 _defineProperty$3(TableJsSupport, "$inject", ["components"]);
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/render/index.js
+// ../../node_modules/dmn-js-boxed-expression/lib/render/index.js
 var render_default = {
 	__init__: ["viewRenderer", "tableJsSupport"],
 	"viewRenderer": ["type", ViewRenderer],
 	"tableJsSupport": ["type", TableJsSupport]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/powered-by/PoweredBy.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/powered-by/PoweredBy.js
 var HIGHER_PRIORITY = 2e3;
 var PoweredBy = class {
 	constructor(components) {
@@ -18025,14 +18689,12 @@ var PoweredBy = class {
 	}
 };
 PoweredBy.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/powered-by/index.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/powered-by/index.js
 var powered_by_default = {
 	__init__: ["poweredBy"],
 	poweredBy: ["type", PoweredBy]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/literal-expression/components/LiteralExpressionComponent.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/literal-expression/components/LiteralExpressionComponent.js
 var LiteralExpressionComponentProvider = class {
 	constructor(components) {
 		components.onGetComponent("expression", ({ expression }) => {
@@ -18044,22 +18706,19 @@ _defineProperty$3(LiteralExpressionComponentProvider, "$inject", ["components"])
 function LiteralExpressionComponent({ expression }, context) {
 	return createVNode(1, "div", "textarea", createVNode(1, "div", "content", context.injector.get("literalExpression").getText(expression), 0), 2);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/literal-expression/LiteralExpression.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/literal-expression/LiteralExpression.js
 var LiteralExpression = class {
 	getText(literalExpression) {
 		return literalExpression.get("text");
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/literal-expression/index.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/literal-expression/index.js
 var literal_expression_default = {
 	__init__: ["literalExpressionComponent"],
 	literalExpressionComponent: ["type", LiteralExpressionComponentProvider],
 	literalExpression: ["type", LiteralExpression]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/function-definition/FunctionDefinition.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/function-definition/FunctionDefinition.js
 var FunctionDefinition$1 = class {
 	getParameters(element) {
 		return element.get("formalParameter");
@@ -18071,8 +18730,7 @@ var FunctionDefinition$1 = class {
 		return element.get("kind") || "FEEL";
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/function-definition/components/FunctionDefinitionComponent.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/function-definition/components/FunctionDefinitionComponent.js
 var FunctionDefinitionComponentProvider$1 = class {
 	constructor(components) {
 		components.onGetComponent("expression", ({ expression }) => {
@@ -18118,15 +18776,13 @@ function Parameter$2({ parameter }) {
 function BodyExpression$1({ expression }, context) {
 	return createVNode(1, "div", "function-definition-body", createComponentVNode(2, context.components.getComponent("expression", { expression }), { "expression": expression }), 2);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/function-definition/index.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/function-definition/index.js
 var function_definition_default = {
 	__init__: ["functionDefinitionComponent"],
 	functionDefinition: ["type", FunctionDefinition$1],
 	functionDefinitionComponent: ["type", FunctionDefinitionComponentProvider$1]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/view-drd/components/ViewDrdComponent.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/view-drd/components/ViewDrdComponent.js
 var ViewDrdComponent = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -18145,18 +18801,18 @@ var ViewDrdComponent = class extends Component {
 	}
 };
 ViewDrdComponent.$inject = ["translate"];
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/view-drd/ViewDrd.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/view-drd/ViewDrd.js
 var VERY_HIGH_PRIORITY = 2e3;
 var ViewDrd = class {
-	constructor(components, eventBus, injector) {
+	constructor(components, eventBus, injector, viewer) {
 		this._injector = injector;
+		this._viewer = viewer;
 		components.onGetComponent("viewer", VERY_HIGH_PRIORITY, () => {
 			if (this.canViewDrd()) return ViewDrdComponent;
 		});
 		eventBus.on("showDrd", () => {
 			const parent = injector.get("_parent", false);
-			const definitions = parent.getDefinitions();
+			const definitions = viewer.getDefinitions();
 			const view = parent.getView(definitions);
 			parent.open(view);
 		});
@@ -18164,43 +18820,38 @@ var ViewDrd = class {
 	canViewDrd() {
 		const parent = this._injector.get("_parent", false);
 		if (!parent) return;
-		const definitions = parent.getDefinitions();
-		return !!parent.getView(definitions);
+		return !!parent.getView(this._viewer.getDefinitions());
 	}
 };
 ViewDrd.$inject = [
 	"components",
 	"eventBus",
-	"injector"
+	"injector",
+	"viewer"
 ];
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/view-drd/index.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/view-drd/index.js
 var view_drd_default = {
 	__init__: ["viewDrd"],
 	viewDrd: ["type", ViewDrd]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/element-properties/components/ElementPropertiesComponent.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/element-properties/components/ElementPropertiesComponent.js
 function ElementPropertiesComponent(_, context) {
 	const { name } = context.injector.get("viewer").getRootElement();
 	return createVNode(1, "div", "element-properties", createVNode(1, "h2", "element-name", name, 0), 2);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/element-properties/ElementProperties.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/element-properties/ElementProperties.js
 var ElementProperties = class {
 	constructor(components) {
 		components.onGetComponent("header", () => ElementPropertiesComponent);
 	}
 };
 ElementProperties.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/element-properties/index.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/element-properties/index.js
 var element_properties_default = {
 	__init__: ["elementProperties"],
 	elementProperties: ["type", ElementProperties]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/element-logic/ElementLogic.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/element-logic/ElementLogic.js
 var FALLBACK_PRIORITY = 100;
 var ElementLogic = class {
 	constructor(components) {
@@ -18227,14 +18878,12 @@ function FallbackExpression({ expression }) {
 		createTextVNode(" is not supported.")
 	], 0, { "style": "color:red;" }), 2);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/element-logic/index.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/element-logic/index.js
 var element_logic_default = {
 	__init__: ["elementLogic"],
 	elementLogic: ["type", ElementLogic]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/element-variable/ElementVariable.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/element-variable/ElementVariable.js
 var ElementVariable = class {
 	constructor(viewer) {
 		this._viewer = viewer;
@@ -18260,8 +18909,7 @@ var ElementVariable = class {
 	}
 };
 _defineProperty$3(ElementVariable, "$inject", ["viewer"]);
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/element-variable/components/ElementVariableComponent.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/element-variable/components/ElementVariableComponent.js
 var ElementVariableComponentProvider$1 = class {
 	constructor(components) {
 		components.onGetComponent("footer", () => ElementVariableComponent$1);
@@ -18279,15 +18927,13 @@ function ElementVariableComponent$1(_, context) {
 		createVNode(1, "div", "element-variable-type", [createVNode(1, "span", "element-variable-type-label", translate("Variable type"), 0), createVNode(1, "span", null, type, 0)], 4)
 	], 4);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/element-variable/index.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/element-variable/index.js
 var element_variable_default = {
 	__init__: ["elementVariableComponent"],
 	elementVariable: ["type", ElementVariable],
 	elementVariableComponent: ["type", ElementVariableComponentProvider$1]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/Viewer.js
+// ../../node_modules/dmn-js-boxed-expression/lib/Viewer.js
 init_dist();
 var Viewer = class Viewer extends Viewer$2 {
 	constructor(options = {}) {
@@ -18342,6 +18988,9 @@ var Viewer = class Viewer extends Viewer$2 {
 	getRootElement() {
 		return this._root;
 	}
+	getDefinitions() {
+		return getDefinitions$1(this._root);
+	}
 	_setRootElement(element) {
 		this._root = element;
 	}
@@ -18378,8 +19027,7 @@ var Viewer = class Viewer extends Viewer$2 {
 		return domify("<div class=\"dmn-boxed-expression-container bio-theme-parent\"></div>");
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/keyboard/KeyboardBindings.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/keyboard/KeyboardBindings.js
 var KeyboardBindings = class {
 	constructor(editorActions, keyboard) {
 		this.registerBindings(keyboard, editorActions);
@@ -18405,15 +19053,13 @@ var KeyboardBindings = class {
 	}
 };
 _defineProperty$3(KeyboardBindings, "$inject", ["editorActions", "keyboard"]);
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/keyboard/index.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/keyboard/index.js
 var keyboard_default = {
 	__depends__: [keyboard_default$4],
 	__init__: ["keyboardBindings"],
 	keyboardBindings: ["type", KeyboardBindings]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/modeling/behavior/NameChangeBehavior.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/modeling/behavior/NameChangeBehavior.js
 var NameChangeBehavior = class extends CommandInterceptor {
 	constructor(eventBus, modeling) {
 		super(eventBus);
@@ -18451,8 +19097,7 @@ _defineProperty$3(NameChangeBehavior, "$inject", ["eventBus", "modeling"]);
 function getParent(element) {
 	return element.$parent;
 }
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/modeling/Modeling.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/modeling/Modeling.js
 init_dist();
 var Modeling = class {
 	constructor(commandStack, viewer, eventBus) {
@@ -18482,8 +19127,7 @@ function registerHandlers(handlers, commandStack) {
 		commandStack.registerHandler(id, handler);
 	});
 }
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/modeling/index.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/modeling/index.js
 var modeling_default = {
 	__init__: [
 		"idChangeBehavior",
@@ -18495,8 +19139,7 @@ var modeling_default = {
 	modeling: ["type", Modeling],
 	nameChangeBehavior: ["type", NameChangeBehavior]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/util/withChangeSupport.js
+// ../../node_modules/dmn-js-boxed-expression/lib/util/withChangeSupport.js
 function withChangeSupport(WrappedComponent, selectDependencies) {
 	return function(props) {
 		return normalizeProps(createComponentVNode(2, Wrapper, {
@@ -18531,8 +19174,7 @@ var Wrapper = class extends Component {
 		return normalizeProps(createComponentVNode(2, WrappedComponent, { ...this.props }));
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/literal-expression/components/LiteralExpressionEditorComponent.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/literal-expression/components/LiteralExpressionEditorComponent.js
 var _LiteralExpressionEditorComponent = class extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -18591,8 +19233,7 @@ var LiteralExpressionEditorComponentProvider = class {
 	}
 };
 _defineProperty$3(LiteralExpressionEditorComponentProvider, "$inject", ["components"]);
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/literal-expression/LiteralExpressionEditor.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/literal-expression/LiteralExpressionEditor.js
 var LiteralExpressionEditor = class extends LiteralExpression {
 	constructor(modeling) {
 		super();
@@ -18603,15 +19244,13 @@ var LiteralExpressionEditor = class extends LiteralExpression {
 	}
 };
 LiteralExpressionEditor.$inject = ["modeling"];
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/literal-expression/editor.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/literal-expression/editor.js
 var editor_default$3 = {
 	__init__: ["literalExpressionComponent"],
 	literalExpressionComponent: ["type", LiteralExpressionEditorComponentProvider],
 	literalExpression: ["type", LiteralExpressionEditor]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/function-definition/FunctionDefinitionEditor.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/function-definition/FunctionDefinitionEditor.js
 var FunctionDefinitionEditor = class extends FunctionDefinition$1 {
 	constructor(modeling, dmnFactory) {
 		super();
@@ -18635,8 +19274,7 @@ var FunctionDefinitionEditor = class extends FunctionDefinition$1 {
 	}
 };
 _defineProperty$3(FunctionDefinitionEditor, "$inject", ["modeling", "dmnFactory"]);
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/components/EditButton.js
+// ../../node_modules/dmn-js-boxed-expression/lib/components/EditButton.js
 function EditButton({ label, onClick }) {
 	return createVNode(1, "button", "edit-button dmn-icon-edit", null, 1, {
 		"aria-label": label,
@@ -18644,8 +19282,7 @@ function EditButton({ label, onClick }) {
 		"onClick": onClick
 	});
 }
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/function-definition/components/FunctionDefinitionEditorComponent.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/function-definition/components/FunctionDefinitionEditorComponent.js
 var FunctionDefinitionComponentProvider = class {
 	constructor(components) {
 		components.onGetComponent("expression", ({ expression }) => {
@@ -18735,8 +19372,7 @@ function getParentPosition(event) {
 		y: bbox.y
 	};
 }
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/function-definition/components/KindEditor.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/function-definition/components/KindEditor.js
 var KIND_OPTIONS = [
 	{
 		value: "FEEL",
@@ -18774,8 +19410,7 @@ function KindEditor({ context: { expression } }, context) {
 		"noInput": true
 	})], 4);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/function-definition/components/FormalParametersEditor.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/function-definition/components/FormalParametersEditor.js
 var FormalParametersEditorProvider = class {
 	constructor(components) {
 		components.onGetComponent("context-menu", (context = {}) => {
@@ -18818,12 +19453,7 @@ var Parameter = withChangeSupport(function({ parameter, remove }, context) {
 	const onTypeRefChange = (typeRef) => {
 		functionDefinition.updateParameter(parameter, { typeRef });
 	};
-	const typeRefOptions = dataTypes.getAll().map((t) => {
-		return {
-			label: translate(t),
-			value: t
-		};
-	});
+	const typeRefOptions = getTypeRefOptions$1(dataTypes.getAll());
 	return createVNode(1, "tr", "function-definition-parameter", [
 		createVNode(1, "td", null, createComponentVNode(2, Input, {
 			"onChange": onNameChange,
@@ -18841,8 +19471,7 @@ var Parameter = withChangeSupport(function({ parameter, remove }, context) {
 		}), 2)
 	], 4);
 }, (props) => [props.parameter]);
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/function-definition/editor.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/function-definition/editor.js
 var editor_default$2 = {
 	__init__: [
 		"formalParametersEditorComponent",
@@ -18855,8 +19484,7 @@ var editor_default$2 = {
 	functionDefinitionComponent: ["type", FunctionDefinitionComponentProvider],
 	kindEditorComponent: ["type", KindEditorProvider]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/element-properties/components/ElementPropertiesEditorComponent.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/element-properties/components/ElementPropertiesEditorComponent.js
 var ElementNameEditor = class extends EditableComponent {
 	render() {
 		return createVNode(1, "h2", this.getClassName(), this.getEditor(), 0);
@@ -18880,8 +19508,7 @@ var ElementName = withChangeSupport(function(props, context) {
 function ElementPropertiesEditorComponent(_, context) {
 	return createVNode(1, "div", "element-properties", createComponentVNode(2, ElementName, { "element": context.injector.get("viewer").getRootElement() }), 2);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/element-properties/ElementPropertiesEditor.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/element-properties/ElementPropertiesEditor.js
 var ElementPropertiesEditor = class {
 	constructor(components) {
 		components.onGetComponent("header", () => {
@@ -18890,15 +19517,13 @@ var ElementPropertiesEditor = class {
 	}
 };
 ElementPropertiesEditor.$inject = ["components"];
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/element-properties/editor.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/element-properties/editor.js
 var editor_default$1 = {
 	__depends__: [debounce_input_default],
 	__init__: ["elementProperties"],
 	elementProperties: ["type", ElementPropertiesEditor]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/core/ElementRegistry.js
+// ../../node_modules/dmn-js-boxed-expression/lib/core/ElementRegistry.js
 var ElementRegistry = class {
 	constructor(viewer, eventBus) {
 		this._eventBus = eventBus;
@@ -18914,8 +19539,7 @@ var ElementRegistry = class {
 	}
 };
 ElementRegistry.$inject = ["viewer", "eventBus"];
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/core/DmnFactory.js
+// ../../node_modules/dmn-js-boxed-expression/lib/core/DmnFactory.js
 var DmnFactory = class {
 	constructor(moddle) {
 		this._moddle = moddle;
@@ -18925,15 +19549,13 @@ var DmnFactory = class {
 	}
 };
 _defineProperty$3(DmnFactory, "$inject", ["moddle"]);
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/core/index.js
+// ../../node_modules/dmn-js-boxed-expression/lib/core/index.js
 var core_default = {
 	__init__: ["elementRegistry"],
 	elementRegistry: ["type", ElementRegistry],
 	dmnFactory: ["type", DmnFactory]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/element-variable/ElementVariableEditor.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/element-variable/ElementVariableEditor.js
 var ElementVariableEditor = class extends ElementVariable {
 	constructor(viewer, modeling, dmnFactory) {
 		super(viewer);
@@ -18942,12 +19564,14 @@ var ElementVariableEditor = class extends ElementVariable {
 	}
 	setType(typeRef) {
 		const element = this._getElement();
+		typeRef = typeRef || void 0;
 		if (is$2(element, "dmn:BusinessKnowledgeModel")) {
 			this._modeling.updateProperties(this.getTypeHolder(), { typeRef });
 			return;
 		}
 		const variable = this.getVariable();
 		if (!variable) {
+			if (!typeRef) return;
 			const newVariable = this._dmnFactory.create("dmn:InformationItem", {
 				name: element.get("name"),
 				typeRef
@@ -18964,8 +19588,7 @@ _defineProperty$3(ElementVariableEditor, "$inject", [
 	"modeling",
 	"dmnFactory"
 ]);
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/element-variable/components/ElementVariableEditorComponent.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/element-variable/components/ElementVariableEditorComponent.js
 var VARIABLE_TYPE_ID = "dmn-boxed-expression-variable-type";
 var ElementVariableComponentProvider = class {
 	constructor(components, elementVariable) {
@@ -18987,30 +19610,22 @@ function ElementVariableComponent(_, context) {
 function VariableTypeEditor(_, context) {
 	const elementVariable = context.injector.get("elementVariable");
 	const dataTypes = context.injector.get("dataTypes");
-	const translate = context.injector.get("translate");
 	const type = elementVariable.getType();
 	const onChange = (type) => elementVariable.setType(type);
 	return createComponentVNode(2, InputSelect, {
 		"value": type,
 		"onChange": onChange,
-		"options": dataTypes.getAll().map((t) => {
-			return {
-				label: translate(t),
-				value: t
-			};
-		}),
+		"options": getTypeRefOptions$1(dataTypes.getAll()),
 		"id": VARIABLE_TYPE_ID
 	});
 }
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/element-variable/editor.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/element-variable/editor.js
 var editor_default = {
 	__init__: ["elementVariableComponent"],
 	elementVariable: ["type", ElementVariableEditor],
 	elementVariableComponent: ["type", ElementVariableComponentProvider]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/editor-actions/EditorActions.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/editor-actions/EditorActions.js
 init_dist();
 var NOT_REGISTERED_ERROR = "is not a registered action";
 var IS_REGISTERED_ERROR = "is already registered";
@@ -19051,14 +19666,12 @@ EditorActions.$inject = ["commandStack", "eventBus"];
 function error(action, message) {
 	return new Error(action + " " + message);
 }
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/features/editor-actions/index.js
+// ../../node_modules/dmn-js-boxed-expression/lib/features/editor-actions/index.js
 var editor_actions_default = {
 	__init__: ["editorActions"],
 	editorActions: ["type", EditorActions]
 };
-//#endregion
-//#region ../../node_modules/dmn-js-boxed-expression/lib/Editor.js
+// ../../node_modules/dmn-js-boxed-expression/lib/Editor.js
 var Editor = class extends Viewer {
 	getModules() {
 		return [
@@ -19078,8 +19691,7 @@ var Editor = class extends Viewer {
 		];
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js/lib/Modeler.js
+// ../../node_modules/dmn-js/lib/Modeler.js
 init_dist();
 var Modeler = class extends EditingManager {
 	_getViewProviders() {
@@ -19120,8 +19732,7 @@ var Modeler = class extends EditingManager {
 		return initialView;
 	}
 };
-//#endregion
-//#region ../../node_modules/dmn-js-properties-panel/dist/index.esm.js
+// ../../node_modules/dmn-js-properties-panel/dist/index.esm.js
 init_dist();
 var DmnPropertiesPanelContext = X({
 	selectedElement: null,
@@ -19141,13 +19752,37 @@ function isAny(element, types) {
 	});
 }
 function getLabelAttr(semantic) {
-	if (is(semantic, "dmn:Decision") || is(semantic, "dmn:BusinessKnowledgeModel") || is(semantic, "dmn:InputData") || is(semantic, "dmn:KnowledgeSource")) return "name";
+	if (is(semantic, "dmn:Decision") || is(semantic, "dmn:BusinessKnowledgeModel") || is(semantic, "dmn:InputData") || is(semantic, "dmn:KnowledgeSource") || is(semantic, "dmn:DecisionService")) return "name";
 	if (is(semantic, "dmn:TextAnnotation")) return "text";
 }
 function getLabel(element) {
 	var semantic = element.businessObject, attr = getLabelAttr(semantic);
 	if (attr) return semantic[attr] || "";
 }
+var _path$a;
+function _extends$a() {
+	return _extends$a = Object.assign ? Object.assign.bind() : function(n) {
+		for (var e = 1; e < arguments.length; e++) {
+			var t = arguments[e];
+			for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
+		}
+		return n;
+	}, _extends$a.apply(null, arguments);
+}
+var SvgDmnIconAssociation = function SvgDmnIconAssociation(props) {
+	return k("svg", _extends$a({
+		xmlns: "http://www.w3.org/2000/svg",
+		width: 32,
+		height: 32
+	}, props), _path$a || (_path$a = k("path", {
+		fill: "none",
+		stroke: "#000",
+		strokeDasharray: "3.3,6",
+		strokeLinecap: "square",
+		strokeWidth: 2,
+		d: "m1.5 30.5 29-29"
+	})));
+};
 var _path$9;
 function _extends$9() {
 	return _extends$9 = Object.assign ? Object.assign.bind() : function(n) {
@@ -19158,18 +19793,14 @@ function _extends$9() {
 		return n;
 	}, _extends$9.apply(null, arguments);
 }
-var SvgDmnIconAssociation = function SvgDmnIconAssociation(props) {
+var SvgDmnIconAuthorityRequirement = function SvgDmnIconAuthorityRequirement(props) {
 	return k("svg", _extends$9({
 		xmlns: "http://www.w3.org/2000/svg",
 		width: 32,
 		height: 32
 	}, props), _path$9 || (_path$9 = k("path", {
-		fill: "none",
-		stroke: "#000",
-		strokeDasharray: "3.3,6",
-		strokeLinecap: "square",
-		strokeWidth: 2,
-		d: "m1.5 30.5 29-29"
+		fillRule: "evenodd",
+		d: "m6.364 24.235 1.414 1.414-6.364 6.364L0 30.598l6.364-6.363Zm8-8 1.414 1.414-6.364 6.364L8 22.598l6.364-6.363Zm8-8 1.414 1.414-6.364 6.364L16 14.598l6.364-6.363ZM28 0a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"
 	})));
 };
 var _path$8;
@@ -19182,15 +19813,12 @@ function _extends$8() {
 		return n;
 	}, _extends$8.apply(null, arguments);
 }
-var SvgDmnIconAuthorityRequirement = function SvgDmnIconAuthorityRequirement(props) {
+var SvgDmnIconBusinessKnowledge = function SvgDmnIconBusinessKnowledge(props) {
 	return k("svg", _extends$8({
 		xmlns: "http://www.w3.org/2000/svg",
 		width: 32,
 		height: 32
-	}, props), _path$8 || (_path$8 = k("path", {
-		fillRule: "evenodd",
-		d: "m6.364 24.235 1.414 1.414-6.364 6.364L0 30.598l6.364-6.363Zm8-8 1.414 1.414-6.364 6.364L8 22.598l6.364-6.363Zm8-8 1.414 1.414-6.364 6.364L16 14.598l6.364-6.363ZM28 0a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"
-	})));
+	}, props), _path$8 || (_path$8 = k("path", { d: "M6.258 8 0 15.358l.001.325.028 8.259h25.977L32 16.518V8H6.258Zm.812 1.756h23.174v6.142l-5.077 6.288H1.779L1.759 16l5.31-6.245Z" })));
 };
 var _path$7;
 function _extends$7() {
@@ -19202,14 +19830,18 @@ function _extends$7() {
 		return n;
 	}, _extends$7.apply(null, arguments);
 }
-var SvgDmnIconBusinessKnowledge = function SvgDmnIconBusinessKnowledge(props) {
+var SvgDmnIconDecision = function SvgDmnIconDecision(props) {
 	return k("svg", _extends$7({
 		xmlns: "http://www.w3.org/2000/svg",
 		width: 32,
 		height: 32
-	}, props), _path$7 || (_path$7 = k("path", { d: "M6.258 8 0 15.358l.001.325.028 8.259h25.977L32 16.518V8H6.258Zm.812 1.756h23.174v6.142l-5.077 6.288H1.779L1.759 16l5.31-6.245Z" })));
+	}, props), _path$7 || (_path$7 = k("path", {
+		fillRule: "evenodd",
+		d: "M0 6v20.711h32V6H0Zm1.697 1.697h28.606v17.317H1.697V7.697Z"
+	})));
 };
 var _path$6;
+var _path2;
 function _extends$6() {
 	return _extends$6 = Object.assign ? Object.assign.bind() : function(n) {
 		for (var e = 1; e < arguments.length; e++) {
@@ -19219,15 +19851,16 @@ function _extends$6() {
 		return n;
 	}, _extends$6.apply(null, arguments);
 }
-var SvgDmnIconDecision = function SvgDmnIconDecision(props) {
+var SvgDmnIconDecisionService = function SvgDmnIconDecisionService(props) {
 	return k("svg", _extends$6({
 		xmlns: "http://www.w3.org/2000/svg",
 		width: 32,
-		height: 32
+		height: 32,
+		viewBox: "0 0 30 30"
 	}, props), _path$6 || (_path$6 = k("path", {
 		fillRule: "evenodd",
-		d: "M0 6v20.711h32V6H0Zm1.697 1.697h28.606v17.317H1.697V7.697Z"
-	})));
+		d: "M4 5.25h22A3.75 3.75 0 0 1 29.75 9v12A3.75 3.75 0 0 1 26 24.75H4A3.75 3.75 0 0 1 .25 21V9A3.75 3.75 0 0 1 4 5.25Zm0 1.5A2.25 2.25 0 0 0 1.75 9v12A2.25 2.25 0 0 0 4 23.25h22A2.25 2.25 0 0 0 28.25 21V9A2.25 2.25 0 0 0 26 6.75H4Z"
+	})), _path2 || (_path2 = k("path", { d: "M1 14.25h28v1.5H1z" })));
 };
 var _path$5;
 function _extends$5() {
@@ -19332,6 +19965,7 @@ var iconsByType = {
 	"AuthorityRequirement": SvgDmnIconAuthorityRequirement,
 	"BusinessKnowledgeModel": SvgDmnIconBusinessKnowledge,
 	"Decision": SvgDmnIconDecision,
+	"DecisionService": SvgDmnIconDecisionService,
 	"DecisionTable": SvgDmnIconDrd,
 	"Definitions": SvgDmnIconDrd,
 	"DRD": SvgDmnIconDrd,
@@ -19636,29 +20270,140 @@ var index$3 = {
 	__init__: ["propertiesPanel"],
 	propertiesPanel: ["type", DmnPropertiesPanelRenderer]
 };
+var DataTypes = class {
+	constructor(eventBus) {
+		this._eventBus = eventBus;
+	}
+	registerProvider(priority, provider) {
+		if (!provider) {
+			provider = priority;
+			priority = null;
+		}
+		const callback = function(event) {
+			event.providers.push(provider);
+		};
+		if (priority === null) this._eventBus.on("dataTypes.getProviders", callback);
+		else this._eventBus.on("dataTypes.getProviders", priority, callback);
+	}
+	getAll() {
+		const event = this._eventBus.createEvent({
+			type: "dataTypes.getProviders",
+			providers: []
+		});
+		this._eventBus.fire(event);
+		let dataTypes = [];
+		for (const provider of event.providers) dataTypes = normalize$1(provider.getDataTypes(dataTypes));
+		return dataTypes;
+	}
+};
+DataTypes.$inject = ["eventBus"];
+function normalize$1(dataTypes) {
+	const byName = new Map();
+	dataTypes.forEach(({ name, label, group }) => {
+		const dataType = {
+			name,
+			label: label ?? name
+		};
+		if (group) {
+			const { id, name = id } = typeof group === "string" ? { id: group } : group;
+			dataType.group = {
+				id,
+				name
+			};
+		}
+		byName.set(name, dataType);
+	});
+	return [...byName.values()];
+}
 var DEFAULT_DATA_TYPES$1 = [
 	"string",
 	"boolean",
 	"number",
 	"date",
 	"time",
-	"dateTime",
-	"dayTimeDuration",
-	"yearMonthDuration",
+	"date and time",
+	"days and time duration",
+	"years and months duration",
 	"Any"
 ];
-var DataTypes = class {
-	constructor(configuredDataTypes) {
-		this._dataTypes = configuredDataTypes || DEFAULT_DATA_TYPES$1;
+var DefaultDataTypesProvider = class {
+	constructor(configuredDataTypes, dataTypes, translate) {
+		this._translate = translate;
+		this._dataTypes = configuredDataTypes || DEFAULT_DATA_TYPES$1.map((name) => ({
+			name,
+			group: {
+				id: "built-in",
+				name: "Built-ins"
+			}
+		}));
+		dataTypes.registerProvider(this);
 	}
-	getAll() {
-		return this._dataTypes;
+	getDataTypes(dataTypes) {
+		return [...dataTypes, ...this._dataTypes.map((dataType) => this._translateDataType(dataType))];
+	}
+	_translateDataType(dataType) {
+		const translate = this._translate;
+		const { name, label = name, group } = typeof dataType === "string" ? { name: dataType } : dataType;
+		const translated = {
+			name,
+			label: translate(label)
+		};
+		if (group) {
+			const { id, name } = typeof group === "string" ? { id: group } : group;
+			translated.group = {
+				id,
+				name: name ? translate(name) : id
+			};
+		}
+		return translated;
 	}
 };
-DataTypes.$inject = ["config.dataTypes"];
+DefaultDataTypesProvider.$inject = [
+	"config.dataTypes",
+	"dataTypes",
+	"translate"
+];
+var ModelDataTypesProvider = class {
+	constructor(dataTypes, injector, translate) {
+		this._injector = injector;
+		this._translate = translate;
+		dataTypes.registerProvider(500, this);
+	}
+	getDataTypes(dataTypes) {
+		const viewer = this._injector.get("viewer", false);
+		const definitions = viewer && viewer.getDefinitions();
+		if (!definitions) return dataTypes;
+		const group = {
+			id: "custom",
+			name: this._translate("Custom")
+		};
+		const known = new Set(dataTypes.map(({ name }) => name));
+		const customTypes = [];
+		for (const { name } of definitions.get("itemDefinition")) if (name && !known.has(name)) {
+			known.add(name);
+			customTypes.push({
+				name,
+				group
+			});
+		}
+		return [...dataTypes, ...customTypes];
+	}
+};
+ModelDataTypesProvider.$inject = [
+	"dataTypes",
+	"injector",
+	"translate"
+];
 var DataTypesModule = {
-	__init__: ["dataTypes"],
-	dataTypes: ["type", DataTypes]
+	__depends__: [translate_default],
+	__init__: [
+		"dataTypes",
+		"defaultDataTypesProvider",
+		"modelDataTypesProvider"
+	],
+	dataTypes: ["type", DataTypes],
+	defaultDataTypesProvider: ["type", DefaultDataTypesProvider],
+	modelDataTypesProvider: ["type", ModelDataTypesProvider]
 };
 function useService(type, strict) {
 	const { getService } = x(DmnPropertiesPanelContext);
@@ -19868,12 +20613,7 @@ function TypeRef(props) {
 		}
 		modeling.updateModdleProperties(element, variable, { typeRef: value });
 	};
-	const getOptions = () => {
-		return dataTypes.getAll().map((type) => ({
-			value: type,
-			label: type
-		}));
-	};
+	const getOptions = () => getTypeRefOptions(dataTypes.getAll());
 	return SelectEntry({
 		element,
 		id,
@@ -19883,6 +20623,33 @@ function TypeRef(props) {
 		getOptions,
 		debounce
 	});
+}
+function getTypeRefOptions(dataTypes) {
+	const ungrouped = [];
+	const groups = [];
+	dataTypes.forEach((dataType) => {
+		const { name, label = name, group } = typeof dataType === "string" ? { name: dataType } : dataType;
+		const option = {
+			value: name,
+			label
+		};
+		if (!group) return ungrouped.push(option);
+		let entry = groups.find(({ id }) => id === group.id);
+		if (!entry) {
+			entry = {
+				id: group.id,
+				name: group.name,
+				options: []
+			};
+			groups.push(entry);
+		}
+		entry.options.push(option);
+	});
+	if (groups.length + (ungrouped.length ? 1 : 0) < 2) return [...ungrouped, ...groups.flatMap(({ options }) => options)];
+	return [...ungrouped, ...groups.map(({ name, options }) => ({
+		label: name,
+		children: options
+	}))];
 }
 var DmnPropertiesProvider = class {
 	constructor(propertiesPanel) {
@@ -20190,9 +20957,99 @@ function updateGeneralGroup(groups, element) {
 function findGroup(groups, id) {
 	return groups.find((g) => g.id === id);
 }
-//#endregion
-//#region ../../node_modules/@emaarco/dmn-js-simulation/dist/index.js
+// ../../node_modules/@emaarco/dmn-js-simulation/dist/index.js
 init_dist();
+var HitPolicyResolver = class {
+	constructor(model) {
+		this.model = model;
+	}
+	resolve(matchedRuleIndices, outputsByRule) {
+		let reportedRuleIndices;
+		let aggregation;
+		let violation;
+		switch (this.model.hitPolicy) {
+			case "FIRST":
+				reportedRuleIndices = matchedRuleIndices.slice(0, 1);
+				break;
+			case "UNIQUE":
+				if (matchedRuleIndices.length > 1) violation = `UNIQUE hit policy violated: ${matchedRuleIndices.length} rules matched (expected at most one)`;
+				reportedRuleIndices = matchedRuleIndices.slice(0, 1);
+				break;
+			case "ANY":
+				if (new Set(matchedRuleIndices.map((ri) => JSON.stringify(outputsByRule[ri]))).size > 1) violation = "ANY hit policy violated: matching rules produced different outputs";
+				return {
+					reportedRuleIndices: matchedRuleIndices,
+					outputs: matchedRuleIndices.length ? [outputsByRule[matchedRuleIndices[0]]] : [],
+					violation
+				};
+			case "PRIORITY":
+				violation = this.priorityOrderingWarning("PRIORITY", matchedRuleIndices);
+				reportedRuleIndices = this.sortByPriority(matchedRuleIndices, outputsByRule).slice(0, 1);
+				break;
+			case "OUTPUT ORDER":
+				violation = this.priorityOrderingWarning("OUTPUT ORDER", matchedRuleIndices);
+				reportedRuleIndices = this.sortByPriority(matchedRuleIndices, outputsByRule);
+				break;
+			case "COLLECT":
+				if (this.model.aggregation) aggregation = this.aggregate(this.model.aggregation, matchedRuleIndices, outputsByRule);
+				reportedRuleIndices = matchedRuleIndices;
+				break;
+			default: reportedRuleIndices = matchedRuleIndices;
+		}
+		const outputs = aggregation ? [] : reportedRuleIndices.map((ri) => outputsByRule[ri]);
+		return {
+			reportedRuleIndices,
+			outputs,
+			aggregation,
+			violation
+		};
+	}
+	sortByPriority(matchedRuleIndices, outputsByRule) {
+		return [...matchedRuleIndices].sort((a, b) => {
+			for (const output of this.model.outputs) {
+				const rankA = this.priorityRank(outputsByRule[a][output.name], output);
+				const rankB = this.priorityRank(outputsByRule[b][output.name], output);
+				if (rankA !== rankB) return rankA - rankB;
+			}
+			return a - b;
+		});
+	}
+	priorityRank(value, output) {
+		const list = output.priorityValues;
+		if (!list.length) return Number.POSITIVE_INFINITY;
+		const idx = list.indexOf(String(value ?? ""));
+		return idx === -1 ? Number.POSITIVE_INFINITY : idx;
+	}
+	priorityOrderingWarning(policy, matchedRuleIndices) {
+		if (matchedRuleIndices.length <= 1) return void 0;
+		if (this.model.outputs.some((o) => o.priorityValues.length)) return void 0;
+		return `${policy} hit policy: no output values defined to order by — falling back to rule order`;
+	}
+	aggregate(fn, matched, outputsByRule) {
+		const name = this.model.outputs[0]?.name ?? "result";
+		if (fn === "COUNT") return {
+			fn,
+			output: name,
+			value: matched.length
+		};
+		const numbers = matched.map((ri) => Number(outputsByRule[ri][name])).filter((n) => !Number.isNaN(n));
+		if (fn === "SUM") return {
+			fn,
+			output: name,
+			value: numbers.reduce((sum, n) => sum + n, 0)
+		};
+		if (!numbers.length) return {
+			fn,
+			output: name,
+			value: null
+		};
+		return {
+			fn,
+			output: name,
+			value: fn === "MIN" ? Math.min(...numbers) : Math.max(...numbers)
+		};
+	}
+};
 var NativeTemporal = globalThis.Temporal;
 var expectedPositive = (entityName, num) => `Non-positive ${entityName}: ${num}`;
 var expectedFinite = (entityName, num) => `Non-finite ${entityName}: ${num}`;
@@ -29467,36 +30324,42 @@ function formatValue$1(value) {
 	if (type === "nil") return "null";
 	return String(value);
 }
-var NUMERIC_TYPES = new Set([
-	"integer",
-	"long",
-	"int",
-	"number",
-	"double",
-	"decimal",
-	"float"
-]);
-function isNumericType(typeRef) {
-	return NUMERIC_TYPES.has((typeRef || "").toLowerCase());
-}
-var TEMPORAL_CONSTRUCTORS = {
+var KIND_BY_TYPE_REF = {
+	integer: "number",
+	long: "number",
+	int: "number",
+	number: "number",
+	double: "number",
+	decimal: "number",
+	float: "number",
+	boolean: "boolean",
 	date: "date",
 	time: "time",
-	datetime: "date and time",
-	"date and time": "date and time",
+	datetime: "dateTime",
+	"date and time": "dateTime",
 	duration: "duration",
 	daytimeduration: "duration",
 	yearmonthduration: "duration"
 };
+function classifyType(typeRef) {
+	return KIND_BY_TYPE_REF[(typeRef || "").toLowerCase()] ?? "string";
+}
+var TEMPORAL_CONSTRUCTORS = {
+	date: "date",
+	time: "time",
+	dateTime: "date and time",
+	duration: "duration"
+};
 function coerceValue(raw, typeRef) {
 	if (raw === void 0 || raw === null) return void 0;
 	if (typeof raw === "string" && raw.trim() === "") return void 0;
-	if (isNumericType(typeRef)) {
+	const kind = classifyType(typeRef);
+	if (kind === "number") {
 		const n = Number(raw);
 		return Number.isNaN(n) ? void 0 : n;
 	}
-	if ((typeRef || "").toLowerCase() === "boolean") return raw === true || raw === "true";
-	const constructor = TEMPORAL_CONSTRUCTORS[(typeRef || "").toLowerCase()];
+	if (kind === "boolean") return raw === true || raw === "true";
+	const constructor = TEMPORAL_CONSTRUCTORS[kind];
 	if (constructor) return evaluateExpression(`${constructor}(value)`, { value: String(raw) }) ?? void 0;
 	return String(raw);
 }
@@ -29517,125 +30380,150 @@ function evaluateExpression(text, context) {
 function temporalToIso(value) {
 	return value instanceof FeelDate || value instanceof FeelDateTime || value instanceof FeelTime || value instanceof FeelDuration ? value.toString() : null;
 }
-function priorityRank(value, output) {
-	const list = output.priorityValues;
-	if (!list.length) return Number.POSITIVE_INFINITY;
-	const idx = list.indexOf(String(value ?? ""));
-	return idx === -1 ? Number.POSITIVE_INFINITY : idx;
-}
-function byPriority(outputsByRule, outputs) {
-	return (a, b) => {
-		for (const output of outputs) {
-			const ra = priorityRank(outputsByRule[a][output.name], output);
-			const rb = priorityRank(outputsByRule[b][output.name], output);
-			if (ra !== rb) return ra - rb;
-		}
-		return a - b;
-	};
-}
-function priorityOrderingWarning(policy, model, matchedRuleIndices) {
-	if (matchedRuleIndices.length <= 1) return void 0;
-	if (model.outputs.some((o) => o.priorityValues.length)) return void 0;
-	return `${policy} hit policy: no output values defined to order by — falling back to rule order`;
-}
-function aggregate(fn, matched, outputsByRule, output) {
-	const name = output?.name ?? "result";
-	if (fn === "COUNT") return {
-		fn,
-		output: name,
-		value: matched.length
-	};
-	const numbers = matched.map((ri) => Number(outputsByRule[ri][name])).filter((n) => !Number.isNaN(n));
-	if (fn === "SUM") return {
-		fn,
-		output: name,
-		value: numbers.reduce((sum, n) => sum + n, 0)
-	};
-	if (!numbers.length) return {
-		fn,
-		output: name,
-		value: null
-	};
-	return {
-		fn,
-		output: name,
-		value: fn === "MIN" ? Math.min(...numbers) : Math.max(...numbers)
-	};
-}
-function applyHitPolicy(model, matchedRuleIndices, outputsByRule) {
-	let reportedRuleIndices;
-	let aggregation;
-	let violation;
-	switch (model.hitPolicy) {
-		case "FIRST":
-			reportedRuleIndices = matchedRuleIndices.slice(0, 1);
-			break;
-		case "UNIQUE":
-			if (matchedRuleIndices.length > 1) violation = `UNIQUE hit policy violated: ${matchedRuleIndices.length} rules matched (expected at most one)`;
-			reportedRuleIndices = matchedRuleIndices.slice(0, 1);
-			break;
-		case "ANY":
-			if (new Set(matchedRuleIndices.map((ri) => JSON.stringify(outputsByRule[ri]))).size > 1) violation = "ANY hit policy violated: matching rules produced different outputs";
-			return {
-				reportedRuleIndices: matchedRuleIndices,
-				outputs: matchedRuleIndices.length ? [outputsByRule[matchedRuleIndices[0]]] : [],
-				violation
-			};
-		case "PRIORITY":
-			violation = priorityOrderingWarning("PRIORITY", model, matchedRuleIndices);
-			reportedRuleIndices = [...matchedRuleIndices].sort(byPriority(outputsByRule, model.outputs)).slice(0, 1);
-			break;
-		case "OUTPUT ORDER":
-			violation = priorityOrderingWarning("OUTPUT ORDER", model, matchedRuleIndices);
-			reportedRuleIndices = [...matchedRuleIndices].sort(byPriority(outputsByRule, model.outputs));
-			break;
-		case "COLLECT":
-			if (model.aggregation) aggregation = aggregate(model.aggregation, matchedRuleIndices, outputsByRule, model.outputs[0]);
-			reportedRuleIndices = matchedRuleIndices;
-			break;
-		default: reportedRuleIndices = matchedRuleIndices;
+var DecisionTableEvaluator = class {
+	constructor(model) {
+		this.model = model;
+		this.hitPolicy = new HitPolicyResolver(model);
 	}
-	const outputs = aggregation ? [] : reportedRuleIndices.map((ri) => outputsByRule[ri]);
-	return {
-		reportedRuleIndices,
-		outputs,
-		aggregation,
-		violation
-	};
-}
-function inputCellMatches(cellText, value) {
-	const text = (cellText || "").trim();
-	if (text === "" || text === "-") return true;
-	return evaluateUnaryTest(text, value ?? null);
-}
-function ruleOutput(model, ruleIndex, context) {
-	const rule = model.rules[ruleIndex];
-	const obj = {};
-	model.outputs.forEach((output, ci) => {
-		const text = (rule.outputEntries[ci] || "").trim();
-		obj[output.name] = text === "" ? null : evaluateExpression(text, context);
-	});
-	return obj;
-}
-function evaluateDecision(model, rawValues) {
-	const values = model.inputs.map((input, i) => coerceValue(rawValues[i], input.typeRef));
-	const context = {};
-	model.inputs.forEach((input, i) => {
-		if (values[i] === void 0) return;
-		if (input.expression) context[input.expression] = values[i];
-		if (input.label) context[input.label] = values[i];
-	});
-	const matchedRuleIndices = [];
-	model.rules.forEach((rule, ri) => {
-		if (model.inputs.every((_, ci) => inputCellMatches(rule.inputEntries[ci], values[ci]))) matchedRuleIndices.push(ri);
-	});
-	const outputsByRule = {};
-	for (const ri of matchedRuleIndices) outputsByRule[ri] = ruleOutput(model, ri, context);
-	return {
-		matchedRuleIndices,
-		...applyHitPolicy(model, matchedRuleIndices, outputsByRule)
-	};
-}
+	evaluate(rawValues) {
+		return this.evaluateFeelValues(this.model.inputs.map((input, i) => coerceValue(rawValues[i], input.typeRef)));
+	}
+	evaluateFeelValues(values) {
+		const context = this.outputContext(values);
+		const matchedRuleIndices = [];
+		this.model.rules.forEach((rule, ri) => {
+			if (this.model.inputs.every((_, ci) => this.inputCellMatches(rule.inputEntries[ci], values[ci]))) matchedRuleIndices.push(ri);
+		});
+		const outputsByRule = {};
+		for (const ri of matchedRuleIndices) outputsByRule[ri] = this.ruleOutput(ri, context);
+		return {
+			matchedRuleIndices,
+			...this.hitPolicy.resolve(matchedRuleIndices, outputsByRule)
+		};
+	}
+	outputContext(values) {
+		const context = {};
+		this.model.inputs.forEach((input, i) => {
+			if (values[i] === void 0) return;
+			if (input.expression) context[input.expression] = values[i];
+			if (input.label) context[input.label] = values[i];
+		});
+		return context;
+	}
+	inputCellMatches(cellText, value) {
+		const text = (cellText || "").trim();
+		if (text === "" || text === "-") return true;
+		return evaluateUnaryTest(text, value ?? null);
+	}
+	ruleOutput(ruleIndex, context) {
+		const rule = this.model.rules[ruleIndex];
+		const output = {};
+		this.model.outputs.forEach((column, ci) => {
+			const text = (rule.outputEntries[ci] || "").trim();
+			output[column.name] = text === "" ? null : evaluateExpression(text, context);
+		});
+		return output;
+	}
+};
+var DecisionRequirementsDiagramEvaluator = class {
+	constructor(model) {
+		this.model = model;
+	}
+	evaluate(inputValues) {
+		const context = this.inputDataContext(inputValues);
+		const byId = new Map(this.model.decisions.map((d) => [d.id, d]));
+		const { order, cyclic } = this.topologicalOrder();
+		const results = {};
+		const skipped = new Set();
+		for (const id of order) {
+			const decision = byId.get(id);
+			if (decision.requiredDecisionIds.some((req) => skipped.has(req))) {
+				results[id] = this.skippedEvaluation(id);
+				skipped.add(id);
+				continue;
+			}
+			const evaluation = this.evaluateDecision(decision, context);
+			results[id] = evaluation;
+			if (evaluation.skipped) skipped.add(id);
+			else context[decision.variableName] = evaluation.value;
+		}
+		for (const id of cyclic) results[id] = this.skippedEvaluation(id);
+		return {
+			order,
+			results
+		};
+	}
+	inputDataContext(inputValues) {
+		const context = {};
+		for (const input of this.model.inputData) {
+			const coerced = coerceValue(inputValues[input.id], input.typeRef);
+			if (coerced !== void 0) context[input.name] = coerced;
+		}
+		return context;
+	}
+	topologicalOrder() {
+		const { decisions } = this.model;
+		const ids = new Set(decisions.map((d) => d.id));
+		const indegree = new Map();
+		const dependents = new Map();
+		for (const d of decisions) indegree.set(d.id, 0);
+		for (const d of decisions) for (const req of d.requiredDecisionIds) {
+			if (!ids.has(req)) continue;
+			indegree.set(d.id, (indegree.get(d.id) ?? 0) + 1);
+			dependents.set(req, [...dependents.get(req) ?? [], d.id]);
+		}
+		const queue = decisions.filter((d) => (indegree.get(d.id) ?? 0) === 0).map((d) => d.id);
+		const order = [];
+		while (queue.length) {
+			const id = queue.shift();
+			order.push(id);
+			for (const dep of dependents.get(id) ?? []) {
+				indegree.set(dep, (indegree.get(dep) ?? 0) - 1);
+				if ((indegree.get(dep) ?? 0) === 0) queue.push(dep);
+			}
+		}
+		return {
+			order,
+			cyclic: decisions.filter((d) => !order.includes(d.id)).map((d) => d.id)
+		};
+	}
+	evaluateDecision(decision, context) {
+		const { logic } = decision;
+		if (logic.kind === "decisionTable") {
+			const values = logic.model.inputs.map((input) => input.expression ? evaluateExpression(input.expression, context) ?? void 0 : void 0);
+			const table = new DecisionTableEvaluator(logic.model).evaluateFeelValues(values);
+			const inputs = values;
+			return {
+				decisionId: decision.id,
+				value: this.decisionTableValue(logic.model, table),
+				table,
+				inputs
+			};
+		}
+		if (logic.kind === "literalExpression") return {
+			decisionId: decision.id,
+			value: evaluateExpression(logic.expression, context)
+		};
+		return this.skippedEvaluation(decision.id);
+	}
+	decisionTableValue(model, evaluation) {
+		if (evaluation.aggregation) return evaluation.aggregation.value;
+		if (evaluation.outputs.length === 0) return null;
+		if (model.outputs.length === 1) {
+			const name = model.outputs[0].name;
+			const values = evaluation.outputs.map((output) => output[name]);
+			return values.length === 1 ? values[0] : values;
+		}
+		return evaluation.outputs.length === 1 ? evaluation.outputs[0] : evaluation.outputs;
+	}
+	skippedEvaluation(decisionId) {
+		return {
+			decisionId,
+			value: null,
+			skipped: true
+		};
+	}
+};
 function parseOutputValueList(text) {
 	if (!text) return [];
 	return text.split(",").map((part) => part.trim().replace(/^"(.*)"$/, "$1")).filter((part) => part.length > 0);
@@ -29660,9 +30548,9 @@ function formatBound(value, numeric) {
 	return temporalToIso(value);
 }
 function collectColumnBounds(inputEntryTexts, typeRef) {
-	const numeric = isNumericType(typeRef);
-	const dateLike = (typeRef || "").toLowerCase() === "date";
-	if (!numeric && !dateLike) return {};
+	const kind = classifyType(typeRef);
+	const numeric = kind === "number";
+	if (!numeric && !(kind === "date")) return {};
 	const lowers = [];
 	const uppers = [];
 	let openLow = false;
@@ -29718,223 +30606,166 @@ function collectColumnBounds(inputEntryTexts, typeRef) {
 	}
 	return out;
 }
-function decisionTableValue(model, evaluation) {
-	if (evaluation.aggregation) return evaluation.aggregation.value;
-	if (evaluation.outputs.length === 0) return null;
-	if (model.outputs.length === 1) {
-		const name = model.outputs[0].name;
-		const values = evaluation.outputs.map((output) => output[name]);
-		return values.length === 1 ? values[0] : values;
-	}
-	return evaluation.outputs.length === 1 ? evaluation.outputs[0] : evaluation.outputs;
-}
-function topologicalOrder(decisions) {
-	const ids = new Set(decisions.map((d) => d.id));
-	const indegree = new Map();
-	const dependents = new Map();
-	for (const d of decisions) indegree.set(d.id, 0);
-	for (const d of decisions) for (const req of d.requiredDecisionIds) {
-		if (!ids.has(req)) continue;
-		indegree.set(d.id, (indegree.get(d.id) ?? 0) + 1);
-		dependents.set(req, [...dependents.get(req) ?? [], d.id]);
-	}
-	const queue = decisions.filter((d) => (indegree.get(d.id) ?? 0) === 0).map((d) => d.id);
-	const order = [];
-	while (queue.length) {
-		const id = queue.shift();
-		order.push(id);
-		for (const dep of dependents.get(id) ?? []) {
-			indegree.set(dep, (indegree.get(dep) ?? 0) - 1);
-			if ((indegree.get(dep) ?? 0) === 0) queue.push(dep);
-		}
-	}
-	return {
-		order,
-		cyclic: decisions.filter((d) => !order.includes(d.id)).map((d) => d.id)
-	};
-}
-function evaluateDecisionRequirementsDiagram(model, inputValues) {
-	const context = {};
-	for (const input of model.inputData) {
-		const coerced = coerceValue(inputValues[input.id], input.typeRef);
-		if (coerced !== void 0) context[input.name] = coerced;
-	}
-	const byId = new Map(model.decisions.map((d) => [d.id, d]));
-	const { order, cyclic } = topologicalOrder(model.decisions);
-	const results = {};
-	const skipped = new Set();
-	for (const id of order) {
-		const decision = byId.get(id);
-		if (decision.requiredDecisionIds.some((req) => skipped.has(req))) {
-			results[id] = {
-				decisionId: id,
-				value: null,
-				skipped: true
-			};
-			skipped.add(id);
-			continue;
-		}
-		const evaluation = evaluateDecisionNode(decision, context);
-		results[id] = evaluation;
-		if (evaluation.skipped) skipped.add(id);
-		else context[decision.variableName] = evaluation.value;
-	}
-	for (const id of cyclic) results[id] = {
-		decisionId: id,
-		value: null,
-		skipped: true
-	};
-	return {
-		order,
-		results
-	};
-}
-function evaluateDecisionNode(decision, context) {
-	const { logic } = decision;
-	if (logic.kind === "decisionTable") {
-		const values = logic.model.inputs.map((input) => {
-			if (!input.expression) return void 0;
-			return evaluateExpression(input.expression, context);
-		});
-		const table = evaluateDecision(logic.model, values);
+var AGGREGATIONS = [
+	"SUM",
+	"MIN",
+	"MAX",
+	"COUNT"
+];
+var DecisionModelBuilder = class {
+	build(raw) {
+		const rules = raw.rules.map((rule, ri) => ({
+			...rule,
+			id: rule.id || `rule_${ri}`
+		}));
 		return {
-			decisionId: decision.id,
-			value: decisionTableValue(logic.model, table),
-			table,
-			inputs: values
+			decisionId: raw.decisionId,
+			decisionName: raw.decisionName,
+			hitPolicy: (raw.hitPolicy || "UNIQUE").toUpperCase(),
+			aggregation: AGGREGATIONS.find((a) => a === raw.aggregation.toUpperCase()),
+			inputs: raw.inputs.map((input, ci) => this.buildInput(input, ci, rules)),
+			outputs: raw.outputs.map((output, ci) => this.buildOutput(output, ci)),
+			rules
 		};
 	}
-	if (logic.kind === "literalExpression") return {
-		decisionId: decision.id,
-		value: evaluateExpression(logic.expression, context)
-	};
-	return {
-		decisionId: decision.id,
-		value: null,
-		skipped: true
-	};
-}
-function str(value) {
+	buildInput(input, ci, rules) {
+		const typeRef = input.typeRef || "string";
+		const columnCells = rules.map((r) => r.inputEntries[ci] ?? "");
+		return {
+			id: input.id || `input_${ci}`,
+			label: input.label || input.expression || `Input ${ci + 1}`,
+			expression: input.expression,
+			typeRef,
+			options: collectColumnOptions(columnCells),
+			...collectColumnBounds(columnCells, typeRef)
+		};
+	}
+	buildOutput(output, ci) {
+		const name = output.name || output.label || `Output ${ci + 1}`;
+		return {
+			id: output.id || `output_${ci}`,
+			name,
+			label: output.label || name,
+			typeRef: output.typeRef || "string",
+			priorityValues: parseOutputValueList(output.outputValues)
+		};
+	}
+};
+function stringOf(value) {
 	return typeof value === "string" ? value : "";
 }
-function asArray(value) {
+function elementsOf(value) {
 	return Array.isArray(value) ? value : [];
 }
 function entryText(entry) {
-	return str(entry?.text).trim();
+	return stringOf(entry?.text).trim();
 }
-function decisionTableToModel(decisionTable) {
-	if (!decisionTable || decisionTable.$type !== "dmn:DecisionTable") throw new Error("Expected a dmn:DecisionTable businessObject");
-	const decision = decisionTable.$parent;
-	const hitPolicy = (str(decisionTable.hitPolicy) || "UNIQUE").toUpperCase();
-	const aggregationAttr = str(decisionTable.aggregation).toUpperCase();
-	const aggregation = [
-		"SUM",
-		"MIN",
-		"MAX",
-		"COUNT"
-	].find((a) => a === aggregationAttr);
-	const inputEls = asArray(decisionTable.input);
-	const outputEls = asArray(decisionTable.output);
-	const rules = asArray(decisionTable.rule).map((rule, ri) => ({
-		id: str(rule.id) || `rule_${ri}`,
-		inputEntries: asArray(rule.inputEntry).map(entryText),
-		outputEntries: asArray(rule.outputEntry).map(entryText)
-	}));
-	const inputs = inputEls.map((input, ci) => {
-		const expressionEl = input.inputExpression;
-		const expression = entryText(expressionEl);
-		const label = str(input.label) || expression || `Input ${ci + 1}`;
-		const typeRef = str(expressionEl?.typeRef) || "string";
-		const columnCells = rules.map((r) => r.inputEntries[ci] ?? "");
-		const options = collectColumnOptions(columnCells);
-		const { min, max } = collectColumnBounds(columnCells, typeRef);
-		return {
-			id: str(input.id) || `input_${ci}`,
-			label,
-			expression,
-			typeRef,
-			options,
-			min,
-			max
-		};
-	});
-	const outputs = outputEls.map((output, ci) => {
-		const label = str(output.label);
-		const name = str(output.name) || label || `Output ${ci + 1}`;
-		const outputValues = output.outputValues;
-		const priorityValues = parseOutputValueList(entryText(outputValues));
-		return {
-			id: str(output.id) || `output_${ci}`,
-			name,
-			label: label || name,
-			typeRef: str(output.typeRef) || "string",
-			priorityValues
-		};
-	});
-	return {
-		decisionId: str(decision?.id),
-		decisionName: str(decision?.name),
-		hitPolicy,
-		aggregation,
-		inputs,
-		outputs,
-		rules
-	};
-}
-function refId(ref) {
+function referencedId(ref) {
 	if (!ref || typeof ref !== "object") return "";
-	const r = ref;
-	if (r.id) return str(r.id);
-	const href = str(r.href);
+	const element = ref;
+	if (element.id) return stringOf(element.id);
+	const href = stringOf(element.href);
 	return href.startsWith("#") ? href.slice(1) : href;
 }
-function toDecisionLogic(logic) {
-	if (logic?.$type === "dmn:DecisionTable") return {
-		kind: "decisionTable",
-		model: decisionTableToModel(logic)
-	};
-	if (logic?.$type === "dmn:LiteralExpression") return {
-		kind: "literalExpression",
-		expression: entryText(logic)
-	};
-	return { kind: "none" };
-}
-function definitionsToDecisionRequirementsDiagramModel(definitions) {
-	if (!definitions || definitions.$type !== "dmn:Definitions") throw new Error("Expected a dmn:Definitions businessObject");
-	const drgElements = asArray(definitions.drgElement);
-	return {
-		inputData: drgElements.filter((el) => el.$type === "dmn:InputData").map((el) => {
-			const variable = el.variable;
-			const name = str(variable?.name) || str(el.name) || str(el.id);
-			return {
-				id: str(el.id),
-				name,
-				label: str(el.name) || name,
-				typeRef: str(variable?.typeRef) || "string"
-			};
-		}),
-		decisions: drgElements.filter((el) => el.$type === "dmn:Decision").map((el) => {
-			const variable = el.variable;
-			const requirements = asArray(el.informationRequirement);
-			return {
-				id: str(el.id),
-				name: str(el.name) || str(el.id),
-				variableName: str(variable?.name) || str(el.name) || str(el.id),
-				requiredDecisionIds: requirements.map((ir) => refId(ir.requiredDecision)).filter(Boolean),
-				requiredInputIds: requirements.map((ir) => refId(ir.requiredInput)).filter(Boolean),
-				logic: toDecisionLogic(el.decisionLogic)
-			};
-		})
-	};
-}
-var SimulationStore = class {
+var DmnModdleReader = class {
 	constructor() {
+		this.builder = new DecisionModelBuilder();
+	}
+	readDecisionTable(decisionTable) {
+		if (!decisionTable || decisionTable.$type !== "dmn:DecisionTable") throw new Error("Expected a dmn:DecisionTable businessObject");
+		const decision = decisionTable.$parent;
+		return this.builder.build({
+			decisionId: stringOf(decision?.id),
+			decisionName: stringOf(decision?.name),
+			hitPolicy: stringOf(decisionTable.hitPolicy),
+			aggregation: stringOf(decisionTable.aggregation),
+			inputs: elementsOf(decisionTable.input).map((input) => {
+				const expressionElement = input.inputExpression;
+				return {
+					id: stringOf(input.id),
+					label: stringOf(input.label),
+					expression: entryText(expressionElement),
+					typeRef: stringOf(expressionElement?.typeRef)
+				};
+			}),
+			outputs: elementsOf(decisionTable.output).map((output) => ({
+				id: stringOf(output.id),
+				name: stringOf(output.name),
+				label: stringOf(output.label),
+				typeRef: stringOf(output.typeRef),
+				outputValues: entryText(output.outputValues)
+			})),
+			rules: elementsOf(decisionTable.rule).map((rule) => ({
+				id: stringOf(rule.id),
+				inputEntries: elementsOf(rule.inputEntry).map(entryText),
+				outputEntries: elementsOf(rule.outputEntry).map(entryText)
+			}))
+		});
+	}
+	readDecisionRequirementsDiagram(definitions) {
+		if (!definitions || definitions.$type !== "dmn:Definitions") throw new Error("Expected a dmn:Definitions businessObject");
+		const drgElements = elementsOf(definitions.drgElement);
+		return {
+			inputData: drgElements.filter((el) => el.$type === "dmn:InputData").map((el) => this.readInputData(el)),
+			decisions: drgElements.filter((el) => el.$type === "dmn:Decision").map((el) => this.readDecision(el))
+		};
+	}
+	readInputData(element) {
+		const variable = element.variable;
+		const name = stringOf(variable?.name) || stringOf(element.name) || stringOf(element.id);
+		return {
+			id: stringOf(element.id),
+			name,
+			label: stringOf(element.name) || name,
+			typeRef: stringOf(variable?.typeRef) || "string"
+		};
+	}
+	readDecision(element) {
+		const variable = element.variable;
+		const requirements = elementsOf(element.informationRequirement);
+		return {
+			id: stringOf(element.id),
+			name: stringOf(element.name) || stringOf(element.id),
+			variableName: stringOf(variable?.name) || stringOf(element.name) || stringOf(element.id),
+			requiredDecisionIds: requirements.map((ir) => referencedId(ir.requiredDecision)).filter(Boolean),
+			requiredInputIds: requirements.map((ir) => referencedId(ir.requiredInput)).filter(Boolean),
+			logic: this.readDecisionLogic(element.decisionLogic)
+		};
+	}
+	readDecisionLogic(logic) {
+		if (logic?.$type === "dmn:DecisionTable") return {
+			kind: "decisionTable",
+			model: this.readDecisionTable(logic)
+		};
+		if (logic?.$type === "dmn:LiteralExpression") return {
+			kind: "literalExpression",
+			expression: entryText(logic)
+		};
+		return { kind: "none" };
+	}
+};
+var Observable = class {
+	constructor() {
+		this.listeners = new Set();
+	}
+	subscribe(listener) {
+		this.listeners.add(listener);
+		return () => {
+			this.listeners.delete(listener);
+		};
+	}
+	notify() {
+		for (const listener of [...this.listeners]) listener();
+	}
+};
+var SimulationStore = class extends Observable {
+	constructor() {
+		super(...arguments);
 		this.model = null;
 		this.values = [];
 		this.result = null;
 		this.resultIsLocal = false;
-		this.listeners = new Set();
+		this.bridge = null;
 	}
 	getModel() {
 		return this.model;
@@ -29945,119 +30776,105 @@ var SimulationStore = class {
 	getResult() {
 		return this.result;
 	}
-	isLocalRun() {
-		return this.resultIsLocal;
-	}
 	setModel(model) {
-		this.model = model;
-		this.values = model ? model.inputs.map(() => "") : [];
-		this.result = null;
-		this.resultIsLocal = false;
-		this.emit();
-	}
-	refreshModel(model) {
+		if (model && this.model && this.sameModel(this.model, model)) return;
 		const previous = this.model;
 		const previousValues = this.values;
 		this.model = model;
-		this.values = model.inputs.map((input) => {
-			const prevIndex = previous ? previous.inputs.findIndex((p) => p.id === input.id) : -1;
-			return prevIndex >= 0 ? previousValues[prevIndex] ?? "" : "";
+		this.values = (model?.inputs ?? []).map((input) => {
+			const previousIndex = previous ? previous.inputs.findIndex((p) => p.id === input.id) : -1;
+			return previousIndex >= 0 ? previousValues[previousIndex] ?? "" : "";
 		});
-		this.result = null;
-		this.resultIsLocal = false;
-		this.emit();
+		this.clearResult();
+		this.notify();
+		this.reflectBridge();
 	}
-	hydrate(values, result) {
-		if (!this.model || values.length !== this.model.inputs.length) return;
-		this.values = [...values];
-		this.result = result;
-		this.resultIsLocal = false;
-		this.emit();
-	}
-	clearHydrated() {
-		if (this.resultIsLocal || this.result === null) return;
-		this.result = null;
-		this.emit();
+	connectBridge(bridge) {
+		this.bridge = bridge;
+		const unsubscribe = bridge.subscribe(() => this.reflectBridge());
+		this.reflectBridge();
+		return () => {
+			unsubscribe();
+			this.bridge = null;
+		};
 	}
 	setValue(index, value) {
 		if (index < 0 || index >= this.values.length) return;
 		this.values = this.values.map((v, i) => i === index ? value : v);
-		this.result = null;
-		this.resultIsLocal = false;
-		this.emit();
+		this.clearResult();
+		this.notify();
 	}
 	run() {
 		if (!this.model) return null;
-		this.result = evaluateDecision(this.model, this.values);
+		this.result = new DecisionTableEvaluator(this.model).evaluate(this.values);
 		this.resultIsLocal = true;
-		this.emit();
+		this.notify();
 		return this.result;
 	}
 	reset() {
-		this.values = this.model ? this.model.inputs.map(() => "") : [];
+		this.values = this.values.map(() => "");
+		this.clearResult();
+		this.notify();
+	}
+	reflectBridge() {
+		const decisionId = this.model?.decisionId;
+		if (!this.bridge || !decisionId || this.resultIsLocal) return;
+		const reflection = this.bridge.getTableReflection(decisionId);
+		if (!reflection) this.dropReflectedResult();
+		else if (this.result !== reflection.result) this.reflect(reflection.inputs, reflection.result);
+	}
+	reflect(values, result) {
+		if (!this.model || values.length !== this.model.inputs.length) return;
+		this.values = [...values];
+		this.result = result;
+		this.resultIsLocal = false;
+		this.notify();
+	}
+	dropReflectedResult() {
+		if (this.result === null) return;
+		this.result = null;
+		this.notify();
+	}
+	clearResult() {
 		this.result = null;
 		this.resultIsLocal = false;
-		this.emit();
 	}
-	subscribe(listener) {
-		this.listeners.add(listener);
-		return () => {
-			this.listeners.delete(listener);
-		};
-	}
-	emit() {
-		const snapshot = {
-			model: this.model,
-			values: this.values,
-			result: this.result
-		};
-		for (const listener of [...this.listeners]) listener(snapshot);
+	sameModel(a, b) {
+		return JSON.stringify(a) === JSON.stringify(b);
 	}
 };
-var ModelerBridge = class {
+var ModelerBridge = class ModelerBridge extends Observable {
 	constructor() {
-		this.tableResults = new Map();
-		this.listeners = new Set();
+		super(...arguments);
+		this.tableReflections = new Map();
 	}
-	setDecisionRequirementsDiagramResult(result) {
-		this.tableResults = new Map();
-		for (const [decisionId, evaluation] of Object.entries(result.results)) if (evaluation.table) this.tableResults.set(decisionId, {
+	static forParent(parent) {
+		if (!parent || typeof parent !== "object") return null;
+		let bridge = ModelerBridge.bridgesByParent.get(parent);
+		if (!bridge) {
+			bridge = new ModelerBridge();
+			ModelerBridge.bridgesByParent.set(parent, bridge);
+		}
+		return bridge;
+	}
+	publish(result) {
+		this.tableReflections = new Map();
+		for (const [decisionId, evaluation] of Object.entries(result.results)) if (evaluation.table) this.tableReflections.set(decisionId, {
 			result: evaluation.table,
 			inputs: evaluation.inputs ?? []
 		});
-		this.emit();
-	}
-	getTableResult(decisionId) {
-		return this.tableResults.get(decisionId)?.result ?? null;
+		this.notify();
 	}
 	getTableReflection(decisionId) {
-		return this.tableResults.get(decisionId) ?? null;
+		return this.tableReflections.get(decisionId) ?? null;
 	}
 	clear() {
-		if (this.tableResults.size === 0) return;
-		this.tableResults = new Map();
-		this.emit();
-	}
-	subscribe(listener) {
-		this.listeners.add(listener);
-		return () => {
-			this.listeners.delete(listener);
-		};
-	}
-	emit() {
-		for (const listener of [...this.listeners]) listener();
+		if (this.tableReflections.size === 0) return;
+		this.tableReflections = new Map();
+		this.notify();
 	}
 };
-var registry = new WeakMap();
-function getModelerBridge(parent) {
-	if (!parent || typeof parent !== "object") return null;
-	let bridge = registry.get(parent);
-	if (!bridge) {
-		bridge = new ModelerBridge();
-		registry.set(parent, bridge);
-	}
-	return bridge;
-}
+ModelerBridge.bridgesByParent = new WeakMap();
 function isNullOrUndef(o) {
 	return isUndefined(o) || isNull(o);
 }
@@ -30133,31 +30950,6 @@ function createElement(type, props) {
 	}
 	return createVNode(flags, type, className, children, 0, newProps, key, ref);
 }
-function formatValue(value) {
-	if (value === null || value === void 0) return "–";
-	if (typeof value === "string") return value;
-	if (typeof value === "number") return Number.isFinite(value) ? String(value) : "–";
-	if (typeof value === "boolean" || typeof value === "bigint") return String(value);
-	if (value instanceof Date) return value.toISOString();
-	const iso = temporalToIso(value);
-	if (iso !== null) return iso;
-	try {
-		const json = JSON.stringify(value);
-		return typeof json === "string" ? json : "–";
-	} catch {
-		return "–";
-	}
-}
-var TEMPORAL_INPUT_TYPES = {
-	date: "date",
-	datetime: "datetime-local",
-	"date and time": "datetime-local",
-	time: "time"
-};
-function htmlInputType(typeRef) {
-	if (isNumericType(typeRef)) return "number";
-	return TEMPORAL_INPUT_TYPES[(typeRef || "").toLowerCase()] ?? "text";
-}
 var DURATION_UNITS = [
 	{
 		value: "Y",
@@ -30181,10 +30973,6 @@ var DURATION_UNITS = [
 	}
 ];
 var DEFAULT_DURATION_UNIT = "D";
-function isDurationType(typeRef) {
-	const t = (typeRef || "").toLowerCase();
-	return t === "duration" || t === "daytimeduration" || t === "yearmonthduration";
-}
 function composeDuration(amount, unit) {
 	const n = (amount ?? "").trim();
 	if (n === "") return "";
@@ -30212,36 +31000,137 @@ function parseDuration(value) {
 	}
 	return null;
 }
-function ResultBar({ result }) {
-	const className = "dmn-sim-result" + (result.matchedRuleIndices.length === 0 ? " dmn-sim-result--miss" : "") + (result.violation ? " dmn-sim-result--warn" : "");
-	const outputs = result.aggregation ? createElement("span", { className: "dmn-sim-output" }, `${result.aggregation.fn}(${result.aggregation.output}) = `, createElement("strong", null, formatValue(result.aggregation.value))) : result.outputs.length ? result.outputs.map((output, oi) => createElement("span", {
-		className: "dmn-sim-output",
-		key: oi
-	}, Object.keys(output).map((key) => createElement("span", { key }, `${key} = `, createElement("strong", null, formatValue(output[key])))))) : createElement("span", { className: "dmn-sim-none" }, "no matching rule");
-	return createElement("div", { className }, createElement("span", { className: "dmn-sim-arrow" }, "→"), outputs, result.violation ? createElement("span", { className: "dmn-sim-violation" }, `⚠ ${result.violation}`) : null, result.reportedRuleIndices.length ? createElement("span", { className: "dmn-sim-rule" }, `${result.reportedRuleIndices.length > 1 ? "Rules" : "Rule"} ${result.reportedRuleIndices.map((i) => i + 1).join(", ")}`) : null);
+var HTML_INPUT_TYPES = {
+	number: "number",
+	date: "date",
+	dateTime: "datetime-local",
+	time: "time"
+};
+function describeControl(input) {
+	if (input.options?.length) return {
+		kind: "select",
+		options: input.options
+	};
+	const kind = classifyType(input.typeRef);
+	if (kind === "duration") return { kind: "duration" };
+	return {
+		kind: "native",
+		htmlType: HTML_INPUT_TYPES[kind] ?? "text",
+		placeholder: input.typeRef,
+		min: input.min,
+		max: input.max
+	};
 }
 function selectOptions(options, value) {
 	const v = value == null ? "" : String(value);
 	return v !== "" && !options.includes(v) ? [v, ...options] : options;
 }
-var SimulationFormComponent = class extends Component {
+function durationParts(value, fallbackUnit = DEFAULT_DURATION_UNIT) {
+	const parsed = parseDuration(String(value ?? ""));
+	return {
+		amount: parsed?.amount ?? "",
+		unit: parsed?.unit ?? fallbackUnit
+	};
+}
+var InputField = class extends Component {
 	constructor(props, context) {
 		super(props, context);
-		this.durationUnits = new Map();
-		this.onChange = (index) => (event) => {
-			this.store.setValue(index, event.target.value);
+		this.onValue = (event) => {
+			this.props.onChange(event.target.value);
 		};
-		this.onDurationAmount = (index) => (event) => {
-			const unit = this.durationUnit(index);
-			this.durationUnits.set(index, unit);
-			this.store.setValue(index, composeDuration(event.target.value, unit));
+		this.onDurationAmount = (event) => {
+			const amount = event.target.value;
+			const unit = this.durationUnit();
+			this.setState({ durationUnit: unit });
+			this.props.onChange(composeDuration(amount, unit));
 		};
-		this.onDurationUnit = (index) => (event) => {
+		this.onDurationUnit = (event) => {
 			const unit = event.target.value;
-			this.durationUnits.set(index, unit);
-			const amount = parseDuration(String(this.store.getValues()[index] ?? ""))?.amount ?? "";
-			this.store.setValue(index, composeDuration(amount, unit));
+			const { amount } = durationParts(this.props.value);
+			this.setState({ durationUnit: unit });
+			this.props.onChange(composeDuration(amount, unit));
 		};
+		this.state = {};
+	}
+	durationUnit() {
+		return this.state?.durationUnit ?? durationParts(this.props.value).unit;
+	}
+	render() {
+		const { input, value } = this.props;
+		const spec = describeControl(input);
+		if (spec.kind === "select") return createElement("select", {
+			className: "dmn-sim-input",
+			value: value ?? "",
+			onChange: this.onValue
+		}, createElement("option", { value: "" }, "–"), selectOptions(spec.options, value).map((option) => createElement("option", {
+			value: option,
+			key: option
+		}, option)));
+		if (spec.kind === "duration") {
+			const { amount, unit } = durationParts(value, this.durationUnit());
+			return createElement("span", { className: "dmn-sim-duration" }, createElement("input", {
+				className: "dmn-sim-input dmn-sim-duration-amount",
+				type: "number",
+				min: "0",
+				placeholder: "amount",
+				value: amount,
+				onInput: this.onDurationAmount
+			}), createElement("select", {
+				className: "dmn-sim-input dmn-sim-duration-unit",
+				value: unit,
+				onChange: this.onDurationUnit
+			}, DURATION_UNITS.map((u) => createElement("option", {
+				value: u.value,
+				key: u.value
+			}, u.label))));
+		}
+		return createElement("input", {
+			className: "dmn-sim-input",
+			type: spec.htmlType,
+			placeholder: spec.placeholder,
+			min: spec.min,
+			max: spec.max,
+			value: value ?? "",
+			onInput: this.onValue
+		});
+	}
+};
+function formatValue(value) {
+	if (value === null || value === void 0) return "–";
+	if (typeof value === "string") return value;
+	if (typeof value === "number") return Number.isFinite(value) ? String(value) : "–";
+	if (typeof value === "boolean" || typeof value === "bigint") return String(value);
+	if (value instanceof Date) return value.toISOString();
+	const iso = temporalToIso(value);
+	if (iso !== null) return iso;
+	try {
+		const json = JSON.stringify(value);
+		return typeof json === "string" ? json : "–";
+	} catch {
+		return "–";
+	}
+}
+var ResultBar = class extends Component {
+	render() {
+		const { result } = this.props;
+		return createElement("div", { className: "dmn-sim-result" + (result.matchedRuleIndices.length === 0 ? " dmn-sim-result--miss" : "") + (result.violation ? " dmn-sim-result--warn" : "") }, createElement("span", { className: "dmn-sim-arrow" }, "→"), this.renderOutputs(result), result.violation ? createElement("span", { className: "dmn-sim-violation" }, `⚠ ${result.violation}`) : null, this.renderReportedRules(result.reportedRuleIndices));
+	}
+	renderOutputs(result) {
+		if (result.aggregation) return createElement("span", { className: "dmn-sim-output" }, `${result.aggregation.fn}(${result.aggregation.output}) = `, createElement("strong", null, formatValue(result.aggregation.value)));
+		if (!result.outputs.length) return createElement("span", { className: "dmn-sim-none" }, "no matching rule");
+		return result.outputs.map((output, oi) => createElement("span", {
+			className: "dmn-sim-output",
+			key: oi
+		}, Object.keys(output).map((key) => createElement("span", { key }, `${key} = `, createElement("strong", null, formatValue(output[key]))))));
+	}
+	renderReportedRules(reportedRuleIndices) {
+		if (!reportedRuleIndices.length) return null;
+		return createElement("span", { className: "dmn-sim-rule" }, `${reportedRuleIndices.length > 1 ? "Rules" : "Rule"} ${reportedRuleIndices.map((i) => i + 1).join(", ")}`);
+	}
+};
+var SimulationForm = class extends Component {
+	constructor(props, context) {
+		super(props, context);
 		this.onSubmit = (event) => {
 			event.preventDefault();
 			this.store.run();
@@ -30257,48 +31146,6 @@ var SimulationFormComponent = class extends Component {
 	componentWillUnmount() {
 		this.unsubscribe?.();
 	}
-	durationUnit(index) {
-		return this.durationUnits.get(index) ?? parseDuration(String(this.store.getValues()[index] ?? ""))?.unit ?? DEFAULT_DURATION_UNIT;
-	}
-	renderControl(input, i, value) {
-		if (input.options.length) return createElement("select", {
-			className: "dmn-sim-input",
-			value: value ?? "",
-			onChange: this.onChange(i)
-		}, createElement("option", { value: "" }, "–"), selectOptions(input.options, value).map((option) => createElement("option", {
-			value: option,
-			key: option
-		}, option)));
-		if (isDurationType(input.typeRef)) {
-			const parsed = parseDuration(String(value ?? ""));
-			const amount = parsed?.amount ?? "";
-			const unit = parsed?.unit ?? this.durationUnit(i);
-			return createElement("span", { className: "dmn-sim-duration" }, createElement("input", {
-				className: "dmn-sim-input dmn-sim-duration-amount",
-				type: "number",
-				min: "0",
-				placeholder: "amount",
-				value: amount,
-				onInput: this.onDurationAmount(i)
-			}), createElement("select", {
-				className: "dmn-sim-input dmn-sim-duration-unit",
-				value: unit,
-				onChange: this.onDurationUnit(i)
-			}, DURATION_UNITS.map((u) => createElement("option", {
-				value: u.value,
-				key: u.value
-			}, u.label))));
-		}
-		return createElement("input", {
-			className: "dmn-sim-input",
-			type: htmlInputType(input.typeRef),
-			placeholder: input.typeRef,
-			min: input.min,
-			max: input.max,
-			value: value ?? "",
-			onInput: this.onChange(i)
-		});
-	}
 	render() {
 		const model = this.store.getModel();
 		if (!model) return null;
@@ -30310,7 +31157,11 @@ var SimulationFormComponent = class extends Component {
 		}, model.inputs.map((input, i) => createElement("label", {
 			className: "dmn-sim-field",
 			key: input.id
-		}, createElement("span", { className: "dmn-sim-field-label" }, input.label), this.renderControl(input, i, values[i]))), createElement("button", {
+		}, createElement("span", { className: "dmn-sim-field-label" }, input.label), createElement(InputField, {
+			input,
+			value: values[i],
+			onChange: (value) => this.store.setValue(i, value)
+		}))), createElement("button", {
 			type: "button",
 			className: "dmn-sim-run",
 			title: "Run the simulation",
@@ -30322,101 +31173,90 @@ var SimulationFormComponent = class extends Component {
 		}, "Reset")), result ? createElement(ResultBar, { result }) : null);
 	}
 };
-var TableSimulation = class {
-	constructor(eventBus, sheet, renderer, components, store, injector) {
-		this.disposers = [];
-		this.destroyed = false;
-		this.sheet = sheet;
+var RuleRowHighlighter = class {
+	constructor(renderer, store) {
 		this.renderer = renderer;
 		this.store = store;
-		this.bridge = getModelerBridge(injector.get("_parent", false));
-		components.onGetComponent("table.before", () => SimulationFormComponent);
-		const onRender = () => this.onRender();
+		this.disposed = false;
+		this.unsubscribe = store.subscribe(() => this.apply());
+	}
+	applyAfterRender() {
+		if (this.disposed) return;
+		this.scheduled?.cancel();
+		const apply = () => {
+			this.scheduled = void 0;
+			this.apply();
+		};
+		if (typeof requestAnimationFrame === "function") {
+			const id = requestAnimationFrame(apply);
+			this.scheduled = { cancel: () => cancelAnimationFrame(id) };
+		} else {
+			const id = setTimeout(apply, 0);
+			this.scheduled = { cancel: () => clearTimeout(id) };
+		}
+	}
+	dispose() {
+		this.disposed = true;
+		this.unsubscribe();
+		this.scheduled?.cancel();
+		this.scheduled = void 0;
+	}
+	apply() {
+		if (this.disposed) return;
+		const container = this.renderer.getContainer();
+		if (!container) return;
+		const result = this.store.getResult();
+		const reported = new Set(result?.reportedRuleIndices ?? []);
+		const matched = new Set(result?.matchedRuleIndices ?? []);
+		this.ruleRows(container).forEach((row, index) => {
+			row.classList.toggle("dmn-sim-match", reported.has(index));
+			row.classList.toggle("dmn-sim-candidate", matched.has(index) && !reported.has(index));
+		});
+	}
+	ruleRows(container) {
+		const rows = [];
+		const seen = new Set();
+		container.querySelectorAll("[data-row-id]").forEach((cell) => {
+			const row = cell.closest("tr");
+			if (row && !seen.has(row)) {
+				seen.add(row);
+				rows.push(row);
+			}
+		});
+		if (rows.length) return rows;
+		return Array.from(container.querySelectorAll("tbody tr"));
+	}
+};
+var TableSimulation = class {
+	constructor(eventBus, sheet, renderer, components, store, injector) {
+		this.sheet = sheet;
+		this.store = store;
+		this.reader = new DmnModdleReader();
+		this.disposers = [];
+		components.onGetComponent("table.before", () => SimulationForm);
+		this.highlighter = new RuleRowHighlighter(renderer, store);
+		this.disposers.push(() => this.highlighter.dispose());
+		const onRender = () => {
+			this.refreshModel();
+			this.highlighter.applyAfterRender();
+		};
 		eventBus.on("import.render.complete", onRender);
 		eventBus.on("elements.changed", onRender);
 		this.disposers.push(() => {
 			eventBus.off("import.render.complete", onRender);
 			eventBus.off("elements.changed", onRender);
 		});
-		this.disposers.push(this.store.subscribe(() => this.highlight()));
-		const bridgeOff = this.bridge?.subscribe(() => this.onBridgeChange());
-		if (bridgeOff) this.disposers.push(bridgeOff);
+		const bridge = ModelerBridge.forParent(injector.get("_parent", false));
+		if (bridge) this.disposers.push(this.store.connectBridge(bridge));
 		eventBus.on("diagram.destroy", () => this.destroy());
 	}
 	destroy() {
-		this.destroyed = true;
-		this.scheduled?.cancel();
-		this.scheduled = void 0;
 		for (const dispose of this.disposers.splice(0)) dispose();
-	}
-	onRender() {
-		this.refreshModel();
-		this.reflectDecisionRequirementsDiagramRun();
-		this.scheduleHighlight();
-	}
-	onBridgeChange() {
-		this.reflectDecisionRequirementsDiagramRun();
-		this.scheduleHighlight();
-	}
-	reflectDecisionRequirementsDiagramRun() {
-		if (this.store.isLocalRun() || !this.bridge) return;
-		const model = this.store.getModel();
-		if (!model) return;
-		const reflection = this.bridge.getTableReflection(model.decisionId);
-		if (!reflection) {
-			this.store.clearHydrated();
-			return;
-		}
-		if (this.store.getResult() === reflection.result) return;
-		this.store.hydrate(reflection.inputs, reflection.result);
-	}
-	scheduleHighlight() {
-		if (this.destroyed) return;
-		this.scheduled?.cancel();
-		if (typeof requestAnimationFrame === "function") {
-			const id = requestAnimationFrame(() => {
-				this.scheduled = void 0;
-				this.highlight();
-			});
-			this.scheduled = { cancel: () => cancelAnimationFrame(id) };
-		} else {
-			const id = setTimeout(() => {
-				this.scheduled = void 0;
-				this.highlight();
-			}, 0);
-			this.scheduled = { cancel: () => clearTimeout(id) };
-		}
 	}
 	refreshModel() {
 		const businessObject = this.sheet.getRoot()?.businessObject;
-		if (!businessObject || businessObject.$type !== "dmn:DecisionTable") {
-			this.store.setModel(null);
-			return;
-		}
-		const next = decisionTableToModel(businessObject);
-		const current = this.store.getModel();
-		if (current && sameModel(current, next)) return;
-		if (!current) this.store.setModel(next);
-		else this.store.refreshModel(next);
-	}
-	highlight() {
-		if (this.destroyed) return;
-		const container = this.renderer.getContainer();
-		if (!container) return;
-		const result = this.effectiveResult();
-		const reported = new Set(result?.reportedRuleIndices ?? []);
-		const matched = new Set(result?.matchedRuleIndices ?? []);
-		ruleRows(container).forEach((row, index) => {
-			row.classList.toggle("dmn-sim-match", reported.has(index));
-			row.classList.toggle("dmn-sim-candidate", matched.has(index) && !reported.has(index));
-		});
-	}
-	effectiveResult() {
-		const local = this.store.getResult();
-		if (local) return local;
-		const decisionId = this.store.getModel()?.decisionId;
-		if (!decisionId || !this.bridge) return null;
-		return this.bridge.getTableResult(decisionId);
+		const isDecisionTable = businessObject?.$type === "dmn:DecisionTable";
+		this.store.setModel(isDecisionTable ? this.reader.readDecisionTable(businessObject) : null);
 	}
 };
 TableSimulation.$inject = [
@@ -30427,176 +31267,143 @@ TableSimulation.$inject = [
 	"simulationStore",
 	"injector"
 ];
-function ruleRows(container) {
-	const rows = [];
-	const seen = new Set();
-	container.querySelectorAll("[data-row-id]").forEach((cell) => {
-		const row = cell.closest("tr");
-		if (row && !seen.has(row)) {
-			seen.add(row);
-			rows.push(row);
-		}
-	});
-	if (rows.length) return rows;
-	return Array.from(container.querySelectorAll("tbody tr"));
-}
-function sameModel(a, b) {
-	return JSON.stringify(a) === JSON.stringify(b);
-}
 var DmnSimulationTableModule = {
 	__init__: ["dmnSimulationTable"],
 	simulationStore: ["type", SimulationStore],
 	dmnSimulationTable: ["type", TableSimulation]
 };
-var FIRED_MARKER = "dmn-sim-fired";
-var OVERLAY_TYPE = "dmn-sim-decision-requirements-diagram";
-var DecisionRequirementsDiagramSimulation = class {
-	constructor(eventBus, canvas, elementRegistry, overlays, injector) {
+var DecisionRequirementsDiagramStore = class extends Observable {
+	constructor(bridge) {
+		super();
+		this.bridge = bridge;
 		this.model = null;
-		this.markedIds = [];
-		this.inputs = new Map();
-		this.canvas = canvas;
-		this.elementRegistry = elementRegistry;
-		this.overlays = overlays;
-		this.parent = injector.get("_parent", false);
-		this.bridge = getModelerBridge(this.parent);
-		const onImportDone = () => this.refresh();
-		eventBus.on("import.done", onImportDone);
-		eventBus.on("diagram.destroy", () => {
-			eventBus.off("import.done", onImportDone);
-			this.clearResult();
-			this.panel?.remove();
-			this.panel = void 0;
-			this.inputs.clear();
-		});
+		this.values = {};
+		this.result = null;
 	}
-	refresh() {
-		const definitions = this.parent?.getDefinitions?.();
-		this.model = definitions ? definitionsToDecisionRequirementsDiagramModel(definitions) : null;
+	getModel() {
+		return this.model;
+	}
+	getValues() {
+		return this.values;
+	}
+	getResult() {
+		return this.result;
+	}
+	isSimulatable() {
+		return !!this.model && this.model.decisions.length > 1 && this.model.inputData.length > 0;
+	}
+	setModel(model) {
+		this.model = model;
+		this.values = {};
 		this.clearResult();
-		this.render();
+		this.notify();
 	}
-	render() {
-		if (!(!!this.model && this.model.decisions.length > 1 && this.model.inputData.length > 0)) {
-			this.panel?.remove();
-			this.panel = void 0;
-			this.inputs.clear();
-			return;
-		}
-		if (!this.panel) {
-			this.panel = createDiv("dmn-sim-decision-requirements-diagram-panel");
-			this.canvas.getContainer().appendChild(this.panel);
-		}
-		this.panel.innerHTML = "";
-		this.inputs.clear();
-		const title = createDiv("dmn-sim-decision-requirements-diagram-title", "Simulate DRD");
-		this.panel.appendChild(title);
-		this.fieldsHost = createDiv("dmn-sim-decision-requirements-diagram-fields");
-		for (const input of this.model.inputData) {
-			const field = createDiv("dmn-sim-field");
-			const label = document.createElement("span");
-			label.className = "dmn-sim-field-label";
-			label.textContent = input.label;
-			const control = this.buildControl(input.typeRef);
-			this.inputs.set(input.id, {
-				read: control.read,
-				reset: control.reset
-			});
-			field.appendChild(label);
-			field.appendChild(control.node);
-			this.fieldsHost.appendChild(field);
-		}
-		this.panel.appendChild(this.fieldsHost);
-		const actions = createDiv("dmn-sim-decision-requirements-diagram-actions");
-		const runButton = document.createElement("button");
-		runButton.type = "button";
-		runButton.className = "dmn-sim-run";
-		runButton.textContent = "Simulate";
-		runButton.addEventListener("click", () => this.run());
-		const resetButton = document.createElement("button");
-		resetButton.type = "button";
-		resetButton.className = "dmn-sim-reset";
-		resetButton.textContent = "Reset";
-		resetButton.addEventListener("click", () => this.reset());
-		actions.appendChild(runButton);
-		actions.appendChild(resetButton);
-		this.panel.appendChild(actions);
-	}
-	buildControl(typeRef) {
-		if (isDurationType(typeRef)) {
-			const wrapper = createDiv("dmn-sim-duration");
-			const amount = document.createElement("input");
-			amount.className = "dmn-sim-input dmn-sim-duration-amount";
-			amount.type = "number";
-			amount.min = "0";
-			amount.placeholder = "amount";
-			const unit = document.createElement("select");
-			unit.className = "dmn-sim-input dmn-sim-duration-unit";
-			for (const u of DURATION_UNITS) {
-				const opt = document.createElement("option");
-				opt.value = u.value;
-				opt.textContent = u.label;
-				unit.appendChild(opt);
-			}
-			unit.value = DEFAULT_DURATION_UNIT;
-			wrapper.appendChild(amount);
-			wrapper.appendChild(unit);
-			return {
-				node: wrapper,
-				read: () => composeDuration(amount.value, unit.value),
-				reset: () => {
-					amount.value = "";
-					unit.value = DEFAULT_DURATION_UNIT;
-				}
-			};
-		}
-		const control = document.createElement("input");
-		control.className = "dmn-sim-input";
-		control.type = htmlInputType(typeRef);
-		control.placeholder = typeRef;
-		return {
-			node: control,
-			read: () => control.value,
-			reset: () => control.value = ""
+	setValue(inputId, value) {
+		this.values = {
+			...this.values,
+			[inputId]: value
 		};
-	}
-	collectValues() {
-		const values = {};
-		for (const [id, control] of this.inputs) values[id] = control.read();
-		return values;
+		this.notify();
 	}
 	run() {
 		if (!this.model) return;
-		const result = evaluateDecisionRequirementsDiagram(this.model, this.collectValues());
-		this.clearMarkersAndOverlays();
-		for (const decision of this.model.decisions) {
-			const evaluation = result.results[decision.id];
-			if (!evaluation || evaluation.skipped) continue;
-			if (!(evaluation.table ? evaluation.table.matchedRuleIndices.length > 0 : evaluation.value !== null && evaluation.value !== void 0)) continue;
-			const element = this.findDecisionElement(decision.id);
-			if (element) {
-				this.canvas.addMarker(element, FIRED_MARKER);
-				this.markedIds.push(element.id);
-				this.overlays.add(element, OVERLAY_TYPE, {
-					position: {
-						bottom: -6,
-						left: 0
-					},
-					html: `<div class="dmn-sim-badge">${escapeHtml(formatValue(evaluation.value))}</div>`
-				});
-			}
-		}
-		this.bridge?.setDecisionRequirementsDiagramResult(result);
+		this.result = new DecisionRequirementsDiagramEvaluator(this.model).evaluate(this.values);
+		this.bridge?.publish(this.result);
+		this.notify();
 	}
 	reset() {
-		for (const control of this.inputs.values()) control.reset();
+		this.values = {};
 		this.clearResult();
+		this.notify();
+	}
+	firedDecisionIds() {
+		if (!this.result) return [];
+		const { results } = this.result;
+		return this.result.order.filter((id) => {
+			const evaluation = results[id];
+			if (!evaluation || evaluation.skipped) return false;
+			return evaluation.table ? evaluation.table.matchedRuleIndices.length > 0 : evaluation.value !== null && evaluation.value !== void 0;
+		});
 	}
 	clearResult() {
-		this.clearMarkersAndOverlays();
+		this.result = null;
 		this.bridge?.clear();
 	}
-	clearMarkersAndOverlays() {
+};
+var DecisionRequirementsDiagramPanel = class extends Component {
+	constructor(props, context) {
+		super(props, context);
+		this.onRun = () => this.props.store.run();
+		this.onReset = () => this.props.store.reset();
+		this.state = { tick: 0 };
+	}
+	componentWillMount() {
+		this.unsubscribe = this.props.store.subscribe(() => this.setState({ tick: this.state.tick + 1 }));
+	}
+	componentWillUnmount() {
+		this.unsubscribe?.();
+	}
+	render() {
+		const { store } = this.props;
+		const model = store.getModel();
+		if (!model) return null;
+		const values = store.getValues();
+		return createElement("div", { className: "dmn-sim-decision-requirements-diagram-panel" }, createElement("div", { className: "dmn-sim-decision-requirements-diagram-title" }, "Simulate DRD"), createElement("div", { className: "dmn-sim-decision-requirements-diagram-fields" }, model.inputData.map((input) => createElement("div", {
+			className: "dmn-sim-field",
+			key: input.id
+		}, createElement("span", { className: "dmn-sim-field-label" }, input.label), createElement(InputField, {
+			input,
+			value: values[input.id],
+			onChange: (value) => store.setValue(input.id, value)
+		})))), createElement("div", { className: "dmn-sim-decision-requirements-diagram-actions" }, createElement("button", {
+			type: "button",
+			className: "dmn-sim-run",
+			onClick: this.onRun
+		}, "Simulate"), createElement("button", {
+			type: "button",
+			className: "dmn-sim-reset",
+			onClick: this.onReset
+		}, "Reset")));
+	}
+};
+var HTML_ENTITIES = {
+	"&": "&amp;",
+	"<": "&lt;",
+	">": "&gt;",
+	"\"": "&quot;",
+	"'": "&#39;"
+};
+function escapeHtml(value) {
+	return value.replace(/[&<>"']/g, (character) => HTML_ENTITIES[character]);
+}
+var FIRED_MARKER = "dmn-sim-fired";
+var OVERLAY_TYPE = "dmn-sim-decision-requirements-diagram";
+var DecisionResultOverlays = class {
+	constructor(canvas, elementRegistry, overlays) {
+		this.canvas = canvas;
+		this.elementRegistry = elementRegistry;
+		this.overlays = overlays;
+		this.markedIds = [];
+	}
+	show(store) {
+		this.clear();
+		const result = store.getResult();
+		if (!result) return;
+		for (const decisionId of store.firedDecisionIds()) {
+			const element = this.findDecisionElement(decisionId);
+			if (!element) continue;
+			this.canvas.addMarker(element, FIRED_MARKER);
+			this.markedIds.push(element.id);
+			this.overlays.add(element, OVERLAY_TYPE, {
+				position: {
+					bottom: -6,
+					left: 0
+				},
+				html: `<div class="dmn-sim-badge">${escapeHtml(formatValue(result.results[decisionId].value))}</div>`
+			});
+		}
+	}
+	clear() {
 		for (const id of this.markedIds) {
 			const element = this.elementRegistry.get(id);
 			if (element) this.canvas.removeMarker(element, FIRED_MARKER);
@@ -30608,6 +31415,42 @@ var DecisionRequirementsDiagramSimulation = class {
 		return this.elementRegistry.get(decisionId) ?? this.elementRegistry.filter((el) => el.businessObject?.id === decisionId)[0];
 	}
 };
+var DecisionRequirementsDiagramSimulation = class {
+	constructor(eventBus, canvas, elementRegistry, overlays, injector) {
+		this.canvas = canvas;
+		this.reader = new DmnModdleReader();
+		this.parent = injector.get("_parent", false);
+		this.store = new DecisionRequirementsDiagramStore(ModelerBridge.forParent(this.parent));
+		const resultOverlays = new DecisionResultOverlays(canvas, elementRegistry, overlays);
+		const unsubscribe = this.store.subscribe(() => resultOverlays.show(this.store));
+		const onImportDone = () => this.refresh();
+		eventBus.on("import.done", onImportDone);
+		eventBus.on("diagram.destroy", () => {
+			eventBus.off("import.done", onImportDone);
+			this.store.setModel(null);
+			unsubscribe();
+			this.unmountPanel();
+		});
+	}
+	refresh() {
+		const definitions = this.parent?.getDefinitions?.();
+		this.store.setModel(definitions ? this.reader.readDecisionRequirementsDiagram(definitions) : null);
+		if (this.store.isSimulatable()) this.mountPanel();
+		else this.unmountPanel();
+	}
+	mountPanel() {
+		if (this.panelHost) return;
+		this.panelHost = document.createElement("div");
+		this.canvas.getContainer().appendChild(this.panelHost);
+		render(createElement(DecisionRequirementsDiagramPanel, { store: this.store }), this.panelHost);
+	}
+	unmountPanel() {
+		if (!this.panelHost) return;
+		render(null, this.panelHost);
+		this.panelHost.remove();
+		this.panelHost = void 0;
+	}
+};
 DecisionRequirementsDiagramSimulation.$inject = [
 	"eventBus",
 	"canvas",
@@ -30615,23 +31458,6 @@ DecisionRequirementsDiagramSimulation.$inject = [
 	"overlays",
 	"injector"
 ];
-function createDiv(className, text) {
-	const div = document.createElement("div");
-	div.className = className;
-	if (text !== void 0) div.textContent = text;
-	return div;
-}
-function escapeHtml(value) {
-	return value.replace(/[&<>"']/g, (ch) => {
-		switch (ch) {
-			case "&": return "&amp;";
-			case "<": return "&lt;";
-			case ">": return "&gt;";
-			case "\"": return "&quot;";
-			default: return "&#39;";
-		}
-	});
-}
 var DmnSimulationModule = {
 	decisionTable: DmnSimulationTableModule,
 	decisionRequirementsDiagram: {
@@ -30682,8 +31508,7 @@ var camunda_default = {
 	],
 	emumerations: []
 };
-//#endregion
-//#region ../../packages/dmn-modeler/src/modeler.ts
+// ../../packages/dmn-modeler/src/modeler.ts
 var DEFAULT_EXPRESSION_LANGUAGES = {
 	options: [
 		{
@@ -30730,7 +31555,7 @@ var DmnModeler = class {
 		_defineProperty$3(this, "options", void 0);
 		_defineProperty$3(this, "modeler", void 0);
 		_defineProperty$3(this, "store", new DisposableStore());
-		_defineProperty$3(this, "focusIndicator", new MutableDisposable());
+		_defineProperty$3(this, "canvasOverlays", new MutableDisposable());
 		_defineProperty$3(this, "commandStackBinding", new MutableDisposable());
 		_defineProperty$3(this, "propertiesPanelInput", createFlushableDebounceInput(PROPERTIES_PANEL_INPUT_DEBOUNCE_MS));
 		_defineProperty$3(this, "viewEditorInput", createFlushableDebounceInput(VIEW_EDITOR_INPUT_DEBOUNCE_MS));
@@ -30799,7 +31624,7 @@ var DmnModeler = class {
 		this.store.add(() => {
 			this.commandStackBinding.dispose();
 			this.activeEventBus = void 0;
-		}, () => this.focusIndicator.dispose());
+		}, () => this.canvasOverlays.dispose());
 	}
 	async loadDiagram(xml) {
 		this.assertLive();
@@ -30896,24 +31721,27 @@ var DmnModeler = class {
 			this.activeEventBus = eventBus;
 			eventBus?.on("commandStack.changed", this.handleContentChanged);
 			this.commandStackBinding.set(eventBus && (() => eventBus.off("commandStack.changed", this.handleContentChanged)));
-			this.syncCanvasFocusIndicator();
+			this.syncCanvasOverlays();
 		}
 	}
-	syncCanvasFocusIndicator() {
-		this.focusIndicator.set(void 0);
+	syncCanvasOverlays() {
+		this.canvasOverlays.set(void 0);
 		if (this.modeler.getActiveView()?.type !== "drd") return;
 		const viewer = this.getActiveViewer();
 		const canvas = viewer?.get("canvas", false);
-		const selection = viewer?.get("selection", false);
+		const translate = viewer?.get("translate", false);
 		const eventBus = viewer?.get("eventBus", false);
-		if (!canvas || !selection || !eventBus) return;
-		this.focusIndicator.set(installCanvasFocusIndicator({
+		if (!canvas || !translate || !eventBus) return;
+		const overlays = new DisposableStore();
+		overlays.add(installFitViewportButton({
 			parent: canvas.getContainer(),
-			isFocused: () => canvas.isFocused(),
-			onFocusChanged: (listener) => eventBus.on("canvas.focus.changed", (event) => listener(event.focused)),
-			hasSelection: () => selection.get().length > 0,
-			onSelectionChanged: (listener) => eventBus.on("selection.changed", (event) => listener(event.newSelection.length > 0))
+			label: translate("Fit diagram to view"),
+			fit: () => fitCanvasToContent(canvas),
+			focusCanvas: () => canvas.focus(),
+			isCanvasFocused: () => canvas.isFocused(),
+			onCanvasFocusChanged: (listener) => eventBus.on("canvas.focus.changed", (event) => listener(event.focused))
 		}));
+		this.canvasOverlays.set(() => overlays.dispose());
 	}
 	reportWarnings(warnings) {
 		if (this.store.isDisposed) return;
@@ -30957,8 +31785,7 @@ function formatWarning(warning) {
 		warning.error?.stack
 	].filter((part) => Boolean(part)).join("\n");
 }
-//#endregion
-//#region ../../packages/dmn-modeler/src/createModeler.ts
+// ../../packages/dmn-modeler/src/createModeler.ts
 async function createModeler(container, options) {
 	i18n.extend(extras);
 	const modeler = new DmnModeler(container, options);
@@ -30973,8 +31800,7 @@ async function createModeler(container, options) {
 	}
 	return modeler;
 }
-//#endregion
-//#region src/adapter/out/dmnCanvas.ts
+// src/adapter/out/dmnCanvas.ts
 var holdsPendingInput = (modeler) => "flushPendingInput" in modeler;
 var sameView = (view, other) => view.type === other.type && view.element.id === other.element.id;
 async function createDmnCanvas(options) {
@@ -31013,8 +31839,7 @@ async function createDmnCanvas(options) {
 		setTheme: (theme) => modeler.setTheme(theme)
 	};
 }
-//#endregion
-//#region src/composition/dmnEditor.ts
+// src/composition/dmnEditor.ts
 function lockReadOnly(root) {
 	root.querySelector("#js-drop-zone").setAttribute("inert", "");
 	const notice = document.createElement("div");
@@ -31040,9 +31865,7 @@ async function startDmnEditor(root) {
 	});
 	return syncDocument(session, canvas);
 }
-//#endregion
-//#region src/dmn.ts
+// src/dmn.ts
 startDmnEditor(document.getElementById("app"));
-//#endregion
 
 //# sourceMappingURL=main.js.map
