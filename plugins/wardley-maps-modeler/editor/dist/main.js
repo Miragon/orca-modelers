@@ -17787,7 +17787,7 @@ function uniqueNames(map3) {
   return byId;
 }
 var EMBEDDABLE_ADDRESS_RE = /^[a-z][\w+.-]*:\/\/[^\s()]*$/i;
-function planUrls(map3, nameOf, keptDefinitionNames, hints) {
+function planUrls(map3, nameOf2, keptDefinitionNames, hints) {
   const namesInUse = new UniqueNames();
   for (const name of keptDefinitionNames) namesInUse.claim(name);
   const addressByHintedName = /* @__PURE__ */ new Map();
@@ -17815,7 +17815,7 @@ function planUrls(map3, nameOf, keptDefinitionNames, hints) {
     if (!address || referenceById.has(el.id)) continue;
     let name = definitionNameById.get(el.id);
     if (name === void 0) {
-      const readable = nameOf(el).replace(/\\n/g, " ").replace(/[()[\]<>]/g, " ").replace(/\s+/g, " ").trim();
+      const readable = nameOf2(el).replace(/\\n/g, " ").replace(/[()[\]<>]/g, " ").replace(/\s+/g, " ").trim();
       name = namesInUse.claim(`${readable} URL`.trim());
     }
     referenceById.set(el.id, name);
@@ -17878,22 +17878,22 @@ function passthroughLines(map3) {
   });
   return { lines, urlDefinitionNames };
 }
-function pipelineHeights(map3, pipelineIds, nameOf) {
+function pipelineHeights(map3, pipelineIds, nameOf2) {
   const componentVisibilityByName = /* @__PURE__ */ new Map();
   for (const el of map3.elements) {
     if (el.elementType !== "component") continue;
     const isChild = !!el.pipelineId && pipelineIds.has(el.pipelineId);
-    if (!isChild) componentVisibilityByName.set(nameOf(el), el.position.visibility);
+    if (!isChild) componentVisibilityByName.set(nameOf2(el), el.position.visibility);
   }
   return (el) => {
     if (el.elementType !== "pipeline") return "";
-    const derived2 = componentVisibilityByName.get(nameOf(el)) ?? 0.5;
+    const derived2 = componentVisibilityByName.get(nameOf2(el)) ?? 0.5;
     const written = r(el.position.visibility);
     return written !== r(derived2) ? ` (y ${written})` : "";
   };
 }
-function edgeLines(map3, nameOf) {
-  const namesById = new Map(map3.elements.map((el) => [el.id, nameOf(el)]));
+function edgeLines(map3, nameOf2) {
+  const namesById = new Map(map3.elements.map((el) => [el.id, nameOf2(el)]));
   return map3.edges.map((edge) => {
     const from = namesById.get(edge.from) ?? edge.from;
     const to = namesById.get(edge.to) ?? edge.to;
@@ -17909,10 +17909,10 @@ function serializeDSL(map3) {
 }
 function serializeKeyedLines(map3, hints = {}) {
   const names = uniqueNames(map3);
-  const nameOf = (el) => names.get(el.id) ?? writtenText(el.label);
+  const nameOf2 = (el) => names.get(el.id) ?? writtenText(el.label);
   const passthrough = passthroughLines(map3);
   const lines = configLines(map3.config);
-  const urls = planUrls(map3, nameOf, passthrough.urlDefinitionNames, hints.urlReferences);
+  const urls = planUrls(map3, nameOf2, passthrough.urlDefinitionNames, hints.urlReferences);
   for (const { name, address } of urls.definitions) {
     lines.push({ key: `url:${name}`, text: `url ${name} [${address}]` });
   }
@@ -17932,18 +17932,18 @@ function serializeKeyedLines(map3, hints = {}) {
     list.push(el);
     childrenByPipeline.set(el.pipelineId, list);
   }
-  const pipelineHeight = pipelineHeights(map3, pipelineIds, nameOf);
+  const pipelineHeight = pipelineHeights(map3, pipelineIds, nameOf2);
   const evolveLines = [];
   for (const el of map3.elements) {
     if (el.elementType === "component" && el.movement) {
-      evolveLines.push({ key: `evolve:${el.id}`, text: evolveLine(el, nameOf(el)) });
+      evolveLines.push({ key: `evolve:${el.id}`, text: evolveLine(el, nameOf2(el)) });
     }
     if (el.elementType === "component" && el.pipelineId && pipelineIds.has(el.pipelineId)) {
       continue;
     }
     lines.push({
       key: `element:${el.id}`,
-      text: elementLine(el, nameOf(el)) + pipelineHeight(el) + urlSuffix(el)
+      text: elementLine(el, nameOf2(el)) + pipelineHeight(el) + urlSuffix(el)
     });
     const kids = childrenByPipeline.get(el.id) ?? [];
     if (kids.length) {
@@ -17951,13 +17951,13 @@ function serializeKeyedLines(map3, hints = {}) {
       for (const k3 of kids) {
         lines.push({
           key: `child:${k3.id}`,
-          text: `  component ${nameOf(k3)} [${r(k3.position.evolution)}]${decoratorSuffix(k3.decorators)}${colorSuffix(k3)}${offsetSuffix(k3.labelOffset)}`
+          text: `  component ${nameOf2(k3)} [${r(k3.position.evolution)}]${decoratorSuffix(k3.decorators)}${colorSuffix(k3)}${offsetSuffix(k3.labelOffset)}`
         });
       }
       lines.push({ key: `block-close:${el.id}`, text: "}" });
     }
   }
-  return [...lines, ...evolveLines, ...edgeLines(map3, nameOf), ...passthrough.lines];
+  return [...lines, ...evolveLines, ...edgeLines(map3, nameOf2), ...passthrough.lines];
 }
 function elementLine(el, name) {
   const p3 = el.position;
@@ -18628,6 +18628,12 @@ var NODE_SIZE = 34;
 var COMPONENT_RADIUS = 15;
 var COMPONENT_INNER_RADIUS = 12;
 var LINK_BADGE_CLASS = "wardley-link-badge";
+var EXPLORE_MARKERS = {
+  hidden: "wardley-explore-hidden",
+  revealed: "wardley-explore-new",
+  pickable: "wardley-explore-pickable",
+  commentary: "wardley-explore-commentary"
+};
 var LINK_BADGE_RADIUS = 8;
 var LINK_BADGE_ICON_SIZE = 11;
 var ANCHOR_ICON_SIZE = 26;
@@ -18730,6 +18736,14 @@ function saveSVG(canvas, bounds) {
     element2.classList.remove("selected", "hover");
     if (!element2.classList.length) element2.removeAttribute("class");
   });
+  clone3.querySelectorAll(`.djs-element.${EXPLORE_MARKERS.hidden}`).forEach((element2) => {
+    (element2.closest(".djs-group") ?? element2).remove();
+  });
+  const exploreMarkers = Object.values(EXPLORE_MARKERS);
+  clone3.querySelectorAll(exploreMarkers.map((marker) => `.${marker}`).join(", ")).forEach((element2) => {
+    element2.classList.remove(...exploreMarkers);
+    if (!element2.classList.length) element2.removeAttribute("class");
+  });
   const box = bounds ?? {
     x: 0,
     y: 0,
@@ -18801,7 +18815,7 @@ function drawnContentBox(canvas) {
     let right = -Infinity;
     let bottom = -Infinity;
     const visuals = layer.querySelectorAll(
-      ".djs-visual:not(.djs-drag-group .djs-visual)"
+      `.djs-visual:not(.djs-drag-group .djs-visual):not(.${EXPLORE_MARKERS.hidden} .djs-visual)`
     );
     for (const visual of visuals) {
       const local = visual.getBBox();
@@ -20486,6 +20500,7 @@ RuleProvider.prototype.init = function() {
 
 // ../../packages/renderer/src/read-only/WardleyReadOnly.ts
 var READ_ONLY_CHANGED = "wardley.readOnly.changed";
+var LOCK_REASONS = ["document", "explore"];
 var LOCKED_CLASS = "wardley-read-only";
 var VETO_PRIORITY = 5e3;
 var EDIT_RULES = [
@@ -20516,39 +20531,46 @@ var WardleyReadOnly = class extends RuleProvider {
   canvas;
   injector;
   static $inject = ["eventBus", "canvas", "injector"];
-  locked = false;
+  reasons = /* @__PURE__ */ new Set();
   shown = false;
   showTimer;
   init() {
-    this.addRule(EDIT_RULES, VETO_PRIORITY, () => this.locked ? false : void 0);
+    this.addRule(EDIT_RULES, VETO_PRIORITY, () => this.isReadOnly() ? false : void 0);
   }
+  /** Whether any reason locks the canvas. */
   isReadOnly() {
-    return this.locked;
+    return this.reasons.size > 0;
   }
-  /** Whether the palette marks the lock: from `setReadOnly(true)` on, or once its `delayMs` passed. */
+  /** Whether `reason` holds, whatever else locks the canvas. */
+  isLockedBy(reason) {
+    return this.reasons.has(reason);
+  }
+  /**
+   * Whether the palette marks the document lock: from `setReadOnly(true)` on, or once its `delayMs`
+   * passed. The explore lock never shows.
+   */
   isReadOnlyShown() {
     return this.shown;
   }
   /**
-   * `true` locks at once and shows the palette's marks after `delayMs` (default 0); a call while the
-   * delay runs keeps its timer, as typing sends one invalid import after the other. `false` unlocks
-   * and takes the marks off at once.
+   * The document lock. `true` locks at once and shows the palette's marks after `delayMs` (default
+   * 0); a call while the delay runs keeps its timer, as typing sends one invalid import after the
+   * other. `false` unlocks and takes the marks off at once; the explore lock stays.
    */
   setReadOnly(readOnly, options) {
     if (!readOnly) {
       this.stopShowTimer();
-      if (!this.locked) return;
-      this.locked = false;
+      if (!this.reasons.has("document")) return;
+      this.reasons.delete("document");
       this.shown = false;
       this.outerContainer().classList.remove(LOCKED_CLASS);
       this.announce();
       return;
     }
-    const locking = !this.locked;
+    const locking = !this.reasons.has("document");
     if (locking) {
-      this.locked = true;
       this.outerContainer().classList.add(LOCKED_CLASS);
-      this.endInteractions();
+      this.addReason("document");
     }
     const delayMs = options?.delayMs ?? 0;
     const shownOrWaiting = this.shown || this.showTimer !== void 0;
@@ -20563,8 +20585,25 @@ var WardleyReadOnly = class extends RuleProvider {
     if (showsNow) this.shown = true;
     if (locking || showsNow) this.announce();
   }
+  /** The lock of explore mode, which neither marks the palette nor ends with `setReadOnly(false)`. */
+  setExploreLock(locked) {
+    if (locked === this.reasons.has("explore")) return;
+    if (locked) this.addReason("explore");
+    else this.reasons.delete("explore");
+    this.announce();
+  }
+  addReason(reason) {
+    const unlocked = !this.isReadOnly();
+    this.reasons.add(reason);
+    if (unlocked) this.endInteractions();
+  }
   announce() {
-    this.bus.fire(READ_ONLY_CHANGED, { readOnly: this.locked, shown: this.shown });
+    const event2 = {
+      readOnly: this.isReadOnly(),
+      shown: this.shown,
+      reasons: LOCK_REASONS.filter((reason) => this.reasons.has(reason))
+    };
+    this.bus.fire(READ_ONLY_CHANGED, event2);
   }
   stopShowTimer() {
     clearTimeout(this.showTimer);
@@ -20593,6 +20632,9 @@ var readOnlyModule = {
 };
 function isReadOnly(injector) {
   return injector.get("wardleyReadOnly", false)?.isReadOnly() === true;
+}
+function isLockedBy(injector, reason) {
+  return injector.get("wardleyReadOnly", false)?.isLockedBy(reason) === true;
 }
 function isReadOnlyShown(injector) {
   return injector.get("wardleyReadOnly", false)?.isReadOnlyShown() === true;
@@ -25572,7 +25614,18 @@ var LUCIDE = {
   palette: '<path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/>',
   link: '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
   "external-link": '<path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
-  map: '<path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/>'
+  map: '<path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/>',
+  "chevron-down": '<path d="m6 9 6 6 6-6"/>',
+  "chevron-up": '<path d="m18 15-6-6-6 6"/>',
+  "chevrons-down": '<path d="m7 6 5 5 5-5"/><path d="m7 13 5 5 5-5"/>',
+  "chevrons-up": '<path d="m17 11-5-5-5 5"/><path d="m17 18-5-5-5 5"/>',
+  "eye-off": '<path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/>',
+  eye: '<path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/>',
+  telescope: '<path d="m10.065 12.493-6.18 1.318a.934.934 0 0 1-1.108-.702l-.537-2.15a1.07 1.07 0 0 1 .691-1.265l13.504-4.44"/><path d="m13.56 11.747 4.332-.924"/><path d="m16 21-3.105-6.21"/><path d="M16.485 5.94a2 2 0 0 1 1.455-2.425l1.09-.272a1 1 0 0 1 1.212.727l1.515 6.06a1 1 0 0 1-.727 1.213l-1.09.272a2 2 0 0 1-2.425-1.455z"/><path d="m6.158 8.633 1.114 4.456"/><path d="m8 21 3.105-6.21"/><circle cx="12" cy="13" r="2"/>',
+  search: '<path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/>',
+  "step-back": '<path d="M13.971 4.285A2 2 0 0 1 17 6v12a2 2 0 0 1-3.029 1.715l-9.997-5.998a2 2 0 0 1-.003-3.432z"/><path d="M21 20V4"/>',
+  "rotate-ccw": '<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>',
+  blend: '<circle cx="15" cy="9" r="7"/><circle cx="9" cy="15" r="7"/>'
 };
 function chromeIcon(name) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${LUCIDE[name]}</svg>`;
@@ -26783,6 +26836,9 @@ var PanConstraint = class {
       this.measured = void 0;
     };
     eventBus.on(["element.changed", "import.done"], invalidate);
+    eventBus.on("element.marker.update", (event2) => {
+      if (event2.marker === EXPLORE_MARKERS.hidden) invalidate();
+    });
     eventBus.on("wardley.config.changed", (event2) => {
       invalidate();
       if (event2?.transient) return;
@@ -29946,7 +30002,7 @@ function PopupMenuComponent(props) {
       scrollIntoView2(activeTabEl);
     }
   }, [activeTabId]);
-  const [overflow, setOverflow] = d2({ start: false, end: false });
+  const [overflow2, setOverflow] = d2({ start: false, end: false });
   const updateOverflow = q2(() => {
     const { scrollLeft, scrollWidth, clientWidth } = tabsRef.current;
     setOverflow({
@@ -30242,7 +30298,7 @@ function PopupMenuComponent(props) {
               ${/* outside the tablist: its children must be tabs. Keyboard
       users navigate with the arrow keys instead */
   ""}
-              ${[-1, 1].map((direction) => (direction < 0 ? overflow.start : overflow.end) && m2`
+              ${[-1, 1].map((direction) => (direction < 0 ? overflow2.start : overflow2.end) && m2`
                 <button
                   type="button"
                   class=${`djs-popup-tabs-scroll djs-popup-tabs-scroll-${direction < 0 ? "start" : "end"}`}
@@ -31460,6 +31516,9 @@ var stageSnappingModule = {
 // ../../packages/renderer/src/draw/palette-icons.ts
 var wrap = (inner) => `<svg width="24" height="24" viewBox="0 0 24 24" class="wardley-palette-svg">${inner}</svg>`;
 var toolIcon = (inner) => `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="wardley-palette-svg">${inner}</svg>`;
+function paletteToolIcon(name) {
+  return toolIcon(LUCIDE[name]);
+}
 var LUCIDE_SQUARE_DASHED_MOUSE_POINTER = '<path d="M12.034 12.681a.498.498 0 0 1 .647-.647l9 3.5a.5.5 0 0 1-.033.943l-3.444 1.068a1 1 0 0 0-.66.66l-1.067 3.443a.5.5 0 0 1-.943.033z"/><path d="M5 3a2 2 0 0 0-2 2"/><path d="M19 3a2 2 0 0 1 2 2"/><path d="M5 21a2 2 0 0 1-2-2"/><path d="M9 3h1"/><path d="M9 21h2"/><path d="M14 3h1"/><path d="M3 9v1"/><path d="M21 9v2"/><path d="M3 14v1"/>';
 var LINE_SEGMENT = '<circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><path d="M6.5 17.5 17.5 6.5"/>';
 var eventCircle = (extra = "") => `<circle cx="12" cy="12" r="7" fill="${COLORS.componentFill}" stroke="${COLORS.stroke}" stroke-width="2"/>${extra}`;
@@ -31469,6 +31528,7 @@ var PALETTE_ICONS = {
   // notation colours because they preview the element.
   draw: toolIcon(LINE_SEGMENT),
   lasso: toolIcon(LUCIDE_SQUARE_DASHED_MOUSE_POINTER),
+  explore: paletteToolIcon("telescope"),
   component: wrap(eventCircle()),
   // Canon: market = three dots in a triangle (like drawComponent).
   market: wrap(
@@ -31639,6 +31699,13 @@ var DRAW_TOOL = {
   title: "Draw",
   icon: PALETTE_ICONS.draw
 };
+var EXPLORE_ENTRY = "explore";
+var EXPLORE_TOOL = {
+  key: EXPLORE_ENTRY,
+  title: "Explore mode",
+  shortcut: "E",
+  icon: PALETTE_ICONS.explore
+};
 var PLOT_INSET = 24;
 var STACK_OFFSET = 24;
 var MAX_STACK_STEPS = 12;
@@ -31680,33 +31747,21 @@ var WardleyPaletteProvider = class {
   needsNativeTitle;
   getPaletteEntries() {
     const entries = {};
-    entries[LASSO_TOOL2.key] = {
-      group: "tools",
-      ...this.describe(LASSO_TOOL2.title, LASSO_TOOL2.shortcut),
-      html: this.entryHtml(LASSO_TOOL2.title, LASSO_TOOL2.icon, LASSO_TOOL2.shortcut),
-      action: {
-        click: (event2) => {
-          if (isKeyboardClick(event2) && this.lassoArmed()) {
-            this.putLassoDown();
-            return;
-          }
-          this.lassoTool.activateSelection(event2);
-          this.focusCanvasAfterPointer(event2);
-        }
+    entries[LASSO_TOOL2.key] = this.toolEntry(LASSO_TOOL2, (event2) => {
+      if (isKeyboardClick(event2) && this.lassoArmed()) {
+        this.putLassoDown();
+        return;
       }
-    };
-    entries[DRAW_TOOL.key] = {
-      group: "tools",
-      ...this.describe(DRAW_TOOL.title, DRAW_TOOL.shortcut),
-      html: this.entryHtml(DRAW_TOOL.title, DRAW_TOOL.icon, DRAW_TOOL.shortcut),
-      action: {
-        click: (event2) => {
-          if (isKeyboardClick(event2) && !isReadOnly(this.injector)) this.putLassoDown();
-          this.drawTool.toggle();
-          this.focusCanvasAfterPointer(event2);
-        }
-      }
-    };
+      this.lassoTool.activateSelection(event2);
+      this.focusCanvasAfterPointer(event2);
+    });
+    entries[DRAW_TOOL.key] = this.toolEntry(DRAW_TOOL, (event2) => {
+      if (isKeyboardClick(event2) && !isReadOnly(this.injector)) this.putLassoDown();
+      this.drawTool.toggle();
+      this.focusCanvasAfterPointer(event2);
+    });
+    const explore = this.injector.get("wardleyExplore", false);
+    if (explore) entries[EXPLORE_ENTRY] = this.exploreToggleEntry(explore);
     for (const spec of SPECS) {
       const start = (event2) => {
         this.create.start(event2, this.createShapeFor(spec));
@@ -31719,11 +31774,40 @@ var WardleyPaletteProvider = class {
       entries[`create.${spec.key}`] = {
         group: spec.group,
         ...this.describe(spec.title, spec.shortcut),
-        html: this.entryHtml(spec.title, spec.icon, spec.shortcut, true),
+        html: this.entryHtml(spec.title, spec.icon, spec.shortcut, { draggable: true }),
         action: { dragstart: start, click }
       };
     }
     return entries;
+  }
+  /**
+   * A tool entry in the palette's look (group `tools`, a tooltip with the key), which explore mode's
+   * toolbar uses as well. With `handsFocusToCanvas`, a pointer click then hands the focus to the
+   * canvas (guide §5.8); Enter and Space leave it on the entry.
+   */
+  toolEntry(tool, click, { handsFocusToCanvas = false } = {}) {
+    return {
+      group: "tools",
+      ...this.describe(tool.title, tool.shortcut),
+      html: this.entryHtml(tool.title, tool.icon, tool.shortcut, {
+        pressed: tool.pressed,
+        disabled: tool.disabled
+      }),
+      action: {
+        click: (event2) => {
+          click(event2);
+          if (handsFocusToCanvas) this.focusCanvasAfterPointer(event2);
+        }
+      }
+    };
+  }
+  /** The toggle of explore mode, pressed while it runs (its toolbar then shows this entry). */
+  exploreToggleEntry(explore) {
+    return this.toolEntry(
+      { ...EXPLORE_TOOL, pressed: explore.isActive() },
+      () => explore.toggle(),
+      { handsFocusToCanvas: true }
+    );
   }
   /**
    * Keyboard path for a create entry (guide §5.5): places the new element in the centre of the
@@ -31806,10 +31890,11 @@ var WardleyPaletteProvider = class {
   describe(title, shortcut) {
     return shortcut ? { title, shortcut } : { title };
   }
-  entryHtml(title, icon, shortcut, draggable = false) {
+  entryHtml(title, icon, shortcut, { draggable = false, pressed, disabled } = {}) {
     const nativeTitle = this.needsNativeTitle ? ` title="${escapeAttribute(shortcut ? `${title} (${shortcut})` : title)}"` : "";
     const keyShortcut = shortcut ? ` aria-keyshortcuts="${escapeAttribute(shortcut)}"` : "";
-    return `<div class="entry wardley-palette-entry"${draggable ? ' draggable="true"' : ""}${nativeTitle}${keyShortcut}>${icon}</div>`;
+    const state = (pressed === void 0 ? "" : ` aria-pressed="${String(pressed)}"`) + (disabled ? ' aria-disabled="true"' : "");
+    return `<div class="entry wardley-palette-entry"${draggable ? ' draggable="true"' : ""}${nativeTitle}${keyShortcut}${state}>${icon}</div>`;
   }
 };
 
@@ -31830,6 +31915,7 @@ var WardleyPaletteKeyboard = class {
     eventBus.on("palette.changed", () => {
       this.moveBeforeCanvas();
       this.updateTabStops();
+      this.restoreFocus();
     });
     const existing = palette._container;
     if (existing) {
@@ -31842,6 +31928,7 @@ var WardleyPaletteKeyboard = class {
   static $inject = ["eventBus", "palette", "wardleyPaletteProvider", "injector"];
   container;
   activeAction;
+  focusedEntry;
   // diagram-js appends the palette after the canvas <svg>, so Tab would reach the canvas first
   // (guide §5.5, §5.14). Moved only while it lies there: a move takes the focus off a focused
   // entry. A chrome marks a palette it skins in its own listener of `palette.create`, so the move
@@ -31866,10 +31953,39 @@ var WardleyPaletteKeyboard = class {
     container.addEventListener("focusin", (event2) => {
       const entry = this.entryOf(event2.target);
       if (!entry) return;
+      this.focusedEntry = entry;
       this.activeAction = entry.getAttribute("data-action") ?? void 0;
       this.updateTabStops();
     });
+    container.addEventListener("focusout", (event2) => this.onFocusOut(event2));
     this.updateTabStops();
+  }
+  // A focus that leaves the palette is not brought back by a later rebuild. Chromium reports the
+  // removal of the focused entry as a focusout too, while the entry is still in the document, and
+  // the rebuild's `palette.changed` follows in the same task: so the entry counts as left only once
+  // that task is over and the focus has not come back to it.
+  onFocusOut(event2) {
+    const entry = this.entryOf(event2.target);
+    if (!entry || entry !== this.focusedEntry) return;
+    const next = event2.relatedTarget;
+    if (next instanceof Node && this.container?.contains(next)) return;
+    queueMicrotask(() => {
+      if (this.focusedEntry === entry && entry.ownerDocument.activeElement !== entry) {
+        this.focusedEntry = void 0;
+      }
+    });
+  }
+  // A rebuild removes the focused entry, which would drop the focus onto <body>: it goes to the
+  // entry of the same action, or to the tab stop where the rebuilt palette no longer offers it.
+  restoreFocus() {
+    const lost = this.focusedEntry;
+    if (!lost || lost.isConnected) return;
+    this.focusedEntry = void 0;
+    const entries = this.entries();
+    const action = lost.getAttribute("data-action");
+    const replacement = entries.find((entry) => entry.getAttribute("data-action") === action) ?? entries.find((entry) => entry.tabIndex === 0);
+    const active = lost.ownerDocument.activeElement;
+    if (replacement && (!active || active === lost.ownerDocument.body)) replacement.focus();
   }
   entries() {
     return this.container ? Array.from(this.container.querySelectorAll(ENTRY_SELECTOR2)) : [];
@@ -32199,9 +32315,9 @@ var WardleyPaletteReadOnly = class {
   container;
   /** The `aria-disabled` an entry had before the lock marked it (`null`: none). */
   ownMarks = /* @__PURE__ */ new WeakMap();
-  /** Whether `entry` does nothing while the lock holds, read from its element where there is one. */
+  /** Whether `entry` does nothing while the document lock holds, read from its element. */
   isDisabled(entry) {
-    return this.ownsPalette() && isReadOnly(this.injector) && refusedWhileLocked(entry);
+    return this.ownsPalette() && isLockedBy(this.injector, "document") && refusedWhileLocked(entry);
   }
   ownsPalette() {
     const container = this.container;
@@ -32229,7 +32345,7 @@ var WardleyPaletteReadOnly = class {
   // A trigger without an entry element in this palette (a host's `triggerEntry`) passes only for
   // the tools, whose draw tool refuses the lock by itself.
   vetoes({ entry, event: event2 }) {
-    if (!this.ownsPalette() || !isReadOnly(this.injector)) return false;
+    if (!this.ownsPalette() || !isLockedBy(this.injector, "document")) return false;
     const target = event2?.delegateTarget ?? event2?.target;
     const element2 = target instanceof Element ? target.closest(".entry[data-action]") : null;
     if (element2 && this.container.contains(element2)) return this.isDisabled(element2);
@@ -33534,6 +33650,10 @@ var QUICK_CREATE = {
   n: { type: "note", label: "Note" },
   p: { type: "pipeline", label: "Pipeline" }
 };
+var EXPLORE_ARROWS = {
+  arrowdown: "dependencies",
+  arrowup: "dependents"
+};
 function isSingleKeyTool(e4, key) {
   return !e4.altKey && (key in QUICK_CREATE || key === "a" || key === "l");
 }
@@ -33551,6 +33671,7 @@ var WardleyKeyboard = class {
     this.create = create3;
     this.mouse = mouse;
     this.elementRegistry = elementRegistry;
+    this.injector = injector;
     const container = canvas.getContainer();
     const undoRedoEnabled = config2?.undoRedo !== false;
     const dragging = injector.get("dragging", false);
@@ -33562,6 +33683,7 @@ var WardleyKeyboard = class {
     this.labelEditing = injector.get("wardleyLabelEditing", false) ?? null;
     this.grid = injector.get("evolutionGrid", false) ?? null;
     this.freeRect = injector.get("wardleyFreeRect", false) ?? null;
+    this.explore = injector.get("wardleyExplore", false) ?? null;
     const onPointerMove = () => this.pointerOverCanvas = true;
     const onPointerLeave = () => this.pointerOverCanvas = false;
     container.addEventListener("mousemove", onPointerMove);
@@ -33606,9 +33728,7 @@ var WardleyKeyboard = class {
         else commandStack.redo();
       } else if (key === "a") {
         e4.preventDefault();
-        selection.select(
-          elementRegistry.filter((el) => isWardleyShape(el) || isWardleyConnection(el))
-        );
+        selection.select(this.selectableElements());
       } else if (key === "c") {
         if (copyPaste.copy()) {
           e4.preventDefault();
@@ -33625,6 +33745,7 @@ var WardleyKeyboard = class {
       }
     };
     const onPlainKey = (e4, key) => {
+      if (this.exploreKey(e4, key)) return;
       if (locked() && key !== "escape" && key !== "l") return;
       if (this.takenByGesture(e4, key)) return;
       const toolKey = isSingleKeyTool(e4, key);
@@ -33686,6 +33807,7 @@ var WardleyKeyboard = class {
   create;
   mouse;
   elementRegistry;
+  injector;
   static $inject = [
     "canvas",
     "commandStack",
@@ -33707,6 +33829,7 @@ var WardleyKeyboard = class {
   freeRect;
   drawingHandles;
   drawTool;
+  explore;
   /**
    * With the pointer over the canvas the new node attaches to it (like palette create; placing it
    * opens the name editor). Without one — keyboard only — it lands in the centre of the free
@@ -33764,6 +33887,51 @@ var WardleyKeyboard = class {
     }
     return candidate;
   }
+  /** Every element, or in explore mode every element that shows. */
+  selectableElements() {
+    return this.elementRegistry.filter(
+      (el) => (isWardleyShape(el) || isWardleyConnection(el)) && !this.explore?.isHidden(el)
+    );
+  }
+  /**
+   * The keys of explore mode, which act on a canvas that explore mode or the document locks. Escape
+   * keeps deselecting. E does nothing while a gesture runs, whose release would still change the
+   * map under explore mode's lock.
+   */
+  exploreKey(e4, key) {
+    const explore = this.explore;
+    if (!explore || e4.altKey) return false;
+    if (key === "e") {
+      e4.preventDefault();
+      if (!this.gestureRuns()) explore.toggle();
+      return true;
+    }
+    if (!explore.isActive()) return false;
+    const direction = EXPLORE_ARROWS[key];
+    if (direction) {
+      const node3 = this.singleSelectedShape();
+      if (!node3 || !explore.isVisibleNode(node3)) return false;
+      e4.preventDefault();
+      if (e4.shiftKey) explore.revealChain(node3.id, direction);
+      else explore.revealNeighbours(node3.id, direction);
+      return true;
+    }
+    const action = {
+      h: () => {
+        const node3 = this.singleSelectedShape();
+        if (node3 && explore.canHide(node3.id)) explore.hide(node3.id);
+      },
+      b: () => explore.stepBack(),
+      r: () => explore.restart(),
+      f: () => explore.setFadeRest(!explore.isFadeRest()),
+      l: () => void 0
+    };
+    const run = action[key];
+    if (!run) return false;
+    e4.preventDefault();
+    run();
+    return true;
+  }
   singleSelectedShape() {
     const selected = this.selection.get();
     return selected.length === 1 && isWardleyShape(selected[0]) ? selected[0] : void 0;
@@ -33775,6 +33943,14 @@ var WardleyKeyboard = class {
    */
   pointDragged() {
     return !!this.drawingHandles?.isDraggingPoint();
+  }
+  /**
+   * A gesture that ends with its release: a line the draw tool holds, a point drag, and every drag
+   * the interaction follows (a label, the evolve target, a diagram-js drag).
+   */
+  gestureRuns() {
+    const interaction = this.injector.get("wardleyInteraction", false);
+    return this.pointDragged() || !!this.drawTool?.holdsLine() || !!interaction?.isActive();
   }
   /**
    * A line the draw tool holds and a point drag run on the canvas, which has the focus, so the
@@ -34978,6 +35154,1126 @@ var wardleyLabelDragModule = {
   wardleyLabelDragging: ["type", WardleyLabelDragging]
 };
 
+// ../../packages/renderer/src/explore/explore-graph.ts
+function nodesOf(graph) {
+  return graph.elements.filter((element2) => element2.kind === "node");
+}
+function nodeIds(graph) {
+  return nodesOf(graph).map((node3) => node3.id);
+}
+function appendTo2(lists, key, value) {
+  const list = lists.get(key);
+  if (!list) lists.set(key, [value]);
+  else if (!list.includes(value)) list.push(value);
+}
+function membersByHolder(nodes) {
+  const nodeIdSet = new Set(nodes.map((node3) => node3.id));
+  const anchorByPipeline = /* @__PURE__ */ new Map();
+  for (const node3 of nodes) {
+    if (node3.anchorOfPipeline !== void 0) anchorByPipeline.set(node3.anchorOfPipeline, node3.id);
+  }
+  const members2 = /* @__PURE__ */ new Map();
+  for (const node3 of nodes) {
+    if (node3.pipelineId === void 0) continue;
+    const holder = anchorByPipeline.get(node3.pipelineId) ?? (nodeIdSet.has(node3.pipelineId) ? node3.pipelineId : void 0);
+    if (holder !== void 0 && holder !== node3.id) appendTo2(members2, holder, node3.id);
+  }
+  return members2;
+}
+function dependencyAdjacency(graph, direction) {
+  const nodes = new Set(nodeIds(graph));
+  const adjacency = /* @__PURE__ */ new Map();
+  const step = (from, to) => {
+    const [start, end] = direction === "dependencies" ? [from, to] : [to, from];
+    if (start !== end && nodes.has(start) && nodes.has(end)) appendTo2(adjacency, start, end);
+  };
+  for (const link of graph.links) {
+    if (link.kind === "dependency") step(link.from, link.to);
+  }
+  for (const [holder, members2] of membersByHolder(nodesOf(graph))) {
+    for (const member of members2) step(holder, member);
+  }
+  return adjacency;
+}
+function neighboursOf(graph, nodeId, direction) {
+  return [...dependencyAdjacency(graph, direction).get(nodeId) ?? []];
+}
+function chainOf(graph, nodeId, direction) {
+  const adjacency = dependencyAdjacency(graph, direction);
+  const reached = /* @__PURE__ */ new Set([nodeId]);
+  const chain = [];
+  const queue = [nodeId];
+  for (let index2 = 0; index2 < queue.length; index2++) {
+    for (const neighbour of adjacency.get(queue[index2]) ?? []) {
+      if (reached.has(neighbour)) continue;
+      reached.add(neighbour);
+      chain.push(neighbour);
+      queue.push(neighbour);
+    }
+  }
+  return chain;
+}
+function visibleNodeIds(graph, visible) {
+  const nodes = nodesOf(graph);
+  const members2 = membersByHolder(nodes);
+  const queue = nodes.map((node3) => node3.id).filter((id) => visible.has(id));
+  const shown = new Set(queue);
+  for (let index2 = 0; index2 < queue.length; index2++) {
+    for (const member of members2.get(queue[index2]) ?? []) {
+      if (shown.has(member)) continue;
+      shown.add(member);
+      queue.push(member);
+    }
+  }
+  return shown;
+}
+function hiddenNeighbourCount(graph, visible, nodeId, direction) {
+  const shown = visibleNodeIds(graph, visible);
+  return neighboursOf(graph, nodeId, direction).filter((id) => !shown.has(id)).length;
+}
+function hiddenChainCount(graph, visible, nodeId, direction) {
+  const shown = visibleNodeIds(graph, visible);
+  return chainOf(graph, nodeId, direction).filter((id) => !shown.has(id)).length;
+}
+function visibleElementIds(graph, visible) {
+  const shownNodes = visibleNodeIds(graph, visible);
+  const shownPipelines = new Set(
+    nodesOf(graph).filter((node3) => shownNodes.has(node3.id)).flatMap((node3) => [node3.pipelineId, node3.anchorOfPipeline]).filter((pipelineId) => pipelineId !== void 0)
+  );
+  const everyNodeShown = nodeIds(graph).every((id) => shownNodes.has(id));
+  const isShown3 = (element2) => {
+    switch (element2.kind) {
+      case "node":
+        return shownNodes.has(element2.id);
+      case "pipelineFrame":
+        return shownPipelines.has(element2.id);
+      case "commentary":
+        return everyNodeShown;
+      case "other":
+        return false;
+    }
+  };
+  const shown = new Set(graph.elements.filter(isShown3).map((element2) => element2.id));
+  for (const link of graph.links) {
+    if (shown.has(link.from) && shown.has(link.to)) shown.add(link.id);
+  }
+  return shown;
+}
+
+// ../../packages/renderer/src/explore/WardleyExplore.ts
+var EXPLORE_CHANGED = "wardley.explore.changed";
+var EXPLORE_OVERLAY_TYPE = "wardley-explore";
+var EXPLORING_CLASS = "wardley-exploring";
+var PICKING_CLASS = "wardley-explore-picking";
+var FADED_CLASS = "wardley-explore-faded";
+var HINT_CLASS = "wardley-explore-hint";
+var PICK_HINT = "Pick a component to start from.";
+var PICK_PRIORITY = 1500;
+var SELECTION_FILTER_PRIORITY = 250;
+var LASSO_VETO_PRIORITY = 2e3;
+var VIEW_MARGIN = 24;
+var HINT_GAP = 8;
+var VIEW_TOP_WITHOUT_HINT = 64 + 28 + HINT_GAP;
+var CHIP_ALLOWANCE = 24 + 4;
+var LINK_ID_PREFIX = "link:";
+var COMMENTARY_TYPES = /* @__PURE__ */ new Set([
+  "note",
+  "annotation",
+  "accelerator",
+  "attitude",
+  "drawing"
+]);
+var EMPTY_GRAPH = {
+  graph: { elements: [], links: [] },
+  nodes: /* @__PURE__ */ new Set(),
+  kindById: /* @__PURE__ */ new Map(),
+  idByElement: /* @__PURE__ */ new Map(),
+  elementById: /* @__PURE__ */ new Map(),
+  commentary: /* @__PURE__ */ new Set()
+};
+var WardleyExplore = class {
+  constructor(eventBus, canvas, elementRegistry, selection, overlays, readOnly, exporter, injector) {
+    this.eventBus = eventBus;
+    this.canvas = canvas;
+    this.elementRegistry = elementRegistry;
+    this.selection = selection;
+    this.overlays = overlays;
+    this.readOnly = readOnly;
+    this.exporter = exporter;
+    this.injector = injector;
+    this.outline = injector.get("outline", false) ?? null;
+    this.hint = document.createElement("div");
+    this.hint.className = HINT_CLASS;
+    this.hint.setAttribute("role", "status");
+    this.hint.setAttribute("aria-live", "polite");
+    canvas.getContainer().append(this.hint);
+    eventBus.on(
+      "element.click",
+      PICK_PRIORITY,
+      (event2) => this.pick(event2.element)
+    );
+    eventBus.on("selection.changed", SELECTION_FILTER_PRIORITY, () => {
+      if (this.active && this.phase() === "exploring") this.dropHiddenFromSelection();
+    });
+    eventBus.on(
+      ["lasso.init", "lasso.selection.init"],
+      LASSO_VETO_PRIORITY,
+      () => this.active ? false : void 0
+    );
+    eventBus.on("import.done", () => {
+      if (this.active) this.reapply({ keepRevealed: false });
+    });
+    eventBus.on("commandStack.changed", (event2) => {
+      if (this.active && event2?.trigger !== "clear") this.reapply({ keepRevealed: true });
+    });
+    eventBus.on("diagram.clear", () => this.leaveQuietly());
+    eventBus.on("diagram.destroy", () => {
+      this.hint.remove();
+      this.active = false;
+    });
+  }
+  eventBus;
+  canvas;
+  elementRegistry;
+  selection;
+  overlays;
+  readOnly;
+  exporter;
+  injector;
+  static $inject = [
+    "eventBus",
+    "canvas",
+    "elementRegistry",
+    "selection",
+    "overlays",
+    "wardleyReadOnly",
+    "wardleyExporter",
+    "injector"
+  ];
+  active = false;
+  /** The revealed components, by document id: `visibleNodeIds` derives what shows from them. */
+  visible = /* @__PURE__ */ new Set();
+  shownNodes = /* @__PURE__ */ new Set();
+  history = [];
+  lastRevealed = /* @__PURE__ */ new Set();
+  fadeRest = false;
+  canvasGraph = EMPTY_GRAPH;
+  hiddenElements = /* @__PURE__ */ new Set();
+  /**
+   * There for the modeler's lifetime, empty outside explore mode: a screen reader announces a
+   * change of a live region, not always one inserted with its text.
+   */
+  hint;
+  outline;
+  isActive() {
+    return this.active;
+  }
+  phase() {
+    if (!this.active) return void 0;
+    return this.shownNodes.size > 0 ? "exploring" : "pick";
+  }
+  /**
+   * Starts explore mode at `startNodeId`, else at the one selected component, else with the pick
+   * phase; does nothing while it runs.
+   */
+  enter(startNodeId) {
+    if (this.active) return;
+    this.saveHeldLine();
+    this.readOnly.setExploreLock(true);
+    this.canvasGraph = this.readCanvasGraph();
+    this.active = true;
+    const start = startNodeId === void 0 ? this.selectedNodeId() : this.nodeIdOf(startNodeId);
+    this.history.length = 0;
+    this.lastRevealed = /* @__PURE__ */ new Set();
+    this.visible = new Set(start === void 0 ? [] : [start]);
+    this.shownNodes = visibleNodeIds(this.canvasGraph.graph, this.visible);
+    this.render();
+    if (start === void 0) this.dropHiddenFromSelection();
+    else this.selectNode(start);
+    this.announce();
+  }
+  /** Shows the whole map again and lifts the lock; the selection stays. */
+  exit() {
+    if (!this.active) return;
+    this.active = false;
+    this.clearPresentation();
+    this.forget();
+    this.readOnly.setExploreLock(false);
+    this.reopenContextPad();
+    this.announce();
+  }
+  toggle() {
+    if (this.active) this.exit();
+    else this.enter();
+  }
+  /** Shows `nodeId` alone and selects it; from the pick phase this is no step to go back to. */
+  startFrom(nodeId) {
+    const id = this.active ? this.nodeIdOf(nodeId) : void 0;
+    if (id === void 0) return;
+    this.change(/* @__PURE__ */ new Set([id]), { record: this.phase() === "exploring", select: id });
+  }
+  /** Reveals what a shown component needs (`"dependencies"`) or what needs it, one level deep. */
+  revealNeighbours(nodeId, direction) {
+    this.revealFrom(nodeId, (id) => neighboursOf(this.canvasGraph.graph, id, direction));
+  }
+  /** Reveals the whole chain from a shown component in `direction`. */
+  revealChain(nodeId, direction) {
+    this.revealFrom(nodeId, (id) => chainOf(this.canvasGraph.graph, id, direction));
+  }
+  /**
+   * Hides a revealed component; hiding the last one goes back to the pick phase. Does nothing where
+   * `canHide` is false.
+   */
+  hide(nodeId) {
+    const id = this.hideableId(nodeId);
+    if (id !== void 0) this.change(without(this.visible, id), { record: true });
+  }
+  /**
+   * Whether hiding a component hides something: a member that its pipeline's anchor brings along
+   * stays while the anchor shows.
+   */
+  canHide(nodeId) {
+    return this.hideableId(nodeId) !== void 0;
+  }
+  hideableId(nodeId) {
+    const id = this.active ? this.nodeIdOf(nodeId) : void 0;
+    if (id === void 0 || !this.visible.has(id)) return void 0;
+    const shownWithout = visibleNodeIds(this.canvasGraph.graph, without(this.visible, id));
+    return sameMembers(shownWithout, this.shownNodes) ? void 0 : id;
+  }
+  showAll() {
+    if (!this.active) return;
+    this.change(new Set(this.canvasGraph.nodes), { record: true });
+  }
+  /** Goes back to what showed before the last step; the components gone since stay hidden. */
+  stepBack() {
+    const previous = this.active ? this.history.pop() : void 0;
+    if (!previous) return;
+    this.show(previous);
+    this.dropHiddenFromSelection();
+    this.announce();
+  }
+  /** Back to the pick phase, without a step to go back to. */
+  restart() {
+    if (!this.active || this.phase() === "pick" && this.history.length === 0) return;
+    this.history.length = 0;
+    this.show(/* @__PURE__ */ new Set());
+    this.dropHiddenFromSelection();
+    this.announce();
+  }
+  /** Draws what is hidden faded instead of leaving it out; the pick phase always does. */
+  setFadeRest(on) {
+    if (this.fadeRest === on) return;
+    this.fadeRest = on;
+    if (this.active) this.renderContainer();
+    this.announce();
+  }
+  isFadeRest() {
+    return this.fadeRest;
+  }
+  canStepBack() {
+    return this.active && this.history.length > 0;
+  }
+  /** The components that show and all of them; `{ visible: 0, total: 0 }` outside explore mode. */
+  counts() {
+    if (!this.active) return { visible: 0, total: 0 };
+    return { visible: this.shownNodes.size, total: this.canvasGraph.nodes.size };
+  }
+  /** Whether explore mode hides `element` (drawn faded or not at all); false outside it. */
+  isHidden(element2) {
+    return this.active && this.hiddenElements.has(element2);
+  }
+  /** Whether `element` is a component that shows while exploring, the one the explore keys use. */
+  isVisibleNode(element2) {
+    const id = this.active ? this.canvasGraph.idByElement.get(element2) : void 0;
+    return id !== void 0 && this.shownNodes.has(id);
+  }
+  /**
+   * How many components next to a component are hidden in `direction`: one level, or the whole
+   * chain with `chain`. 0 outside explore mode.
+   */
+  hiddenCount(nodeId, direction, chain = false) {
+    const id = this.active ? this.nodeIdOf(nodeId) : void 0;
+    if (id === void 0) return 0;
+    const count = chain ? hiddenChainCount : hiddenNeighbourCount;
+    return count(this.canvasGraph.graph, this.visible, id, direction);
+  }
+  /** The name of an element, as its label shows it; undefined for an unknown id. */
+  labelOf(elementId) {
+    const element2 = this.elementRegistry.get(elementId);
+    return isWardleyShape(element2) ? element2.wardleyLabel : void 0;
+  }
+  /** Every component of the value chain, sorted by name. */
+  nodes() {
+    const { nodes, elementById } = this.active ? this.canvasGraph : this.readCanvasGraph();
+    return [...nodes].map((id) => elementById.get(id)).filter(isWardleyShape).map((shape) => ({ id: shape.id, label: shape.wardleyLabel, type: shape.wardleyType })).sort((first, second) => first.label.localeCompare(second.label));
+  }
+  /** The components that show, in the order of the canvas. */
+  visibleNodes() {
+    if (!this.active) return [];
+    return [...this.shownNodes].map((id) => this.canvasGraph.elementById.get(id)).filter(isWardleyShape);
+  }
+  /**
+   * Makes an element show for a host that points at it: a hidden component is revealed (a step),
+   * a link between components reveals both its ends, anything else shows once everything does.
+   * What explore mode cannot show (commentary on a map without components) ends explore mode.
+   * Returns whether the element shows then, which outside explore mode every element does.
+   */
+  revealElement(elementId) {
+    const element2 = this.elementRegistry.get(elementId);
+    if (!isWardleyShape(element2) && !isWardleyConnection(element2)) return false;
+    if (!this.isHidden(element2)) return true;
+    const id = this.canvasGraph.idByElement.get(element2);
+    const kind = id === void 0 ? void 0 : this.canvasGraph.kindById.get(id);
+    const nodes = id === void 0 ? [] : this.nodesThatReveal(id, kind);
+    if (nodes.length === 0) this.showAll();
+    else if (this.phase() === "pick" && nodes.length === 1) this.startFrom(nodes[0].id);
+    else
+      this.change(/* @__PURE__ */ new Set([...this.visible, ...nodes.map((node3) => this.idOf(node3))]), {
+        record: true
+      });
+    if (this.isHidden(element2)) this.exit();
+    return !this.isHidden(element2);
+  }
+  nodesThatReveal(id, kind) {
+    const { graph, elementById, nodes } = this.canvasGraph;
+    let nodeIdsToShow;
+    if (kind === "node") nodeIdsToShow = [id];
+    else if (kind === "pipelineFrame")
+      nodeIdsToShow = graph.elements.filter((element2) => element2.anchorOfPipeline === id).map((element2) => element2.id);
+    else if (kind === "link") {
+      const link = graph.links.find((candidate) => candidate.id === id);
+      const ends = link ? [link.from, link.to] : [];
+      nodeIdsToShow = ends.every((end) => nodes.has(end)) ? ends : [];
+    } else nodeIdsToShow = [];
+    return nodeIdsToShow.map((nodeId) => elementById.get(nodeId)).filter((element2) => element2 !== void 0);
+  }
+  idOf(element2) {
+    return this.canvasGraph.idByElement.get(element2) ?? element2.id;
+  }
+  revealFrom(nodeId, reachedFrom) {
+    const id = this.active ? this.nodeIdOf(nodeId) : void 0;
+    if (id === void 0 || !this.shownNodes.has(id)) return;
+    const added = reachedFrom(id).filter((reached) => !this.shownNodes.has(reached));
+    if (added.length === 0) return;
+    this.change(/* @__PURE__ */ new Set([...this.visible, ...added]), { record: true });
+  }
+  /** A step: steps that show what already shows change nothing and leave no history. */
+  change(next, options) {
+    const shown = visibleNodeIds(this.canvasGraph.graph, next);
+    const changed = !sameMembers(shown, this.shownNodes);
+    if (changed) {
+      if (options.record) this.history.push(new Set(this.visible));
+      this.show(next);
+    }
+    if (options.select === void 0) this.dropHiddenFromSelection();
+    else this.selectNode(options.select);
+    if (changed) this.announce();
+  }
+  show(next) {
+    const before = this.shownNodes;
+    this.visible = new Set([...next].filter((id) => this.canvasGraph.nodes.has(id)));
+    this.shownNodes = visibleNodeIds(this.canvasGraph.graph, this.visible);
+    this.lastRevealed = new Set([...this.shownNodes].filter((id) => !before.has(id)));
+    this.render();
+    this.bringIntoView(this.lastRevealed);
+  }
+  /**
+   * After an import or a command the canvas holds other elements: the revealed components that
+   * are still there show again, anything new stays hidden.
+   */
+  reapply({ keepRevealed }) {
+    this.canvasGraph = this.readCanvasGraph();
+    const { nodes } = this.canvasGraph;
+    this.visible = new Set([...this.visible].filter((id) => nodes.has(id)));
+    this.shownNodes = visibleNodeIds(this.canvasGraph.graph, this.visible);
+    this.lastRevealed = keepRevealed ? new Set([...this.lastRevealed].filter((id) => this.shownNodes.has(id))) : /* @__PURE__ */ new Set();
+    this.render();
+    this.dropHiddenFromSelection();
+    this.announce();
+  }
+  pick(element2) {
+    if (!this.active || this.phase() !== "pick" || !isWardleyShape(element2)) return void 0;
+    const id = this.canvasGraph.idByElement.get(element2);
+    if (id === void 0 || !this.canvasGraph.nodes.has(id)) return void 0;
+    this.startFrom(element2.id);
+    return false;
+  }
+  render() {
+    const picking = this.shownNodes.size === 0;
+    const shown = picking ? /* @__PURE__ */ new Set() : visibleElementIds(this.canvasGraph.graph, this.visible);
+    const hidden = /* @__PURE__ */ new Set();
+    for (const [id, element2] of this.canvasGraph.elementById) {
+      const kind = this.canvasGraph.kindById.get(id);
+      const isHidden = !shown.has(id);
+      const revealed = !isHidden && this.lastRevealed.has(id);
+      if (isHidden) hidden.add(element2);
+      this.mark(element2, EXPLORE_MARKERS.hidden, isHidden);
+      this.mark(element2, EXPLORE_MARKERS.pickable, picking && kind === "node");
+      this.mark(element2, EXPLORE_MARKERS.commentary, this.canvasGraph.commentary.has(id));
+      this.mark(element2, EXPLORE_MARKERS.revealed, revealed);
+      if (revealed) this.outline?.createOutline(element2);
+    }
+    this.hiddenElements = hidden;
+    this.renderContainer();
+  }
+  renderContainer() {
+    const picking = this.phase() === "pick";
+    const classes3 = this.outerContainer().classList;
+    classes3.toggle(EXPLORING_CLASS, this.active);
+    classes3.toggle(PICKING_CLASS, picking);
+    classes3.toggle(FADED_CLASS, picking || this.active && this.fadeRest);
+    this.renderHint();
+  }
+  renderHint() {
+    const { visible, total } = this.counts();
+    let text3 = "";
+    if (this.phase() === "pick") text3 = PICK_HINT;
+    else if (this.active)
+      text3 = `${visible} of ${total} ${total === 1 ? "component" : "components"}`;
+    if (this.hint.textContent !== text3) this.hint.textContent = text3;
+  }
+  mark(element2, marker, on) {
+    if (this.canvas.hasMarker(element2, marker) === on) return;
+    if (on) this.canvas.addMarker(element2, marker);
+    else this.canvas.removeMarker(element2, marker);
+  }
+  clearPresentation() {
+    for (const element2 of this.elementRegistry.getAll()) {
+      if (!isWardleyShape(element2) && !isWardleyConnection(element2)) continue;
+      for (const marker of Object.values(EXPLORE_MARKERS)) this.mark(element2, marker, false);
+    }
+    this.overlays.remove({ type: EXPLORE_OVERLAY_TYPE });
+    this.renderContainer();
+  }
+  forget() {
+    this.visible = /* @__PURE__ */ new Set();
+    this.shownNodes = /* @__PURE__ */ new Set();
+    this.history.length = 0;
+    this.lastRevealed = /* @__PURE__ */ new Set();
+    this.hiddenElements = /* @__PURE__ */ new Set();
+    this.canvasGraph = EMPTY_GRAPH;
+  }
+  /** A line the draw tool holds is saved, as the switch to another tool saves it (#485). */
+  saveHeldLine() {
+    const drawTool = this.injector.get("wardleyDrawTool", false);
+    if (drawTool?.holdsLine()) drawTool.finish();
+  }
+  /** `diagram.clear` empties the canvas: explore mode ends without an event. */
+  leaveQuietly() {
+    if (!this.active) return;
+    this.active = false;
+    this.clearPresentation();
+    this.forget();
+    this.readOnly.setExploreLock(false);
+  }
+  announce() {
+    const { visible, total } = this.counts();
+    const event2 = {
+      active: this.active,
+      phase: this.phase(),
+      visibleCount: visible,
+      totalCount: total,
+      fadeRest: this.fadeRest,
+      canStepBack: this.canStepBack()
+    };
+    this.eventBus.fire(EXPLORE_CHANGED, event2);
+  }
+  dropHiddenFromSelection() {
+    const selected = this.selection.get();
+    const kept = selected.filter((element2) => !this.hiddenElements.has(element2));
+    if (kept.length !== selected.length) this.selection.select(kept);
+  }
+  selectNode(id) {
+    const element2 = this.canvasGraph.elementById.get(id);
+    if (element2) this.selection.select(element2);
+  }
+  selectedNodeId() {
+    const selected = this.selection.get();
+    return selected.length === 1 ? this.nodeIdOf(selected[0].id) : void 0;
+  }
+  /** The document id of the component with the canvas id `elementId`. */
+  nodeIdOf(elementId) {
+    const element2 = this.elementRegistry.get(elementId);
+    const id = element2 === void 0 ? void 0 : this.canvasGraph.idByElement.get(element2);
+    return id !== void 0 && this.canvasGraph.nodes.has(id) ? id : void 0;
+  }
+  /** The pad shows the entries of the mode the canvas is in now. */
+  reopenContextPad() {
+    const contextPad = this.injector.get("contextPad", false);
+    const selected = this.selection.get();
+    if (!contextPad?.isOpen() || selected.length === 0) return;
+    contextPad.open(selected.length === 1 ? selected[0] : selected, true);
+  }
+  /**
+   * Scrolls the revealed components into view below the palette row and the hint, with room for
+   * their chips above and below, zooming out when they do not fit, never in.
+   */
+  bringIntoView(ids3) {
+    const boxes = [...ids3].map((id) => this.canvasGraph.elementById.get(id)).filter(isWardleyShape).map((shape) => this.drawnBox(shape));
+    const target = unionOf(boxes);
+    const viewbox = this.canvas.viewbox();
+    const { outer, scale } = viewbox;
+    const top = this.freeTop();
+    const freeWidth = outer.width - 2 * VIEW_MARGIN;
+    const freeHeight = outer.height - top - VIEW_MARGIN - 2 * CHIP_ALLOWANCE;
+    if (!target || !(scale > 0) || !(freeWidth > 0) || !(freeHeight > 0)) return;
+    const zoom2 = Math.min(
+      scale,
+      target.width > 0 ? freeWidth / target.width : scale,
+      target.height > 0 ? freeHeight / target.height : scale
+    );
+    const chip = CHIP_ALLOWANCE / zoom2;
+    const width = outer.width / zoom2;
+    const height = outer.height / zoom2;
+    let x3 = zoom2 === scale ? viewbox.x : viewbox.x + viewbox.width / 2 - width / 2;
+    let y3 = zoom2 === scale ? viewbox.y : viewbox.y + viewbox.height / 2 - height / 2;
+    x3 += overflow(
+      target.x,
+      target.x + target.width,
+      x3 + VIEW_MARGIN / zoom2,
+      x3 + width - VIEW_MARGIN / zoom2
+    );
+    y3 += overflow(
+      target.y - chip,
+      target.y + target.height + chip,
+      y3 + top / zoom2,
+      y3 + height - VIEW_MARGIN / zoom2
+    );
+    if (zoom2 === scale && x3 === viewbox.x && y3 === viewbox.y) return;
+    this.canvas.viewbox({ x: x3, y: y3, width, height });
+  }
+  /**
+   * Screen px from the canvas top that the palette row and the hint below it cover, measured where
+   * the hint shows in the upper half of the canvas.
+   */
+  freeTop() {
+    if (!this.hint.textContent) return VIEW_TOP_WITHOUT_HINT;
+    const hintBox = this.hint.getBoundingClientRect();
+    const canvasBox = this.canvas.getContainer().getBoundingClientRect();
+    const hintBottom = hintBox.bottom - canvasBox.top;
+    const measured = hintBox.height > 0 && hintBottom > 0 && hintBottom < canvasBox.height / 2;
+    return measured ? hintBottom + HINT_GAP : VIEW_TOP_WITHOUT_HINT;
+  }
+  /** The shape with its name, which runs beside it. */
+  drawnBox(shape) {
+    const bounds = { x: shape.x, y: shape.y, width: shape.width, height: shape.height };
+    try {
+      const visual = this.elementRegistry.getGraphics(shape)?.querySelector(".djs-visual");
+      const drawn = visual?.getBBox();
+      if (!drawn || drawn.width === 0 && drawn.height === 0) return bounds;
+      return unionOf([
+        bounds,
+        { x: shape.x + drawn.x, y: shape.y + drawn.y, width: drawn.width, height: drawn.height }
+      ]);
+    } catch {
+      return bounds;
+    }
+  }
+  readCanvasGraph() {
+    const documentIds2 = this.readDocumentIds();
+    const documentIdOf = (canvasId) => documentIds2.get(canvasId) ?? canvasId;
+    const elements = [];
+    const links = [];
+    const kindById = /* @__PURE__ */ new Map();
+    const idByElement = /* @__PURE__ */ new Map();
+    const elementById = /* @__PURE__ */ new Map();
+    const remember = (element2, id, kind) => {
+      kindById.set(id, kind);
+      idByElement.set(element2, id);
+      elementById.set(id, element2);
+    };
+    for (const element2 of this.elementRegistry.getAll()) {
+      if (isWardleyShape(element2)) {
+        const graphElement = this.graphElementOf(element2, documentIdOf);
+        elements.push(graphElement);
+        remember(element2, graphElement.id, graphElement.kind);
+      } else if (isWardleyConnection(element2) && element2.source && element2.target) {
+        const link = {
+          id: `${LINK_ID_PREFIX}${element2.id}`,
+          kind: element2.wardleyType,
+          from: documentIdOf(element2.source.id),
+          to: documentIdOf(element2.target.id)
+        };
+        links.push(link);
+        remember(element2, link.id, "link");
+      }
+    }
+    const graph = { elements, links };
+    const isCommentary = (id) => kindById.get(id) === "commentary";
+    const commentary = /* @__PURE__ */ new Set([
+      ...elements.filter((element2) => element2.kind === "commentary").map(({ id }) => id),
+      ...links.filter((link) => isCommentary(link.from) || isCommentary(link.to)).map(({ id }) => id)
+    ]);
+    return {
+      graph,
+      nodes: new Set(nodeIds(graph)),
+      kindById,
+      idByElement,
+      elementById,
+      commentary
+    };
+  }
+  graphElementOf(shape, documentIdOf) {
+    const id = documentIdOf(shape.id);
+    switch (shape.wardleyType) {
+      case "anchor":
+      case "submap":
+        return { id, kind: "node" };
+      case "component": {
+        const anchored = pipelineAnchoredBy(this.elementRegistry, shape);
+        return {
+          id,
+          kind: "node",
+          pipelineId: shape.pipelineId === void 0 ? void 0 : documentIdOf(shape.pipelineId),
+          anchorOfPipeline: anchored === void 0 ? void 0 : documentIdOf(anchored.id)
+        };
+      }
+      case "pipeline":
+        return {
+          id,
+          kind: anchorComponentOf(this.elementRegistry, shape) ? "pipelineFrame" : "node"
+        };
+      default:
+        return { id, kind: COMMENTARY_TYPES.has(shape.wardleyType) ? "commentary" : "other" };
+    }
+  }
+  /** Document id by canvas id (identity where the map cannot be read). */
+  readDocumentIds() {
+    try {
+      return readBackIds(this.exporter.export());
+    } catch {
+      return /* @__PURE__ */ new Map();
+    }
+  }
+  outerContainer() {
+    const container = this.canvas.getContainer();
+    return container.closest(".wardley-container") ?? container;
+  }
+};
+function sameMembers(first, second) {
+  return first.size === second.size && [...first].every((id) => second.has(id));
+}
+function without(ids3, id) {
+  const rest = new Set(ids3);
+  rest.delete(id);
+  return rest;
+}
+function unionOf(boxes) {
+  if (boxes.length === 0) return void 0;
+  const left = Math.min(...boxes.map((box) => box.x));
+  const top = Math.min(...boxes.map((box) => box.y));
+  const right = Math.max(...boxes.map((box) => box.x + box.width));
+  const bottom = Math.max(...boxes.map((box) => box.y + box.height));
+  return { x: left, y: top, width: right - left, height: bottom - top };
+}
+function overflow(start, end, lowest, highest) {
+  if (start < lowest) return start - lowest;
+  if (end > highest) return end - highest;
+  return 0;
+}
+
+// ../../packages/renderer/src/explore/explore-chrome.ts
+var EXPLORE_CHROME_PRIORITY = 1500;
+function isKeyboardClick2(event2) {
+  return event2.type === "click" && event2.detail === 0;
+}
+function nameOf(shape) {
+  return shape.wardleyLabel.replace(/\s+/g, " ").trim();
+}
+
+// ../../packages/renderer/src/explore/WardleyExploreChips.ts
+var EXPLORE_CHIP_CLASS = "wardley-explore-chip";
+var CHIPS = [
+  {
+    direction: "dependents",
+    icon: "chevron-up",
+    above: true,
+    one: "dependent",
+    many: "dependents"
+  },
+  {
+    direction: "dependencies",
+    icon: "chevron-down",
+    above: false,
+    one: "dependency",
+    many: "dependencies"
+  }
+];
+var WardleyExploreChips = class {
+  constructor(eventBus, canvas, overlays, explore) {
+    this.canvas = canvas;
+    this.overlays = overlays;
+    this.explore = explore;
+    eventBus.on(EXPLORE_CHANGED, EXPLORE_CHROME_PRIORITY, () => this.render());
+  }
+  canvas;
+  overlays;
+  explore;
+  static $inject = ["eventBus", "canvas", "overlays", "wardleyExplore"];
+  render() {
+    this.overlays.remove({ type: EXPLORE_OVERLAY_TYPE });
+    if (!this.explore.isActive()) return;
+    for (const node3 of this.explore.visibleNodes()) {
+      for (const chip of CHIPS) {
+        const count = this.explore.hiddenCount(node3.id, chip.direction);
+        if (count === 0) continue;
+        this.overlays.add(node3, EXPLORE_OVERLAY_TYPE, {
+          position: { top: chip.above ? 0 : node3.height, left: node3.width / 2 },
+          html: this.chipFor(node3, chip, count),
+          scale: false
+        });
+      }
+    }
+  }
+  chipFor(node3, chip, count) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = EXPLORE_CHIP_CLASS;
+    button.dataset["direction"] = chip.direction;
+    button.dataset["elementId"] = node3.id;
+    button.tabIndex = -1;
+    button.setAttribute(
+      "aria-label",
+      `Show ${count} ${count === 1 ? chip.one : chip.many} of ${nameOf(node3)}`
+    );
+    button.innerHTML = `${chromeIcon(chip.icon)}<span>${count}</span>`;
+    button.addEventListener("mousedown", (event2) => event2.stopPropagation());
+    button.addEventListener("click", (event2) => this.reveal(event2, node3.id, chip.direction));
+    return button;
+  }
+  reveal(event2, nodeId, direction) {
+    if (isKeyOnHiddenTarget(event2)) return;
+    this.explore.revealNeighbours(nodeId, direction);
+    if (!isKeyboardClick2(event2)) {
+      focusCanvasWithoutRing(this.canvas);
+      return;
+    }
+    const chip = this.chipOf(nodeId, direction);
+    if (chip) chip.focus();
+    else this.canvas.focus();
+  }
+  chipOf(nodeId, direction) {
+    return [
+      ...this.canvas.getContainer().querySelectorAll(`.${EXPLORE_CHIP_CLASS}[data-direction="${direction}"]`)
+    ].find((chip) => chip.dataset["elementId"] === nodeId);
+  }
+};
+
+// ../../packages/renderer/src/explore/WardleyExploreContextPad.ts
+var PAD_PRIORITY = 500;
+var GROUP_REVEAL = "edit";
+var GROUP_HIDE = "wardley";
+var REVEAL_ENTRIES = [
+  {
+    action: "explore.dependencies",
+    title: "Show dependencies",
+    icon: "chevron-down",
+    direction: "dependencies",
+    chain: false
+  },
+  {
+    action: "explore.dependents",
+    title: "Show dependents",
+    icon: "chevron-up",
+    direction: "dependents",
+    chain: false
+  },
+  {
+    action: "explore.all-dependencies",
+    title: "Show all dependencies",
+    icon: "chevrons-down",
+    direction: "dependencies",
+    chain: true
+  },
+  {
+    action: "explore.all-dependents",
+    title: "Show all dependents",
+    icon: "chevrons-up",
+    direction: "dependents",
+    chain: true
+  }
+];
+var HIDE_ACTION = "explore.hide";
+var HIDE_TITLE = "Hide";
+var WardleyExploreContextPad = class {
+  constructor(eventBus, canvas, explore, injector) {
+    this.canvas = canvas;
+    this.explore = explore;
+    this.contextPad = injector.get("contextPad", false) ?? null;
+    if (!this.contextPad) return;
+    this.contextPad.registerProvider(PAD_PRIORITY, this);
+    eventBus.on(
+      "contextPad.open.allowed",
+      (event2) => this.allows(event2.target) ? void 0 : this.refuse()
+    );
+    eventBus.on(EXPLORE_CHANGED, EXPLORE_CHROME_PRIORITY, () => this.refresh());
+  }
+  canvas;
+  explore;
+  static $inject = ["eventBus", "canvas", "wardleyExplore", "injector"];
+  contextPad;
+  getContextPadEntries(element2) {
+    if (!this.explore.isActive()) return {};
+    return () => this.entriesFor(element2);
+  }
+  entriesFor(element2) {
+    if (!this.explore.isVisibleNode(element2) || !isWardleyShape(element2)) return {};
+    const nodeId = element2.id;
+    const entries = {};
+    for (const spec of REVEAL_ENTRIES) {
+      if (this.explore.hiddenCount(nodeId, spec.direction, spec.chain) === 0) continue;
+      entries[spec.action] = this.entry(
+        GROUP_REVEAL,
+        spec.action,
+        spec.title,
+        spec.icon,
+        () => spec.chain ? this.explore.revealChain(nodeId, spec.direction) : this.explore.revealNeighbours(nodeId, spec.direction)
+      );
+    }
+    if (this.explore.canHide(nodeId)) {
+      entries[HIDE_ACTION] = this.entry(
+        GROUP_HIDE,
+        HIDE_ACTION,
+        HIDE_TITLE,
+        "eye-off",
+        () => this.explore.hide(nodeId)
+      );
+    }
+    return entries;
+  }
+  entry(group, action, title, icon, step) {
+    return {
+      group,
+      title,
+      html: cpHtml(chromeIcon(icon), title),
+      action: { click: (event2) => this.run(event2, action, step) }
+    };
+  }
+  run(event2, action, step) {
+    step();
+    if (isKeyboardClick2(event2)) this.focusEntry(action);
+    else focusCanvasWithoutRing(this.canvas);
+  }
+  /**
+   * While exploring, the pad opens on one component that shows and has a step to offer, and on
+   * nothing else.
+   */
+  allows(target) {
+    if (!this.explore.isActive()) return true;
+    if (!target || Array.isArray(target)) return false;
+    return Object.keys(this.entriesFor(target)).length > 0;
+  }
+  /** A refused pad also takes the pad of the previous selection away. */
+  refuse() {
+    this.contextPad?.close();
+    return false;
+  }
+  /** A step changes what the entries offer, so an open pad renders again on its component. */
+  refresh() {
+    const contextPad = this.contextPad;
+    if (!contextPad?.isOpen() || !this.explore.isActive()) return;
+    const target = this.internals()._current?.target;
+    if (target && this.allows(target)) contextPad.open(target, true);
+    else contextPad.close();
+  }
+  focusEntry(action) {
+    const pad = this.contextPad?.isOpen() ? this.internals()._current?.html : void 0;
+    if (!pad) return;
+    const entries = [...pad.querySelectorAll(".entry")];
+    (entries.find((entry) => entry.dataset["action"] === action) ?? entries[0])?.focus();
+  }
+  internals() {
+    return this.contextPad;
+  }
+};
+
+// ../../packages/renderer/src/explore/WardleyExplorePalette.ts
+var TOOLBAR_PRIORITY = 100;
+var START_FROM = {
+  key: "explore.start-from",
+  title: "Start from\u2026",
+  icon: paletteToolIcon("search")
+};
+var STEP_BACK = {
+  key: "explore.back",
+  title: "Step back",
+  shortcut: "B",
+  icon: paletteToolIcon("step-back")
+};
+var SHOW_ALL = {
+  key: "explore.show-all",
+  title: "Show all",
+  icon: paletteToolIcon("eye")
+};
+var RESTART = {
+  key: "explore.restart",
+  title: "Start over",
+  shortcut: "R",
+  icon: paletteToolIcon("rotate-ccw")
+};
+var FADED_REST = {
+  key: "explore.faded",
+  title: "Faded rest",
+  shortcut: "F",
+  icon: paletteToolIcon("blend")
+};
+var START_FROM_SELECTOR = `.entry[data-action="${START_FROM.key}"]`;
+var WardleyExplorePalette = class {
+  constructor(eventBus, explore, startMenu, injector) {
+    this.explore = explore;
+    this.startMenu = startMenu;
+    this.palette = injector.get("palette", false) ?? null;
+    this.tools = injector.get("wardleyPaletteProvider", false) ?? null;
+    if (!this.palette || !this.tools) return;
+    this.palette.registerProvider(TOOLBAR_PRIORITY, this);
+    this.builtFor = this.shownState();
+    eventBus.on(EXPLORE_CHANGED, EXPLORE_CHROME_PRIORITY, () => this.rebuildOnChange());
+    eventBus.on("diagram.clear", () => this.rebuildOnChange());
+  }
+  explore;
+  startMenu;
+  static $inject = ["eventBus", "wardleyExplore", "wardleyExploreStartMenu", "injector"];
+  palette;
+  tools;
+  builtFor;
+  getPaletteEntries() {
+    return (entries) => this.explore.isActive() ? this.toolbar() : entries;
+  }
+  toolbar() {
+    const explore = this.explore;
+    const tools = this.tools;
+    const canStepBack = explore.canStepBack();
+    return {
+      [EXPLORE_ENTRY]: tools.exploreToggleEntry(explore),
+      [START_FROM.key]: tools.toolEntry(START_FROM, (event2) => this.openStartMenu(event2)),
+      [STEP_BACK.key]: tools.toolEntry(
+        { ...STEP_BACK, disabled: !canStepBack },
+        () => explore.stepBack(),
+        { handsFocusToCanvas: canStepBack }
+      ),
+      [SHOW_ALL.key]: tools.toolEntry(SHOW_ALL, () => explore.showAll(), {
+        handsFocusToCanvas: true
+      }),
+      [RESTART.key]: tools.toolEntry(RESTART, () => explore.restart(), {
+        handsFocusToCanvas: true
+      }),
+      [FADED_REST.key]: tools.toolEntry(
+        { ...FADED_REST, pressed: explore.isFadeRest() },
+        () => explore.setFadeRest(!explore.isFadeRest()),
+        { handsFocusToCanvas: true }
+      )
+    };
+  }
+  /** The menu opens below its entry, also for Enter or Space, whose click has no pointer. */
+  openStartMenu(event2) {
+    const target = event2.delegateTarget ?? event2.target;
+    const entry = (target instanceof Element ? target.closest(".entry") : null) ?? this.palette._container?.querySelector(
+      START_FROM_SELECTOR
+    );
+    if (entry) this.startMenu.open(entry.getBoundingClientRect());
+  }
+  /** What the toolbar shows: explore mode itself, whether a step is there to go back to, the fade. */
+  shownState() {
+    const explore = this.explore;
+    if (!explore.isActive()) return "modelling";
+    return `exploring:${String(explore.canStepBack())}:${String(explore.isFadeRest())}`;
+  }
+  rebuildOnChange() {
+    const state = this.shownState();
+    if (state === this.builtFor) return;
+    this.builtFor = state;
+    this.palette._rebuild();
+  }
+};
+
+// ../../packages/renderer/src/explore/WardleyExploreStartMenu.ts
+var EXPLORE_START_MENU = "wardley-explore-start";
+var MENU_OFFSET = 4;
+var MENU_WIDTH = 280;
+var TYPE_NAMES = {
+  component: "Component",
+  anchor: "User",
+  submap: "Submap",
+  pipeline: "Pipeline"
+};
+var WardleyExploreStartMenu = class {
+  constructor(eventBus, canvas, explore, injector) {
+    this.canvas = canvas;
+    this.explore = explore;
+    this.popupMenu = injector.get("popupMenu", false) ?? null;
+    const popupMenu = this.popupMenu;
+    if (!popupMenu) return;
+    popupMenu.registerProvider(EXPLORE_START_MENU, this);
+    leaveKeysOnHiddenMenuToPage(popupMenu);
+    eventBus.on("popupMenu.open", () => {
+      const container = this.openContainer();
+      container?.addEventListener("keydown", keepKeysInsidePopup);
+    });
+    eventBus.on(EXPLORE_CHANGED, EXPLORE_CHROME_PRIORITY, (event2) => {
+      if (!event2.active && this.isOpen()) popupMenu.close();
+    });
+    eventBus.on("diagram.clear", () => {
+      if (this.isOpen()) popupMenu.close();
+    });
+  }
+  canvas;
+  explore;
+  static $inject = ["eventBus", "canvas", "wardleyExplore", "injector"];
+  popupMenu;
+  /** Opens the menu below `anchor` (the palette entry), while explore mode runs. */
+  open(anchor2) {
+    if (!this.popupMenu || !this.explore.isActive()) return;
+    this.popupMenu.open(
+      this.canvas.getRootElement(),
+      EXPLORE_START_MENU,
+      { x: anchor2.left, y: anchor2.bottom + MENU_OFFSET },
+      { title: "Start from", search: true, width: MENU_WIDTH }
+    );
+  }
+  isOpen() {
+    return this.openContainer() !== void 0;
+  }
+  getPopupMenuEntries() {
+    const entries = {};
+    for (const node3 of this.explore.nodes()) {
+      entries[`explore-start.${node3.id}`] = {
+        label: node3.label,
+        description: TYPE_NAMES[node3.type] ?? "",
+        action: (event2) => this.startFrom(node3.id, event2)
+      };
+    }
+    return entries;
+  }
+  startFrom(nodeId, event2) {
+    this.popupMenu?.close();
+    this.explore.startFrom(nodeId);
+    if (event2 instanceof KeyboardEvent) this.canvas.focus();
+    else focusCanvasWithoutRing(this.canvas);
+  }
+  openContainer() {
+    const current = this.popupMenu?._current;
+    return current?.providerId === EXPLORE_START_MENU ? current.container : void 0;
+  }
+};
+
+// ../../packages/renderer/src/explore/index.ts
+var exploreModule = {
+  __depends__: [overlays_default, selection_default, readOnlyModule],
+  __init__: [
+    "wardleyExplore",
+    "wardleyExploreChips",
+    "wardleyExploreContextPad",
+    "wardleyExploreStartMenu",
+    "wardleyExplorePalette"
+  ],
+  wardleyExplore: ["type", WardleyExplore],
+  wardleyExploreChips: ["type", WardleyExploreChips],
+  wardleyExploreContextPad: ["type", WardleyExploreContextPad],
+  wardleyExploreStartMenu: ["type", WardleyExploreStartMenu],
+  wardleyExplorePalette: ["type", WardleyExplorePalette]
+};
+
 // ../../packages/renderer/src/Modeler.ts
 var resizeAwareAutoScrollModule = {
   autoScroll: ["type", ResizeAwareAutoScroll]
@@ -35022,7 +36318,8 @@ var Modeler = class extends NavigatedViewer {
       canvasAccessibilityModule,
       wardleyLabelDragModule,
       readOnlyModule,
-      wardleyInteractionModule
+      wardleyInteractionModule,
+      exploreModule
     ];
   }
   /**
@@ -35440,6 +36737,12 @@ function importTurns(afterUserAction, isDestroyed) {
     return turn;
   };
 }
+function selectShown(diagram, editable, element2, isDestroyed) {
+  if (editable) diagram.get("wardleyExplore").revealElement(element2.id);
+  if (isDestroyed()) return false;
+  diagram.get("selection").select(element2);
+  return true;
+}
 function collaborative(diagram, editable) {
   const eventBus = diagram.get("eventBus");
   const canvas = diagram.get("canvas");
@@ -35485,7 +36788,7 @@ function collaborative(diagram, editable) {
       if (destroyed) return false;
       const element2 = elementRegistry.get(ids3.canvasIdOf(id));
       if (!isAddressable(element2)) return false;
-      selection.select(element2);
+      if (!selectShown(diagram, editable, element2, () => destroyed)) return false;
       canvas.scrollToElement(element2);
       return true;
     },
@@ -35703,17 +37006,48 @@ function exportEntries(exports) {
   if (exports.wmap) entries.push(exportEntry("export-wmap", EXPORT_LABELS.wmap, exports.wmap));
   return entries;
 }
+function exploreCheckbox(explore) {
+  return {
+    kind: "checkbox",
+    id: "explore-mode",
+    label: "Explore mode",
+    // Exploring changes only the view, and the checkbox is the way out of it under the host's lock.
+    keepEnabledWhenReadOnly: true,
+    checked: () => explore.isActive(),
+    onToggle: (checked) => {
+      if (checked !== explore.isActive()) explore.toggle();
+    }
+  };
+}
 function mapMenu(actions) {
-  const { mapTitle, shortcutsKey } = actions;
-  const titleEntries = mapTitle ? [{ kind: "dialog", id: "map-title", label: "Map title\u2026", onSelect: () => mapTitle() }] : [];
+  const { explore, mapTitle, shortcutsKey } = actions;
+  const changesDocument = explore ? { disabled: () => explore.isActive() } : {};
+  const exploreEntries = explore ? [exploreCheckbox(explore)] : [];
+  const titleEntries = mapTitle ? [
+    {
+      kind: "dialog",
+      id: "map-title",
+      label: "Map title\u2026",
+      ...changesDocument,
+      onSelect: () => mapTitle()
+    }
+  ] : [];
   return {
     model: [
+      ...exploreEntries,
       ...titleEntries,
-      { kind: "dialog", id: "map-size", label: "Map size\u2026", onSelect: () => actions.mapSize() },
+      {
+        kind: "dialog",
+        id: "map-size",
+        label: "Map size\u2026",
+        ...changesDocument,
+        onSelect: () => actions.mapSize()
+      },
       {
         kind: "dialog",
         id: "x-axis-labels",
         label: "X-axis labels\u2026",
+        ...changesDocument,
         onSelect: () => actions.axisLabels()
       }
     ],
@@ -35833,7 +37167,16 @@ function mapShortcuts(chrome, options = {}) {
         { action: "Lasso by dragging", keys: [keys2.shift("Drag")] },
         { action: "Draw: place a point", keys: ["Click"] },
         { action: "Finish a drawing", keys: [keys2.enter, "Double-click"] },
-        { action: "Close a drawing", keys: ["Click the first point"] }
+        { action: "Close a drawing", keys: ["Click the first point"] },
+        { action: "Explore mode", keys: ["E"] },
+        { action: "Explore: show dependencies", keys: ["\u2193"] },
+        { action: "Explore: show dependents", keys: ["\u2191"] },
+        { action: "Explore: show all dependencies", keys: [keys2.shift("\u2193")] },
+        { action: "Explore: show all dependents", keys: [keys2.shift("\u2191")] },
+        { action: "Explore: hide", keys: ["H"] },
+        { action: "Explore: step back", keys: ["B"] },
+        { action: "Explore: start over", keys: ["R"] },
+        { action: "Explore: faded rest", keys: ["F"] }
       ]
     },
     {
@@ -38307,8 +39650,8 @@ function setInline(element2, property, value) {
   }
   if (current !== value) element2.style.setProperty(property, value);
 }
-function clipsOverflow(overflow) {
-  return overflow !== "" && overflow !== "visible";
+function clipsOverflow(overflow2) {
+  return overflow2 !== "" && overflow2 !== "visible";
 }
 function clipByOverflow(shown, element2, style) {
   const clipX = clipsOverflow(style.overflowX);
@@ -41983,6 +43326,7 @@ function createMapEditor(links) {
     setCanvasReadOnly: (modeler, readOnly) => diagramOf(modeler).get("wardleyReadOnly").setReadOnly(readOnly),
     isEmpty,
     menu: (context) => mapMenu({
+      explore: diagramOf(context.modeler).get("wardleyExplore"),
       mapSize: () => popovers?.mapSize.open(),
       axisLabels: () => popovers?.axisLabels.open(),
       exports: {
@@ -42016,8 +43360,9 @@ function createMapEditor(links) {
         connection.viewport.fit({ animate: false });
       }
     },
-    afterMount({ shell, modeler, host }) {
+    afterMount({ shell, modeler, host, refreshMenu }) {
       const diagram = diagramOf(modeler);
+      diagram.on(EXPLORE_CHANGED, () => refreshMenu());
       const mapSize2 = createMapSizePopover(shell, diagram);
       const axisLabels = createAxisLabelsPopover(shell, diagram);
       popovers = { mapSize: mapSize2, axisLabels };
@@ -42049,9 +43394,10 @@ var editor = mountIdeEditor(
 export {
   editor
 };
-/*! @miragon/wardley-renderer icon geometry: the context pad icons. Lucide (lucide-static 1.59.0)
- * @license ISC Copyright (c) 2026 Lucide Icons and Contributors
- * arrow-right, chevrons-right, circle-plus, external-link, link, map and trash derive from Feather
+/*! @miragon/wardley-renderer icon geometry: the context pad icons and explore mode's icons.
+ * Lucide (lucide-static 1.59.0) @license ISC Copyright (c) 2026 Lucide Icons and Contributors
+ * arrow-right, chevron-down, chevron-up, chevrons-down, chevrons-right, chevrons-up, circle-plus,
+ * external-link, link, map, search and trash derive from Feather
  * @license MIT, Copyright (c) 2013-present Cole Bemis
  * Full notices: README.md of @miragon/wardley-renderer */
 /*! @miragon/wardley-renderer icon geometry: square-dashed-mouse-pointer, and spline drawn with a
