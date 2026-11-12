@@ -2227,6 +2227,102 @@
       ],
       "releases": [
         {
+          "version": "0.3.0",
+          "commit": "85c79c079944c9fd73a2b9a47e86fd63e1a1efa0",
+          "contentHash": "cf4166219f7852431fd22e472ba4c63de86ed273bff2a273cb673988a43b3173",
+          "execution": "sandboxed-ui",
+          "minimumOrca": "1.4.248",
+          "name": "BPMN & DMN Modeler (Experimental)",
+          "contributes": [
+            {
+              "kind": "customEditors",
+              "name": "BPMN Modeler",
+              "detail": ".bpmn"
+            },
+            {
+              "kind": "customEditors",
+              "name": "DMN Modeler",
+              "detail": ".dmn"
+            },
+            {
+              "kind": "newFiles",
+              "name": "New BPMN process from example",
+              "detail": ".bpmn"
+            },
+            {
+              "kind": "newFiles",
+              "name": "New DMN decision from example",
+              "detail": ".dmn"
+            }
+          ],
+          "fileTypes": [
+            "bpmn",
+            "dmn"
+          ],
+          "editorFileTypes": [
+            "bpmn",
+            "dmn"
+          ],
+          "images": {
+            "icon": {
+              "path": "assets/miragon.bpmn-modeler/c0730da4918a86a7.png",
+              "alt": "BPMN & DMN Modeler (Experimental)",
+              "sha256": "c0730da4918a86a7354f01668bc0cf4d98086c86abd027f618490000f760cbf4",
+              "width": 256,
+              "height": 256
+            },
+            "cover": {
+              "path": "assets/miragon.bpmn-modeler/bb3df4d45d0d335f.webp",
+              "alt": "Miragon Modeler for BPMN, experimental: processes and decisions from plain .bpmn and .dmn files, edited by you and your agents.",
+              "sha256": "bb3df4d45d0d335f492c0b0b87414ef924d0b3d0161986bc30bac4c826ffd707",
+              "width": 1600,
+              "height": 1000
+            },
+            "screenshots": [
+              {
+                "path": "assets/miragon.bpmn-modeler/bb3df4d45d0d335f.webp",
+                "alt": "Miragon Modeler for BPMN, experimental: processes and decisions from plain .bpmn and .dmn files, edited by you and your agents.",
+                "sha256": "bb3df4d45d0d335f492c0b0b87414ef924d0b3d0161986bc30bac4c826ffd707",
+                "width": 1600,
+                "height": 1000
+              },
+              {
+                "path": "assets/miragon.bpmn-modeler/87bba38ee99f7b1f.webp",
+                "alt": "Orca with order-fulfilment.bpmn open, the user task Pack order selected and its implementation, assignment and form groups in the properties panel",
+                "sha256": "87bba38ee99f7b1f83c077f83dfac8e059b24fb06ca87039fd44b1129eea2cb4",
+                "width": 1919,
+                "height": 1199
+              },
+              {
+                "path": "assets/miragon.bpmn-modeler/e1715afa51b0468f.webp",
+                "alt": "The order fulfilment process in token simulation, a token waiting after Pack order and the log listing In stock? and Pack order",
+                "sha256": "e1715afa51b0468fcbace6cab040992e4a13ad3543388c55ed6edc0835eb6c73",
+                "width": 1919,
+                "height": 1199
+              },
+              {
+                "path": "assets/miragon.bpmn-modeler/19b9f221d6d6bee1.webp",
+                "alt": "return-handling.bpmn with red error markers on a service task without a job type and on two flows without a condition, and 3 Errors at the bottom",
+                "sha256": "19b9f221d6d6bee16a2e0e67004c4911083f62dbb1e8fac7dff2b61aac95fc02",
+                "width": 1919,
+                "height": 1199
+              },
+              {
+                "path": "assets/miragon.bpmn-modeler/14470d8ed034f949.webp",
+                "alt": "The Choose carrier decision table from shipping.dmn, simulated for a 3 kg express parcel without a country: rule 8 matches, UPS Express for 39",
+                "sha256": "14470d8ed034f949465296fb68693507c0fb5d61f9dbd18604de742f4a5ecc56",
+                "width": 1919,
+                "height": 1199
+              }
+            ]
+          },
+          "license": "Apache-2.0",
+          "repository": "https://github.com/Miragon/bpmn-modeler",
+          "homepage": "https://miragon.github.io/bpmn-modeler/",
+          "updatedAt": "2026-11-12",
+          "changelog": "\n\n### 🎉 New Features\n\n* **add-ons-webview:** render the add-on catalog in a host-neutral webview ([#2308](https://github.com/Miragon/bpmn-modeler/issues/2308)) [sync aace17c] ([799a005](https://github.com/Miragon/bpmn-modeler/commit/799a00522f925d9ee58d6f54f01c30a3b90c47db))\n* **bpmn-modeler:** keep hidden element templates out of new choices ([#2301](https://github.com/Miragon/bpmn-modeler/issues/2301)) [sync 2d6033d] ([e40e3c8](https://github.com/Miragon/bpmn-modeler/commit/e40e3c8bfaa5f74c88a80882d01e5f68c50d0541))\n* **dmn-diff:** show DMN changes in a visual diff of DRD and decision tables ([#2359](https://github.com/Miragon/bpmn-modeler/issues/2359)) [sync e66b46d] ([3171794](https://github.com/Miragon/bpmn-modeler/commit/317179489e12fcea5feff4361b130d558d23dba3))\n* fit the diagram to the view from a canvas button ([#2343](https://github.com/Miragon/bpmn-modeler/issues/2343)) [sync 00da896] ([86091c1](https://github.com/Miragon/bpmn-modeler/commit/86091c149da7d5869d4a784554d6c7d26188b45b))\n* **modeler-core:** add form engine and shared language selection ([#2341](https://github.com/Miragon/bpmn-modeler/issues/2341)) [sync c28a403] ([d152df2](https://github.com/Miragon/bpmn-modeler/commit/d152df2b63a9c887be2c6e5461d66538b7799664))\n* **modeler-core:** list element templates and marketplaces in the add-on catalog ([#2296](https://github.com/Miragon/bpmn-modeler/issues/2296)) [sync d7dd275] ([4eab152](https://github.com/Miragon/bpmn-modeler/commit/4eab1525a247dd18626a3de5ee6d9a98783e86bf))\n* open the add-ons that need review from a command in both hosts ([#2335](https://github.com/Miragon/bpmn-modeler/issues/2335)) [sync 18ddb38] ([16bf46d](https://github.com/Miragon/bpmn-modeler/commit/16bf46ddb234058eaa65e4a27e80f84d1dde248b))\n* replace the canvas focus reticle with a focus ring ([#2342](https://github.com/Miragon/bpmn-modeler/issues/2342)) ([3f64891](https://gi"
+        },
+        {
           "version": "0.2.0",
           "commit": "171b1639e0d499ff2a575fedadc3240af972918c",
           "contentHash": "1ecfa9f55fa9d1788ef4436d84186fb4f95587ea067ddea1ea9bcee00ccf1127",
