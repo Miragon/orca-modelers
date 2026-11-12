@@ -1,0 +1,106 @@
+name: Orca runtime
+
+# The Orca that source repositories smoke-test their plugins in: the setup-orca action for their CI
+# and the image ghcr.io/miragon/orca:<version> for containers on a developer's machine or an
+# agent's. A pull request that changes either tries both; a dispatch builds and pushes the image of
+# one Orca release for linux/amd64 and linux/arm64.
+on:
+  pull_request:
+    paths:
+      - .github/actions/setup-orca/**
+      - .github/orca-image/**
+      - .github/workflows/orca-runtime.yml
+      - scripts/install-orca.mjs
+      - scripts/lib/orca.mjs
+      - scripts/lib/command.mjs
+  workflow_dispatch:
+    inputs:
+      version:
+        description: The Orca release to build the image of, such as 1.4.254
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  setup-orca:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - id: orca
+        uses: ./.github/actions/setup-orca
+        with:
+          channel: minimum
+          plugin-manifest: plugins/event-storming-modeler/orca-plugin.json
+      - run: xvfb-run -a "$ORCA_APP/resources/bin/orca-ide" --version | grep -F "$VERSION"
+        env:
+          ORCA_APP: ${{ steps.orca.outputs.app }}
+          VERSION: ${{ steps.orca.outputs.version }}
+
+  image:
+    name: image / ${{ matrix.arch }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 20
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: amd64
+            runner: ubuntu-24.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - id: version
+        env:
+          REQUESTED: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          version=${REQUESTED:-$(grep -oE '"[0-9]+\.[0-9]+\.[0-9]+"' scripts/lib/orca.mjs | tr -d '"')}
+          version=${version#v}
+          [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "::error::No Orca version: '$version'"; exit 1; }
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+      - env:
+          VERSION: ${{ steps.version.outputs.version }}
+          IMAGE: ghcr.io/miragon/orca:${{ steps.version.outputs.version }}-${{ matrix.arch }}
+        run: |
+          set -euo pipefail
+          docker build --build-arg ORCA_VERSION="$VERSION" --file .github/orca-image/Containerfile --tag "$IMAGE" .
+          docker run --rm "$IMAGE" sh -c 'xvfb-run -a "$ORCA_APP/resources/bin/orca-ide" --version' | grep -F "$VERSION"
+      - if: github.event_name == 'workflow_dispatch'
+        env:
+          IMAGE: ghcr.io/miragon/orca:${{ steps.version.outputs.version }}-${{ matrix.arch }}
+          TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          echo "$TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+          docker push "$IMAGE"
+
+  manifest:
+    if: github.event_name == 'workflow_dispatch'
+    needs: image
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - env:
+          IMAGE: ghcr.io/miragon/orca:${{ needs.image.outputs.version }}
+          TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          echo "$TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+          docker buildx imagetools create --tag "$IMAGE" "$IMAGE-amd64" "$IMAGE-arm64"

@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process";
-import { existsSync, mkdirSync } from "node:fs";
+import { existsSync, mkdirSync, rmSync } from "node:fs";
 import { arch } from "node:os";
 import { join } from "node:path";
 import { runOrThrow } from "./command.mjs";
@@ -15,11 +15,13 @@ export class Orca {
     this.#version = version;
   }
 
-  static install(version = ORCA_VERSION) {
-    const cache = join(
+  static install(
+    version = ORCA_VERSION,
+    cache = join(
       process.env.RUNNER_TEMP ?? process.env.TMPDIR ?? "/tmp",
       `orca-${version}`,
-    );
+    ),
+  ) {
     const cli = join(cache, "squashfs-root", "resources", "bin", "orca-ide");
     if (!existsSync(cli)) Orca.#extractAppImage(version, cache);
     return new Orca(cli, version);
@@ -83,5 +85,6 @@ export class Orca {
     runOrThrow("curl", ["-fsSL", "-o", "orca.AppImage", url], inCache);
     runOrThrow("chmod", ["+x", "orca.AppImage"], inCache);
     runOrThrow("./orca.AppImage", ["--appimage-extract"], inCache);
+    rmSync(join(cache, "orca.AppImage"));
   }
 }
