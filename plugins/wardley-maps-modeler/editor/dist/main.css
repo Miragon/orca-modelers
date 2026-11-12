@@ -4038,7 +4038,7 @@ html.cd-shell-reduce-motion .djs-palette[data-chrome=palette] .entry {
 .wardley-container .wardley-map-resize-badge[hidden] {
   display: none;
 }
-.djs-popup.wardley-element-settings {
+.djs-popup:is(.wardley-element-settings, .wardley-explore-start) {
   border: 1px solid var(--cd-ui-linie);
   border-radius: var(--cd-radius-md);
   box-shadow: var(--cd-shadow-3);
@@ -4047,16 +4047,16 @@ html.cd-shell-reduce-motion .djs-palette[data-chrome=palette] .entry {
 .djs-popup.wardley-element-settings .djs-popup-results {
   max-height: none;
 }
-.djs-popup.wardley-element-settings .djs-popup-results:focus-visible {
+.djs-popup:is(.wardley-element-settings, .wardley-explore-start) .djs-popup-results:focus-visible {
   outline: none;
 }
-.djs-popup.wardley-element-settings:has(.djs-popup-results:focus-visible) {
+.djs-popup:is(.wardley-element-settings, .wardley-explore-start):has(.djs-popup-results:focus-visible) {
   outline: 2px solid var(--cd-ui-fokus);
   outline-offset: 2px;
 }
 .wardley-container :where(button, a, select, input, textarea, [role=button], [tabindex]):focus-visible,
 .djs-palette.wardley-palette:where(:not([data-chrome=palette])) :where(.entry, [role=button], [tabindex]):focus-visible,
-.djs-popup.wardley-element-settings :where(.entry, [tabindex]):focus-visible {
+.djs-popup:is(.wardley-element-settings, .wardley-explore-start) :where(.entry, [tabindex]):focus-visible {
   outline: 2px solid var(--cd-ui-fokus);
   outline-offset: 2px;
 }
@@ -4098,14 +4098,155 @@ html.cd-shell-reduce-motion .djs-palette[data-chrome=palette] .entry {
 .wardley-container.wardley-label-dragging * {
   cursor: move !important;
 }
-.wardley-container.wardley-read-only .djs-context-pad,
+.wardley-container.wardley-read-only:not(.wardley-exploring) .djs-context-pad,
 .wardley-container.wardley-read-only .layer-wardley-map-resize,
-.wardley-container.wardley-read-only .layer-wardley-drawing-handles {
+.wardley-container.wardley-read-only .layer-wardley-drawing-handles,
+.wardley-container.wardley-exploring .layer-wardley-map-resize,
+.wardley-container.wardley-exploring .layer-wardley-drawing-handles {
   display: none;
 }
 .wardley-container.wardley-read-only .wardley-label-handle,
-.wardley-container.wardley-read-only .wardley-evolve-handle {
+.wardley-container.wardley-read-only .wardley-evolve-handle,
+.wardley-container.wardley-exploring .wardley-label-handle,
+.wardley-container.wardley-exploring .wardley-evolve-handle {
   cursor: default;
+}
+.wardley-container:not(.wardley-explore-faded) .djs-element.wardley-explore-hidden,
+.wardley-container.wardley-explore-picking .djs-element.wardley-explore-commentary,
+.wardley-container .djs-overlays.wardley-explore-hidden {
+  display: none !important;
+}
+@media not (forced-colors: active) {
+  .wardley-container.wardley-explore-faded .djs-element.wardley-explore-hidden > .djs-visual :not(text, tspan, .wardley-movement-underlay)[style*="stroke:"]:not([style*="stroke: none"]) {
+    stroke: var(--cd-ui-linie) !important;
+  }
+  .wardley-container.wardley-explore-faded .djs-element.wardley-explore-hidden > .djs-visual :not(text, tspan)[style*="fill:"]:not([style*="fill: none"], [style*="fill: rgba"]) {
+    fill: var(--cd-ui-plot) !important;
+  }
+  .wardley-container.wardley-explore-faded .djs-element.wardley-explore-hidden > .djs-visual :not(text, tspan)[style*="fill:"]:not([style*="fill: none"]):is([style*="stroke: none"], :not([style*="stroke:"])) {
+    fill: var(--cd-ui-linie) !important;
+  }
+  .wardley-container.wardley-explore-faded .djs-element.wardley-explore-hidden > .djs-visual [style*="fill: rgba"] {
+    fill: none !important;
+  }
+  .wardley-container.wardley-explore-faded .djs-element.wardley-explore-hidden > .djs-visual .wardley-link-badge > circle {
+    stroke: var(--cd-ui-linie);
+  }
+  .wardley-container.wardley-explore-faded .djs-element.wardley-explore-hidden > .djs-visual text {
+    fill: var(--cd-ui-text-leise) !important;
+  }
+}
+@media (forced-colors: active) {
+  .wardley-container.wardley-explore-faded .djs-element.wardley-explore-hidden > .djs-visual :not(text, tspan, .wardley-movement-underlay)[style*="stroke:"]:not([style*="stroke: none"], [style*=stroke-dasharray]) {
+    stroke-dasharray: 4 3;
+  }
+  .wardley-container.wardley-explore-faded .djs-element.wardley-explore-hidden > .djs-visual text[style*="stroke:"]:not([style*="stroke: none"]) {
+    forced-color-adjust: none;
+    fill: GrayText !important;
+    stroke: Canvas !important;
+  }
+}
+.wardley-container.wardley-explore-faded .djs-element.wardley-explore-hidden:not(.wardley-explore-pickable),
+.wardley-container.wardley-explore-faded .djs-element.wardley-explore-hidden:not(.wardley-explore-pickable) * {
+  pointer-events: none !important;
+}
+.wardley-container.wardley-explore-picking .djs-element.wardley-explore-pickable,
+.wardley-container.wardley-explore-picking .djs-element.wardley-explore-pickable * {
+  cursor: pointer !important;
+}
+.wardley-container .djs-shape.wardley-explore-new:not(.selected) > .djs-outline {
+  visibility: visible;
+  stroke: var(--cd-ui-interaktion);
+  stroke-width: 2px;
+  stroke-dasharray: none;
+}
+.wardley-container .djs-element.wardley-explore-new > .djs-visual {
+  animation: wardley-explore-fade-in var(--cd-motion-base) var(--cd-ease-out);
+}
+@keyframes wardley-explore-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+.wardley-container .wardley-explore-hint {
+  position: absolute;
+  top: 64px;
+  left: 50%;
+  z-index: 10;
+  box-sizing: border-box;
+  max-width: calc(100% - 32px);
+  padding: 4px 10px;
+  overflow: hidden;
+  border: 1px solid var(--cd-ui-linie);
+  border-radius: var(--cd-radius-sm);
+  background: var(--cd-ui-flaeche-hoch);
+  color: var(--cd-ui-text-leise);
+  font-size: 13px;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.wardley-container .wardley-explore-hint:empty {
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  clip-path: inset(50%);
+}
+@container wardley (max-width: 760px) {
+  .wardley-container .wardley-explore-hint {
+    top: calc(var(--cd-shell-frei) + var(--cd-shell-zeile) + var(--cd-shell-rand));
+  }
+}
+:where(.cd-shell[data-palette=second-row]) .wardley-container .wardley-explore-hint {
+  top: calc(var(--cd-shell-frei) + var(--cd-shell-zeile) + var(--cd-shell-rand));
+}
+:where(.cd-shell:has(> .cd-shell-status:not([hidden]))) .wardley-container .wardley-explore-hint {
+  top: calc(var(--cd-shell-frei) + 65px + var(--cd-shell-luecke));
+}
+:where(.cd-shell[data-palette=second-row]:has(> .cd-shell-status:not([hidden]))) .wardley-container .wardley-explore-hint {
+  top: calc(var(--cd-shell-frei) + var(--cd-shell-zeile) + var(--cd-shell-rand) + 85px + var(--cd-shell-luecke));
+}
+.wardley-container .djs-overlay-wardley-explore {
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+.wardley-container .wardley-explore-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  box-sizing: border-box;
+  min-width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0 6px 0 3px;
+  pointer-events: auto;
+  border: 1px solid var(--cd-ui-linie);
+  border-radius: var(--cd-radius-sm);
+  background: var(--cd-ui-flaeche-hoch);
+  color: var(--cd-ui-text);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background var(--cd-motion-fast) var(--cd-ease), color var(--cd-motion-fast) var(--cd-ease);
+}
+.wardley-container .wardley-explore-chip[data-direction=dependents] {
+  transform: translate(-50%, calc(-100% - 4px));
+}
+.wardley-container .wardley-explore-chip[data-direction=dependencies] {
+  transform: translate(-50%, 4px);
+}
+.wardley-container .wardley-explore-chip:hover {
+  background: var(--cd-ui-hover);
+}
+.wardley-container .wardley-explore-chip:hover > svg {
+  color: var(--cd-ui-interaktion);
 }
 .wardley-popover {
   position: absolute;
@@ -4363,7 +4504,7 @@ html.cd-shell-reduce-motion .djs-palette[data-chrome=palette] .entry {
   }
   :scope .wardley-button[data-variant=primary],
   :scope .djs-palette.wardley-palette:where(:not([data-chrome=palette])),
-  :scope .djs-popup.wardley-element-settings {
+  :scope .djs-popup:is(.wardley-element-settings, .wardley-explore-start) {
     box-shadow: none;
   }
   :is(:scope.wardley-container, :scope .wardley-container) :is(.djs-context-pad.open, .djs-hover-tooltip, .wardley-label-input, .wardley-label-caption, .wardley-color-picker, .wardley-map-resize-badge) {
@@ -4372,8 +4513,8 @@ html.cd-shell-reduce-motion .djs-palette[data-chrome=palette] .entry {
   :scope :is(.wardley-field-input, .wardley-button, .wardley-popover-link, .wardley-dialog-close):focus-visible,
   :is(:scope.wardley-container, :scope .wardley-container) :where(button, a, select, input, textarea, [role=button], [tabindex]):focus-visible,
   :scope .djs-palette.wardley-palette:where(:not([data-chrome=palette])) :where(.entry, [role=button], [tabindex]):focus-visible,
-  :scope .djs-popup.wardley-element-settings :where(.entry, [tabindex]):focus-visible,
-  :scope .djs-popup.wardley-element-settings:has(.djs-popup-results:focus-visible) {
+  :scope .djs-popup:is(.wardley-element-settings, .wardley-explore-start) :where(.entry, [tabindex]):focus-visible,
+  :scope .djs-popup:is(.wardley-element-settings, .wardley-explore-start):has(.djs-popup-results:focus-visible) {
     outline-width: 3px;
   }
   :scope .djs-palette.wardley-palette:where(:not([data-chrome=palette])) :where(.entry, [role=button], [tabindex]):focus-visible {
@@ -4396,6 +4537,12 @@ html.cd-shell-reduce-motion .djs-palette[data-chrome=palette] .entry {
   }
   .wardley-container .wardley-link-badge {
     color: LinkText;
+  }
+  .wardley-container .wardley-explore-hint {
+    border-color: CanvasText;
+  }
+  .wardley-container .wardley-explore-chip {
+    border-color: ButtonText;
   }
   .wardley-container .wardley-link-badge > circle {
     fill: Canvas;
@@ -4463,7 +4610,8 @@ html.cd-shell-reduce-motion .djs-palette[data-chrome=palette] .entry {
     transform: none;
   }
 }
-.cd-shell-reduce-motion .wardley-popover {
+.cd-shell-reduce-motion .wardley-popover,
+.cd-shell-reduce-motion .wardley-container .djs-element.wardley-explore-new > .djs-visual {
   animation: none;
 }
 .cd-shell-reduce-motion .wardley-button[data-variant=primary]:is(:hover, :active) {
