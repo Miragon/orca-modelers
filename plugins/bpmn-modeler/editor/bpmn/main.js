@@ -1,6 +1,6 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["../shared/bpmnlint-BqB-Hefz.js","../shared/rolldown-runtime-7_rZTKki.js","../shared/editorLayout-DyS83izk.js","../shared/editorLayout-CNhIsaoN.css","../shared/EscapeUtil-3RypN4fl.js","../shared/dist-CAwPjkp6.js","../shared/ModelUtil-Qz7TgySP.js","../shared/dist-CS7WyDVh.js","../shared/bpmnlint-DoI7vgqE.css","../shared/viewer-C5QaYwqF.js","../shared/createSurface-B_CjPoQd.js","../shared/jsxRuntime.module-C_nqa6u-.js","../shared/provider-C6NTTYww.js","../shared/index.esm-QK7iS3an.js","../shared/index.esm-BwkTnPQM.js","../shared/design-BYjJHFm7.js","../shared/reporting-DDWAsQPl.js","../shared/clipboard-DuTT61cu.js","../shared/reporting-DXH2a9lW.css","../shared/lib-Dnq2R8Xy.js","../shared/design-5oiqdf5k.css","../shared/src-C0fWSej5.js","../shared/src-CU_wPvE9.css"])))=>i.map(i=>d[i]);
-import { a as openOrcaSession, d as extras, i as followOrcaTheme, n as syncDocument, o as orcaLanguage, p as i18n, r as currentOrcaTheme, s as applyPageThemeScope, t as mountEditorLayout } from "../shared/editorLayout-DyS83izk.js";
-//#region ../../libs/modeler-types/src/engine.ts
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["../shared/bpmnlint-CFffn984.js","../shared/rolldown-runtime-DQp2zzRu.js","../shared/EscapeUtil-B1jzPlMc.js","../shared/ModelUtil-BGe9jbj7.js","../shared/editorLayout-DZwh-cxt.js","../shared/editorLayout-ThHr9A18.css","../shared/moddle-utils-CKD1iZGs.js","../shared/dist-BWHN8Och.js","../shared/bpmnlint-DoI7vgqE.css","../shared/viewer-CJWCHXS_.js","../shared/createSurface-DyHVIhQM.js","../shared/jsxRuntime.module-awBdvHUy.js","../shared/index.esm-CXJiDiAL.js","../shared/provider-Dq4DRXTy.js","../shared/index.esm-DgBSptNj.js","../shared/design-bQhzO_6V.js","../shared/reporting-CwIb-OB4.js","../shared/clipboard-Bznk3d97.js","../shared/reporting-DXH2a9lW.css","../shared/lib-CHaSAubE.js","../shared/design-5oiqdf5k.css","../shared/src-ClSm-gG3.js","../shared/src-CU_wPvE9.css"])))=>i.map(i=>d[i]);
+import { a as openOrcaSession, d as extras, i as followOrcaTheme, n as syncDocument, o as orcaLanguage, p as i18n, r as currentOrcaTheme, s as applyPageThemeScope, t as mountEditorLayout } from "../shared/editorLayout-DZwh-cxt.js";
+// ../../libs/modeler-types/src/engine.ts
 var ENGINES = ["c7", "c8"];
 function isEngine(value) {
 	return ENGINES.includes(value);
@@ -143,8 +143,7 @@ function localName(qualifiedName) {
 function isWhitespace(char) {
 	return char === " " || char === "	" || char === "\n" || char === "\r";
 }
-//#endregion
-//#region ../../libs/modeler-types/src/surfaceMode.ts
+// ../../libs/modeler-types/src/surfaceMode.ts
 var SURFACE_MODES = [
 	"view",
 	"design",
@@ -189,8 +188,7 @@ function planTransition(from, to, engine) {
 	if (from !== "view" && to !== "view" && engine !== void 0) return "toggle";
 	return "recreate";
 }
-//#endregion
-//#region ../../packages/bpmn-modeler/src/modeSession/servingSurfaces.ts
+// ../../packages/bpmn-modeler/src/modeSession/servingSurfaces.ts
 function servingSurfaces(surfaces, engine) {
 	const { view, design, implement } = surfaces;
 	const onModeler = (mode) => engine !== void 0 && implement !== void 0 ? (context) => implement({
@@ -204,8 +202,7 @@ function servingSurfaces(surfaces, engine) {
 		implement: onModeler("implement")
 	};
 }
-//#endregion
-//#region ../../packages/bpmn-modeler/src/modeSession/modeSession.ts
+// ../../packages/bpmn-modeler/src/modeSession/modeSession.ts
 function canToggleMode(handle) {
 	return "setMode" in handle;
 }
@@ -372,8 +369,7 @@ async function createModeSession(options) {
 		}
 	};
 }
-//#endregion
-//#region ../../packages/bpmn-modeler/src/modeSession/modeStrip.ts
+// ../../packages/bpmn-modeler/src/modeSession/modeStrip.ts
 var MODE_LABEL = {
 	view: "View",
 	design: "Design",
@@ -555,8 +551,7 @@ function mountModeStrip(opts) {
 		}
 	};
 }
-//#endregion
-//#region src/adapter/out/memoryClipboard.ts
+// src/adapter/out/memoryClipboard.ts
 function memoryClipboard() {
 	let copied = "";
 	return {
@@ -566,8 +561,7 @@ function memoryClipboard() {
 		}
 	};
 }
-//#endregion
-//#region \0vite/preload-helper.js
+// \0vite/preload-helper.js
 var scriptRel = "modulepreload";
 var assetsURL = function(dep, importerUrl) {
 	return new URL(dep, importerUrl).href;
@@ -637,8 +631,14 @@ var __vitePreload = function preload(baseModule, deps, importerUrl) {
 				if (cspNonce) link.setAttribute("nonce", cspNonce);
 				document.head.appendChild(link);
 				if (isCss) return new Promise((res, rej) => {
-					link.addEventListener("load", res);
-					link.addEventListener("error", () => rej(new Error(`Unable to preload CSS for ${dep}`)));
+					const handleSettle = (e) => {
+						link.removeEventListener("load", handleSettle);
+						link.removeEventListener("error", handleSettle);
+						if (e.type === "error") rej(new Error(`Unable to preload CSS for ${dep}`));
+						else res(e);
+					};
+					link.addEventListener("load", handleSettle);
+					link.addEventListener("error", handleSettle);
 				});
 			});
 		}).filter((p) => p !== void 0));
@@ -657,16 +657,15 @@ var __vitePreload = function preload(baseModule, deps, importerUrl) {
 		return baseModule().catch(handlePreloadError);
 	});
 };
-//#endregion
-//#region src/adapter/out/bpmnCanvas.ts
+// src/adapter/out/bpmnCanvas.ts
 function surfaceFactories(panelParent, clipboard) {
-	const linting = async () => ({ linting: { module: await __vitePreload(() => import("../shared/bpmnlint-BqB-Hefz.js"), __vite__mapDeps([0,1,2,3,4,5,6,7,8]), import.meta.url) } });
+	const linting = async () => ({ linting: { module: await __vitePreload(() => import("../shared/bpmnlint-CFffn984.js"), __vite__mapDeps([0,1,2,3,4,5,6,7,8]), import.meta.url) } });
 	return {
 		view: async ({ container, theme }) => {
 			const { createViewer } = await __vitePreload(async () => {
-				const { createViewer } = await import("../shared/viewer-C5QaYwqF.js");
+				const { createViewer } = await import("../shared/viewer-CJWCHXS_.js");
 				return { createViewer };
-			}, __vite__mapDeps([9,2,1,3,10,11,4,6,12,13,5,14]), import.meta.url);
+			}, __vite__mapDeps([9,4,1,5,10,11,2,3,12,13,14,7]), import.meta.url);
 			return createViewer(container, {
 				theme,
 				propertiesPanel: { parent: panelParent }
@@ -674,9 +673,9 @@ function surfaceFactories(panelParent, clipboard) {
 		},
 		design: async ({ container, theme }) => {
 			const { createDesigner } = await __vitePreload(async () => {
-				const { createDesigner } = await import("../shared/design-BYjJHFm7.js");
+				const { createDesigner } = await import("../shared/design-bQhzO_6V.js");
 				return { createDesigner };
-			}, __vite__mapDeps([15,2,1,3,10,11,4,6,16,17,18,12,13,5,19,14,20]), import.meta.url);
+			}, __vite__mapDeps([15,4,1,5,16,10,11,2,3,17,18,13,14,7,19,12,20]), import.meta.url);
 			return createDesigner(container, {
 				theme,
 				clipboard,
@@ -686,9 +685,9 @@ function surfaceFactories(panelParent, clipboard) {
 		},
 		implement: async ({ container, theme, mode, engine }) => {
 			const { createModeler } = await __vitePreload(async () => {
-				const { createModeler } = await import("../shared/src-C0fWSej5.js");
+				const { createModeler } = await import("../shared/src-ClSm-gG3.js");
 				return { createModeler };
-			}, __vite__mapDeps([21,2,1,3,10,11,4,6,16,17,18,22]), import.meta.url);
+			}, __vite__mapDeps([21,4,1,5,16,10,11,2,3,17,18,22]), import.meta.url);
 			return createModeler(container, {
 				engine,
 				mode,
@@ -790,8 +789,7 @@ function createBpmnCanvas(options) {
 		}
 	};
 }
-//#endregion
-//#region src/composition/bpmnEditor.ts
+// src/composition/bpmnEditor.ts
 async function startBpmnEditor(root) {
 	i18n.extend(extras);
 	i18n.setLanguage(orcaLanguage());
@@ -817,10 +815,8 @@ async function startBpmnEditor(root) {
 	});
 	return syncDocument(session, canvas);
 }
-//#endregion
-//#region src/bpmn.ts
+// src/bpmn.ts
 startBpmnEditor(document.getElementById("app"));
-//#endregion
 export { MODELER_NAMESPACE_URI as a, isEngine as c, ENGINE_EXECUTION_PLATFORM as i, parseEditableMode as n, engineSupports as o, surfaceModeSupports as r, executionPlatformAttributeNames as s, __vitePreload as t };
 
 //# sourceMappingURL=main.js.map
