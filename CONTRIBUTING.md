@@ -85,6 +85,45 @@ Publishes from different source repositories may overlap: a GitHub concurrency g
 within one repository, so it can't serialize them. A pull request that conflicts with one merged
 in the meantime fails; run the job again.
 
+## Orca for a smoke test
+
+A source repository runs its plugins in a real Orca on Linux, under `xvfb-run`. Every way to get
+that Orca installs it with [`scripts/install-orca.mjs`](scripts/install-orca.mjs), the same code
+the action and `validate` use.
+
+In CI, [`setup-orca`](.github/actions/setup-orca/action.yml) installs a release from the cache and
+returns its folder for `ORCA_APP`: a `version`, the newest release (`channel: latest`) or the
+oldest that a plugin's `engines.orca` accepts (`channel: minimum` with `plugin-manifest`).
+
+```yaml
+- id: orca
+  uses: miragon/orca-modelers/.github/actions/setup-orca@<sha>
+  with:
+    channel: minimum
+    plugin-manifest: apps/orca/orca-plugin.json
+- run: xvfb-run -a npm run test:orca
+  env:
+    ORCA_APP: ${{ steps.orca.outputs.app }}
+```
+
+On a developer's machine or for an agent, the image `ghcr.io/miragon/orca:<version>` holds Node
+22 on Debian bookworm, Orca under `/opt/orca` with `ORCA_APP` set, xvfb and the libraries Orca
+needs, for linux/amd64 and linux/arm64. Run it with Podman or Docker so no Orca window takes the
+focus:
+
+```sh
+podman run --rm -it -v "$PWD:/repo" -w /repo ghcr.io/miragon/orca:1.4.254 \
+  sh -c 'xvfb-run -a /opt/orca/squashfs-root/AppRun --no-sandbox --password-store=basic'
+```
+
+To drive or record that Orca from outside, start it with `--remote-debugging-port=9222`. Orca
+listens on the container's loopback only, so publish the port through a TCP proxy in the
+container.
+
+A source repository's own runner copies the repository into the container and installs it there,
+as npm, Yarn and pnpm each do it their own way. To get the image of another Orca release, run the
+[`Orca runtime`](.github/workflows/orca-runtime.yml) workflow with that version.
+
 ## Images for a plugin's page
 
 Orca's plugin directory shows a plugin's `cover` and `screenshots` from its manifest. The source
