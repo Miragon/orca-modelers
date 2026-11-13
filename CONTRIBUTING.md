@@ -14,7 +14,7 @@ code owner's review. `plugins/`, `assets/` and `orca-catalog.json` change only t
 1. A release in the source repository builds its plugins and smoke-tests exactly those folders in a
    real Orca.
 2. The source repository's release job calls
-   [`publish-plugin`](https://github.com/Miragon/orca-plugin-kit/blob/main/publish-plugin/action.yml)
+   [`publish-plugin`](https://github.com/Miragon/orca-plugin-kit/blob/main/actions/publish-plugin/action.yml)
    of [Miragon/orca-plugin-kit](https://github.com/Miragon/orca-plugin-kit) once, with all plugins
    of the release and the release-please app's token. The action checks each plugin against
    [`sources.json`](sources.json), which names the one repository that may publish it, and
@@ -76,7 +76,7 @@ publish-orca:
         private-key: ${{ secrets.RELEASE_PLEASE_APP_PRIVATE_KEY }}
         owner: miragon
         repositories: orca-plugins
-    - uses: Miragon/orca-plugin-kit/publish-plugin@<sha> # v1.0.0
+    - uses: Miragon/orca-plugin-kit/actions/publish-plugin@<sha> # v2.0.0
       with:
         token: ${{ steps.app.outputs.token }}
         plugins-dir: orca-plugins
