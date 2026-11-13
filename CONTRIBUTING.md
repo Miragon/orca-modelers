@@ -97,12 +97,12 @@ A source repository runs its plugins in a real Orca with
 
 ## Versions
 
-| What         | Its version says                                       | Where it lives                        | How consumers get updates                            |
-| ------------ | ------------------------------------------------------ | ------------------------------------- | ---------------------------------------------------- |
-| A plugin     | The plugin's own semver; `engines.orca` the Orca floor | release-please in its source repo     | Orca, through this catalog or Orca's directory       |
-| This catalog | Only that the catalog changed (`v0.1.x`)               | Tags here, created by `tag.yml`       | Orca's directory crawler reads them; pin nothing     |
-| The actions  | Their inputs and outputs (semver)                      | Releases of Miragon/orca-plugin-kit   | A pinned commit with `# vX.Y.Z`, moved by Dependabot |
-| The image    | The Orca release in it                                 | `ghcr.io/miragon/orca:<orca version>` | Choose the Orca release; pin the digest to freeze    |
+| What         | Its version says                                          | Where it lives                        | How consumers get updates                                                          |
+| ------------ | --------------------------------------------------------- | ------------------------------------- | ---------------------------------------------------------------------------------- |
+| A plugin     | The plugin's own semver; `engines.orca` the Orca floor    | release-please in its source repo     | Orca, through this catalog or Orca's directory                                     |
+| This catalog | Only that the catalog changed (`v0.1.x`)                  | Tags here, created by `tag.yml`       | Orca's directory crawler reads them; pin nothing                                   |
+| The actions  | Their inputs and outputs (semver)                         | Releases of Miragon/orca-plugin-kit   | A pinned commit with `# vX.Y.Z`, moved by Dependabot                               |
+| The image    | The Orca release in it, and the kit release that built it | `ghcr.io/miragon/orca:<orca version>` | Choose `latest` or an Orca release; `<orca version>-<kit version>` keeps one build |
 
 The tags here count catalog changes and are not a version of anything to depend on.
 
